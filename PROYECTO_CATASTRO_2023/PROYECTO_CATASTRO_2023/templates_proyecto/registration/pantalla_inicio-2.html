@@ -1,0 +1,320 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <style>
+        
+        @import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
+
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        main{
+            width: 100%;
+            height: 100vh;
+            /*border: solid black;*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(129,14,71);
+
+            /* background-image: url("{% static 'img/FONDO-CAT-1080.png' %}");
+            background-size: cover;
+            background-size: 100%;
+            background-position-x: center; */
+        }
+
+        #caja-principal-pag-login{
+            /* border: solid red; */
+            width: 100%;
+            height: 90%;
+            display: flex;
+            background-color: #ffff;
+            background-image: url("{% static 'img/FONDO-CAT-1080.png' %}");
+            background-size: cover;
+            background-size: 100%;
+            background-position-x: center;
+        }
+
+        /* CAJAS PRINCIPALES*/
+
+        .box-1{
+            /* border: solid rgb(195, 0, 255); */
+            width: 70%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .box-2{
+            width: 30%;
+            height: 100%;
+            /* border: solid blue; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CAJAS SECUNDARIAS DEL BOX 1*/
+
+        .sub-box-1-1{
+            width: 100%;
+            height: 35%;
+            /*border: solid green;*/
+            display: flex;
+            align-items: center;
+        }
+
+        .sub-box-1-2{
+            width: 100%;
+            height: 65%;
+            /*border: solid yellow;*/
+            display: flex;
+        }
+
+        /* CAJAS SUBSUBCAJAS BOX 2*/
+
+        .sub-box-1-2-1{
+            width: 25%;
+            height: 100%;
+            /*border: solid pink;*/
+        }
+
+        .sub-box-1-2-2{
+            width: 75%;
+            height: 100%;
+            /*border: solid aquamarine;*/
+        }
+
+        /* SUB CAJAS BOX-2*/
+
+        .sub-box-2-1{
+            width: 55%;
+            height: 65%;
+            /*border: solid black;*/
+            border-radius: 2em;
+            background-color: rgb(121, 14, 69);
+        }
+
+        .sub-box-2-1 form{
+            width: 100%;
+            height: 100%;
+            /*border: solid red;*/
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form .sub-box-2-1-1{
+            width: 100%;
+            height: 20%;
+            /*border: solid yellow;*/
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        form .sub-box-2-1-2{
+            width: 100%;
+            height: 50%;
+            /*border: solid brown;*/
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form .sub-box-2-1-3{
+            width: 100%;
+            height: 30%;
+            /*border: solid salmon;*/
+            display: flex;
+            justify-content: center;
+        }
+
+        /*Contenido subbox-2-1-n*/
+        .sub-box-2-1-1 h1{
+            font-size: 4vh;
+            font-family: 'Calibri';
+            font-weight: bold;
+            color: #ffff;
+            text-align: center;
+        }
+
+        .sub-box-2-1-2 input{
+            margin: 8%;
+            width: 80%;
+            height: 12%;
+            background-color: rgb(121, 14, 69);
+            border-style: none;
+            border-bottom: solid #ffff 0.3vh;
+            font-family: 'Calibri';
+            color: white;
+            font-weight: bold;
+            font-size: 2.5vh;
+            padding: 2%;
+        }
+
+        .sub-box-2-1-2 input::placeholder{
+            color:#ffff;
+            font-size: 1.7vh;
+            font-family: 'Calibri';
+            font-weight: bold;
+        }
+
+        .sub-box-2-1-2 input:focus{
+            outline: none;
+        }
+
+        .sub-box-2-1-2 input::-ms-reveal{
+            background-color: rgb(252,219,85);
+            border-radius: 1em;
+        }
+
+        button{
+            width: 80%;
+            margin-bottom: 10%;
+            height: 8%;
+            background-color: rgb(252,219,85);
+            border-radius: 3vh;
+            border-style: none;
+            font-family: 'Calibri';
+            font-weight: bold;
+            font-size: 2vh;
+            color: rgb(121, 14, 69);
+        }
+
+        button:active{
+            transform: scale(1.1);
+        }
+
+        /*TITULO*/
+        .sub-box-1-1 h1{
+            font-family: 'Viga', sans-serif;
+            font-size: 8vh;
+            margin-left: 5%;
+            color: rgb(121, 14, 69);
+        }
+
+        /*IMG BACKGOROUND*/
+        .sub-box-1-2-1 figure{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sub-box-1-2-1 figure img{
+            width: 100%;
+            height: 100%;
+        }
+
+        /*LOGO AYUNTAMIENTO*/
+        .sub-box-1-2-2 figure{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sub-box-1-2-2 figure img{
+            width: 90%;
+            height: auto;
+            margin-bottom:30%;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+
+    <main>
+        <section id="caja-principal-pag-login">
+            <div class="box-1">
+
+                <div class="sub-box-1-1">
+                    <!--TITULO-->
+                    <h1>SISTEMA DE ADMINISTRACIÓN Y GESTIÓN MUNICIPAL</h1>
+                </div>
+                <div class="sub-box-1-2">
+    
+                    <div class="sub-box-1-2-1">
+                        <!--BACKGROUND-->
+                        <figure>
+                            <img src="{% static 'img/FONDO-PI.png' %}" alt="">
+                        </figure>
+                    </div>
+                    <div class="sub-box-1-2-2">
+                        <!--LOGO MINA-->
+                        <figure>
+                            <img src="{% static 'img/LOGO-MINA.png' %}" alt="">
+                        </figure>
+                    </div>
+    
+                </div>
+    
+    
+            </div>
+            <div class="box-2">
+    
+                <div class="sub-box-2-1">
+    
+                    <form action="{% url 'autenticacion' %}" method="POST">
+                        {%csrf_token%} 
+    
+                        <div class="sub-box-2-1-1">
+    
+                            <h1>INICIAR SESIÓN</h1>
+    
+                        </div>
+    
+                        <div class="sub-box-2-1-2">
+    
+                            <input type="text" name="username" placeholder="NOMBRE DE USUARIO" required>
+                        
+                            <input type="password" name="password" placeholder="CONTRASEÑA" required>
+    
+                        </div>
+    
+                        <button type="submit">INICIAR SESIÓN</button>
+    
+                    </form>
+    
+    
+                </div>
+    
+                <!-- EN CASO DE QUE LAS CREDENCIALES SEAN INCORRECTAS -->
+                {% if messages%}
+    
+    
+                    {% for mensaje in messages %}
+    
+                        <span style="width: 55%; height: 7%; margin-top: 3%; border-radius: 2em; background-color: rgb(252,219,85); color: red; padding: 3vh; font-family: 'Calibri'; text-align: center; display: flex;
+                        align-items: center; font-weight: bold; font-size: 1.8vh; border: solid red 0.4vh; ">{{mensaje}}</span>
+    
+                    {% endfor%}
+    
+    
+                {% endif %}
+    
+            </div>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,165 @@
+{% extends "raiz/plantilla_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<script>
+
+    function c_logout() {
+        if (confirm("¿Estás seguro de que deseas cerrar sesión?")) {
+            // Aquí puedes agregar la lógica para cerrar la sesión, como redireccionar a una página de inicio de sesión o hacer una petición al servidor.
+            console.log("Cerrar sesión");
+        } else {
+            // El usuario canceló la acción de cerrar sesión.
+            console.log("Cancelar cerrar sesión");
+        }
+    }
+</script>
+
+<style>
+    #box-nav {
+        width: 100%;
+        padding: 3%;
+        /* border: solid black; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #box-nav nav {
+        /* border: solid blue; */
+        width: 95%;
+    }
+
+    .main-links {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        list-style: none;
+        background-color: rgb(134, 22, 66);
+        border-radius: 2em;
+        /* border: SOLID rgb(201, 180, 10); */
+        width: 80%;
+        height: 3em;
+    }
+
+    .main-links li {
+        padding: 0.5rem 1rem;
+        background-color: rgb(134, 22, 66);
+        width: 10em;
+        border-radius: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dropdown-li {
+        position: relative;
+        transition: 0.5s;
+    }
+
+    .dropdown-li a {
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    .dropdown-li:hover {
+        background-color: rgb(88, 17, 44);
+    }
+
+    .dropdown-li:hover .dropdown {
+        display: block;
+        background-color: rgb(134, 22, 66);
+    }
+
+    .dropdown {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        /* margin-top: 6%; */
+        display: none;
+        border-radius: 0 0 1em 1em;
+    }
+
+    .dropdown li {
+        list-style: none;
+    }
+
+    main {
+        /*border: solid black;*/
+        height: 69vh;
+        background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-x: center;
+    }
+</style>
+
+<div id="box-nav">
+    <nav>
+        <ul class="main-links">
+            <li class="dropdown-li">
+                <a href="">ALTAS</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVO CONTRIBUYENTE</a></li>
+                    <li><a href=""></a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">BAJAS</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVA BAJA</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">MODIFICACIONES</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVA BAJA</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">CONSULTAS</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVA BAJA</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">TRAMITES</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVA BAJA</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">MANTEMIENTO</a>
+                <ul class="dropdown">
+                    <li><a href="">MIGRAR DEUDORES</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                    <li><a href="">ELIMINAR REGISTROS</a></li>
+                </ul>
+            </li>
+
+            <form action="{% url 'logout' %}" method="POST">
+                <li class="dropdown-li">
+                    <a id="btn-logout" onclick="c_logout()" href="">CERRAR SESIÓN</a>
+                </li>
+            </form>
+        </ul>
+    </nav>
+</div>
+
+<main>
+</main>
+
+{% endblock %}

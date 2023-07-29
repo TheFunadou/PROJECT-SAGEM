@@ -1,0 +1,61 @@
+{%extends "raiz/master_blade.html"%}
+
+{%block body%}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/inicio.css' %}">
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Tu cuenta no esta logeada no puedes acceder a esta pagina. Porfavor logee su cuenta para tener acceso.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+    <style>
+        *{
+            font-family: 'Calibri';
+        }
+
+        h1{
+            font-family: 'Calibri';
+            font-weight: bold;
+        }
+    </style>
+   
+    <div class="form">
+
+      <h1>Inicio de sesión</h1>
+      <form method="post" action="{% url 'autenticacion' %}">
+        {%csrf_token%} 
+
+            <div class="ndu">
+
+                <label style="font-family: 'Calibri';">Nombre de usuario</label>
+                <input name="username" type="text" required >
+                
+            </div>
+
+            <div class="ndu">
+                <label style="font-family: 'Calibri';">Contraseña</label>
+                <input name="password"  type="text" required >
+                
+            </div>
+            
+            <input type="submit" value="Ingresar">
+            <div class="img4">
+                <img  src="{% static 'img/FLORECE.png' %}" >
+            </div>
+
+      </form>
+
+    </div>
+
+
+{%endblock%}

@@ -1,0 +1,208 @@
+{% extends "raiz/plantilla_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- <script>
+    function c_logout() {
+        var respuesta= confirm("¿Estás seguro de que deseas cerrar sesión?")
+        if (respuesta == True) {
+            // SE CIERRA SESION
+        } else {
+            // NO SE CIERRA SESION
+        }
+    }
+</script> -->
+
+<style>
+    #box-nav {
+        width: 100%;
+        /*border: solid black; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 27.3vh;
+    }
+
+    #box-nav nav {
+        /*border: solid blue;*/
+        padding: 0.5%;
+        height: 100%;
+        width: 80%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-links {
+        margin-top: 5vh;
+        /*border: solid black;*/
+        padding: 1%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        list-style: none;
+        background-color: rgb(134, 22, 66);
+        border-radius: 2em;
+        font-size: 2vh;
+        width: 100%;
+        height: 3em;
+    }
+
+    .main-links li {
+        padding: 0.5rem 1rem;
+        background-color: rgb(134, 22, 66);
+        width: 20vh;
+        border-radius: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dropdown-li {
+        position: relative;
+        width: 100%;
+        transition: 0.5s;
+    }
+
+    .dropdown-li a {
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        font-weight: bold;
+        font-size: 2vh;
+    }
+
+    .dropdown-li:hover {
+        background-color: rgb(88, 17, 44);
+    }
+
+    .dropdown-li:hover .dropdown {
+        display: block;
+        background-color: rgb(134, 22, 66);
+    }
+
+    .dropdown {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        display: none;
+        border-radius: 0 0 1em 1em;
+    }
+
+    .dropdown li {
+        list-style: none;
+        width: 100%;
+    }
+
+    /*BOX DOS*/
+    #box-nav .box-nav-2{
+        display: flex;
+        justify-content: center;
+        /*border: solid green;*/
+        height: 100%;
+        width: 20%;
+
+    }
+
+    .box-nav-2 div{
+        margin: 6.1vh 2vh 0 0;
+        /*border: solid black;*/
+        background-color: rgb(134, 22, 66);
+        width: 40%;
+        height: 22%;
+        border-radius: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        font-size: 2vh;
+    }
+
+    div a{
+        list-style: none;
+        color: white;
+        text-decoration: none;
+    }
+
+    main {
+        /*border: solid black;*/
+        height: 58.7vh;
+        background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-x: center;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+</style>
+
+<div id="box-nav">
+    <nav>
+        <ul class="main-links">
+            <li class="dropdown-li">
+                <a href="">PREDIAL</a>
+                <ul class="dropdown">
+                    <li><a href="">PAGO DE PREDIAL</a></li>
+                    <li><a href="">APROBAR DESCUENTOS</a></li>
+
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">TRAMITES</a>
+                <ul class="dropdown">
+                    <li><a href="">DEFUNCIONES</a></li>
+                    <li><a href="">PERMISOS DE DESARROLLO URBANO</a></li>
+                    <li><a href="">DEFUNCIONES</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">IMPUESTOS</a>
+                <ul class="dropdown">
+                    <li><a href="">#</a></li>
+                    <li><a href="">#</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">CONSULTAS</a>
+                <ul class="dropdown">
+                    <li><a href="">HISTORIAL DE DEUDOR</a></li>
+                    <li><a href="">#</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">REPORTES</a>
+                <ul class="dropdown">
+                    <li><a href="">PAGOS DE PREDIAL</a></li>
+                    <li><a href="">DEUDORES ANUALES</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">MANTENIMIENTO</a>
+                <ul class="dropdown">
+                    <li><a href="">MIGRAR DEUDORES</a></li>
+                    <li><a href="">REGISTRAR CAJERO</a></li>
+                    <li><a href="">ADMINISTRACION DE CAJEROS</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+
+    <div class="box-nav-2">
+        <div>N</div>
+
+        <div><a id="btn-logout" href="{% url 'finanzas:logout_finanzas' %}">CERRAR SESIÓN</a></div>
+    </div>
+</div>
+
+<main>
+    <h1>Hola otra vez!! {{nombre_user}}</h1>
+</main>
+
+{% endblock %}

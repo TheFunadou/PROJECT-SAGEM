@@ -1,0 +1,109 @@
+{% load static %}
+<!-- CARGAR ELEMENTOS ESTATICOS -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{nom_pag}}</title>
+
+    <style>
+        
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Calibri';
+        }
+
+        header{
+            width: 100%;
+            height: 14vh;
+            /* border: solid red; */
+        }
+
+        /* ENCABEZADO */
+        .box-1{
+            /* position: fixed; */
+        }
+
+        .encabezado{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* border: solid blue; */
+            width: 100%;
+            height: 10vh;
+            background-color: #ffff;
+        }
+
+        .encabezado figure{
+            width: 13%;
+            height: auto;
+            margin: 0.5%;
+            object-fit: cover;
+            /* border: solid green; */
+        }
+
+        .img-header{
+            width: 100%;
+            height: 100%;
+        }
+
+        header h1 {
+            font-size: 5vh;
+            color: black;
+            font-weight: bold;
+        }
+
+        .b-1{
+            width: 100%;
+            height: 1.5vh;
+            background-color: rgb(134, 22, 66);
+        }
+
+        .b-2{
+            width: 100%;
+            height: 1.5vh;
+            background-color: rgb(201, 180, 10);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <section class="box-1">
+
+            <div class="encabezado">
+                <figure>
+                    <a href="#"><img class="img-header" src="{% static '/img/LOGO-MINA.png' %}" alt=""></a>
+                </figure>
+
+                <h1>{{titulo_pag}}</h1>
+
+                <figure>
+                    <img class="img-header" src="{% static '/img/LOGO-VER.png' %}" alt="">
+                </figure>
+            </div>
+
+            <div class="b-1"></div>
+            <div class="b-2"></div>
+
+        </section>
+
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+
+</body>
+
+</html>

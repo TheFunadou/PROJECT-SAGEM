@@ -1,0 +1,52 @@
+{%extends "raiz/master_blade.html"%}
+
+
+{%block body%}
+
+{% load static %}
+
+<nav>
+    <div class="contenido">
+      <ul class="exo-menu">
+
+        <li class="drop-down">
+          <a href="#"><i class=""></i> NUEVA ALTA</a>
+          <!--Drop Down-->
+          <ul class="drop-down-ul animated fadeIn">
+            <li><a href="#">Alta por incorporación</a></li>
+            <li><a href="#">Alta por subdivisión</a></li>
+            <li><a href="#">Fusión de predios</a></li>
+            
+          </ul>
+          <!--//End drop down-->
+        </li>
+        <li class="drop-down">
+          <a href="#"><i class=""></i> MODIFICACIONES</a>
+          <!--Drop Down-->
+          <ul class="drop-down-ul animated fadeIn">
+            <li><a href="#">Actualizacion por valor</a></li>
+            <li><a href="#">Actualizacion de propiedad</a></li>
+            <li><a href="#">Cambio por subdivisión</a></li>
+            
+          </ul>
+          <!--//End drop down-->
+        </li>
+
+        <li class="drop-down">
+          <a href="#"><i class=""></i> TRAMITES</a>
+          <ul class="drop-down-ul animated fadeIn">
+            <li><a href="#">- DC . 017 -</a></li>
+            <li><a href="#">Ficha catastral</a></li>
+                    
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+  </nav>
+
+
+  
+
+{%endblock%}

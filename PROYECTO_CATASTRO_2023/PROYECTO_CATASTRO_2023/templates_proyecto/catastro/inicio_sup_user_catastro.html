@@ -1,0 +1,231 @@
+{% extends "raiz/plantilla_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- <script>
+    function c_logout(href) {
+        var respuesta= confirm("¿Estás seguro de que deseas cerrar sesión?")
+        if (respuesta == True) {
+            // CERRAR SESION
+            window.location.href=href
+        } else {
+            // NO SE CIERRA SESION
+        }
+    }
+</script> -->
+
+<style>
+    #box-nav {
+        width: 100%;
+        /*border: solid black; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 27.3vh;
+    }
+
+    #box-nav nav {
+        /*border: solid blue;*/
+        padding: 0.5%;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-links {
+        margin-top: 5vh;
+        /*border: solid black;*/
+        padding: 1%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        list-style: none;
+        background-color: rgb(134, 22, 66);
+        border-radius: 2em;
+        font-size: 2vh;
+        width: 100%;
+        height: 3em;
+    }
+
+    .main-links li {
+        padding: 0.5rem 1rem;
+        background-color: rgb(134, 22, 66);
+        width: 20vh;
+        border-radius: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dropdown-li {
+        position: relative;
+        width: 100%;
+        transition: 0.5s;
+    }
+
+    .dropdown-li a {
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        font-weight: bold;
+        font-size: 2vh;
+    }
+
+    .dropdown-li:hover {
+        background-color: rgb(88, 17, 44);
+    }
+
+    .dropdown-li:hover .dropdown {
+        display: block;
+        background-color: rgb(134, 22, 66);
+    }
+
+    .dropdown {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        display: none;
+        border-radius: 0 0 1em 1em;
+    }
+
+    .dropdown li {
+        list-style: none;
+        width: 100%;
+    }
+
+    /* BOX DOS
+    #box-nav .box-nav-2{
+        display: flex;
+        justify-content: center;
+        border: solid green;
+        height: 100%;
+        width: 20%;
+
+    }
+
+    .box-nav-2 div{
+        margin: 6.1vh 2vh 0 0;
+        border: solid black;
+        background-color: rgb(134, 22, 66);
+        width: 40%;
+        height: 22%;
+        border-radius: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        font-size: 2vh;
+    }
+
+    div a{
+        list-style: none;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+    } */
+
+    main {
+        /*border: solid black;*/
+        height: 58.7vh;
+        background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-x: center;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+</style>
+
+<div id="box-nav">
+    <nav>
+        <ul class="main-links">
+            <li class="dropdown-li">
+                <a href="">ALTAS</a>
+                <ul class="dropdown">
+                    <li><a href="#">NUEVO CONTRIBUYENTE</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">BAJAS</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVA BAJA</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">MODIFICACIONES</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVA BAJA</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">CONSULTAS</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVA BAJA</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">REPORTE</a>
+                <ul class="dropdown">
+                    <li><a href="{% url 'catastro:prueba_notify' %}">PRUEBA_REPORTE</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">TRAMITES</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVA BAJA</a></li>
+                    <li><a href="{% url 'catastro:menu_w' %}">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-li">
+                <a href="">MANTENIMIENTO</a>
+                <ul class="dropdown">
+                    <li><a href="">MIGRAR DEUDORES</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                    <li><a href="">ELIMINAR REGISTROS</a></li>
+                    <li><a href="">MIGRAR DEUDORES</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                    <li><a href="">ELIMINAR REGISTROS</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown-li">
+                <a href="">NOTIFICACIONES<span style="background-color: rgb(252,219,85); border-radius: 3vh; margin-left: 1vh; padding: 1%; color: rgb(134, 22, 66);">10</span></a>
+                <ul class="dropdown">
+                    <li><a href=""><input type="text" name=""></a></li>
+                    
+                </ul>
+            </li>
+
+            <li class="dropdown-li">
+                <a href="{% url 'catastro:logout_catastro' %}">CERRAR SESIÓN</a>
+            </li>
+
+
+
+        </ul>
+    </nav>
+
+    <!-- <div class="box-nav-2">
+         <div>N</div> 
+
+        <div><a id="btn-logout" href="{% url 'catastro:logout_catastro' %}">CERRAR SESIÓN</a></div>
+    </div> -->
+</div>
+
+<main>
+    <h1>Bienvenido, {{nombre_user}}</h1>
+</main>
+
+{% endblock %}
