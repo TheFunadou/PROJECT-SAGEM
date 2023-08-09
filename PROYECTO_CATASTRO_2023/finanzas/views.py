@@ -41,6 +41,7 @@ def perfil_finanzas(request):
 @login_required(login_url="pag_login")
 def perfil_sup_user_finanzas(request):
     
+    #CODIGO PARA REVISAR Y REDIRECCIONAR DEPENDIENDO DEL GRUPO AL QUE PERTENECE AL USUARIO
     if request.user.is_authenticated:
         if request.user.is_superuser:
             if request.user.groups.filter()[0].name == 'CATASTRO':
@@ -55,6 +56,7 @@ def perfil_sup_user_finanzas(request):
             elif request.user.groups.filter()[0].name == 'DESARROLLO_URBANO':
                 return redirect('desarrollo_urbano:perfil_du')
     
+    #CONTEXTO PARA EL TEMPLATE
     ctx = {
         'nom_pag': 'FINANZAS',
         'titulo_pag': 'INICIO SUPER USUARIO FINANZAS',

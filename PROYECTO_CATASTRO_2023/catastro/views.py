@@ -6,11 +6,15 @@ from django.urls import *
 from django.utils import timezone
 # CREATE VIEW PARA GENERAR UNA CLASE PARA GUARDAR DATOS
 from django.views.generic import CreateView
-from catastro import models
-
+from notify import models as notify_models
 #TABLA USUARIOS
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 #DJANGO NOTIFICACIONS
+
+# channels
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
 
 
 
@@ -72,46 +76,118 @@ def perfil_sup_user_catastro(request):
 
     return render(request, 'catastro/inicio_sup_user_catastro.html', ctx)
 
-# NOTIFICACIONES PRUEBA
-def vista_prueba(request):
+
+# Pantalla 
+@login_required(login_url="pag_login")
+def view_registrar_usuario(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            pass
+            ### DEMAS IF DE PERFILES DE SUPER USUARIO
+        else:
+            if request.user.groups.filter()[0].name == 'CATASTRO':
+                return redirect('catastro:perfil_cat')
+            elif request.user.groups.filter()[0].name == 'FINANZAS':
+                return redirect('finanzas:perfil_fin')
+            elif request.user.groups.filter()[0].name == 'DESARROLLO_URBANO':
+                return redirect('desarrollo_urbano:perfil_du')
+            
     
-    return render (request,'catastro/prueba_notify.html')
+    ctx = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'REGISTRO DE USUARIOS'
+    }
+    
+    return render(request, 'catastro/registrar_usuario.html', ctx)
+
+# RECIBIR DATOS DE LA VIEW REGISTRAR USUARIO
+@login_required(login_url='pag_login')
+def registrar_usuario(request):
+    username = request.POST['username']
+    email = request.POST['email']
+    password = request.POST['password']
+    conf_password = request.POST['conf_password']
+    departamento = request.POST['departamento']
+    rol = request.POST['rol']
+    
+    # Crear nuevo usuario
+    new_user= User(username=username, email=email)
+    new_user.set_password(conf_password)
+    
+    if(rol == 'STAFF'):
+        new_user.save()
+    elif(rol == 'SUPER_USUARIO'):
+        new_user.is_superuser=True
+        new_user.save()
+    
+    # Asginar un grupo al usuario
+    usuario = User.objects.get(username=username)
+    grupo = Group.objects.get(name=departamento)
+    
+    usuario.groups.add(grupo)
+    
+    
+@login_required(login_url="pag_login")
+def views_cambiar_password(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            pass
+            ### DEMAS IF DE PERFILES DE SUPER USUARIO
+        else:
+            if request.user.groups.filter()[0].name == 'CATASTRO':
+                return redirect('catastro:perfil_cat')
+            elif request.user.groups.filter()[0].name == 'FINANZAS':
+                return redirect('finanzas:perfil_fin')
+            elif request.user.groups.filter()[0].name == 'DESARROLLO_URBANO':
+                return redirect('desarrollo_urbano:perfil_du')
+    
+    ctx = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'RECUPERAR CONTRASEÑA'
+    }
+    
+    return render(request, 'catastro/cambiar_password', ctx)
 
 
-""""
-def enviar(request):
-    id= request.POST['id']
-    
-    usuario_remtitente= User.objects.get(username=request.user.username)
-    usuario_destino = User.objects.get(username=id)
-    cuerpo= request.POST['cuerpo']
-    cuerpo2= request.POST['cuerpo2']
-    
-    
-    notify.send(usuario_remtitente, recipient=usuario_destino, verb=cuerpo,description=cuerpo2)
-    
-"""
+@login_required(login_url='pag_login')
+def cambiar_password(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    conf_password = request.POST['conf_password']
 
-def enviar(request):
-    usuario_remtitente= User.objects.get(username=request.user.username)
+def view_notify(request):
+    return render(request,'catastro/notification_2.html')
+    
+def send_notify_test(request):
+
+    remitente = request.user.username
+    destinatario = request.POST['destinatario']
+    id_dest = User.objects.get(username=destinatario)
+    titulo = request.POST['titulo']
+    cuerpo = request.POST['cuerpo']
+
+    
+    notify_models.notify.objects.create(
+        remitente=remitente,
+        destinatario = id_dest,
+        titulo = titulo,
+        cuerpo = cuerpo
+    )
     
     
-    print('EL usuario remitente es: '+usuario_remtitente.notifications)
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        f'consumer_notifications_{destinatario}',
+        {
+            'type':'update_not',
+            'destinatario': destinatario
+        }
+    )
     
+    
+    return HttpResponse('Notificacion enviada')
 
-""""
-class registrar_contribuyentes(CreateView):
-    model = models.contribuyente
-    fields = ['rfc', 'nombre', 'ap', 'am', 'telefono']
-    template_name = 'catastro/alta_contribuyentes.html'
-    form_class = ContribuyenteForm
-    success_url = reverse_lazy('perfil_cat')  # Define la URL de redireccionamiento
-"""
 
-def menu_willy(request):
-    return render(request,'catastro/menu_principal_willy.html')
-
-# HFG
     
     
     

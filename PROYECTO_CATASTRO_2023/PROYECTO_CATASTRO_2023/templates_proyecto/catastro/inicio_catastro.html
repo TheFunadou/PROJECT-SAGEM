@@ -3,16 +3,9 @@
 
 {% block content %}
 
-<!-- <script>
-    function c_logout() {
-        var respuesta= confirm("¿Estás seguro de que deseas cerrar sesión?")
-        if (respuesta == True) {
-            // SE CIERRA SESION
-        } else {
-            // NO SE CIERRA SESION
-        }
-    }
-</script> -->
+<script>
+    
+</script>
 
 <style>
     #box-nav {
@@ -28,7 +21,7 @@
         /*border: solid blue;*/
         padding: 0.5%;
         height: 100%;
-        width: 80%;
+        width: 100%;
         display: flex;
         justify-content: center;
     }
@@ -98,11 +91,11 @@
         width: 100%;
     }
 
-    /*BOX DOS*/
+    /* BOX DOS
     #box-nav .box-nav-2{
         display: flex;
         justify-content: center;
-        /*border: solid green;*/
+        border: solid green;
         height: 100%;
         width: 20%;
 
@@ -110,7 +103,7 @@
 
     .box-nav-2 div{
         margin: 6.1vh 2vh 0 0;
-        /*border: solid black;*/
+        border: solid black;
         background-color: rgb(134, 22, 66);
         width: 40%;
         height: 22%;
@@ -127,7 +120,8 @@
         list-style: none;
         color: white;
         text-decoration: none;
-    }
+        text-align: center;
+    } */
 
     main {
         /*border: solid black;*/
@@ -148,36 +142,11 @@
             <li class="dropdown-li">
                 <a href="">ALTAS</a>
                 <ul class="dropdown">
-                    <li><a href="">NUEVO CONTRIBUYENTE</a></li>
-                    <li><a href="">NUEVO PREDIO</a></li>
-                    <li><a href="">INCORPORACIÓN</a></li>
-                    <li><a href="">SUBDIVISIÓN</a></li>
-                    <li><a href="">FUSIÓN DE PREDIOS</a></li>
-                </ul>
-            </li>
-            <li class="dropdown-li">
-                <a href="">TRAMITES</a>
-                <ul class="dropdown">
-                    <li><a href="">DC017</a></li>
-                    <li><a href="">FICHA_CATASTRAL</a></li>
-                </ul>
-            </li>
-            <li class="dropdown-li">
-                <a href="">BAJAS</a>
-                <ul class="dropdown">
-                    <li><a href="">USUARIO</a></li>
-                    <li><a href="">NUEVO USUARIO</a></li>
+                    <li><a href="#">NUEVO CONTRIBUYENTE</a></li>
                 </ul>
             </li>
             <li class="dropdown-li">
                 <a href="">MODIFICACIONES</a>
-                <ul class="dropdown">
-                    <li><a href="">CONTRIBUYENTE</a></li>
-                    <li><a href="">PREDIO</a></li>
-                </ul>
-            </li>
-            <li class="dropdown-li">
-                <a href="">CONSULTAS</a>
                 <ul class="dropdown">
                     <li><a href="">NUEVA BAJA</a></li>
                     <li><a href="">NUEVO USUARIO</a></li>
@@ -190,14 +159,36 @@
                     <li><a href="">NUEVO USUARIO</a></li>
                 </ul>
             </li>
+            <li class="dropdown-li">
+                <a href="">TRAMITES</a>
+                <ul class="dropdown">
+                    <li><a href="">NUEVA BAJA</a></li>
+                    <li><a href="">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown-li">
+                <a href="">NOTIFICACIONES<span style="background-color: rgb(252,219,85); border-radius: 3vh; margin-left: 1vh; padding: 1%; color: rgb(134, 22, 66);">10</span></a>
+                <ul class="dropdown">
+                    <li><a href=""><!-- NOTIFIACIONES --></a></li>
+                    
+                </ul>
+            </li>
+
+            <li class="dropdown-li">
+                <a href="{% url 'catastro:logout_catastro' %}">CERRAR SESIÓN</a>
+            </li>
+
+
+
         </ul>
     </nav>
 
-    <div class="box-nav-2">
-        <div>N</div>
+    <!-- <div class="box-nav-2">
+         <div>N</div> 
 
         <div><a id="btn-logout" href="{% url 'catastro:logout_catastro' %}">CERRAR SESIÓN</a></div>
-    </div>
+    </div> -->
 </div>
 
 <main>
