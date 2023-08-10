@@ -148,8 +148,8 @@
             <li class="dropdown-li">
                 <a href="">ALTAS</a>
                 <ul class="dropdown">
-                    <li><a href="">NUEVO CONTRIBUYENTE</a></li>
-                    <li><a href="">NUEVO PREDIO</a></li>
+                    <li><a href="{% url 'catastro:vista_alta_contribuyente' %}">NUEVO CONTRIBUYENTE</a></li>
+                    <li><a href="{% url 'catastro:vista_alta_predios' %}">NUEVO PREDIO</a></li>
                     <li><a href="">INCORPORACIÓN</a></li>
                     <li><a href="">SUBDIVISIÓN</a></li>
                     <li><a href="">FUSIÓN DE PREDIOS</a></li>
@@ -158,8 +158,8 @@
             <li class="dropdown-li">
                 <a href="">TRAMITES</a>
                 <ul class="dropdown">
-                    <li><a href="">DC017</a></li>
-                    <li><a href="">FICHA_CATASTRAL</a></li>
+                    <li><a href="{% url 'catastro:solicitud' %}">DC017</a></li>
+                    <li><a href="{%url 'catastro:ficha_catastral'%}">FICHA_CATASTRAL</a></li>
                 </ul>
             </li>
             <li class="dropdown-li">

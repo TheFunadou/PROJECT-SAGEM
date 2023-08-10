@@ -25,6 +25,10 @@
      
     <!-- CSS PARA LOS VENTANAS DE CONFIRMACIÓN -->
     <link rel="stylesheet" href="{% static 'lib/jquery-confirm-v3.3.4/jquery-confirm.min.css'%}">
+
+    <style>
+      
+    </style>
       
     
   </head>
@@ -36,19 +40,29 @@
       <img class="img1" src="{% static 'img/logo1.png' %}" />
         
       <img class="img2" src="{% static 'img/logo2.png' %}" />
+
+      <br>
+
+      {%block content%}
+
+
+     
+
+
+      {%endblock%}
       
       <div id="linea1"></div>
       <div id="linea2"></div>
     
     </header>
 
-    <section style="z-index: 99;">
+    <main style="z-index: 99;">
 
       {%block body%} 
       
       {%endblock%}
     
-    </section>
+    </main>
 
   <script>
 

@@ -33,6 +33,19 @@ urlpatterns = [
     
     # REGISTRAR NUEVOS CONTIBUYENTES
     #path('registro_contribuyente/',views.registrar_contribuyentes.as_view(), name='registro_contribuyente'),
+
+    
+    #RUTA PARA VISUALIZAR EL ALTA DE CIUDADANO O CONTRIBUYENTE
+    path('catastro/perfil/registro_contribuyente/',views.contribuyente_index,name='vista_alta_contribuyente'),
+
+    #RUTA PARA VISUALIZAR EL ALTA DEL PEDRIO
+    path('catastro/perfil/registro_predios/',views.predios_index,name='vista_alta_predios'),
+
+    #RUTA VISUALIZAR SOLICITUD DC017
+    path('catastro/perfil/solicitud_dc017/',views.solicitud_dc017,name='solicitud'),
+
+    #RUTA VISUALIZAR FICHA CATASTRAL
+    path('catastro/perfil/ficha_catastral/',views.ficha_catastral,name='ficha_catastral'),
     
     #ENVIAR NOTIFICACION
     path('enviar/',views.enviar, name='not'),

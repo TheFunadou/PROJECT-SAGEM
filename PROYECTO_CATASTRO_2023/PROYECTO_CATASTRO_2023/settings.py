@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'PROYECTO_CATASTRO_2023.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'PROYECTO_CATASTRO',
+        'NAME': 'proyecto_catastro',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD': 'wilfrido',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }

@@ -1,0 +1,1760 @@
+{% extends "raiz/master_blade_v.1.html" %}
+
+{%block content%}
+
+
+<h3 style="text-align: center;  font-family:  Times, 'Times New Roman', serif;">FICHA CATASTRAL</h3><br>
+
+
+{%endblock%}
+
+
+{%block body%}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
+<script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+<style>
+
+    .centered {
+    position: absolute;
+    top: 19%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    }
+
+    label{
+        color: rgb(122, 6, 41);
+        font-weight: bold; 
+    }
+
+    body {
+        height: 58.7vh;
+        background-image: linear-gradient(to bottom, #ffffff 50%, transparent 50%), url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        background-repeat: no-repeat;
+        background-size: contain; /* Ajustar el tamaño automáticamente */
+        background-position: center bottom;
+        
+      }
+
+    .bordes{
+        border: 4px solid rgb(80, 9, 36);
+    }
+
+    .bor{
+        border: 2px solid rgb(180, 172, 175);
+    }
+
+
+
+    /**/
+    /* your CSS goes here*/
+
+    /* your CSS goes here*/
+ 
+
+
+
+h1 {
+    text-align: center
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa
+}
+
+input.invalid {
+    background-color: #ffdddd
+}
+
+.tab {
+    display: none
+}
+
+
+
+button:hover {
+    opacity: 0.8
+}
+
+
+
+.step {
+    height: 10px;
+    width: 10px;
+    margin: 0 6px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5
+}
+
+.step.active {
+    opacity: 1
+}
+
+.step.finish {
+    background-color: #4CAF50
+}
+
+.all-steps {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px
+}
+
+.thanks-message {
+    display: none
+}
+
+
+
+/* Hide the browser's default radio button */
+
+.container input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/* Create a custom radio button */
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+
+/* On mouse-over, add a grey background color */
+
+.container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+
+/* When the radio button is checked, add a blue background */
+
+.container input:checked~.checkmark {
+    background-color: #2196F3;
+}
+
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the indicator (dot/circle) when checked */
+
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+
+/* Style the indicator (dot/circle) */
+
+.container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+
+
+
+
+
+
+/**/
+
+.modal-confirm {		
+	color: #434e65;
+	width: 525px;
+}
+.modal-confirm .modal-content {
+	padding: 20px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: none;
+}
+
+.modal-confirm .modal-header-error {
+	background: #992535;
+	border-bottom: none;   
+	position: relative;
+	text-align: center;
+	margin: -20px -20px 0;
+	border-radius: 5px 5px 0 0;
+	padding: 35px;
+}
+
+.modal-confirm .modal-header {
+	background: #47c9a2;
+	border-bottom: none;   
+	position: relative;
+	text-align: center;
+	margin: -20px -20px 0;
+	border-radius: 5px 5px 0 0;
+	padding: 35px;
+}
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 36px;
+	margin: 10px 0;
+}
+.modal-confirm .form-control, .modal-confirm .btn {
+	min-height: 40px;
+	border-radius: 3px; 
+}
+.modal-confirm .close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	color: #fff;
+	text-shadow: none;
+	opacity: 0.5;
+}
+.modal-confirm .close:hover {
+	opacity: 0.8;
+}
+.modal-confirm .icon-box {
+	color: #fff;		
+	width: 95px;
+	height: 95px;
+	display: inline-block;
+	border-radius: 50%;
+	z-index: 9;
+	border: 5px solid #fff;
+	padding: 15px;
+	text-align: center;
+}
+.modal-confirm .icon-box i {
+	font-size: 64px;
+	margin: -4px 0 0 -4px;
+}
+.modal-confirm.modal-dialog {
+	margin-top: 80px;
+}
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: #eeb711 !important;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	border-radius: 30px;
+	margin-top: 10px;
+	padding: 6px 20px;
+	border: none;
+}
+.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+	background: #eda645 !important;
+	outline: none;
+}
+.modal-confirm .btn span {
+	margin: 1px 3px 0;
+	float: left;
+}
+.modal-confirm .btn i {
+	margin-left: 1px;
+	font-size: 20px;
+	float: right;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+ 
+
+    /* ESTILO CAJA 1  */
+    #box-1 {
+      width: 100%;
+      height: 50%;
+      /* border: solid green 1px; */
+    }
+  
+    #box-1 h1 {
+      font-family: 'Calibri';
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  
+    #box-1 input {
+      text-align: center;
+    }
+  
+    #box-1 input:focus {
+      border-color: rgb(16, 158, 228);
+      box-shadow: 0 0 5px rgb(16, 158, 228);
+      outline: none;
+    }
+  
+    #box-1 .sub-box-1 {
+      /* border: solid blue 1px; */
+      display: flex;
+      justify-content: center;
+    }
+  
+    .sub-box-1 div {
+      /* border: solid rgb(255, 0, 123) 1px; */
+      padding: 1%;
+      margin-left: 0.5%;
+      margin-right: 0.5%;
+    }
+  
+    .sub-box-1 div input {
+      width: 80%;
+    }
+  
+    #tabla_construccion th {
+      border: solid rgb(103, 2, 2) 2px;
+      background-color: rgb(103, 2, 2);
+      color: rgb(255, 255, 255);
+      width: 15.5em;
+      text-align: center;
+    }
+  
+     #tabla_construccion td {
+      border: solid 0.5px rgb(103, 2, 2) 2px;
+      
+    }
+  
+  
+    #tabla th {
+      border: solid rgb(103, 2, 2) 2px;
+      background-color: rgb(103, 2, 2);
+      color: rgb(255, 255, 255);
+      width: 15.5em;
+      text-align: center;
+    }
+  
+     #tabla td {
+      border: solid 0.5px rgb(103, 2, 2) 2px;
+      
+    }
+  
+     td {
+      border: solid rgb(8, 8, 8) 1px;
+    }
+  
+    /* CAJA 2 pd. se llama box-3 porque me dio flojera cambiarlo a 2 XD*/
+    #box-3 {
+      margin-top: 1%;
+      display: flex;
+      justify-content: center;
+      /* border: solid blue 1px; */
+      height: 50%;
+    }
+  
+    .contenido-columna input {
+      border-style: none;
+      text-align: center;
+    }
+  
+    .contenido-columna input:focus {
+      outline: none;
+    }
+  
+    /* TABLA INCREMENTOP POR EXQUINA */
+    .box-inc {
+      width: 100%;
+      height: 25%;
+      border: solid rgb(103, 2, 2) 1px;
+      display: flex;
+    }
+  
+    .tit-inc {
+      background-color: rgb(103, 2, 2);
+      color: rgb(255, 255, 255);
+      border: solid rgb(255, 255, 255) 1px;
+      font-size: 1.2em;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      font-weight: bold;
+      justify-content: center;
+      text-align: center;
+    }
+  
+    .des-inc {
+      border: solid rgb(128, 0, 0) 1px;
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-style: none;
+    }
+  
+    .des-inc input {
+      width: 100%;
+      height: 100%;
+      border-style: none;
+      text-align: center;
+      font-size: 1.2em;
+    }
+  
+    .des-inc input:focus {
+      outline: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+</style>
+
+<form action="" method="post">
+    {%csrf_token%}
+    <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>
+
+
+    <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 530px; z-index: 1; position: relative;">
+
+        <form action="registrar_ficha_datosgenerales/" method="POST">
+            {%csrf_token%}
+
+
+            <fieldset class="container fieldset-1 p-3"
+                style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -30px; background:rgba(255, 255, 255, 0.5);">
+                <legend class="float-none w-auto px-3"
+                    style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                    DATOS GENERALES
+                </legend>
+
+                <div id="1" style="margin-top: 5px;">
+
+                    <div class="row justify-content-center" style="margin-top: -13px;">
+
+                            <div class="col-xl-2" style="float: left;">               
+                                <label for="tipo_mov" class="lbl1">TIPO/MOV/ABC</label>
+                                <input type="text" id="tipo_mov" class="form-control" name="tipo_mov" style="height: 25px;"
+                                        placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">                  
+                            </div>  
+                            
+                            <div class="col-xl-2" style="float: right;">
+                                
+                                <label for="folio">FECHA OPERACIÓN</label>
+                                <input type="text" id="folio" class="form-control" name="folio" style="height: 25px;"
+                                        placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">
+                                
+                            </div>
+                        
+                            <div class="col-xl-2" style="float: right;">
+                                
+                                <label for="folio">FOLIO</label>
+                                <input type="text" id="folio" class="form-control" name="folio" style="height: 25px;"
+                                        placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">
+                                
+                            </div>
+                        
+                
+                    </div>
+                </div> 
+
+                <div id="1" style="margin-top: 15px;">
+
+                    <fieldset class="fieldset-1 card  bor rounded-3 p-3" style="background:rgb(255, 255, 255,.5); top: 5px; margin-left: 20px; margin-right: 20px;">
+                        <legend class="float-none w-auto px-3"
+                            style="font-size: 22px; color: brown;  font-family: 'Calibri'">CLAVE
+                            CATASTRAL</legend>
+
+                            <div class="row justify-content-center" style="">
+                                <div id="autocomplete" class="autocomplete col-xl-6 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <input type="text" id="busqueda" values="" class="form-control" name="busqueda" style="background-color: #f3ea9848; border: #ac2546 solid 1px;" 
+                                                placeholder="Buscar" required oninput ="this.value = this.value.toUpperCase();">
+                                    <div class="" style="top: -23px;">
+        
+                                        <ul id="resultado" class="row justify-content-center">
+                                        
+                                        </ul>
+        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                    </fieldset>
+
+                </div>
+
+                <div id="1" style="margin-top: 40px;">
+
+                    <fieldset class=" card bor rounded-3 p-3"
+                        style=" height:min-content; margin-left: 20px; margin-right: 20px;">
+                        <legend class="float-none w-auto px-3"
+                            style="font-size: 22px; color: brown;  font-family: 'Calibri'">
+                            PROPIETARIO O POSEEDOR</legend>
+
+                        <div class="row" style=" text-align: left;">
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="fa_paterno" class="lbl1">Apellido paterno</label>
+                                    <input type="text" id="fa_paterno" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fa_paterno" placeholder=""
+                                        required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="fa_materno" class="lbl1">Apellido materno</label>
+                                    <input type="text" id="fa_materno" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fa_materno" placeholder=""
+                                        required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="fnombre" class="lbl1">Nombre</label>
+                                    <input type="text" id="fnombre" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fnombre" placeholder=""
+                                        required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="fcurp" class="lbl1">CURP/RFC</label>
+                                    <input type="text" id="fcurp" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fcurp" placeholder=""
+                                        required onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+                <div id="1" style="margin-top: 40px;">
+
+                    <fieldset class=" fieldset-1  bor rounded-3 p-3"
+                        style=" height:min-content; margin-left: 20px; margin-right: 20px;">
+                        <legend class="float-none w-auto px-3"
+                            style="font-size: 22px; color: brown;  font-family: 'Calibri'">
+                            UBICACIÓN DEL PREDIO</legend>
+
+                        <div class="row" style="text-align: left;">
+                        
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_calle" class="lbl1">Calle</label>
+                                    <input type="text" id="f_calle" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_calle" placeholder=""
+                                        required  onKeyUp="this.value = this.value.toUpperCase();" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_int" class="lbl1">Interior</label>
+                                    <input type="text" id="f_int" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_int" placeholder=""
+                                        required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="name" class="lbl1">Exterior</label>
+                                    <input type="text" id="f_ext" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_ext" placeholder=""
+                                        required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_col_fracc" class="lbl1">Colonia/Fraccionamiento</label>
+                                    <input type="text" id="f_col_fracc" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_col_fracc" placeholder=""
+                                        required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_tipopredio" class="lbl1">Tipo de predio</label>
+                                    <input type="text" id="f_tipopredio" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_tipopredio" placeholder=""
+                                        required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_uso_predio" class="lbl1">Uso del predio</label>
+                                    <input type="text" id="f_uso_predio" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_uso_predio" placeholder=""
+                                        required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+ 
+                </div>
+
+                <div id="1" style="margin-top: 40px;">
+
+                    <fieldset class="fieldset-1  bor rounded-3 p-3"
+                        style=" height:min-content; margin-left: 20px; margin-right: 20px; ">
+                        <legend class="float-none w-auto px-3"
+                            style="font-size: 22px; color: brown;  font-family: 'Calibri'">
+                            DOMICILIO PARA RECIBIR NOTIFICACIONES</legend>
+
+                        <div class="row" style="text-align: left;">
+                        
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_calle_notifica" class="lbl1">Calle</label>
+                                    <input type="text" id="f_calle_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_calle_notifica" placeholder=""
+                                        required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_int_notifica" class="lbl1">Interior</label>
+                                    <input type="text" id="f_int_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_int_notifica" placeholder=""
+                                        required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_ext_notifica" class="lbl1">Exterior</label>
+                                    <input type="text" id="f_ext_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_ext_notifica" placeholder=""
+                                        required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_cp_notifica" class="lbl1">Código postal</label>
+                                    <input type="text" id="f_cp_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_cp_notifica" placeholder=""
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_colonia_fracc_notifica" class="lbl1">Colonia/Fraccionamiento</label>
+                                    <input type="text" id="f_colonia_fracc_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_colonia_fracc_notifica" placeholder=""
+                                        required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="f_ciudad_notifica" class="lbl1">Ciudad o población</label>
+                                    <input type="text" id="f_ciudad_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_ciudad_notifica" placeholder=""
+                                        required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+
+                </div>        
+
+            </fieldset>
+
+            <fieldset class=" container fieldset-1 p-3"
+                style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: 40px; background:rgba(255, 255, 255, 0.5);">
+                <legend class="float-none w-auto px-3"
+                    style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                    DATOS GENERALES DEL PREDIO
+                </legend>
+
+
+                <div id="1" style="margin-top: 10px;">
+
+                    <fieldset class="bor fieldset-1 rounded-3 p-3"
+                        style=" height:min-content; margin-left: 20px; margin-right: 20px;">
+                        <legend class="float-none w-auto px-3"
+                            style="font-size: 22px; color: brown;  font-family: 'Calibri'; margint-top: 20px;">
+                            DATOS DEL DOCUMENTO DE PROPIEDAD O POSESIÓN</legend>
+
+                        <div class="row" style="margin-top: 3px; ">
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="lugar_expedision" class="lbl1">Lugar de expedición</label>
+                                    <input type="text" id="lugar_expedision" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="lugar_expedision" placeholder=""
+                                        required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();"  aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="td" class="lbl1">T.D.</label>
+                                    <input type="text" id="td" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="td" placeholder=""
+                                        required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm" onkeypress="return valideKey(event);">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="no_documento" class="lbl1">No. documento</label>
+                                    <input type="text" id="no_documento" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="no_documento" placeholder=""
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="predio_dia" class="lbl1">Día</label>
+                                    <input type="text" id="predio_dia" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="predio_dia" placeholder=""
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="predio_mes" class="lbl1">Mes</label>
+                                    <input type="text" id="predio_mes" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="predio_mes" placeholder=""
+                                        required onkeypress="return valideKey(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="predio_año" class="lbl1">Año</label>
+                                    <input type="text" id="predio_año" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="predio_año" placeholder=""
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="notaria" class="lbl1">No. Notaria</label>
+                                    <input type="text" id="notaria" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="notaria" placeholder=""
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+                <div id="1" style="margin-top: 40px;">
+
+                    <fieldset class="bor fieldset-1 rounded-3 p-3"
+                        style=" height:min-content; margin-left: 20px; margin-right: 20px; text-align: center;">
+                        <legend class="float-none w-auto px-3"
+                            style="font-size: 22px; color: brown;  font-family: 'Calibri'">
+                            DATOS DEL PREDIO</legend>
+
+                        <div class="row" style="margin-top: 3px; text-align: left;">
+                        
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="tipo_avaluo" class="lbl1">Tipo de avaluo</label>
+                                    <input type="text" id="tipo_avaluo" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tipo_avaluo" placeholder=""
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="fracc_" class="lbl1">Fracc.</label>
+                                    <input type="text" id="fracc_" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fracc_" placeholder=""
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="tras_dominio" class="lbl1">Traslado de dominio</label>
+                                    <input type="text" id="tras_dominio" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tras_dominio" placeholder=""
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="regimen_legal" class="lbl1">Regimen legal del prop.</label>
+                                    <input type="text" id="regimen_legal" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="regimen_legal" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="margin-top: 20px; text-align: left;">
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="tenencia_pred" class="lbl1">Tenencia</label>
+                                    <input type="text" id="tenencia_pred" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tenencia_pred" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="est_fisico" class="lbl1">Estado físico</label>
+                                    <input type="text" id="est_fisico" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="est_fisico" placeholder=""
+                                        required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="cod_uso" class="lbl1">Cod. de uso predio</label>
+                                    <input type="text" id="cod_uso" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="cod_uso" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="tipo_posesion" class="lbl1">Tipo de posesion</label>
+                                    <input type="text" id="tipo_posesion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tipo_posesion" placeholder=""
+                                        required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="no_emision" class="lbl1">No emisión</label>
+                                    <input type="text" id="no_emision" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="no_emision" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </fieldset>
+
+                </div>
+
+                <div id="1" style="margin-top: 40px;">
+
+                    <fieldset class="bor fieldset-1 rounded-3 p-3"
+                        style=" height:min-content; margin-left: 20px; margin-right: 20px; text-align: center;">
+                        <legend class="float-none w-auto px-3"
+                            style="font-size: 22px; color: brown;  font-family: 'Calibri'">
+                            DATOS DE INSCRIPCIÓN EN EL REGISTRO PUBLICO DE PROPIEDAD</legend>
+
+                        <div class="row" style="margin-top: 3px;">
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <br>
+                                    <label for="f_calle_notifica" class="lbl1">Actual</label>
+                                    
+                                    <span></span>
+
+                                </div>
+                            </div>
+                        
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="bajo_numero" class="lbl1">Bajo número</label>
+                                    <input type="text" id="bajo_numero" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="bajo_numero" onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="tomo" class="lbl1">Tomo</label>
+                                    <input type="text" id="tomo" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tomo" 
+                                        required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="dia_inscripcion" class="lbl1">Día</label>
+                                    <input type="text" id="dia_inscripcion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="dia_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="mes_inscripcion" class="lbl1">Mes</label>
+                                    <input type="text" id="mes_inscripcion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="mes_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="año_inscripcion" class="lbl1">Año</label>
+                                    <input type="text" id="año_inscripcion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="año_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="zona_inscripcion" class="lbl1">Zona</label>
+                                    <input type="text" id="zona_inscripcion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    
+                                    <label for="f_calle_notifica" class="lbl1">Antecedente</label>
+                                    
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <!-- <label for="f_calle_notifica" class="lbl1">Bajo número</label> -->
+                                    <input type="text" id="bajo_numero_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="bajo_numero_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <!-- <label for="f_int_notifica" class="lbl1">Tomo</label> -->
+                                    <input type="text" id="tomo_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tomo_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <!-- <label for="f_ext_notifica" class="lbl1">Día</label> -->
+                                    <input type="text" id="dia_inscripcion_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="dia_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <!-- <label for="f_cp_notifica" class="lbl1">Mes</label> -->
+                                    <input type="text" id="mes_inscripcion_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="mes_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <!-- <label for="f_colonia_fracc_notifica" class="lbl1">Año</label> -->
+                                    <input type="text" id="año_inscripcion_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="año_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <!-- <label for="f_ciudad_notifica" class="lbl1">Zona</label> -->
+                                    <input type="text" id="zona_inscripcion_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="zona_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </fieldset>
+
+
+
+                </div>        
+
+            </fieldset>
+
+        </form>
+    </div>
+
+
+    <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 530px; z-index: 1; position: relative;">
+
+        <!-- Fieldset que contiene los apartados de terrenos rurales y urbanor -->
+        <!-- Nota: se agrega un select para que seleccionar el tipo de terreno y conforme a la opcion usada aparecera uno de ellos. -->
+        <fieldset class="container fieldset-1 p-3"
+        style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -34px; background:rgba(255, 255, 255, 0.5);">
+            <legend class="float-none w-auto px-3"
+                style="border: solid 3px gold;border-radius: 0.4em;">
+                <select id="tipo_terreno" name="tramite" class="form-select form-select-sm" style="width: 550px; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold;   text-align: center; border-style: none;">
+                    <option selected style=" font-weight: bold;" value="DATOS TERRENOS RURALES">DATOS TERRENOS RURALES</option>
+                    <option style=" font-weight: bold;" value="DATOS DE TERRENOS URBANOS Y SUBURBANOS">DATOS DE TERRENOS URBANOS Y SUBURBANOS</option>
+                    
+                </select> 
+            </legend>
+
+            <!-- Terreno rurales -->
+            <div id="terreno_rural"  >
+
+                <div class="row justify-content-center" style="margin-top: 15px;">
+    
+                    <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                            <label for="t_suelo" class="lbl1"><strong>T/SUELO</strong></label>
+                            <input type="text" id="t_suelo" class="form-control" name="t_suelo" 
+                                    placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                    
+                        </div>  
+                    </div>
+            
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="Valor_has"><strong>VALOR/HAS</strong></label>
+                            <input type="text" id="valor_has" class="form-control" name="Valor_has" 
+                                    placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </div>
+            
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="has" class="lbl1"><strong>HAS</strong> </label>
+                            <input type="text" id="has" class="form-control" name="has" 
+                                    placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                    
+                        </div>  
+                    </div>   
+                
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="a"><strong>A</strong></label>
+                            <input type="text" id="a" class="form-control" name="a" 
+                                    placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </div>
+            
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="c" class="lbl1"><strong>C</strong></label>
+                            <input type="text" id="c_11" class="form-control" name="c" 
+                                    placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                    
+                        </div>  
+                    </div> 
+                    
+ 
+                    </div><br>
+            
+                <div class="row justify-content-center">
+            
+                    <div class="col-10">
+                        <table id="tabla1" class="table">
+                        <thead>
+            
+                            <tr class="table-active">
+                            <td style="border: 0px solid;"></td>
+                            <td style="border: 0px solid;"></td>
+                            <td colspan="3" style="font-weight: 700;">SUPERFICIE</td>
+                            
+                            </tr>
+            
+                            <tr class="table-active" style="font-weight: 700;">
+                            <td  rowspan="2" style="height: 100%;">T/Suelo</td>
+                            <td  rowspan="2">Valor/has</td>
+                            <td>HAS.</td>
+                            <td>A</td>
+                            <td>C</td>     
+                            </tr>
+                        
+                            
+                        </thead>
+            
+                        <tbody>   
+                        </tbody>
+            
+                        </table>
+                    </div>
+                    
+                    </div><br>
+            
+                <div class="row justify-content-center">
+                    
+            
+                    <div class="col-5">
+            
+                        <table class="table">
+                        <thead>
+                            
+                            <tr class="table-active" style="font-weight: 700;">
+                            <td>TOP</td>
+                            <td>VIAS/C</td>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider table-divider-color">
+                            <tr>
+                            <td>
+                                <div class="input-group-sm  ">
+                                <div class="form-group">
+                                    <input type="text" id="top" class="form-control" name="top" 
+                                    placeholder="top" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                            
+                                </div>  
+                                </div>
+                        
+                            </td>
+                            <td>
+                                <div class="input-group-sm">
+                                <div class="form-group">
+                                    <input type="text" id="vias_c" class="form-control" name="vias_c" 
+                                    placeholder="vias" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                            
+                                </div>  
+                                </div>
+                        
+                            </td>
+                
+                            </tr>
+                
+                        </tbody>
+                        </table>
+            
+                    </div>
+            
+                    <div class="col-5">
+                        <table class="table">
+                        <thead>
+                            <tr class="table-active" style="font-weight: 700;">
+                            <td  scope="col" colspan="3">SUPERFICIE TOTAL</td>  
+                            </tr>
+                            <tr class="table-active" style="font-weight: 700;">
+                            <td>HAS</td>
+                            <td>A</td>
+                            <td>C</td>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider table-divider-color">
+                            <tr>
+                            <td>
+                                <div class="input-group-sm  ">
+                                <div class="form-group">
+                                    <input type="text" id="has_st" class="form-control" name="has_st" 
+                                            placeholder="has_st" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                            
+                                </div>  
+                                </div>
+                        
+                            </td>
+                            <td>
+                                <div class="input-group-sm">
+                                <div class="form-group">
+                                    <input type="text" id="a_st" class="form-control" name="a_st" 
+                                            placeholder="a_st" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                            
+                                </div>  
+                                </div>
+                        
+                            </td>
+                            <td>
+                                <div class="input-group-sm ">
+                                <div class="form-group">
+                                    <input type="text" id="c_st" class="form-control" name="c_st" 
+                                            placeholder="c_st" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                            
+                                </div>  
+                                </div>
+                        
+                            </td>
+                            </tr>
+            
+                        </tbody>
+                        </table>
+                
+                        
+                    </div>
+            
+            
+                    </div>
+
+            </div>
+
+            <!-- Terrenos urbanos -->
+            <div id="terreno_urbano" class="hidden" style="margin-top: 20px;">
+
+                <section id="box-1">
+
+                    <div class="row justify-content-center">
+
+                        <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="valor2_m2" class="lbl1"><strong>VALOR M2</strong></label>
+                                <input type="text" id="valor2_m2" class="form-control" name="valor2_m2" 
+                                        placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
+                            </div>  
+                        </div>
+    
+                        <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="area_terreno" class="lbl1"><strong>AREA DEL TERRENO</strong></label>
+                                <input type="text" id="area_terreno" class="form-control" name="area_terreno" 
+                                        placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
+                            </div>  
+                        </div>
+    
+                        <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="c_s" class="lbl1"><strong>C</strong></label>
+                                <input type="text" id="c_s" class="form-control" name="c_s" 
+                                        placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
+                            </div>  
+                        </div>
+    
+    
+                        <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="area_terreno" class="lbl1"><strong>VALOR M2</strong></label>
+                                <input type="text" id="valor_m2" class="form-control" name="valor-m2" 
+                                        placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
+                            </div>  
+                        </div>
+    
+                        <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="area_terreno" class="lbl1"><strong>FRENTE</strong></label>
+                                <input type="text" id="frente" class="form-control" name="frente" 
+                                        placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
+                            </div>  
+                        </div>
+    
+                        <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="area_terreno" class="lbl1"><strong>PROFUNDIDAD</strong></label>
+                                <input type="text" id="profundidad" class="form-control" name="frente" 
+                                        onkeydown="agregarFila()" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
+                            </div>  
+                        </div>   
+    
+                
+                        <div class="sub-box-1" style="margin-top: 20px;">
+                            <table id="tabla">
+                            <thead>
+                                <tr>
+                                <th>C</th>
+                                <th>VALOR M2</th>
+                                <th>FRENTE</th>
+                                <th>PROFUNDIDAD</th>
+                                </tr>
+                            </thead>
+                            <tbody>              
+                            </tbody>
+                            
+                            </table>
+                        </div>
+
+                    </div>
+                
+                </section>
+            
+                    <!-- CAJA 3  - INCREMENETO Y DEMERITOS -->
+            
+                <section id="box-3">
+            
+                    <fieldset class=" card border rounded-3 p-3"
+                        style="background:rgb(255, 255, 255,.5); text-align: center; margin-right: 0.5em;">
+                        <legend class="float-none w-auto px-3"
+                        style="font-size: 17px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5); font-weight: bold;">
+                        INCREMENTO POR ESQUINA</legend>
+                        </legend>
+            
+                        <table id="t1">
+                        <thead>
+            
+                        </thead>
+                        <tbody style="border: solid rgb(77, 0, 0) 1px;">
+                            <tr>
+                            <td class="tit-inc">A</td>
+                            <td contenteditable WIDTH="70"></td>
+                            </tr>
+                            <tr>
+                            <td class="tit-inc">B</td>
+                            <td contenteditable></td>
+                            </tr>
+                            <tr>
+                            <td class="tit-inc">C</td>
+                            <td contenteditable></td>
+                            </tr>
+                            <tr>
+                            <td class="tit-inc">D</td>
+                            <td contenteditable></td>
+                            </tr>
+            
+                        </tbody>
+                        </table>
+            
+                    </fieldset>
+            
+                    <fieldset class=" card border rounded-3 p-3 ">
+                        <legend class="float-none w-auto px-3"
+                        style="font-size: 17px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5); font-weight: bold;">
+                        DÉMERITOS PREDIOS URBANOS</legend>
+                        </legend>
+            
+                        <table id="t2">
+                        <thead>
+            
+                        </thead>
+                        <tbody style="border: solid rgb(77, 0, 0) 1px;">
+                            <tr>
+                            <td class="tit-inc">Interés Social</td>
+                            <td contenteditable WIDTH="70"></td>
+                            </tr>
+                            <tr>
+                            <td class="tit-inc">Excedente de área</td>
+                            <td contenteditable></td>
+                            </tr>
+                            <tr>
+                            <td class="tit-inc">Topografía</td>
+                            <td contenteditable></td>
+                            </tr>
+                            <tr>
+                            <td class="tit-inc">Cond. Física imprevista</td>
+                            <td contenteditable></td>
+                            </tr>
+            
+                        </tbody>
+                        </table>
+            
+                        <!-- <div class="box-inc">
+                        <div class="tit-inc">Interés Social</div>
+                        <div class="des-inc"><input id="demeritos_interes" type="text"></div>
+                        </div>
+                        <div class="box-inc">
+                        <div class="tit-inc">Excedente de área</div>
+                        <div class="des-inc"><input id="demeritos_excedente" type="text"></div>
+                        </div>
+                        <div class="box-inc">
+                        <div class="tit-inc">Topografía</div>
+                        <div class="des-inc"><input id="demeritos_topografia" type="text"></div>
+                        </div>
+                        <div class="box-inc">
+                        <div class="tit-inc">Cond. Física imprevista</div>
+                        <div class="des-inc"><input id="demeritos_condicion" type="text"></div>
+                        </div> -->
+                    </fieldset>
+            
+                </section>
+            
+            
+              
+
+            </div>
+
+
+        </fieldset>
+
+
+        <fieldset class="container fieldset-1 p-3"
+            style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: 24px; background:rgba(255, 255, 255, 0.5);">
+            <legend class="float-none w-auto px-3"
+            style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+            DATOS DE CONSTRUCCIÓN
+            </legend>
+    
+            <div class="card" style="background:rgb(255, 255, 255,.5); text-align: center; margin-top: 5px; margin-left: 20px; margin-right: 20px;">
+    
+            <div class="card-body">
+    
+                <div class="row justify-content-center">
+    
+                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="etiqueta" class="lbl1">Etiqueta</label>
+                            <select name="etiqueta" id="etiqueta" class="form-select form-select-sm"
+                                aria-label=".form-select-sm example">
+                                <option selected></option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                            </select>                 
+                    
+                        </div>  
+                    </div>   
+                
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="tipo_c">Tipo_c</label>
+                            <select name="tipo_c" id="tipo_c" class="form-select form-select-sm"
+                                aria-label=".form-select-sm example">
+                                <option selected></option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                            </select> 
+                        </div>
+                    </div>
+    
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="est">Estado</label>
+                            <select name="est" id="est" class="form-select form-select-sm"
+                            aria-label=".form-select-sm example">
+                            <option selected></option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                        </select> 
+                        </div>
+                    </div>           
+                    
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="terreno">Terreno</label>
+                            <select name="terreno" id="terreno" class="form-select form-select-sm"
+                            aria-label=".form-select-sm example">
+                            <option selected></option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                        </select> 
+                        </div>
+                    </div>
+    
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="antiguedad">Antiguedad</label>
+                            <input type="text" id="antiguedad" class="form-control" name="antiguedad" style="height: 30px;"
+                                    placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </div>
+    
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="area_c">Área(m²)</label>
+                            <input type="text" id="area_c" class="form-control" name="area_c" style="height: 30px;"
+                                    placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </div>
+    
+                    <p></p>
+    
+                    <table id="tabla_construccion">
+                        <thead>
+                        <tr>
+                            <th>ETIQUETA</th>
+                            <th>TIPO</th>
+                            <th>ESTADO</th>
+                            <th>TERRENO</th>
+                            <th>ANTIGUEDAD</th>
+                            <th>ÁREA(m²)</th>
+                        </tr>
+                        </thead>
+                        <tbody>    
+                        </tbody>
+                        
+                    </table>
+    
+                </div>
+            </div>
+            </div>   
+    
+        </fieldset>
+    
+    
+        <form action="guardar_imprimir/" method="post">
+            {% csrf_token %}
+            <fieldset class="container fieldset-1 card  rounded-3 p-3"
+            style=" top: 57px; background:rgba(255, 255, 255, 0.5); margin-left: 20px; margin-right: 20px;">
+        
+    
+            <div class="row justify-content-center">
+    
+            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="fc_de">Valor del terreno</label>
+                    <input type="text" id="va_te" class="form-control" name="va_te" style="height: 25px;"
+                            placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </div>
+        
+            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="fc_de">Valor de la construccion</label>
+                    <input type="text" id="va_co"  class="form-control" name="va_co" style="height: 25px;"
+                            placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </div>
+        
+        
+            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="fc_de">Valor catastral</label>
+                    <input type="text" id="va_ca" class="form-control" name="va_ca" style="height: 25px;"
+                            placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </div>
+        
+        
+            </div>
+    
+           
+    
+           
+        
+    
+        </fieldset>
+    
+        </form>
+    
+    </div>
+
+
+    <div class="container"  id="nextprevious">
+        <div class="row" style="float:right;"> 
+
+            <div class="col-xl-12 " style="margin-top: 5px;">
+                <div class="form-group" style="float:right;">
+                    <button type="button" class="btn btn-outline-info" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
+                    <button type="button" class="btn btn-outline-warning" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
+
+                </div>
+            </div>
+            <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button> 
+            <button type="button" class="btn btn-warning" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>  -->
+        </div>
+    </div>
+
+</form>
+
+
+<script>
+      
+    var currentTab = 0;
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+        showTab(currentTab);
+
+    });
+
+    function showTab(n) {
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Enviar";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Siguiente";
+        }
+        fixStepIndicator(n)
+    }
+
+    function nextPrev(n) {
+        var x = document.getElementsByClassName("tab");
+        if (n == 1 && !validateForm()) return false;
+        x[currentTab].style.display = "none";
+        currentTab = currentTab + n;
+        if (currentTab >= x.length) {
+
+            $('#myModal').modal('show');
+
+            setTimeout(function() {     
+                document.getElementById("formulario").submit();
+                return false;
+            }, 2000); 
+
+        }
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        for (i = 0; i < y.length; i++) {
+            if (y[i].value == "") {
+                y[i].className += " invalid";
+                
+                valid = true;
+
+                if(y[i].id == 'num_ext' || y[i].id == 'num_int' || y[i].id == 'ne' || y[i].id == 'ni'){
+                    if((y[i].value == "")){
+                        valid = true;
+                    }
+                }
+
+                
+
+            }
+        }
+        if (valid) { 
+            document.getElementsByClassName("step")[currentTab].className += " finish"; 
+        }else{
+
+            $('#error').modal('show');
+
+            // Ocultar el modal después de 3 segundos (3000 milisegundos)
+            setTimeout(function() {
+                $('#error').modal('hide');
+            }, 3000);
+            
+        }
+        
+        return valid;
+    }
+
+    function fixStepIndicator(n) {
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) { x[i].className = x[i].className.replace(" active", ""); }
+        x[n].className += " active";
+    }
+</script>
+
+<script>
+  const selector = document.getElementById('tipo_terreno');
+  const div_terreno_rural = document.getElementById('terreno_rural');
+  const div_terreno_urbano = document.getElementById('terreno_urbano');
+
+
+  selector.addEventListener('change', function() {
+    div_terreno_rural.classList.add('hidden');
+    div_terreno_urbano.classList.add('hidden');
+
+
+    const selectedOption = selector.value;
+    if (selectedOption === 'DATOS TERRENOS RURALES') {
+        div_terreno_rural.classList.remove('hidden');
+    } else if (selectedOption === 'DATOS DE TERRENOS URBANOS Y SUBURBANOS') {
+        div_terreno_urbano.classList.remove('hidden');
+    } 
+  });
+</script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+<script src="{%static 'js/autocompletar_2.js'%}"></script>
+
+<!-- <script src="{%static 'js/ficha_catastral.js'%}"></script>
+<script src="{%static 'js/ajax_datos_generales.js'%}"></script>
+<script src="{%static 'js/validaciones_datos_generales_ficha.js'%}"></script> -->
+
+
+
+{%endblock%}

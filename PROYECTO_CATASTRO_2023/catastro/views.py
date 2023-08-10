@@ -78,6 +78,21 @@ def vista_prueba(request):
     return render (request,'catastro/prueba_notify.html')
 
 
+#vista registro ciudadano
+def contribuyente_index(request):
+    return render(request,'catastro/alta_contribuyentes.html')
+
+def predios_index(request):
+    return render(request,'catastro/alta_predios.html')
+
+#vista solicitud dc017
+def solicitud_dc017(request):
+     return render(request,'catastro/solicitud_dc017.html')
+
+#vista ficha catastral
+def ficha_catastral(request):
+    return render(request,'catastro/ficha_catastral.html')
+
 """"
 def enviar(request):
     id= request.POST['id']

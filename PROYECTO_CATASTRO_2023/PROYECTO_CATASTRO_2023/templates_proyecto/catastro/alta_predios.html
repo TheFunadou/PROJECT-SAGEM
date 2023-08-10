@@ -4,7 +4,7 @@
 {%block content%}
 
 
-<h3 style="text-align: center;  font-family:  Times, 'Times New Roman', serif;">REGISTRO DE CONTRIBUYENTES</h3><br>
+<h3 style="text-align: center;  font-family:  Times, 'Times New Roman', serif;">REGISTRO DE PREDIOS</h3><br>
 
 
 {%endblock%}
@@ -316,174 +316,7 @@ button:hover {
             style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -34px; background:rgba(255, 255, 255, 0.5);">
             <legend class="float-none w-auto px-3"
                     style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
-                    DATOS GENERALES DEL CONTRIBUYENTE
-                    </legend>
-
-                    <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
-                        
-                        <div class="card-body" style="margin-top: 10px;">
-
-                            <div class="row">
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Tipo de persona</label>
-                                        <input type="text" id="tipo_persona" class="form-control" name="tipo_persona" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Tipo de identificación</label>
-                                        <input type="text" id="tipo_identificacion" class="form-control" name="tipo_identificacion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Número de identificación</label>
-                                        <input type="text" id="num_identificacion" class="form-control" name="num_identificacion" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">Nombre/Razón social</label>
-                                        <input type="text" id="rfc" class="form-control" name="rfc" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>   
-
-                            </div><br>
-
-                            <div class="row">
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Apellido paterno</label>
-                                        <input type="text" id="apellido paterno" class="form-control" name="apaterno" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Apellido materno</label>
-                                        <input type="text" id="apellido materno" class="form-control" name="amaterno" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">RFC</label>
-                                        <input type="text" id="rfc" class="form-control" name="rfc" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">CURP</label>
-                                        <input type="text" id="curp" class="form-control" name="curp" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div> 
-
-                            </div><br>
-
-                            <div class="row">
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Finado</label>
-                                        <select name="finado" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option value="SI">SI</option>
-                                            <option selected value="NO">NO</option>
-                                        </select>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Fecha de nacimiento / Registro</label>
-                                        <input type="text" id="fecha_nacimeinto" class="form-control" name="fecha_nacimeinto" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Teléfono</label>
-                                        <input type="text" id="telefono" class="form-control" name="telefono" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">Celular</label>
-                                        <input type="text" id="celular" class="form-control" name="celular" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div> 
-                                
-                            </div><br>
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Correo electrónico</label>
-                                        <input type="email" id="email" class="form-control" name="email" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Observaciones</label>
-                                        <input type="text" id="fecha_nacimeinto" class="form-control" name="fecha_nacimeinto" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" >
-                                                <span></span>
-                                    </div>
-                                </div>
-                            </div>
-        
-                        </div>
-                    </div><br>
-
-
-            </fieldset>   
-            
-            
-            <fieldset class="container fieldset-1 p-3"
-            style="border-top: #660b22 solid 2px; border-width: 2px 0 0;  background:rgba(255, 255, 255, 0.5);">
-            <legend class="float-none w-auto px-3"
-                    style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
-                    DOMICILIO DE NOTIFICACIÓN
+                    DATOS GENERALES DEL PREDIO
                     </legend>
 
                     <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
@@ -605,10 +438,224 @@ button:hover {
                     </div><br>
 
 
+            </fieldset>   
+            
+            
+            <fieldset class="container fieldset-1 p-3"
+            style="border-top: #660b22 solid 2px; border-width: 2px 0 0;  background:rgba(255, 255, 255, 0.5);">
+            <legend class="float-none w-auto px-3"
+                    style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                    DOMICILIO DEL PREDIO
+                    </legend>
+
+                    <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
+                        
+                        <div class="card-body" style="margin-top: 10px;">
+
+                            <div class="row">
+
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Entidad federativa</label>
+                                        <input type="text" id="ent_federativa" class="form-control" name="ent_federativa" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Municipio</label>
+                                        <input type="text" id="municipio" class="form-control" name="municipio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Localidad</label>
+                                        <input type="text" id="localidad" class="form-control" name="localidad" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div>  
+
+                                 
+
+                            </div><br>
+
+                            <div class="row">
+                                
+                                
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Colonia</label>
+                                        <input type="text" id="colonia" class="form-control" name="colonia" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Calle</label>
+                                        <input type="text" id="calle" class="form-control" name="calle" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div>  
+
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="rfc">Numero exterior</label>
+                                        <input type="text" id="num_exte" class="form-control" name="num_exte" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div> 
+
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Letra exterior</label>
+                                        <input type="text" id="letra_inte" class="form-control" name="letra_inte" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Número interior</label>
+                                        <input type="text" id="num_inte" class="form-control" name="num_inte" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Letra interior</label>
+                                        <input type="text" id="letra_inte" class="form-control" name="letra_inte" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div>  
+
+                                
+                                
+                            </div><br>
+                            <hr>
+
+        
+                        </div>
+                    </div><br>
+
+
             </fieldset>  
                        
                                               
                        
+
+        </div>
+
+        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 530px; z-index: 1; position: relative;">
+        
+            <fieldset class="container fieldset-1 p-3"
+            style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -34px; background:rgba(255, 255, 255, 0.5);">
+            <legend class="float-none w-auto px-3"
+                    style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                   PARTICIPACIÓN DEL CONTRIBUYENTE 
+                    </legend>
+
+                    <fieldset class="fieldset-1 card  bor rounded-3 p-3" style="background:rgb(255, 255, 255,.5); top: 5px; margin-left: 20px; margin-right: 20px;">
+                        <legend class="float-none w-auto px-3"
+                            style="font-size: 22px; color: brown;  font-family: 'Calibri'">RFC O NOMBRE DEL CONTRIBUYENTE</legend>
+
+                            <div class="row justify-content-center" style="">
+                                <div id="autocomplete" class="autocomplete col-xl-6 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <input type="text" id="busqueda" values="" class="form-control" name="busqueda" style="background-color: #f3ea9848; border: #ac2546 solid 1px;" 
+                                                placeholder="Buscar" required oninput ="this.value = this.value.toUpperCase();">
+                                    <div class="" style="top: -23px;">
+        
+                                        <ul id="resultado" class="row justify-content-center">
+                                        
+                                        </ul>
+        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                    </fieldset>
+
+
+                    <div class="card bor" style=" margin-top: 25px; margin-left: 20px; margin-right: 20px; text-align: left;">
+                        
+                        <div class="card-body" style="margin-top: 10px;">
+
+                            <div class="row">
+
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Apellido paterno</label>
+                                        <input type="text" id="ent_federativa" class="form-control" name="ent_federativa" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Apellido materno</label>
+                                        <input type="text" id="municipio" class="form-control" name="municipio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" id="localidad" class="form-control" name="localidad" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div>  
+
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Porcentaje de participación(%)</label>
+                                        <input type="text" id="localidad" class="form-control" name="localidad" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
+                                    </div>
+                                </div> 
+
+                                 
+
+                            </div><br>
+
+                            
+                            
+                            <hr>
+
+        
+                        </div>
+                    </div>
+
+
+
+            </fieldset>
 
         </div>
 
@@ -719,7 +766,7 @@ button:hover {
                 if (y[i].value == "") {
                     y[i].className += " invalid";
                     
-                    valid = false;
+                    valid = true;
 
                     if(y[i].id == 'num_ext' || y[i].id == 'num_int' || y[i].id == 'ne' || y[i].id == 'ni'){
                         if((y[i].value == "")){
