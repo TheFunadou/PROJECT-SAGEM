@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-t7q9#qppoo=rq#_6(g3uz4jarvb!pxcb(p=smjm8j87e=1kqr)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
     'catastro',
     'finanzas',
     'desarrollo_urbano',
+    'channels',
+    'notify'
 ]
 
 MIDDLEWARE = [
@@ -73,7 +76,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'PROYECTO_CATASTRO_2023.wsgi.application'
-
+ASGI_APPLICATION = 'PROYECTO_CATASTRO_2023.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -114,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Mexico_City'
 
 USE_I18N = True
 
@@ -142,3 +145,25 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # #NOTIFICACIONES
 # WEBSOCKET_NOTIFICATIONS_SERVER = 'ws://localhost:8000/ws/'
+
+CHANNEL_LAYERS = {
+    'default': {
+        ### Method 1: Via redis lab
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        # 'CONFIG': {
+        #     "hosts": [
+        #       'redis://h:<password>;@<redis Endpoint>:<port>' 
+        #     ],
+        # },
+
+        ### Method 2: Via local Redis
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        # 'CONFIG': {
+        #      "hosts": [('127.0.0.1', 6379)],
+        # },
+
+        ### Method 3: Via In-memory channel layer
+        ## ESTE METODO SE USA CON FINES DE PRUEBA.
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}

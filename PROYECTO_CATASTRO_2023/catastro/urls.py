@@ -25,11 +25,12 @@ urlpatterns = [
     #CERRAR_SESION
     path('logout_catastro/', views.cerrar_sesion, name='logout_catastro'),
     #PERFIL USUARIO NORMAL
-    path('perfil/',views.perfil_catastro,name='perfil_cat'),
+    path('perfil/',views.perfil_catastro, name='perfil_cat'),
     #PERFIL SUPER USUARIO
-    path('perfil_su/',views.perfil_sup_user_catastro,name='perfil_su_cat'),
+    path('perfil_su/',views.perfil_sup_user_catastro, name='perfil_su_cat'),
+    path('view_registrar_usuario/',views.view_registrar_usuario, name='view_registrar_usuario'),
+    path('view_cambiar_contra/', views.views_cambiar_password, name='view_cambiar_password'),
     
-    path('perfil_su/prueba/',views.vista_prueba,name='prueba_notify'),
     
     # REGISTRAR NUEVOS CONTIBUYENTES
     #path('registro_contribuyente/',views.registrar_contribuyentes.as_view(), name='registro_contribuyente'),
@@ -49,7 +50,13 @@ urlpatterns = [
     
     #ENVIAR NOTIFICACION
     path('enviar/',views.enviar, name='not'),
-    path('menu_willy',views.menu_willy, name='menu_w')
+    path('menu_willy',views.menu_willy, name='menu_w'),
+    # Views POST
+    path('registar_usuario/', views.registrar_usuario, name='registrar_usuario'),
+    path('cambiar_contra/', views.cambiar_password, name='cambiar_password'),
     
+    #PRUEBA_NOTIFY
+    path('notify/',views.view_notify,name="view_notify"),
+    path('send_not/',views.send_notify_test,name="send_not_2"),
     
 ]
