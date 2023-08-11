@@ -304,7 +304,7 @@ button:hover {
 
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
 
-<form id="formulario" action="registrar_datos_contribuyentes/" method="post">
+<form id="formulario" action="catastro:registrar_datos_predio" method="post">
 
         {%csrf_token%}
         <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>
@@ -579,7 +579,7 @@ button:hover {
                         <legend class="float-none w-auto px-3"
                             style="font-size: 22px; color: brown;  font-family: 'Calibri'">RFC O NOMBRE DEL CONTRIBUYENTE</legend>
 
-                            <div class="row justify-content-center" style="">
+                            <div class="row justify-content-center" >
                                 <div id="autocomplete" class="autocomplete col-xl-6 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <input type="text" id="busqueda" values="" class="form-control" name="busqueda" style="background-color: #f3ea9848; border: #ac2546 solid 1px;" 
                                                 placeholder="Buscar" required oninput ="this.value = this.value.toUpperCase();">

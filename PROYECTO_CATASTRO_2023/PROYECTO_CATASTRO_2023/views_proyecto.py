@@ -31,7 +31,7 @@ def pagina_login(request):
     # SI EL USUARIO NO ESTA AUTENTICADO SE RENDERIZA LA PAGINA DE LOGIN
     else:
         # print("El usuario no esta autenticado")
-        return render(request, 'registration/pantalla_inicio-2.html')
+        return render(request, 'registration/pantalla_inicio.html')
     
 # VIEW PARA CERRAR SESION
 def cerrar_sesion(request):

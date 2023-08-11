@@ -1,13 +1,17 @@
 {% extends "raiz/master_blade_v.1.html" %}
 {% load static %}
 
-{%block content%}
+<!--
+    Sugiero mejor poner el nombre de la pagina por el contexto, asi me facilita luego hacer algunas cosiilas 
+    {%block content%}
 
 
-<h3 style="text-align: center;  font-family:  Times, 'Times New Roman', serif;">REGISTRO DE CONTRIBUYENTES</h3><br>
+    <h3 style="text-align: center;  font-family:  Times, 'Times New Roman', serif;">REGISTRO DE CONTRIBUYENTES</h3><br>
 
 
-{%endblock%}
+    {%endblock%}
+-->
+
 
 
 {%block body%}
@@ -304,7 +308,7 @@ button:hover {
 
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
 
-<form id="formulario" action="registrar_datos_contribuyentes/" method="post">
+<form id="formulario" action="catastro:registrar_datos_contribuyentes" method="post">
 
         {%csrf_token%}
         <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>

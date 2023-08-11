@@ -48,9 +48,7 @@ urlpatterns = [
     #RUTA VISUALIZAR FICHA CATASTRAL
     path('catastro/perfil/ficha_catastral/',views.ficha_catastral,name='ficha_catastral'),
     
-    #ENVIAR NOTIFICACION
-    path('enviar/',views.enviar, name='not'),
-    path('menu_willy',views.menu_willy, name='menu_w'),
+    
     # Views POST
     path('registar_usuario/', views.registrar_usuario, name='registrar_usuario'),
     path('cambiar_contra/', views.cambiar_password, name='cambiar_password'),
