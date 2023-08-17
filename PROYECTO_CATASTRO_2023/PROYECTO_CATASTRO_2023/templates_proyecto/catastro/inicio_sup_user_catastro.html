@@ -68,8 +68,6 @@
             box_num_notify.innerText=num_notify;
         }
 
-
-
         socket.onclose = (event) => {
             console.log('WebSocket cerrado con código:', event.code, 'razón:', event.reason);
         };
@@ -77,6 +75,15 @@
         socket.onerror = (error) => {
             console.error('Error en el WebSocket:', error);
         };
+
+        //CERRAR LA CONEXION CON EL WEBSOCKET
+        window.addEventListener('beforeunload', function(event) {
+            event.preventDefault();
+            // Realiza aquí las acciones necesarias antes de que el usuario abandone la página
+            // Por ejemplo, cerrar conexiones WebSocket
+            websocket.close();
+            
+        });
 
         
     };

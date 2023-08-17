@@ -29,5 +29,8 @@ urlpatterns = [
     #PERFIL SUPER USUARIO
     path('perfil_su/',views.perfil_sup_user_finanzas,name='perfil_su_fin'),
     
+    #GESTOR_NOTIFY
+    path('gestor_notify/',views.gestor_notify_finanzas, name= 'gestor_notify'),
+    
     
 ]

@@ -17,6 +17,7 @@ from channels.auth import AuthMiddlewareStack
 # Importar urls de los consumers
 import notify.routing
 import catastro.routing
+import finanzas.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PROYECTO_CATASTRO_2023.settings')
 
@@ -28,7 +29,8 @@ application = ProtocolTypeRouter({
     'websocket':AuthMiddlewareStack(
         URLRouter(
             #notify.routing.websocket_urlpatterns +
-            catastro.routing.websocket_urlpatterns
+            catastro.routing.websocket_urlpatterns +
+            finanzas.routing.websocket_urlpatterns
         )
     )  
 })
