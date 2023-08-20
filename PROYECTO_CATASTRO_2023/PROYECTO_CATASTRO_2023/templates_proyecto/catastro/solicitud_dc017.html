@@ -1,5 +1,12 @@
 {% extends "raiz/master_blade_v.1.html" %}
 
+{%block content%}
+
+
+<h3 style="text-align: center;  font-family:  Times, 'Times New Roman', serif;">SOLICITUD DC-017</h3><br>
+
+{%endblock%}
+
 
 
 {%block body%}
@@ -295,7 +302,7 @@ button:hover {
 
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
 
-<form id="formulario" action="registrar_datos_contribuyentes/" method="post">
+<form id="formulario" action="{%url 'catastro:registrar_solicitud'%}" method="post">
 
         {%csrf_token%}
         <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>
@@ -320,7 +327,7 @@ button:hover {
                                                 <div class="form-group">
                                                     <label for="name" class="lbl1">Zona cat</label>
                                                     <input type="text" id="zonacat" class="form-control" name="zonacat" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                            placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                                                            value="08" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                                             
                                                 </div>  
                                             </div>   
@@ -329,7 +336,7 @@ button:hover {
                                                 <div class="form-group">
                                                     <label for="name">Municipio</label>
                                                     <input type="text" id="muni" class="form-control" name="muni" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                            placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                            value="109" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                 </div>
                                             </div>
                 
@@ -337,7 +344,7 @@ button:hover {
                                                 <div class="form-group">
                                                     <label for="name">Localidad</label>
                                                     <input type="text" id="loc" class="form-control" name="loc" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                            placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                            value="01" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                 </div>
                                             </div>           
                                             
@@ -400,7 +407,7 @@ button:hover {
                             <br>
                             <div class="card-body">
 
-                                <div class="row">
+                                <div class="row" style="text-align: center;">
                                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                         <div class="form-group">
                                             <label for="name">Apellido paterno</label>
@@ -448,7 +455,7 @@ button:hover {
                                 <legend class="float-none w-auto px-3" style="text-align: center; font-size: 22px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5);" >
                                     <img src="{% static 'img/Location.png' %}" alt="">DOMICILIO Y TELÉFONO DEL CONTRIBUYENTE</legend>
                                 
-                                <div class="row">
+                                <div class="row" style="text-align: center;">
 
                                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                         <div class="form-group">
@@ -490,10 +497,14 @@ button:hover {
                                                     <span></span>
                                         </div>
                                     </div>
+
+                                    <div class="input-group mb-3">
+                                        >
+                                    </div>
                                     
                                 </div>
                                 
-                                <div class="row" style="margin-top: 20px;">
+                                <div class="row" style="margin-top: 20px; text-align: center;">
                                     
                                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                         <div class="form-group">
@@ -537,7 +548,7 @@ button:hover {
                                 <legend class="float-none w-auto px-3" style="font-size: 22px; color: brown; font-family: 'Calibri'; text-align: center;" >
                                     <img src="{% static 'img/Address.png' %}" alt="">UBICACIÓN Y DATOS DEL INMUEBLE</legend>
                            
-                                            <div class="row " >
+                                            <div class="row " style="text-align: center;" >
 
                                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                                     <div class="form-group">
@@ -598,7 +609,7 @@ button:hover {
                 <div id="2" class="card bor" style="background:rgb(255, 255, 255,.5);  margin-top: 10px; margin-left: 20px; margin-right: 20px;">
                     <div class="card-body" style="margin-top: 20px; margin-bottom: 20px;">
 
-                        <div class="row ">
+                        <div class="row " style="text-align: center;">
 
                             <div class=" col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <label for="name">Tipos de predio</label>
@@ -618,8 +629,8 @@ button:hover {
                                 <label for="name">Tenencia de predio</label>
                                 <select name="tenenciapredio" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
                                     <option selected></option>
-                                    <option value="PROPIEDAD PRIVADA">PROPIEDAD PRIVADA</option>
-                                    <option value="POSESION">POSESIÓN</option>
+                                    <option selected="PROPIEDAD PRIVADA">PROPIEDAD PRIVADA</option>
+                                    
 
                                 </select>
                                 <span></span>
@@ -650,13 +661,24 @@ button:hover {
 
                         </div><br>
 
-                        <div class="row ">
+                        <div class="row " style="text-align: center;">
 
-                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
 
                                 <div class="form-group">
-                                    <label for="name" class="lbl1">Superficie/m2</label>
+                                    <label for="name" class="lbl1">Superficie estimada</label>
                                     <input type="text" id="superficie" class="form-control" name="superficie" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                        onkeypress="return valideKey(event);" value="">
+                                    <span></span>
+
+                                </div>
+                            </div>
+
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+
+                                <div class="form-group">
+                                    <label for="name" class="lbl1">Sup. inspeccionada</label>
+                                    <input type="text" id="superficie_2" class="form-control" name="superficie" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         onkeypress="return valideKey(event);" value="">
                                     <span></span>
 
@@ -667,15 +689,15 @@ button:hover {
                                 <div class="form-group">
                                     <label for="name" class="lbl1">Municipio</label>
                                     <input type="text" id="calle2" class="form-control" name="municipio2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                        required data-parsley-length="[1,30]" value="" onKeyUp="this.value = this.value.toUpperCase();">
+                                        required data-parsley-length="[1,30]" value="Minatitlán" onKeyUp="this.value = this.value.toUpperCase();">
                                     <span></span>
 
                                 </div>
                             </div>
 
-                            <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
-                                    <label for="name" class="lbl1">Ciudad o localidad</label>
+                                    <label for="name" class="lbl1">Localidad</label>
                                     <input type="text" id="ciudad2" class="form-control" name="ciudad2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         required data-parsley-length="[1,30]" value="" onKeyUp="this.value = this.value.toUpperCase();">
                                     <span></span>
@@ -706,9 +728,26 @@ button:hover {
                         style=" height:min-content; background:rgb(255, 255, 255,.5); margin-left: 20px; margin-right: 20px;">
                         <legend class="float-none w-auto px-3"
                         style="text-align: center; font-size: 22px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5);">
-                        <img src="{% static 'img/pared-de-ladrillo.png' %}" alt=""> DATOS DE LAS CONSTRUCCIONES EXISTENTES</legend><br>
+                        <img src="{% static 'img/pared-de-ladrillo.png' %}" alt=""> DATOS DE TIPO DE CONSTRUCCIÓN</legend><br>
 
-                        <div class="row" style="margin-top: -23px;">
+                        <div class="row" style="margin-top: -23px; text-align: center;">
+
+                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="name">Tipo de construccion</label>
+                                    <select name="techos" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
+                                        <option selected></option>
+                                        <option value="LOZA"></option>
+                                        <option value="LAMINA"></option>
+                                    </select>
+                                    <span></span>
+                                </div>
+                            </div>
+
+
+                        </div><br><br><br>
+                        <div class="row" style="margin-top: -23px; text-align: center;">
+
                             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="name">Techos</label>
@@ -716,7 +755,7 @@ button:hover {
                                         <option selected></option>
                                         <option value="LOZA">LOZA</option>
                                         <option value="LAMINA">LAMINA</option>
-                                        <option value="N/A">N/A</option>
+                                        <option value="N/A">NO CLASIFICA</option>
                                     </select>
                                     <span></span>
                                 </div>
@@ -748,7 +787,7 @@ button:hover {
                                             <select name="muros" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
                                                 <option selected></option>
                                                 <option value="BLOCK">BLOCK</option>
-                                                <option value="MADERA">MADERA</option>
+                                                <option value="MADERA">MAMPOSTERIA</option>
 
                                             </select>
                                             <span></span>
@@ -777,7 +816,7 @@ button:hover {
                             </div>
                         </div><br>
 
-                        <div class="row" style="">
+                        <div class="row" style="text-align: center;">
 
                             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
@@ -807,7 +846,7 @@ button:hover {
                                                 <option value="MADERA">MADERA</option>
                                                 <option value="FIERRO">FIERRO</option>
                                                 <option value="ALUMINIO">ALUMINIO</option>
-                                                <option value="N/A">N/A</option>
+                                                <option value="N/A">NO CLASIFICA</option>
                                             </select>
                                             <span></span>
                                         </div>
@@ -839,7 +878,7 @@ button:hover {
 
                         </div><br>
 
-                        <div class="row justify-content-center" style="">
+                        <div class="row justify-content-center" style="text-align: center;">
                             <!--Seccion para los checbox-->
 
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
@@ -874,7 +913,7 @@ button:hover {
                                 <div class="form-group">
                                     <input class="form-check-input" type="checkbox" value="SI" id="flexCheckDefault" name="LIC_OB">
                                     <label class="form-check-label" for="flexCheckDefault" style="font-size: 13px;">
-                                        Licencia de obra o democilición expedida por el ayuntamiento.
+                                        Licencia de democilición de obra expedida por el ayuntamiento.
                                     </label>
                                 </div>
                             </div>
@@ -899,7 +938,7 @@ button:hover {
                     <div class="modal-body text-center">
                         <h4>Great!</h4>	
                         <p>Los datos han sido registrado correctamente.</p>
-                        <button class="btn btn-success" data-dismiss="modal"><span>Ir a inicio</span> </button>
+                        
                     </div>
                 </div>
             </div>
@@ -928,8 +967,8 @@ button:hover {
 
                 <div class="col-xl-12 " style="margin-top: 5px;">
                     <div class="form-group" style="float:right;">
-                        <button type="button" class="btn btn-outline-info" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
-                        <button type="button" class="btn btn-outline-warning" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
+                        <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
+                        <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
         
                     </div>
                 </div>
@@ -992,7 +1031,7 @@ button:hover {
                 if (y[i].value == "") {
                     y[i].className += " invalid";
                     
-                    valid = false;
+                    valid = true;
 
                     if(y[i].id == 'num_ext' || y[i].id == 'num_int' || y[i].id == 'ne' || y[i].id == 'ni'){
                         if((y[i].value == "")){

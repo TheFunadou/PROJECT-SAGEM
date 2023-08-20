@@ -304,7 +304,7 @@ button:hover {
 
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
 
-<form id="formulario" action="registrar_datos_contribuyentes/" method="post">
+<form id="formulario" action="{%url 'catastro:redirect'%}" method="post">
 
         {%csrf_token%}
         <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>
@@ -321,16 +321,17 @@ button:hover {
 
                     <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
                         
-                        <div class="card-body" style="margin-top: 10px;">
+                        <div class="card-body" style="margin-top: 10px;" style="text-align: center;">
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
 
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Tipo de persona</label>
-                                        <input type="text" id="tipo_persona" class="form-control" name="tipo_persona" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
+                                        <select name="tipo_persona" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
+                                            <option selected value="FISICA">FÍSICA</option>
+                                            <option  value="MORAL">MORAL</option>
+                                        </select>
                                         
                                     </div>
                                     
@@ -339,9 +340,14 @@ button:hover {
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Tipo de identificación</label>
-                                        <input type="text" id="tipo_identificacion" class="form-control" name="tipo_identificacion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
+                                        <select name="tipo_identificacion" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
+                                            <option selected value="INE">INE</option>
+                                            <option value="ACTA CONSTITUTIVA">ACTA CONSTITUTIVA</option>
+                                            <option value="PASAPORTE">PASAPORTE</option>
+                                            <option value="CARTILLA MILITAR">CARTILLA MILITAR</option>
+                                            <option value="CEDULA PROFESIONAL">CÉDULA PROFESIONAL</option>
+                                            <option value="TITULO PROFESIONAL">TÍTULO PROFESIONAL</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -349,7 +355,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Número de identificación</label>
                                         <input type="text" id="num_identificacion" class="form-control" name="num_identificacion" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder="" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
@@ -358,14 +364,14 @@ button:hover {
                                     <div class="form-group">
                                         <label for="rfc">Nombre/Razón social</label>
                                         <input type="text" id="rfc" class="form-control" name="rfc" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder="" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>   
 
                             </div><br>
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
                                 
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
@@ -391,7 +397,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">RFC</label>
                                         <input type="text" id="rfc" class="form-control" name="rfc" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder="XXXX000000XXX" minlength="3" maxlength="13" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
@@ -400,14 +406,14 @@ button:hover {
                                     <div class="form-group">
                                         <label for="rfc">CURP</label>
                                         <input type="text" id="curp" class="form-control" name="curp" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder="XXXX000000XXXXXXX" minlength="18" maxlength="18" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div> 
 
                             </div><br>
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Finado</label>
@@ -424,7 +430,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Fecha de nacimiento / Registro</label>
                                         <input type="text" id="fecha_nacimeinto" class="form-control" name="fecha_nacimeinto" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>
@@ -433,7 +439,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Teléfono</label>
                                         <input type="text" id="telefono" class="form-control" name="telefono" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder="" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
@@ -442,7 +448,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="rfc">Celular</label>
                                         <input type="text" id="celular" class="form-control" name="celular" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder="" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div> 
@@ -450,12 +456,12 @@ button:hover {
                             </div><br>
                             <hr>
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Correo electrónico</label>
                                         <input type="email" id="email" class="form-control" name="email" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                         
                                     </div>
@@ -494,10 +500,40 @@ button:hover {
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Tipo de persona</label>
-                                        <input type="text" id="tipo_persona" class="form-control" name="tipo_persona" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
+                                        <label for="name">Entidad federativa</label>
+                                        <select name="tipo_persona" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
+                                            <option value="Aguascalientes">Aguascalientes</option>
+                                            <option value="Baja California">Baja California</option>
+                                            <option value="Baja California Sur">Baja California Sur</option>
+                                            <option value="Campeche">Campeche</option>
+                                            <option value="Chiapas">Chiapas</option>
+                                            <option value="Chihuahua">Chihuahua</option>
+                                            <option value="Coahuila">Coahuila</option>
+                                            <option value="Colima">Colima</option>
+                                            <option value="Durango">Durango</option>
+                                            <option value="Estado de México">Estado de México</option>
+                                            <option value="Guanajuato">Guanajuato</option>
+                                            <option value="Guerrero">Guerrero</option>
+                                            <option value="Hidalgo">Hidalgo</option>
+                                            <option value="Jalisco">Jalisco</option>
+                                            <option value="Michoacán">Michoacán</option>
+                                            <option value="Morelos">Morelos</option>
+                                            <option value="Nayarit">Nayarit</option>
+                                            <option value="Nuevo León">Nuevo León</option>
+                                            <option value="Oaxaca">Oaxaca</option>
+                                            <option value="Puebla">Puebla</option>
+                                            <option value="Querétaro">Querétaro</option>
+                                            <option value="Quintana Roo">Quintana Roo</option>
+                                            <option value="San Luis Potosí">San Luis Potosí</option>
+                                            <option value="Sinaloa">Sinaloa</option>
+                                            <option value="Sonora">Sonora</option>
+                                            <option value="Tabasco">Tabasco</option>
+                                            <option value="Tamaulipas">Tamaulipas</option>
+                                            <option value="Tlaxcala">Tlaxcala</option>
+                                            <option value="Veracruz">Veracruz</option>
+                                            <option value="Yucatán">Yucatán</option>
+                                            <option value="Zacatecas">Zacatecas</option>
+                                        </select>
                                         
                                     </div>
                                     
@@ -505,8 +541,8 @@ button:hover {
                                 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Tipo de identificación</label>
-                                        <input type="text" id="tipo_identificacion" class="form-control" name="tipo_identificacion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                        <label for="name">Municipio</label>
+                                        <input type="text" id="munic" class="form-control" name="munic" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
@@ -514,8 +550,8 @@ button:hover {
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Número de identificación</label>
-                                        <input type="text" id="num_identificacion" class="form-control" name="num_identificacion" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                        <label for="name">Localidad</label>
+                                        <input type="text" id="loca" class="form-control" name="loca" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
@@ -530,8 +566,8 @@ button:hover {
                                 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Apellido materno</label>
-                                        <input type="text" id="apellido materno" class="form-control" name="amaterno" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                        <label for="name">Colonia</label>
+                                        <input type="text" id="colon" class="form-control" name="colon" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
@@ -539,8 +575,8 @@ button:hover {
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">RFC</label>
-                                        <input type="text" id="rfc" class="form-control" name="rfc" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                        <label for="name">Calle</label>
+                                        <input type="text" id="calle" class="form-control" name="calle" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
@@ -548,9 +584,9 @@ button:hover {
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="rfc">CURP</label>
-                                        <input type="text" id="curp" class="form-control" name="curp" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                        <label for="rfc">Codigo postal</label>
+                                        <input type="text" id="cp" class="form-control" name="cp" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="XXXXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div> 
@@ -560,11 +596,10 @@ button:hover {
                             <div class="row">
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Finado</label>
-                                        <select name="finado" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option value="SI">SI</option>
-                                            <option selected value="NO">NO</option>
-                                        </select>
+                                        <label for="name">Número exterior</label>
+                                        <input type="text" id="num_ext" class="form-control" name="num_ext" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                <span></span>
                                         
                                     </div>
                                     
@@ -572,27 +607,27 @@ button:hover {
                                 
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Fecha de nacimiento / Registro</label>
-                                        <input type="text" id="fecha_nacimeinto" class="form-control" name="fecha_nacimeinto" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                        <label for="name">Letra exterior</label>
+                                        <input type="text" id="let_ext" class="form-control" name="let_ext" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="A-Z" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Teléfono</label>
-                                        <input type="text" id="telefono" class="form-control" name="telefono" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                        <label for="name">Número interior</label>
+                                        <input type="text" id="num_int" class="form-control" name="num_int" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
 
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="rfc">Celular</label>
-                                        <input type="text" id="celular" class="form-control" name="celular" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                        <label for="rfc">Letra interior</label>
+                                        <input type="text" id="let_int" class="form-control" name="let_int" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                                placeholder="A-Z" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div> 
@@ -719,7 +754,7 @@ button:hover {
                 if (y[i].value == "") {
                     y[i].className += " invalid";
                     
-                    valid = false;
+                    valid = true;
 
                     if(y[i].id == 'num_ext' || y[i].id == 'num_int' || y[i].id == 'ne' || y[i].id == 'ni'){
                         if((y[i].value == "")){

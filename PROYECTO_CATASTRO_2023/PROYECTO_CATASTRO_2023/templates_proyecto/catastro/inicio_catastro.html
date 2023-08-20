@@ -8,74 +8,128 @@
 </script>
 
 <style>
+
+
+
     #box-nav {
+
         width: 100%;
         /*border: solid black; */
         display: flex;
         align-items: center;
         justify-content: center;
         height: 27.3vh;
+
     }
 
+
+
     #box-nav nav {
+
         /*border: solid blue;*/
         padding: 0.5%;
         height: 100%;
         width: 100%;
         display: flex;
         justify-content: center;
+
     }
 
+
+
     .main-links {
+
+        
         margin-top: 5vh;
-        /*border: solid black;*/
         padding: 1%;
         display: flex;
+
         align-items: center;
         justify-content: center;
         gap: 1em;
+
         list-style: none;
         background-color: rgb(134, 22, 66);
         border-radius: 2em;
+
         font-size: 2vh;
         width: 100%;
         height: 3em;
+
+
     }
 
+
+
     .main-links li {
+
         padding: 0.5rem 1rem;
         background-color: rgb(134, 22, 66);
-        width: 20vh;
+        width: 25vh;
+
         border-radius: 1em;
+        white-space: nowrap;
         display: flex;
         align-items: center;
         justify-content: center;
+
     }
 
+
+
     .dropdown-li {
+
         position: relative;
         width: 100%;
         transition: 0.5s;
+
     }
 
+
+
     .dropdown-li a {
+
         color: white;
         text-decoration: none;
         text-align: center;
         font-weight: bold;
         font-size: 2vh;
+
     }
 
+
     .dropdown-li:hover {
-        background-color: rgb(88, 17, 44);
+
+        background-color: rgb(250, 181, 52);
+
+    }
+    
+
+    .dropdown-li:hover .titulo {
+
+        color: black;
+
+    }
+
+
+    .dropdown-li .as:hover {
+
+        color: rgb(252, 199, 53);
+
     }
 
     .dropdown-li:hover .dropdown {
+
         display: block;
         background-color: rgb(134, 22, 66);
+        
+
     }
 
+
+
     .dropdown {
+
         margin: 0;
         padding: 0;
         width: 100%;
@@ -84,11 +138,16 @@
         top: 100%;
         display: none;
         border-radius: 0 0 1em 1em;
+
     }
 
-    .dropdown li {
+
+
+    .dropdown li{
+
         list-style: none;
         width: 100%;
+
     }
 
     /* BOX DOS
@@ -136,27 +195,38 @@
     }
 </style>
 
+
 <div id="box-nav">
     <nav>
         <ul class="main-links">
             <li class="dropdown-li">
-                <a href="">ALTAS</a>
+                <a href="" class="titulo">PROPIEDADES Y TITULARES</a>
                 <ul class="dropdown">
-                    <li><a href="{% url 'catastro:vista_alta_contribuyente' %}">NUEVO CONTRIBUYENTE</a></li>
-                    <li><a href="{% url 'catastro:vista_alta_predios' %}">NUEVO PREDIO</a></li>
-                    <li><a href="">INCORPORACIÓN</a></li>
-                    <li><a href="">SUBDIVISIÓN</a></li>
-                    <li><a href="">FUSIÓN DE PREDIOS</a></li>
+                    <li><a href="{% url 'catastro:index_contribuyente' %}" class="as">CONTRIBUYENTES</a></li>
+                    <li><a href="" class="as">PREDIOS</a></li>            
                 </ul>
             </li>
+
             <li class="dropdown-li">
-                <a href="">TRAMITES</a>
+                <a href=""class="titulo">ALTAS</a>
                 <ul class="dropdown">
-                    <li><a href="{% url 'catastro:solicitud' %}">DC017</a></li>
-                    <li><a href="{%url 'catastro:ficha_catastral'%}">FICHA_CATASTRAL</a></li>
+                    <li><a href="{% url 'catastro:vista_alta_contribuyente' %}" class="as">NUEVO CONTRIBUYENTE</a></li>
+                    <li><a href="{% url 'catastro:vista_alta_predios' %}" class="as">NUEVO PREDIO</a></li>
+                    <li><a href="" class="as">INCORPORACIÓN</a></li>
+                    <li><a href="" class="as">SUBDIVISIÓN</a></li>
+                    <li><a href="" class="as">FUSIÓN DE PREDIOS</a></li>
                 </ul>
             </li>
+
             <li class="dropdown-li">
+                <a href=""class="titulo">TRAMITES</a>
+                <ul class="dropdown">
+                    <li><a href="{% url 'catastro:solicitud' %}" class="as">DC017</a></li>
+                    <li><a href="{%url 'catastro:ficha_catastral'%}" class="as">FICHA_CATASTRAL</a></li>
+                </ul>
+            </li>
+
+            <!-- <li class="dropdown-li">
                 <a href="">BAJAS</a>
                 <ul class="dropdown">
                     <li><a href="">USUARIO</a></li>
@@ -164,30 +234,33 @@
                     <li><a href="#">NUEVO CONTRIBUYENTE</a></li>
                 </ul>
             </li>
+
             <li class="dropdown-li">
                 <a href="">MODIFICACIONES</a>
                 <ul class="dropdown">
                     <li><a href="">NUEVA BAJA</a></li>
                     <li><a href="">NUEVO USUARIO</a></li>
                 </ul>
-            </li>
+            </li> -->
+
             <li class="dropdown-li">
-                <a href="">REPORTE</a>
+                <a href=""class="titulo">REPORTE</a>
                 <ul class="dropdown">
-                    <li><a href="">PRUEBA_REPORTE</a></li>
-                    <li><a href="">NUEVO USUARIO</a></li>
+                    <li><a href="" class="as">PRUEBA_REPORTE</a></li>
+                    <li><a href="" class="as">NUEVO USUARIO</a></li>
                 </ul>
             </li>
+            
             <li class="dropdown-li">
-                <a href="">TRAMITES</a>
+                <a href=""class="titulo">TRAMITES</a>
                 <ul class="dropdown">
-                    <li><a href="">NUEVA BAJA</a></li>
-                    <li><a href="">NUEVO USUARIO</a></li>
+                    <li><a href="" class="as">NUEVA BAJA</a></li>
+                    <li><a href="" class="as">NUEVO USUARIO</a></li>
                 </ul>
             </li>
 
             <li class="dropdown-li">
-                <a href="">NOTIFICACIONES<span style="background-color: rgb(252,219,85); border-radius: 3vh; margin-left: 1vh; padding: 1%; color: rgb(134, 22, 66);">10</span></a>
+                <a href=""class="titulo">NOTIFICACIONES<span style="background-color: rgb(252,219,85); border-radius: 3vh; margin-left: 1vh; padding: 1%; color: rgb(134, 22, 66);">10</span></a>
                 <ul class="dropdown">
                     <li><a href=""><!-- NOTIFIACIONES --></a></li>
                     
@@ -195,7 +268,7 @@
             </li>
 
             <li class="dropdown-li">
-                <a href="{% url 'catastro:logout_catastro' %}">CERRAR SESIÓN</a>
+                <a href="{% url 'catastro:logout_catastro' %}"class="titulo">CERRAR SESIÓN</a>
             </li>
 
 

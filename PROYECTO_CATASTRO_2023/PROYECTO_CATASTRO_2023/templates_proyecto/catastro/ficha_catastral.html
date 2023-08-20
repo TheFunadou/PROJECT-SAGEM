@@ -14,6 +14,14 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
 <script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
 
 <style>
 
@@ -424,7 +432,7 @@ button:hover {
 
 </style>
 
-<form action="" method="post">
+<form id="formulario" action="{%url 'catastro:ficha'%}" method="post">
     {%csrf_token%}
     <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>
 
@@ -511,7 +519,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="fa_paterno" class="lbl1">Apellido paterno</label>
-                                    <input type="text" id="fa_paterno" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fa_paterno" placeholder=""
+                                    <input type="text" id="fa_paterno" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="fa_paterno" placeholder=""
                                         required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -521,7 +529,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="fa_materno" class="lbl1">Apellido materno</label>
-                                    <input type="text" id="fa_materno" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fa_materno" placeholder=""
+                                    <input type="text" id="fa_materno" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="fa_materno" placeholder=""
                                         required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -533,7 +541,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="fnombre" class="lbl1">Nombre</label>
-                                    <input type="text" id="fnombre" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fnombre" placeholder=""
+                                    <input type="text" id="fnombre" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="fnombre" placeholder=""
                                         required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -543,7 +551,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="fcurp" class="lbl1">CURP/RFC</label>
-                                    <input type="text" id="fcurp" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fcurp" placeholder=""
+                                    <input type="text" id="fcurp" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="fcurp" placeholder=""
                                         required onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -569,7 +577,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_calle" class="lbl1">Calle</label>
-                                    <input type="text" id="f_calle" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_calle" placeholder=""
+                                    <input type="text" id="f_calle" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_calle" placeholder=""
                                         required  onKeyUp="this.value = this.value.toUpperCase();" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -579,7 +587,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_int" class="lbl1">Interior</label>
-                                    <input type="text" id="f_int" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_int" placeholder=""
+                                    <input type="text" id="f_int" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_int" placeholder=""
                                         required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -589,7 +597,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="name" class="lbl1">Exterior</label>
-                                    <input type="text" id="f_ext" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_ext" placeholder=""
+                                    <input type="text" id="f_ext" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_ext" placeholder=""
                                         required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -599,7 +607,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_col_fracc" class="lbl1">Colonia/Fraccionamiento</label>
-                                    <input type="text" id="f_col_fracc" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_col_fracc" placeholder=""
+                                    <input type="text" id="f_col_fracc" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_col_fracc" placeholder=""
                                         required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -609,7 +617,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_tipopredio" class="lbl1">Tipo de predio</label>
-                                    <input type="text" id="f_tipopredio" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_tipopredio" placeholder=""
+                                    <input type="text" id="f_tipopredio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_tipopredio" placeholder=""
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -619,7 +627,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_uso_predio" class="lbl1">Uso del predio</label>
-                                    <input type="text" id="f_uso_predio" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_uso_predio" placeholder=""
+                                    <input type="text" id="f_uso_predio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_uso_predio" placeholder=""
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -644,7 +652,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_calle_notifica" class="lbl1">Calle</label>
-                                    <input type="text" id="f_calle_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_calle_notifica" placeholder=""
+                                    <input type="text" id="f_calle_notifica" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_calle_notifica" placeholder=""
                                         required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -654,7 +662,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_int_notifica" class="lbl1">Interior</label>
-                                    <input type="text" id="f_int_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_int_notifica" placeholder=""
+                                    <input type="text" id="f_int_notifica" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_int_notifica" placeholder=""
                                         required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -664,7 +672,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_ext_notifica" class="lbl1">Exterior</label>
-                                    <input type="text" id="f_ext_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_ext_notifica" placeholder=""
+                                    <input type="text" id="f_ext_notifica" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_ext_notifica" placeholder=""
                                         required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -674,7 +682,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_cp_notifica" class="lbl1">Código postal</label>
-                                    <input type="text" id="f_cp_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_cp_notifica" placeholder=""
+                                    <input type="text" id="f_cp_notifica" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_cp_notifica" placeholder=""
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -684,7 +692,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_colonia_fracc_notifica" class="lbl1">Colonia/Fraccionamiento</label>
-                                    <input type="text" id="f_colonia_fracc_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_colonia_fracc_notifica" placeholder=""
+                                    <input type="text" id="f_colonia_fracc_notifica" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_colonia_fracc_notifica" placeholder=""
                                         required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -694,7 +702,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_ciudad_notifica" class="lbl1">Ciudad o población</label>
-                                    <input type="text" id="f_ciudad_notifica" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="f_ciudad_notifica" placeholder=""
+                                    <input type="text" id="f_ciudad_notifica" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_ciudad_notifica" placeholder=""
                                         required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -730,7 +738,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="lugar_expedision" class="lbl1">Lugar de expedición</label>
-                                    <input type="text" id="lugar_expedision" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="lugar_expedision" placeholder=""
+                                    <input type="text" id="lugar_expedision" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="lugar_expedision" placeholder=""
                                         required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();"  aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -740,7 +748,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="td" class="lbl1">T.D.</label>
-                                    <input type="text" id="td" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="td" placeholder=""
+                                    <input type="text" id="td" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="td" placeholder=""
                                         required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm" onkeypress="return valideKey(event);">
                                     <span></span>
 
@@ -750,7 +758,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="no_documento" class="lbl1">No. documento</label>
-                                    <input type="text" id="no_documento" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="no_documento" placeholder=""
+                                    <input type="text" id="no_documento" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="no_documento" placeholder=""
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -760,7 +768,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="predio_dia" class="lbl1">Día</label>
-                                    <input type="text" id="predio_dia" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="predio_dia" placeholder=""
+                                    <input type="text" id="predio_dia" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="predio_dia" placeholder=""
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -770,7 +778,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="predio_mes" class="lbl1">Mes</label>
-                                    <input type="text" id="predio_mes" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="predio_mes" placeholder=""
+                                    <input type="text" id="predio_mes" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="predio_mes" placeholder=""
                                         required onkeypress="return valideKey(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -780,7 +788,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="predio_año" class="lbl1">Año</label>
-                                    <input type="text" id="predio_año" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="predio_año" placeholder=""
+                                    <input type="text" id="predio_año" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="predio_año" placeholder=""
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -790,7 +798,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="notaria" class="lbl1">No. Notaria</label>
-                                    <input type="text" id="notaria" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="notaria" placeholder=""
+                                    <input type="text" id="notaria" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="notaria" placeholder=""
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -816,7 +824,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="tipo_avaluo" class="lbl1">Tipo de avaluo</label>
-                                    <input type="text" id="tipo_avaluo" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tipo_avaluo" placeholder=""
+                                    <input type="text" id="tipo_avaluo" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tipo_avaluo" placeholder=""
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -826,7 +834,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="fracc_" class="lbl1">Fracc.</label>
-                                    <input type="text" id="fracc_" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="fracc_" placeholder=""
+                                    <input type="text" id="fracc_" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="fracc_" placeholder=""
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -836,7 +844,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="tras_dominio" class="lbl1">Traslado de dominio</label>
-                                    <input type="text" id="tras_dominio" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tras_dominio" placeholder=""
+                                    <input type="text" id="tras_dominio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tras_dominio" placeholder=""
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -846,7 +854,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="regimen_legal" class="lbl1">Regimen legal del prop.</label>
-                                    <input type="text" id="regimen_legal" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="regimen_legal" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="regimen_legal" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="regimen_legal" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -859,7 +867,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="tenencia_pred" class="lbl1">Tenencia</label>
-                                    <input type="text" id="tenencia_pred" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tenencia_pred" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="tenencia_pred" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tenencia_pred" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -868,7 +876,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="est_fisico" class="lbl1">Estado físico</label>
-                                    <input type="text" id="est_fisico" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="est_fisico" placeholder=""
+                                    <input type="text" id="est_fisico" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="est_fisico" placeholder=""
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -878,7 +886,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="cod_uso" class="lbl1">Cod. de uso predio</label>
-                                    <input type="text" id="cod_uso" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="cod_uso" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="cod_uso" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="cod_uso" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -887,7 +895,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="tipo_posesion" class="lbl1">Tipo de posesion</label>
-                                    <input type="text" id="tipo_posesion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tipo_posesion" placeholder=""
+                                    <input type="text" id="tipo_posesion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tipo_posesion" placeholder=""
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -897,7 +905,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="no_emision" class="lbl1">No emisión</label>
-                                    <input type="text" id="no_emision" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="no_emision" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="no_emision" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="no_emision" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -933,7 +941,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="bajo_numero" class="lbl1">Bajo número</label>
-                                    <input type="text" id="bajo_numero" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="bajo_numero" onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="bajo_numero" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="bajo_numero" onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -942,7 +950,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="tomo" class="lbl1">Tomo</label>
-                                    <input type="text" id="tomo" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tomo" 
+                                    <input type="text" id="tomo" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tomo" 
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -952,7 +960,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="dia_inscripcion" class="lbl1">Día</label>
-                                    <input type="text" id="dia_inscripcion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="dia_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="dia_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="dia_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -961,7 +969,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="mes_inscripcion" class="lbl1">Mes</label>
-                                    <input type="text" id="mes_inscripcion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="mes_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="mes_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="mes_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -970,7 +978,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="año_inscripcion" class="lbl1">Año</label>
-                                    <input type="text" id="año_inscripcion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="año_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="año_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="año_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -979,7 +987,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="zona_inscripcion" class="lbl1">Zona</label>
-                                    <input type="text" id="zona_inscripcion" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="zona_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1000,7 +1008,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <!-- <label for="f_calle_notifica" class="lbl1">Bajo número</label> -->
-                                    <input type="text" id="bajo_numero_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="bajo_numero_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="bajo_numero_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="bajo_numero_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1009,7 +1017,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <!-- <label for="f_int_notifica" class="lbl1">Tomo</label> -->
-                                    <input type="text" id="tomo_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="tomo_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="tomo_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tomo_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1018,7 +1026,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <!-- <label for="f_ext_notifica" class="lbl1">Día</label> -->
-                                    <input type="text" id="dia_inscripcion_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="dia_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="dia_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="dia_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1027,7 +1035,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <!-- <label for="f_cp_notifica" class="lbl1">Mes</label> -->
-                                    <input type="text" id="mes_inscripcion_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="mes_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="mes_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="mes_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1036,7 +1044,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <!-- <label for="f_colonia_fracc_notifica" class="lbl1">Año</label> -->
-                                    <input type="text" id="año_inscripcion_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="año_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="año_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="año_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1045,7 +1053,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <!-- <label for="f_ciudad_notifica" class="lbl1">Zona</label> -->
-                                    <input type="text" id="zona_inscripcion_2" style="background-color: #f3ea9848;border: 2px rgb(245, 192, 17) solid;" class="form-control" name="zona_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="zona_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="zona_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1089,7 +1097,7 @@ button:hover {
                     <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                             <label for="t_suelo" class="lbl1"><strong>T/SUELO</strong></label>
-                            <input type="text" id="t_suelo" class="form-control" name="t_suelo" 
+                            <input type="text" id="t_suelo" class="form-control" name="t_suelo" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                     
                         </div>  
@@ -1098,7 +1106,7 @@ button:hover {
                     <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                         <div class="form-group">
                             <label for="Valor_has"><strong>VALOR/HAS</strong></label>
-                            <input type="text" id="valor_has" class="form-control" name="Valor_has" 
+                            <input type="text" id="valor_has" class="form-control" name="Valor_has" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                         </div>
                     </div>
@@ -1106,7 +1114,7 @@ button:hover {
                     <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                         <div class="form-group">
                             <label for="has" class="lbl1"><strong>HAS</strong> </label>
-                            <input type="text" id="has" class="form-control" name="has" 
+                            <input type="text" id="has" class="form-control" name="has" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                     
                         </div>  
@@ -1115,7 +1123,7 @@ button:hover {
                     <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                         <div class="form-group">
                             <label for="a"><strong>A</strong></label>
-                            <input type="text" id="a" class="form-control" name="a" 
+                            <input type="text" id="a" class="form-control" name="a" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                         </div>
                     </div>
@@ -1123,7 +1131,7 @@ button:hover {
                     <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                         <div class="form-group">
                             <label for="c" class="lbl1"><strong>C</strong></label>
-                            <input type="text" id="c_11" class="form-control" name="c" 
+                            <input type="text" id="c_11" class="form-control" name="c" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                     
                         </div>  
@@ -1139,18 +1147,18 @@ button:hover {
                         <thead>
             
                             <tr class="table-active">
-                            <td style="border: 0px solid;"></td>
-                            <td style="border: 0px solid;"></td>
+                            <td style="border: 0px solid;background:rgba(255, 255, 255,0.5);"></td>
+                            <td style="border: 0px solid;background:rgba(255, 255, 255,0.5);"></td>
                             <td colspan="3" style="font-weight: 700;">SUPERFICIE</td>
                             
                             </tr>
             
                             <tr class="table-active" style="font-weight: 700;">
                             <td  rowspan="2" style="height: 100%;">T/Suelo</td>
-                            <td  rowspan="2">Valor/has</td>
-                            <td>HAS.</td>
-                            <td>A</td>
-                            <td>C</td>     
+                            <td  rowspan="2" style="">Valor/has</td>
+                            <td style="">HAS.</td>
+                            <td style="">A</td>
+                            <td style="">C</td>     
                             </tr>
                         
                             
@@ -1182,7 +1190,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm  ">
                                 <div class="form-group">
-                                    <input type="text" id="top" class="form-control" name="top" 
+                                    <input type="text" id="top" class="form-control" name="top" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="top" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1192,7 +1200,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm">
                                 <div class="form-group">
-                                    <input type="text" id="vias_c" class="form-control" name="vias_c" 
+                                    <input type="text" id="vias_c" class="form-control" name="vias_c" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="vias" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1224,7 +1232,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm  ">
                                 <div class="form-group">
-                                    <input type="text" id="has_st" class="form-control" name="has_st" 
+                                    <input type="text" id="has_st" class="form-control" name="has_st" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                             placeholder="has_st" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1234,7 +1242,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm">
                                 <div class="form-group">
-                                    <input type="text" id="a_st" class="form-control" name="a_st" 
+                                    <input type="text" id="a_st" class="form-control" name="a_st" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                             placeholder="a_st" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1244,7 +1252,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm ">
                                 <div class="form-group">
-                                    <input type="text" id="c_st" class="form-control" name="c_st" 
+                                    <input type="text" id="c_st" class="form-control" name="c_st" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                             placeholder="c_st" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1274,7 +1282,7 @@ button:hover {
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                                 <label for="valor2_m2" class="lbl1"><strong>VALOR M2</strong></label>
-                                <input type="text" id="valor2_m2" class="form-control" name="valor2_m2" 
+                                <input type="text" id="valor2_m2" class="form-control" name="valor2_m2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>
@@ -1282,7 +1290,7 @@ button:hover {
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                                 <label for="area_terreno" class="lbl1"><strong>AREA DEL TERRENO</strong></label>
-                                <input type="text" id="area_terreno" class="form-control" name="area_terreno" 
+                                <input type="text" id="area_terreno" class="form-control" name="area_terreno" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>
@@ -1290,7 +1298,7 @@ button:hover {
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                                 <label for="c_s" class="lbl1"><strong>C</strong></label>
-                                <input type="text" id="c_s" class="form-control" name="c_s" 
+                                <input type="text" id="c_s" class="form-control" name="c_s" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>
@@ -1299,7 +1307,7 @@ button:hover {
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                                 <label for="area_terreno" class="lbl1"><strong>VALOR M2</strong></label>
-                                <input type="text" id="valor_m2" class="form-control" name="valor-m2" 
+                                <input type="text" id="valor_m2" class="form-control" name="valor-m2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>
@@ -1307,7 +1315,7 @@ button:hover {
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                                 <label for="area_terreno" class="lbl1"><strong>FRENTE</strong></label>
-                                <input type="text" id="frente" class="form-control" name="frente" 
+                                <input type="text" id="frente" class="form-control" name="frente" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>
@@ -1315,7 +1323,7 @@ button:hover {
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                                 <label for="area_terreno" class="lbl1"><strong>PROFUNDIDAD</strong></label>
-                                <input type="text" id="profundidad" class="form-control" name="frente" 
+                                <input type="text" id="profundidad" class="form-control" name="frente" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         onkeydown="agregarFila()" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>   
@@ -1456,7 +1464,7 @@ button:hover {
                         <div class="form-group">
                             <label for="etiqueta" class="lbl1">Etiqueta</label>
                             <select name="etiqueta" id="etiqueta" class="form-select form-select-sm"
-                                aria-label=".form-select-sm example">
+                                aria-label=".form-select-sm example"style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
                                 <option selected></option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -1472,7 +1480,7 @@ button:hover {
                         <div class="form-group">
                             <label for="tipo_c">Tipo_c</label>
                             <select name="tipo_c" id="tipo_c" class="form-select form-select-sm"
-                                aria-label=".form-select-sm example">
+                                aria-label=".form-select-sm example"style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
                                 <option selected></option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -1491,7 +1499,7 @@ button:hover {
                         <div class="form-group">
                             <label for="est">Estado</label>
                             <select name="est" id="est" class="form-select form-select-sm"
-                            aria-label=".form-select-sm example">
+                            aria-label=".form-select-sm example"style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
                             <option selected></option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -1510,7 +1518,7 @@ button:hover {
                         <div class="form-group">
                             <label for="terreno">Terreno</label>
                             <select name="terreno" id="terreno" class="form-select form-select-sm"
-                            aria-label=".form-select-sm example">
+                            aria-label=".form-select-sm example"style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
                             <option selected></option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -1528,7 +1536,7 @@ button:hover {
                     <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                         <div class="form-group">
                             <label for="antiguedad">Antiguedad</label>
-                            <input type="text" id="antiguedad" class="form-control" name="antiguedad" style="height: 30px;"
+                            <input type="text" id="antiguedad" class="form-control" name="antiguedad" style="height: 30px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                         </div>
                     </div>
@@ -1536,7 +1544,7 @@ button:hover {
                     <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                         <div class="form-group">
                             <label for="area_c">Área(m²)</label>
-                            <input type="text" id="area_c" class="form-control" name="area_c" style="height: 30px;"
+                            <input type="text" id="area_c" class="form-control" name="area_c" style="height: 30px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
                         </div>
                     </div>
@@ -1566,7 +1574,7 @@ button:hover {
         </fieldset>
     
     
-        <form action="guardar_imprimir/" method="post">
+        
             {% csrf_token %}
             <fieldset class="container fieldset-1 card  rounded-3 p-3"
             style=" top: 57px; background:rgba(255, 255, 255, 0.5); margin-left: 20px; margin-right: 20px;">
@@ -1577,7 +1585,7 @@ button:hover {
             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                 <div class="form-group">
                     <label for="fc_de">Valor del terreno</label>
-                    <input type="text" id="va_te" class="form-control" name="va_te" style="height: 25px;"
+                    <input type="text" id="va_te" class="form-control" name="va_te" style="height: 25px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                             placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
                 </div>
             </div>
@@ -1585,7 +1593,7 @@ button:hover {
             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                 <div class="form-group">
                     <label for="fc_de">Valor de la construccion</label>
-                    <input type="text" id="va_co"  class="form-control" name="va_co" style="height: 25px;"
+                    <input type="text" id="va_co"  class="form-control" name="va_co" style="height: 25px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                             placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
                 </div>
             </div>
@@ -1594,7 +1602,7 @@ button:hover {
             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                 <div class="form-group">
                     <label for="fc_de">Valor catastral</label>
-                    <input type="text" id="va_ca" class="form-control" name="va_ca" style="height: 25px;"
+                    <input type="text" id="va_ca" class="form-control" name="va_ca" style="height: 25px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                             placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
                 </div>
             </div>
@@ -1609,10 +1617,45 @@ button:hover {
     
         </fieldset>
     
-        </form>
+       
     
     </div>
 
+    <div id="myModal" class="modal fade" style="margin-top: 90px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
+                    </div>
+                    
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Great!</h4>	
+                    <p>Los datos han sido registrado correctamente.</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <div id="error" class="modal fade" style="margin-top: 100px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header-error justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xe5cd;</i>
+                    </div>
+                    
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Campos vacios</h4>	
+                    <p>Favor de completar los campos.</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>  
 
     <div class="container"  id="nextprevious">
         <div class="row" style="float:right;"> 
@@ -1620,8 +1663,8 @@ button:hover {
             <div class="col-xl-12 " style="margin-top: 5px;">
                 <div class="form-group" style="float:right;">
                     <button type="button" class="btn btn-outline-info" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
-                    <button type="button" class="btn btn-outline-warning" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
-
+                    <button type="button" class="btn btn-outline-warning" id="nextBtn" onclick="nextPrev(1);">Siguiente</button>
+    
                 </div>
             </div>
             <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button> 
@@ -1631,7 +1674,7 @@ button:hover {
 
 </form>
 
-
+<script src="{%static 'js/ajax_datos_predios.js'%}"></script>
 <script>
       
     var currentTab = 0;
@@ -1665,9 +1708,10 @@ button:hover {
         if (currentTab >= x.length) {
 
             $('#myModal').modal('show');
-
+            
             setTimeout(function() {     
                 document.getElementById("formulario").submit();
+                validar_divs()
                 return false;
             }, 2000); 
 
@@ -1719,12 +1763,24 @@ button:hover {
 </script>
 
 <script>
+
+  function validar_divs(){
+    if (div_terreno_rural.classList.contains('hidden')) {
+        console.log('El div de terreno rural está oculto');
+    }
+    if (div_terreno_urbano.classList.contains('hidden')) {
+        console.log('El div de terreno urbano está oculto');
+    }
+  }
+
   const selector = document.getElementById('tipo_terreno');
   const div_terreno_rural = document.getElementById('terreno_rural');
   const div_terreno_urbano = document.getElementById('terreno_urbano');
 
 
-  selector.addEventListener('change', function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    // Tu código aquí, por ejemplo:
+    selector.addEventListener('change', function() {
     div_terreno_rural.classList.add('hidden');
     div_terreno_urbano.classList.add('hidden');
 
@@ -1734,8 +1790,13 @@ button:hover {
         div_terreno_rural.classList.remove('hidden');
     } else if (selectedOption === 'DATOS DE TERRENOS URBANOS Y SUBURBANOS') {
         div_terreno_urbano.classList.remove('hidden');
-    } 
+    }validar_divs()});
+    
+    validar_divs()
   });
+
+
+ 
 </script>
 
 
@@ -1751,9 +1812,11 @@ button:hover {
 <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
 <script src="{%static 'js/autocompletar_2.js'%}"></script>
 
-<!-- <script src="{%static 'js/ficha_catastral.js'%}"></script>
+<script src="{%static 'js/ficha_catastral.js'%}"></script>
 <script src="{%static 'js/ajax_datos_generales.js'%}"></script>
-<script src="{%static 'js/validaciones_datos_generales_ficha.js'%}"></script> -->
+
+
+<script src="{%static 'js/validaciones_datos_generales_ficha.js'%}"></script> 
 
 
 

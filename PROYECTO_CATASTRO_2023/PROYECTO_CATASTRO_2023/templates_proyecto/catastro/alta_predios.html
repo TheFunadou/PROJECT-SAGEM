@@ -304,7 +304,7 @@ button:hover {
 
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
 
-<form id="formulario" action="registrar_datos_contribuyentes/" method="post">
+<form id="formulario" action="{%url 'catastro:redirect'%}" method="post">
 
         {%csrf_token%}
         <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>
@@ -322,12 +322,102 @@ button:hover {
                     <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
                         
                         <div class="card-body" style="margin-top: 10px;">
+                            <div class="" style=" margin-top: -50px;">
+                                <fieldset class="fieldset-1 card bor rounded-4 p-3" style=" margin-top: 30px; margin-left: 20px; margin-right: 20px;">
+                                    <legend class="float-none w-auto px-3" style="font-size: 22px; color: brown;  font-family: 'Calibri'" >
+                                        <img src="{% static 'img/Key.svg' %}" alt="">CLAVE CATASTRAL</legend>
+                    
+                                            <div class="row " style="margin-top: 0px;">
+                    
+                                                <div class="col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                
+                                                </div>   
+                        
+                                                <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name" class="lbl1">Zona cat</label>
+                                                        <input type="text" id="zonacat" class="form-control" name="zonacat" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                                value="08" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                                                
+                                                    </div>  
+                                                </div>   
+                                            
+                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">Municipio</label>
+                                                        <input type="text" id="muni" class="form-control" name="muni" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                                value="109" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">Localidad</label>
+                                                        <input type="text" id="loc" class="form-control" name="loc" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                                value="01" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>           
+                                                
+                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">Región</label>
+                                                        <input type="text" id="region" class="form-control" name="region" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                                placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                            
+                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">Manzana</label>
+                                                        <input type="text" id="manzana" class="form-control" name="manzana" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                                placeholder=""onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                            
+                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">Lote</label>
+                                                        <input type="text" id="lote" class="form-control" name="lote" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                                placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                            
+                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">Nivel</label>
+                                                        <input type="text" id="nivel" class="form-control" name="nivel" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                                placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">Depto.</label>
+                                                        <input type="text" id="depto" class="form-control" name="depto" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                                placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">DV</label>
+                                                        <input type="text" id="dvs" class="form-control" name="dvs" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                            minlength="2" maxlength="2" placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+    
+                                                
+                        
+                                            </div>    
+                                            
+                                </fieldset>
+                            </div><br>
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Tipo de persona</label>
+                                        <label for="name">Fecha de registro</label>
                                         <input type="text" id="tipo_persona" class="form-control" name="tipo_persona" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
@@ -337,17 +427,17 @@ button:hover {
                                 </div>
                                 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Tipo de identificación</label>
+                                    <!-- <div class="form-group">
+                                        <label for="name">Clave catastral</label>
                                         <input type="text" id="tipo_identificacion" class="form-control" name="tipo_identificacion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Número de identificación</label>
+                                        <label for="name">Motivo de registro</label>
                                         <input type="text" id="num_identificacion" class="form-control" name="num_identificacion" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
@@ -358,12 +448,12 @@ button:hover {
 
                             </div><br>
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
                                 
                                 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Apellido materno</label>
+                                        <label for="name">Cuenta predial</label>
                                         <input type="text" id="apellido materno" class="form-control" name="amaterno" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
@@ -372,7 +462,7 @@ button:hover {
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">RFC</label>
+                                        <label for="name">Denominación</label>
                                         <input type="text" id="rfc" class="form-control" name="rfc" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
@@ -381,7 +471,7 @@ button:hover {
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="rfc">CURP</label>
+                                        <label for="rfc">Cuenta de origen</label>
                                         <input type="text" id="curp" class="form-control" name="curp" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
@@ -390,10 +480,10 @@ button:hover {
 
                             </div><br>
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Finado</label>
+                                        <label for="name">Tipo de predio</label>
                                         <select name="finado" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
                                             <option value="SI">SI</option>
                                             <option selected value="NO">NO</option>
@@ -405,7 +495,7 @@ button:hover {
                                 
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Fecha de nacimiento / Registro</label>
+                                        <label for="name">Uso de predio</label>
                                         <input type="text" id="fecha_nacimeinto" class="form-control" name="fecha_nacimeinto" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="dd/mm/aaaa" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
@@ -414,7 +504,7 @@ button:hover {
 
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Teléfono</label>
+                                        <label for="name">Región</label>
                                         <input type="text" id="telefono" class="form-control" name="telefono" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
@@ -423,7 +513,7 @@ button:hover {
 
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="rfc">Celular</label>
+                                        <label for="rfc">Zona de valor</label>
                                         <input type="text" id="celular" class="form-control" name="celular" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
@@ -452,13 +542,13 @@ button:hover {
                         
                         <div class="card-body" style="margin-top: 10px;">
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Entidad federativa</label>
                                         <input type="text" id="ent_federativa" class="form-control" name="ent_federativa" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="Veracruz" readonly minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                         
                                     </div>
@@ -469,7 +559,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Municipio</label>
                                         <input type="text" id="municipio" class="form-control" name="municipio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="Minatitlán" readonly minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>
@@ -487,7 +577,7 @@ button:hover {
 
                             </div><br>
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
                                 
                                 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
@@ -519,7 +609,7 @@ button:hover {
 
                             </div><br>
 
-                            <div class="row">
+                            <div class="row" style="text-align: center;">
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Letra exterior</label>
@@ -673,7 +763,7 @@ button:hover {
                     <div class="modal-body text-center">
                         <h4>Great!</h4>	
                         <p>Los datos han sido registrado correctamente.</p>
-                        <button class="btn btn-success" data-dismiss="modal"><span>Ir a inicio</span> </button>
+                        <button class="btn btn-success" data-dismiss="modal"><span><a href="{%url 'catastro:redirect'%}">Ir a inicio</a></span> </button>
                     </div>
                 </div>
             </div>
@@ -702,8 +792,8 @@ button:hover {
 
                 <div class="col-xl-12 " style="margin-top: 5px;">
                     <div class="form-group" style="float:right;">
-                        <button type="button" class="btn btn-outline-info" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
-                        <button type="button" class="btn btn-outline-warning" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
+                        <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
+                        <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
         
                     </div>
                 </div>
