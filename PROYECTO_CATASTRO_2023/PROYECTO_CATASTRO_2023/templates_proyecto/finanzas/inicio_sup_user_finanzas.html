@@ -3,17 +3,104 @@
 
 {% block content %}
 
-<!-- <script>
-    function c_logout(href) {
-        var respuesta= confirm("¿Estás seguro de que deseas cerrar sesión?")
-        if (respuesta == True) {
-            // CERRAR SESION
-            window.location.href=href
-        } else {
-            // NO SE CIERRA SESION
-        }
+<script>
+    
+    var username = "{{nombre_user}}";
+
+    const socket = new WebSocket('ws://' + window.location.host + '/ws/load_notify/finanzas/'+ username + '/');
+    
+    socket.onopen = function (e){
+        console.log('El socket esta abierto')
+
+        //CARGAR NOTIFICACIONES DE USUARIO-
+        socket.send(JSON.stringify({event:'conexion'}));
     }
-</script> -->
+
+    socket.onmessage = (e) => {
+        //Obtener datos del backend
+        const data = JSON.parse(e.data);
+
+        //Obtener el contenedor donde se vaciaran los mensajes
+        const box_notify = document.getElementById('notify_box')
+        const box_num_notify = document.getElementById('box_num_notify')
+
+        //
+        box_notify.innerHTML = '';
+
+        //
+
+        num_notify=0;
+
+        data.forEach((notifications) => {
+            var titulo = notifications.titulo;
+            var remitente = notifications.remitente;
+
+            
+
+            // Crear un nuevo elemento de lista y agregar los datos
+            const etiqueta_a = document.createElement('a');
+
+            etiqueta_a.innerHTML = '<h1 class="titulo_not">'+titulo+'</h1><span class="remitente_not"><br>'+remitente+'</span>'
+
+            /*
+            //Link a pantalla de notificaciones
+            //
+            etiqueta_a.href = "#";
+            
+            //Crear etiqueta span
+            const etiqueta_span = document.createElement('span');
+            etiqueta_span.innerHTML='<br>'+remitente;
+
+            etiqueta_a.textContent=titulo;
+            //Agregar etiqueta span a la etiqueta a
+            etiqueta_a.appendChild(etiqueta_span);
+            */
+
+            box_notify.appendChild(etiqueta_a);
+
+            num_notify++;
+
+        });
+
+        if(num_notify == null || num_notify==0){
+            box_num_notify.innerText=0;
+        }else{
+            box_num_notify.innerText=num_notify;
+        }
+
+        socket.onclose = (event) => {
+            console.log('WebSocket cerrado con código:', event.code, 'razón:', event.reason);
+        };
+          
+        socket.onerror = (error) => {
+            console.error('Error en el WebSocket:', error);
+        };
+
+        //CERRAR LA CONEXION CON EL WEBSOCKET
+        window.addEventListener('beforeunload', function(event) {
+            event.preventDefault();
+            // Realiza aquí las acciones necesarias antes de que el usuario abandone la página
+            // Por ejemplo, cerrar conexiones WebSocket
+            websocket.close();
+            
+        });
+
+        
+    };
+    
+
+
+    /*
+    const socket = new WebSocket('wss://' + window.location.host + '/prueba/');
+    
+    socket.onopen = function (e){
+        console.log('El socket esta abierto')
+    }
+
+    */
+
+</script>
+
 
 <style>
     #box-nav {
@@ -71,7 +158,7 @@
         text-decoration: none;
         text-align: center;
         font-weight: bold;
-        font-size: 2vh;
+        font-size: 100%;
     }
 
     .dropdown-li:hover {
@@ -142,6 +229,20 @@
         align-items: flex-start;
         justify-content: center;
     }
+
+    #notify_box{
+        width: 100%;
+
+    }
+
+    .titulo_not{
+        font-weight: bold;
+        font-size: 3vh;
+    }
+
+    .remitente_not{
+        font-size: 1.4vh;
+    }
 </style>
 
 <div id="box-nav">
@@ -193,16 +294,16 @@
             </li>
 
             <li class="dropdown-li">
-                <a href="">NOTIFICACIONES<span style="background-color: rgb(252,219,85); border-radius: 3vh; margin-left: 1vh; padding: 1%; color: rgb(134, 22, 66);">10</span></a>
+                <a href="{% url 'finanzas:gestor_notify' %}">NOTIFICACIONES<span id="box_num_notify" style="border-radius: 3vh; margin-left: 1vh; padding: 1%; color:rgb(252,219,85); font-size:x-large;"><!--NUMERO NOTIFICACIONES--></span></a>
                 <ul class="dropdown">
+                    <!--Caja de notificaciones-->
+                    <li id="notify_box"></li>
                 </ul>
             </li>
 
             <li class="dropdown-li">
                 <a href="{% url 'finanzas:logout_finanzas' %}">CERRAR SESIÓN</a>
             </li>
-
-
 
         </ul>
     </nav>
@@ -217,5 +318,6 @@
 <main>
     <h1>Bienvenido, {{nombre_user}}</h1>
 </main>
+
 
 {% endblock %}

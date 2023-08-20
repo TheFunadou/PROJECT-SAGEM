@@ -3,11 +3,21 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth import logout
 from django.urls import *
-
+from notify.models import notify as notify_finanzas
+from django.contrib.auth.models import User
 # CERRAR SESION NO LE QUITEN EL REQUEST QUE NO JALA XD
 def cerrar_sesion(request):
     return redirect('logout')
 
+#Obtener username como objecto tipo user
+def obtener_username(request):
+    nom_user = request.user.username
+    
+    obj_user = User.objects.get(username= nom_user)
+    
+    return obj_user
+    
+    
 
 # Create your views here.
 @login_required(login_url="pag_login")
@@ -28,8 +38,8 @@ def perfil_finanzas(request):
                 return redirect('desarrollo_urbano:perfil_du')
     
     ctx={
-        'nom_pag': 'FINANZAS',
-        'titulo_pag': 'INICIO FINANZAS',
+        'nom_pag': 'INGRESOS',
+        'titulo_pag': 'INICIO INGRESOS',
         'nombre_user': request.user.username
     }
     
@@ -58,9 +68,24 @@ def perfil_sup_user_finanzas(request):
     
     #CONTEXTO PARA EL TEMPLATE
     ctx = {
-        'nom_pag': 'FINANZAS',
+        'nom_pag': 'INGRESOS',
         'titulo_pag': 'INICIO SUPER USUARIO FINANZAS',
         'nombre_user': request.user.username
     }
 
     return render(request, 'finanzas/inicio_sup_user_finanzas.html', ctx)
+
+
+@login_required(login_url="pag_login")
+def gestor_notify_finanzas(request):
+    
+    notify_d = notify_finanzas.objects.all().filter(destinatario = obtener_username(request))
+    
+    ctx ={
+        "nom_pag": 'INGRESOS',
+        'titulo_pag': 'BANDEJA DE NOTIFICACIONES',
+        'nombre_user': request.user.username,
+        'notify':notify_d
+    }
+    
+    return render (request,'finanzas/gestor_notify_finanzas.html',ctx)

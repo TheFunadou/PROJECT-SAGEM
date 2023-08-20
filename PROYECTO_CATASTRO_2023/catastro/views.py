@@ -35,17 +35,44 @@ def cerrar_sesion(request):
     return redirect('logout')
 
 
+"""
+#Funcion en testeo
+    def acceso_catastro(request):
+    
+    try:
+        if request.user.is_authenticated:
+            #Si es verdadero
+            #Obtener el grupo al que pertenece el usuario
+            grupo_user = request.user.groups.filter().first()
+            if grupo_user:
+                nom_grupo = grupo_user.name
+                
+            nom_grupo.lower()    
+            nom_app = request.resolver_match.app_name
+            
+            if (nom_grupo != nom_app):
+                if request.user.is_superuser:
+                    return redirect(f'{nom_grupo}:perfil_su_{nom_grupo}')
+                else:
+                    return redirect(f'{nom_grupo}:perfil_{nom_grupo}')   
+            
+    except (Group.DoesNotExist):
+        HttpResponse('El usuario no pertenece actualmente a ningun grupo')
 
+"""
+    
 
 # Create your views here.
 @login_required(login_url="pag_login")
 def perfil_catastro(request):
+    """
     
+    """
     #REDIRECCIONAR A USUARIO QUE NO PERTENEZCAN A ESE DEPARTAMENTO
     if request.user.is_authenticated:
         if request.user.is_superuser:
             if request.user.groups.filter()[0].name == 'CATASTRO':
-                return redirect('catastro:perfil_su_cat')
+                return redirect('catastro:perfil_su_catastro')
                 ### DEMAS IF DE PERFILES DE SUPER USUARIO
         else:
             if request.user.groups.filter()[0].name == 'FINANZAS':
@@ -73,7 +100,7 @@ def perfil_sup_user_catastro(request):
             ### DEMAS IF DE PERFILES DE SUPER USUARIO
         else:
             if request.user.groups.filter()[0].name == 'CATASTRO':
-                return redirect('catastro:perfil_cat')
+                return redirect('catastro:perfil_catastro')
             elif request.user.groups.filter()[0].name == 'FINANZAS':
                 return redirect('finanzas:perfil_fin')
             elif request.user.groups.filter()[0].name == 'DESARROLLO_URBANO':
@@ -164,8 +191,13 @@ def views_cambiar_password(request):
 def vista_index_contribuyente(request):
     return render(request,'catastro/index_contribuyente.html')
 #vista registro ciudadano
+@login_required(login_url="pag_login")
 def contribuyente_index(request):
-    return render(request,'catastro/alta_contribuyentes.html')
+    ctx = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'REGISTRO DE CIUDADANO',
+    }
+    return render(request,'catastro/alta_contribuyentes.html', ctx)
 
 #REGISTRAR DATOS DEL CIUDADANO
 def registro_contribuyente(request):
@@ -195,15 +227,25 @@ def registro_domicilio_contribuyente(request):
     dep = request.POST['depto']
     dv = request.POST['dvs']
 
+@login_required(login_url="pag_login")
 def predios_index(request):
-    return render(request,'catastro/alta_predios.html')
+    ctx = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'ALTA DE PREDIO',
+    }
+    return render(request,'catastro/alta_predios.html', ctx)
 
 
 
 
+@login_required(login_url="pag_login")
 #vista solicitud dc017
 def solicitud_dc017(request):
-     return render(request,'catastro/solicitud_dc017.html')
+    ctx = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'SOLICITUD DC017',
+    }
+    return render(request,'catastro/solicitud_dc017.html', ctx)
 
 
 def registrar_solicitud_dc017(request):
@@ -589,9 +631,14 @@ def consultar_datos_generales(request,clave,*args,**kwargs):
         data = json.dumps(lista_contribuyentes)
         return HttpResponse(data,'application/json')
    
+@login_required(login_url="pag_login")
 #vista ficha catastral
 def ficha_catastral(request):
-    return render(request,'catastro/ficha_catastral.html')
+    ctx = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'FICHA CATASTRAL',
+    }
+    return render(request,'catastro/ficha_catastral.html', ctx)
 
 def registrar_ficha_datosgenerales(request):
    

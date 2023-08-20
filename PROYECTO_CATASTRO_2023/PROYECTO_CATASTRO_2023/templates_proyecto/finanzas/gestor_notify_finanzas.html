@@ -1,0 +1,77 @@
+{% extends "raiz/master_blade_v.1.html" %}
+
+{% load static %}
+
+{%block body%}
+
+
+    <style>
+
+        main{
+            margin-top: 1%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        h1 {
+            margin-bottom: 2vh;
+            font-family: 'Calibri';
+            font-weight: bold;
+        }
+
+        table{
+            width: 90%;
+            border: solid #660b22;
+            border-collapse: collapse;
+        }
+
+        table tr th{
+            text-align: center;
+            background-color: #660b22;
+            color: #ffff;
+        }
+
+        table tr td{
+            text-align: center;
+            background-color: #ffff;
+            border: solid #660b22;
+        }
+
+        .marcar-all-leidas{
+            margin-top: 3vh;
+            border: solid #660b22;
+            background-color: #660b22;
+            padding: 1.5vh;
+            border-radius: 3vh;
+            color: #ffff;
+            font-weight: bold;
+        }
+    </style>
+
+
+    <main>
+        <table>
+            <tr>
+              <th>TITULO</th>
+              <th>CAJERA</th>
+              <th>INFORMACIÓN</th>
+              <th>FECHA Y HORA</th>
+              <th>LEIDO</th>
+            </tr>
+            {% for not_cont in notify%}
+                <tr>
+                    <td>{{not_cont.titulo}}</td>
+                    <td>{{not_cont.remitente}}</td>
+                    <td>{{not_cont.cuerpo}}</td>
+                    <td>{{not_cont.fecha_hora}}</td>
+                    <td><a href="#">Marcar como leido</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <a href="#" class="marcar-all-leidas">MARCAR TODAS COMO LEIDAS</a>
+    </main>
+{%endblock%}
