@@ -31,16 +31,33 @@ urlpatterns = [
     path('view_registrar_usuario/',views.view_registrar_usuario, name='view_registrar_usuario'),
     path('view_cambiar_contra/', views.views_cambiar_password, name='view_cambiar_password'),
 
+    ############################ RUTAS QUE IMPLICA EL REGISTRO, MODIFICACION Y ELIMINACION DEL CONTRIBUYENTE #####
 
-    #PÁGINA INDEX DE CONTRIBUYENTES
+    #CREATE
+    #página index de contribuyentes
     path('index_contribuyentes/',views.vista_index_contribuyente, name='index_contribuyente'),
-    
-    # REGISTRAR NUEVOS CONTIBUYENTES
-    #path('registro_contribuyente/',views.registrar_contribuyentes.as_view(), name='registro_contribuyente'),
 
-    
-    #RUTA PARA VISUALIZAR EL ALTA DE CIUDADANO O CONTRIBUYENTE
-    path('catastro/perfil/registro_contribuyente/',views.contribuyente_index,name='vista_alta_contribuyente'),
+    path('busqueda/',views.consulta_index_contribuyentes, name='busqueda_contribuyentes'),
+
+    #vista para visualzar pantalla de registro
+    path('registro_contribuyente/',views.contribuyente_index,name='vista_alta_contribuyente'),
+
+    # ruta para registrar al contribuyente
+    path('registrar_contribuyente/',views.registro_contribuyente, name='registro_contribuyente'),
+
+
+    #UPDATE
+    #vista pantalla editar contribuyentes
+    path('editar_contribuyente/<str:rfc>/',views.vista_update_contribuyentes, name='modificacion_contribuyentes'),
+
+    #ruta que actualiza los datos del contribuyente
+    path('update_contribuyente/<str:rfc_u>/',views.update_contribuyentes,name='update_contribuyentes'),
+
+    #DELETE
+    path('delete_contribuyente/<str:rfc_u>/',views.delete_contribuyentes,name='delete_contribuyentes'),
+    #############################
+
+
 
     #RUTA PARA VISUALIZAR EL ALTA DEL PEDRIO
     path('catastro/perfil/registro_predios/',views.predios_index,name='vista_alta_predios'),

@@ -119,8 +119,7 @@ button:hover {
 .all-steps {
     text-align: center;
     margin-top: 10px;
-    margin-bottom: 30px;
-    
+    margin-bottom: 30px
 }
 
 .thanks-message {
@@ -222,7 +221,7 @@ button:hover {
 }
 
 .modal-confirm .modal-header {
-	background: #47c9a2;
+	background: #4795c9;
 	border-bottom: none;   
 	position: relative;
 	text-align: center;
@@ -308,33 +307,25 @@ button:hover {
 
 
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
-
-
-
-<form id="formulario" action="{% url 'catastro:registro_contribuyente'%}" method="post">
+{%for contribuyente in consulta_contribuyente%}
+<form id="formulario" action="{% url 'catastro:update_contribuyentes' rfc_u=contribuyente.fk_rfc.rfc %}" method="post">
 
         {%csrf_token%}
-        <!-- <div class=" all-steps" id="all-steps">          
-             <span class="step"></span> 
-        </div> -->
-
-        <div class="row  all-steps" style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
+        <div class="row all-steps" style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
             <div class="col col-lg-2">
                 <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">Atras</button>
             </div>
-            <div class="col-md-auto" >
-                
+            <div class="col-md-auto">
+             
             </div>
             <div class="col col-lg-2" style=" margin-left: 23%;">
                 <span class="step"></span> 
             </div>
         </div>
 
-        
-
         <!-- Div que contiene los elementos para los datos generales del contribuyente -->
         <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 510px; z-index: 1; position: relative;">
-   
+            
             <fieldset class="container fieldset-1 p-3"
             style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -34px; background:rgba(255, 255, 255, 0.5);">
             <legend class="float-none w-auto px-3"
@@ -352,8 +343,8 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Tipo de persona</label>
                                         <select name="tipo_persona" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option selected value="FISICA">FÍSICA</option>
-                                            <option  value="MORAL">MORAL</option>
+                                            <option selected value="FISICA"  {% if contribuyente.fk_rfc.tipo_persona == "FISICA" %}selected{% endif %}>FÍSICA</option>
+                                            <option  value="MORAL" {% if contribuyente.fk_rfc.tipo_persona == "MORAL" %}selected{% endif %}>MORAL</option>
                                         </select>
                                         
                                     </div>
@@ -364,12 +355,12 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Tipo de identificación</label>
                                         <select name="tipo_identificacion" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option selected value="INE">INE</option>
-                                            <option value="ACTA CONSTITUTIVA">ACTA CONSTITUTIVA</option>
-                                            <option value="PASAPORTE">PASAPORTE</option>
-                                            <option value="CARTILLA MILITAR">CARTILLA MILITAR</option>
-                                            <option value="CEDULA PROFESIONAL">CÉDULA PROFESIONAL</option>
-                                            <option value="TITULO PROFESIONAL">TÍTULO PROFESIONAL</option>
+                                            <option value="INE" {% if contribuyente.fk_rfc.tipo_identificacion == "INE" %}selected{% endif %}>INE</option>
+                                            <option value="ACTA CONSTITUTIVA" {% if contribuyente.fk_rfc.tipo_identificacion == "ACTA CONSTITUTIVA" %}selected{% endif %}>ACTA CONSTITUTIVA</option>
+                                            <option value="PASAPORTE" {% if contribuyente.fk_rfc.tipo_identificacion == "PASAPORTE" %}selected{% endif %}>PASAPORTE</option>
+                                            <option value="CARTILLA MILITAR" {% if contribuyente.fk_rfc.tipo_identificacion == "CARTILLA MILITAR" %}selected{% endif %}>CARTILLA MILITAR</option>
+                                            <option value="CEDULA PROFESIONAL" {% if contribuyente.fk_rfc.tipo_identificacion == "CEDULA PROFESIONAL" %}selected{% endif %}>CÉDULA PROFESIONAL</option>
+                                            <option value="TITULO PROFESIONAL" {% if contribuyente.fk_rfc.tipo_identificacion == "TITULO PROFESIONAL" %}selected{% endif %}>TÍTULO PROFESIONAL</option>
                                         </select>
                                     </div>
                                 </div>
@@ -378,7 +369,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Número de identificación</label>
                                         <input type="text" id="num_identificacion" class="form-control" name="num_identificacion" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="15"  onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.fk_rfc.numero_identificacion}}" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
@@ -387,7 +378,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="rfc">Nombre/Razón social</label>
                                         <input type="text" id="nombre_razon" class="form-control" name="nombre_razon" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  oninput ="this.value = this.value.toUpperCase();" onkeypress="return soloLetras(event);">
+                                                value="{{contribuyente.fk_rfc.nombre}}" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>   
@@ -400,7 +391,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Apellido paterno</label>
                                         <input type="text" id="apaterno" class="form-control" name="apaterno" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" oninput ="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.fk_rfc.apaterno}}"  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                         
                                     </div>
@@ -411,7 +402,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Apellido materno</label>
                                         <input type="text" id="amaterno" class="form-control" name="amaterno" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" oninput ="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.fk_rfc.amaterno}}" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>
@@ -420,7 +411,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">RFC</label>
                                         <input type="text" id="rfc" class="form-control" name="rfc" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" oninput ="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.fk_rfc.rfc}}" minlength="3" maxlength="13" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
@@ -429,7 +420,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="rfc">CURP</label>
                                         <input type="text" id="curp" class="form-control" name="curp" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXXXXXX" minlength="18" maxlength="18" onkeypress="return soloLetrasNumeros(event);" oninput ="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.fk_rfc.curp}}" minlength="18" maxlength="18" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div> 
@@ -441,8 +432,8 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Finado</label>
                                         <select name="finado" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option value="SI">SI</option>
-                                            <option selected value="NO">NO</option>
+                                            <option value="SI" {% if contribuyente.fk_rfc.finado == "SI" %}selected{% endif %}>SI</option>
+                                            <option selected value="NO" {% if contribuyente.fk_rfc.finado == "NO" %}selected{% endif %}>NO</option>
                                         </select>
                                         
                                     </div>
@@ -453,7 +444,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Fecha de nacimiento / Registro</label>
                                         <input type="date" id="fecha_nacimiento" class="form-control" name="fecha_nacimiento" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.fk_rfc.fecha_nacimiento}}" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>
@@ -462,7 +453,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Teléfono</label>
                                         <input type="text" id="telefono" class="form-control" name="telefono" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.fk_rfc.telefono}}" minlength="10" maxlength="10"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
@@ -471,7 +462,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="rfc">Celular</label>
                                         <input type="text" id="celular" class="form-control" name="celular" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.fk_rfc.telefono_movil}}" minlength="10" maxlength="10" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div> 
@@ -484,7 +475,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Correo electrónico</label>
                                         <input type="email" id="email" class="form-control" name="email" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.fk_rfc.email}}" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                         
                                     </div>
@@ -495,7 +486,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Observaciones</label>
                                         <input type="text" id="observaciones" class="form-control" name="observaciones" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" >
+                                                value="{{contribuyente.fk_rfc.observaciones}}" >
                                                 <span></span>
                                     </div>
                                 </div>
@@ -525,37 +516,37 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Entidad federativa</label>
                                         <select name="entidad_federativa" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option value="Aguascalientes">Aguascalientes</option>
-                                            <option value="Baja California">Baja California</option>
-                                            <option value="Baja California Sur">Baja California Sur</option>
-                                            <option value="Campeche">Campeche</option>
-                                            <option value="Chiapas">Chiapas</option>
-                                            <option value="Chihuahua">Chihuahua</option>
-                                            <option value="Coahuila">Coahuila</option>
-                                            <option value="Colima">Colima</option>
-                                            <option value="Durango">Durango</option>
-                                            <option value="Estado de México">Estado de México</option>
-                                            <option value="Guanajuato">Guanajuato</option>
-                                            <option value="Guerrero">Guerrero</option>
-                                            <option value="Hidalgo">Hidalgo</option>
-                                            <option value="Jalisco">Jalisco</option>
-                                            <option value="Michoacán">Michoacán</option>
-                                            <option value="Morelos">Morelos</option>
-                                            <option value="Nayarit">Nayarit</option>
-                                            <option value="Nuevo León">Nuevo León</option>
-                                            <option value="Oaxaca">Oaxaca</option>
-                                            <option value="Puebla">Puebla</option>
-                                            <option value="Querétaro">Querétaro</option>
-                                            <option value="Quintana Roo">Quintana Roo</option>
-                                            <option value="San Luis Potosí">San Luis Potosí</option>
-                                            <option value="Sinaloa">Sinaloa</option>
-                                            <option value="Sonora">Sonora</option>
-                                            <option value="Tabasco">Tabasco</option>
-                                            <option value="Tamaulipas">Tamaulipas</option>
-                                            <option value="Tlaxcala">Tlaxcala</option>
-                                            <option selected value="Veracruz">Veracruz</option>
-                                            <option value="Yucatán">Yucatán</option>
-                                            <option value="Zacatecas">Zacatecas</option>
+                                            <option value="Aguascalientes" {% if contribuyente.entidad_fed == "Aguascalientes" %}selected{% endif %}>Aguascalientes</option>
+                                            <option value="Baja California" {% if contribuyente.entidad_fed == "Baja California" %}selected{% endif %}>Baja California</option>
+                                            <option value="Baja California Sur" {% if contribuyente.entidad_fed == "Baja California Sur" %}selected{% endif %}>Baja California Sur</option>
+                                            <option value="Campeche" {% if contribuyente.entidad_fed == "Campeche" %}selected{% endif %}>Campeche</option>
+                                            <option value="Chiapas" {% if contribuyente.entidad_fed == "Chiapas" %}selected{% endif %}>Chiapas</option>
+                                            <option value="Chihuahua" {% if contribuyente.entidad_fed == "Chihuahua" %}selected{% endif %}>Chihuahua</option>
+                                            <option value="Coahuila" {% if contribuyente.entidad_fed == "Coahuila" %}selected{% endif %}>Coahuila</option>
+                                            <option value="Colima" {% if contribuyente.entidad_fed == "Colima" %}selected{% endif %}>Colima</option>
+                                            <option value="Durango" {% if contribuyente.entidad_fed == "Durango" %}selected{% endif %}>Durango</option>
+                                            <option value="Estado de México" {% if contribuyente.entidad_fed == "Estado de México" %}selected{% endif %}>Estado de México</option>
+                                            <option value="Guanajuato" {% if contribuyente.entidad_fed == "Guanajuato" %}selected{% endif %}>Guanajuato</option>
+                                            <option value="Guerrero" {% if contribuyente.entidad_fed == "Guerrero" %}selected{% endif %}>Guerrero</option>
+                                            <option value="Hidalgo" {% if contribuyente.entidad_fed == "Hidalgo" %}selected{% endif %}>Hidalgo</option>
+                                            <option value="Jalisco" {% if contribuyente.entidad_fed == "Jalisco" %}selected{% endif %}>Jalisco</option>
+                                            <option value="Michoacán" {% if contribuyente.entidad_fed == "Michoacán" %}selected{% endif %}>Michoacán</option>
+                                            <option value="Morelos" {% if contribuyente.entidad_fed == "Morelos" %}selected{% endif %}>Morelos</option>
+                                            <option value="Nayarit" {% if contribuyente.entidad_fed == "Nayarit" %}selected{% endif %}>Nayarit</option>
+                                            <option value="Nuevo León" {% if contribuyente.entidad_fed == "Nuevo León" %}selected{% endif %}>Nuevo León</option>
+                                            <option value="Oaxaca" {% if contribuyente.entidad_fed == "Oaxaca" %}selected{% endif %}>Oaxaca</option>
+                                            <option value="Puebla" {% if contribuyente.entidad_fed == "Puebla" %}selected{% endif %}>Puebla</option>
+                                            <option value="Querétaro" {% if contribuyente.entidad_fed == "Querétaro" %}selected{% endif %}>Querétaro</option>
+                                            <option value="Quintana Roo" {% if contribuyente.entidad_fed == "Quintana Roo" %}selected{% endif %}>Quintana Roo</option>
+                                            <option value="San Luis Potosí" {% if contribuyente.entidad_fed == "San Luis Potosí" %}selected{% endif %}>San Luis Potosí</option>
+                                            <option value="Sinaloa" {% if contribuyente.entidad_fed == "Sinaloa" %}selected{% endif %}>Sinaloa</option>
+                                            <option value="Sonora" {% if contribuyente.entidad_fed == "Sonora" %}selected{% endif %}>Sonora</option>
+                                            <option value="Tabasco" {% if contribuyente.entidad_fed == "Tabasco" %}selected{% endif %}>Tabasco</option>
+                                            <option value="Tamaulipas" {% if contribuyente.entidad_fed == "Tamaulipas" %}selected{% endif %}>Tamaulipas</option>
+                                            <option value="Tlaxcala" {% if contribuyente.entidad_fed == "Tlaxcala" %}selected{% endif %}>Tlaxcala</option>
+                                            <option value="Veracruz" {% if contribuyente.entidad_fed == "Veracruz" %}selected{% endif %}>Veracruz</option>
+                                            <option value="Yucatán" {% if contribuyente.entidad_fed == "Yucatán" %}selected{% endif %}>Yucatán</option>
+                                            <option value="Zacatecas" {% if contribuyente.entidad_fed == "Zacatecas" %}selected{% endif %}>Zacatecas</option>
                                         </select>
                                         
                                     </div>
@@ -566,7 +557,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Municipio</label>
                                         <input type="text" id="munic" class="form-control" name="munic" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.municipio}}" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>
@@ -575,7 +566,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Localidad</label>
                                         <input type="text" id="loca" class="form-control" name="loca" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.localidad}}" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
@@ -591,7 +582,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Colonia</label>
                                         <input type="text" id="colon" class="form-control" name="colon" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.col}}" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>
@@ -600,7 +591,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Calle</label>
                                         <input type="text" id="calle" class="form-control" name="calle" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.calle}}" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
@@ -609,7 +600,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="rfc">Codigo postal</label>
                                         <input type="text" id="cp" class="form-control" name="cp" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.cp}}" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div> 
@@ -621,7 +612,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Número exterior</label>
                                         <input type="text" id="num_ext" class="form-control" name="num_ext" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.num_ext}}" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                         
                                     </div>
@@ -632,7 +623,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Letra exterior</label>
                                         <input type="text" id="let_ext" class="form-control" name="let_ext" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="A-Z" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.letra_ext}}" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>
@@ -641,7 +632,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Número interior</label>
                                         <input type="text" id="num_int" class="form-control" name="num_int" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
+                                                value="{{contribuyente.num_int}}" minlength="3" maxlength="30"  onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
@@ -650,7 +641,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="rfc">Letra interior</label>
                                         <input type="text" id="let_int" class="form-control" name="let_int" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="A-Z" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder="{{contribuyente.letra_int}}" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div> 
@@ -664,10 +655,7 @@ button:hover {
 
 
             </fieldset>  
-                       
-                                              
-                       
-
+            {%endfor%}        
         </div>
 
 
@@ -683,13 +671,13 @@ button:hover {
                     </div>
                     <div class="modal-body text-center">
                         <h4>Bien!</h4>	
-                        <h6>Los datos han sido registrado correctamente.</h6>
+                        <h6>Los datos han sido modificado correctamente.</h6>
                         <button class="btn btn-success" data-dismiss="modal"><span>Redirigiendo...</span> </button>
                     </div>
                 </div>
             </div>
-        </div> 
-        
+        </div>  
+
         <script>
             document.getElementById("btnBack").addEventListener("click", function() {
                 window.location.href = "{% url 'catastro:index_contribuyente' %}";
@@ -697,31 +685,24 @@ button:hover {
         </script>
 
 
-        {% if error_contribuyente == 1 or error_domicilio == 1 %}
+        {% if error_contribuyente == 1 %}
         <script>
             $(document).ready(function () {
-                $('#error').modal('show'); // Muestra la alerta modal de error
-
-                setTimeout(function() {     
-                              
-                    window.location.href = "{% url 'catastro:vista_alta_contribuyente' %}"
-                          
-                }, 2000); 
-
-                
+                $('#error').modal('show'); // Muestra la alerta modal de error    
             });
         </script>
 
-        {%elif error_contribuyente == 0 or error_domicilio == 0%}
+        {%elif error_contribuyente == 0%}
 
         <script>
             $(document).ready(function () {
+                
                 $('#myModal').modal('show'); // Muestra la alerta modal de sucess
                 setTimeout(function() {     
-                          
-                    window.location.href = "{% url 'catastro:busqueda_contribuyentes' %}"
-                                
-                }, 6000); 
+                              
+                    window.location.href = "{% url 'catastro:index_contribuyente' %}"
+                                    
+                }, 3000);
             });
         </script>
 
@@ -745,31 +726,13 @@ button:hover {
             </div>
         </div>  
 
-        <div id="error_campos" class="modal fade" style="margin-top: 100px;">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header-error justify-content-center">
-                        <div class="icon-box">
-                            <i class="material-icons">&#xe5cd;</i>
-                        </div>
-                        
-                    </div>
-                    <div class="modal-body text-center">
-                        <h4>ERROR</h4>	
-                        <h6>favor de llenar los campos.</h6>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="container"  id="nextprevious">
             <div class="row" style="float:right;"> 
 
                 <div class="col-xl-12 " style="margin-top: 5px;">
                     <div class="form-group" style="float:right;">
                         <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
-                        <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)" style="width: 120px; ">Siguiente</button>
+                        <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
         
                     </div>
                 </div>
@@ -799,7 +762,7 @@ button:hover {
                 document.getElementById("prevBtn").style.display = "inline";
             }
             if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Enviar";
+                document.getElementById("nextBtn").innerHTML = "Guardar";
             } else {
                 document.getElementById("nextBtn").innerHTML = "Siguiente";
             }
@@ -832,9 +795,9 @@ button:hover {
                 if (y[i].value == "") {
                     y[i].className += " invalid";
                     
-                    valid = false;
+                    valid = true;
 
-                    if(y[i].id == 'num_ext' || y[i].id == 'num_int' || y[i].id == 'let_ext' || y[i].id == 'let_int'){
+                    if(y[i].id == 'num_ext' || y[i].id == 'num_int' || y[i].id == 'ne' || y[i].id == 'ni'){
                         if((y[i].value == "")){
                             valid = true;
                         }
@@ -848,11 +811,11 @@ button:hover {
                 document.getElementsByClassName("step")[currentTab].className += " finish"; 
             }else{
 
-                $('#error_campos').modal('show');
+                $('#error').modal('show');
 
                 // Ocultar el modal después de 3 segundos (3000 milisegundos)
                 setTimeout(function() {
-                    $('#error_campos').modal('hide');
+                    $('#error').modal('hide');
                 }, 3000);
                 
             }

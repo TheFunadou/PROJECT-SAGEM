@@ -188,6 +188,79 @@ class historial_pagos(models.Model):
      cajero = models.CharField(max_length=20, null=True)
 
 
+#CLASES PARA LOS PREDIOS Y CONTRIBUYENTES
+
+class Datos_Gen_contribuyente(models.Model):
+
+   rfc = models.CharField(primary_key=True,max_length=13)
+   tipo_persona = models.CharField(max_length=30)
+   tipo_identificacion = models.CharField(max_length=30)
+   numero_identificacion = models.CharField(max_length=25)
+   nombre = models.CharField(max_length=35)
+   apaterno = models.CharField(max_length=35)
+   amaterno = models.CharField(max_length=35)
+   curp = models.CharField(max_length=18) 
+   finado = models.CharField(max_length=2)
+   fecha_nacimiento = models.CharField(max_length=10)
+   telefono = models.CharField(max_length=10)
+   telefono_movil = models.CharField(max_length=10)
+   email = models.CharField(max_length=25)
+   observaciones = models.CharField(max_length=100)
+
+
+
+class Domicilio_noti(models.Model): 
+    
+   fk_rfc = models.ForeignKey(Datos_Gen_contribuyente, on_delete=models.CASCADE)
+   entidad_fed = models.CharField(max_length=35)
+   municipio = models.CharField(max_length=35)
+   localidad = models.CharField(max_length=35)
+   col = models.CharField(max_length=35)
+   calle = models.CharField(max_length=35)
+   cp = models.CharField(max_length=5)
+   num_ext = models.CharField(max_length=5)
+   letra_ext = models.CharField(max_length=5)
+   num_int = models.CharField(max_length=5)
+   letra_int = models.CharField(max_length=5)
+
+class Datos_gen_predio(models.Model):
+
+   clave_catastral = models.CharField(primary_key=True,max_length=30)
+   cuenta_predial = models.CharField(max_length=30) 
+   denominacion = models.CharField(max_length=25)  
+   tipo_predio = models.CharField(max_length=30)
+   uso_predio = models.CharField(max_length=20)
+   region = models.CharField(max_length=30)
+   zona_valor = models.CharField(max_length=30)
+   cuenta_origen = models.CharField(max_length=30)
+   fecha_alta = models.CharField(max_length=10)
+   motivo_alta = models.CharField(max_length=30)
+
+
+class Domicilio_predio(models.Model):
+
+   fk_clave_catastral = models.ForeignKey(Datos_gen_predio, on_delete=models.CASCADE)
+   entidad_fed = models.CharField(max_length=35)
+   municipio = models.CharField(max_length=35)
+   localidad = models.CharField(max_length=35)
+   col = models.CharField(max_length=35)
+   calle = models.CharField(max_length=35)
+   num_ext = models.CharField(max_length=5)
+   letra_ext = models.CharField(max_length=5)
+   num_int = models.CharField(max_length=5)
+   letra_int = models.CharField(max_length=5)
+   ubic_coordenadas = models.CharField(max_length=35)
+
+
+class predio_nuevo(models.Model):
+    
+   fk_clave_catastral = models.ForeignKey(Datos_gen_predio, on_delete=models.CASCADE)
+   fk_rfc = models.ForeignKey(Datos_Gen_contribuyente, on_delete=models.CASCADE)
+   porcentaje_part = models.CharField(max_length=5)
+
+
+###########################################-------------
+
 class contribuyente(models.Model):
     rfc  = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)

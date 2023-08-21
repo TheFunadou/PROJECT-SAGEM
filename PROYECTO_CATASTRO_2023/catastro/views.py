@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth import logout
 from django.urls import *
 from django.utils import timezone
+
 from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
 # CREATE VIEW PARA GENERAR UNA CLASE PARA GUARDAR DATOS
 from django.views.generic import CreateView
@@ -24,6 +25,9 @@ from asgiref.sync import async_to_sync
 
 #consultas filtradas
 from django.db.models import Q
+
+#transacciones
+from django.db import transaction
 
 
 
@@ -188,8 +192,35 @@ def views_cambiar_password(request):
     return render(request, 'catastro/cambiar_password', ctx)
 
 
+"""funciones para procesos de un contribuyente, alta, baja y modificacones"""
+#vista pantalla consultas
 def vista_index_contribuyente(request):
     return render(request,'catastro/index_contribuyente.html')
+
+#consulta datos de los contribuyentes registrados
+def consulta_index_contribuyentes(request):
+
+    context = {}
+
+    if request.method == 'POST':
+
+        dato = request.POST['busqueda'].strip()
+        consulta_general = []
+
+        if len(dato) == 0:
+
+            consulta_general = models.Domicilio_noti.objects.all()
+
+        else:
+
+            consulta_general = models.Domicilio_noti.objects.filter(Q(fk_rfc__rfc = dato))
+        
+        context = {
+            'resultado': consulta_general  # Pasa el valor al contexto
+        }
+
+    return render(request,'catastro/index_contribuyente.html', context)
+
 #vista registro ciudadano
 @login_required(login_url="pag_login")
 def contribuyente_index(request):
@@ -201,31 +232,256 @@ def contribuyente_index(request):
 
 #REGISTRAR DATOS DEL CIUDADANO
 def registro_contribuyente(request):
-    tipo_persona = request.POST['zonacat']
-    tipo_identificacion = request.POST['muni']
-    num_identificacion = request.POST['loc']
-    nombre_razon = request.POST['region']
-    apaterno = request.POST['manzana']
-    amaterno = request.POST['lote']
-    rfc = request.POST['nivel']
-    curp = request.POST['depto']
-    finado = request.POST['dvs']
-    fecha_naciemiento_registro = request.POST['zonacat']
-    telefono = request.POST['muni']
-    celular = request.POST['loc']
-    email = request.POST['region']
-    observaciones = request.POST['manzana']
 
-def registro_domicilio_contribuyente(request):
-    tipo_persona = request.POST['zonacat']
-    mun = request.POST['muni']
-    loc = request.POST['loc']
-    reg = request.POST['region']
-    man = request.POST['manzana']
-    lot = request.POST['lote']
-    niv = request.POST['nivel']
-    dep = request.POST['depto']
-    dv = request.POST['dvs']
+    if request.method == 'POST':
+
+        error_contribuyente = 0
+        error_message =""
+
+        rfc = request.POST['rfc']
+        curp = request.POST['curp']
+
+        if not (len(curp.strip()) == 0 or len(rfc.strip()) == 0):
+
+            print(len(rfc.strip()), " curp: ",len(curp.strip()))
+
+        
+            tipo_persona = request.POST['tipo_persona']
+            tipo_identificacion = request.POST['tipo_identificacion']
+            num_identificacion = request.POST['num_identificacion']
+            nombre_razon = request.POST['nombre_razon']
+            apaterno = request.POST['apaterno']
+            amaterno = request.POST['amaterno']
+            
+            finado = request.POST['finado']
+            fecha_nacimiento_registro = request.POST['fecha_nacimiento']
+            telefono = request.POST['telefono']
+            celular = request.POST['celular']
+            email = request.POST['email']
+            observaciones = request.POST['observaciones']
+            error_contribuyente = 0
+
+            if models.Datos_Gen_contribuyente.objects.filter(rfc=rfc).exists():
+                error_message = f"Ya existe un registro con el RFC '{rfc}'"
+                error_contribuyente = 1
+
+            else:
+
+                try:
+
+                    models.Datos_Gen_contribuyente.objects.create(
+
+                        rfc = rfc,
+                        tipo_persona = tipo_persona,
+                        tipo_identificacion = tipo_identificacion,
+                        numero_identificacion = num_identificacion,
+                        nombre = nombre_razon,
+                        apaterno = apaterno,
+                        amaterno = amaterno,
+                        curp = curp,
+                        finado = finado,
+                        fecha_nacimiento = fecha_nacimiento_registro,
+                        telefono = telefono,
+                        telefono_movil = celular,
+                        email = email,
+                        observaciones = observaciones
+
+                    )
+                    error_contribuyente = 0
+                    return registro_domicilio_contribuyente(request,rfc)
+
+                except Exception as ex:
+
+                    error_message = f"Error al registrar: {str(ex)}"
+                    error_contribuyente = 1
+        else:
+            error_contribuyente = 1
+            error_message = "RFC y CURP deben tener un valor"
+            
+            
+    return render(request, 'catastro/alta_contribuyentes.html', {'error_message': error_message, 'error_contribuyente':error_contribuyente})
+
+#registra datos domicilio del contribuyente
+def registro_domicilio_contribuyente(request,fk_rfc):
+   
+   if request.method == 'POST':
+        error_message =""
+        error_domicilio = 0
+       
+        try:
+            
+            fk_rfc = fk_rfc
+            entidad_fed = request.POST['entidad_federativa']
+            municipio = request.POST['munic']
+            localidad = request.POST['loca']
+            col = request.POST['colon']
+            calle = request.POST['calle']
+            cp = request.POST['cp']
+            num_ext = request.POST['num_ext']
+            letra_ext = request.POST['let_ext']
+            num_int = request.POST['num_int']
+            letra_int = request.POST['let_int']
+
+
+            models.Domicilio_noti.objects.create(
+
+                fk_rfc = models.Datos_Gen_contribuyente.objects.get(rfc=fk_rfc),
+                entidad_fed = entidad_fed,
+                municipio = municipio,
+                localidad = localidad,
+                col = col,
+                calle = calle,
+                cp = cp,
+                num_ext = num_ext,
+                letra_ext = letra_ext,
+                num_int = num_int,
+                letra_int = letra_int
+
+            )
+            
+        
+        except Exception as e:
+            error_message = f"Error al registrar: {str(e)}"
+            error_domicilio = 1
+   return render(request, 'catastro/alta_contribuyentes.html', {'error_message': error_message, 'error_domicilio':error_domicilio})
+
+#vista solo muestra pantalla de modificacion
+def vista_update_contribuyentes(request,rfc):
+    
+    consulta_a_modificar = models.Domicilio_noti.objects.filter(Q(fk_rfc__rfc = rfc))
+
+    ctx = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'MODIFICACION DE DATOS DEL CONTRIBUYENTE',
+        'consulta_contribuyente':consulta_a_modificar
+    }
+
+    return render(request,'catastro/modificacion_contribuyentes.html', ctx)
+
+#funcion que actualiza los datos
+def update_contribuyentes(request,rfc_u):
+
+    if request.method == 'POST':
+
+        #rfc = request.POST['rfc']
+        #tipo_persona = request.POST['tipo_persona']
+        tipo_identificacion = request.POST['tipo_identificacion']
+        num_identificacion = request.POST['num_identificacion']
+        nombre_razon = request.POST['nombre_razon']
+        apaterno = request.POST['apaterno']
+        amaterno = request.POST['amaterno']
+        #curp = request.POST['curp']
+        finado = request.POST['finado']
+        fecha_nacimiento_registro = request.POST['fecha_nacimiento']
+        telefono = request.POST['telefono']
+        celular = request.POST['celular']
+        email = request.POST['email']
+        observaciones = request.POST['observaciones']
+
+        entidad_fed = request.POST['entidad_federativa']
+        municipio = request.POST['munic']
+        localidad = request.POST['loca']
+        col = request.POST['colon']
+        calle = request.POST['calle']
+        cp = request.POST['cp']
+        num_ext = request.POST['num_ext']
+        letra_ext = request.POST['let_ext']
+        num_int = request.POST['num_int']
+        letra_int = request.POST['let_int']
+
+        error_message =""
+
+        if not len(rfc_u.strip()) == 0:
+
+            try:
+
+                with transaction.atomic():
+
+                    consulta_mod =  models.Domicilio_noti.objects.filter(Q(fk_rfc__rfc = rfc_u))
+
+                    for datos_mod in consulta_mod:
+
+                        #datos principales contribuyente
+                        datos_mod.fk_rfc.tipo_identificacion = tipo_identificacion
+                        datos_mod.fk_rfc.numero_identificacion = num_identificacion
+                        datos_mod.fk_rfc.nombre = nombre_razon
+                        datos_mod.fk_rfc.apaterno = apaterno
+                        datos_mod.fk_rfc.amaterno = amaterno
+                        datos_mod.fk_rfc.finado = finado
+                        datos_mod.fk_rfc.fecha_nacimiento = fecha_nacimiento_registro
+                        datos_mod.fk_rfc.telefono = telefono
+                        datos_mod.fk_rfc.telefono_movil = celular
+                        datos_mod.fk_rfc.email = email
+                        datos_mod.fk_rfc.observaciones = observaciones
+
+                        #domicilio del contribuyente
+
+                        datos_mod.entidad_fed =entidad_fed
+                        datos_mod.municipio = municipio
+                        datos_mod.localidad = localidad
+                        datos_mod.col = col
+                        datos_mod.calle = calle
+                        datos_mod.cp = cp
+                        datos_mod.num_ext = num_ext
+                        datos_mod.letra_ext = letra_ext
+                        datos_mod.num_int = num_int
+                        datos_mod.letra_int = letra_int
+
+                        datos_mod.fk_rfc.save()
+                        datos_mod.save()
+
+                        error_contribuyente = 0
+
+
+            except Exception as e:
+                error_message = f"Error de consulta: {str(e)}"
+                error_contribuyente = 1
+
+            ctx = {
+                'error_message': error_message,
+                'error_contribuyente':error_contribuyente
+            }
+
+    return render(request,'catastro/modificacion_contribuyentes.html', ctx)
+
+
+
+def delete_contribuyentes(request,rfc_u):
+
+    if request.method == 'POST':
+
+        error_message =""
+        error_contribuyente_delete = 0
+
+    
+        if not len(rfc_u.strip()) == 0:
+           
+
+            try:
+   
+                consulta_delete = models.Datos_Gen_contribuyente.objects.filter(rfc=rfc_u)
+                consulta_delete.delete()
+                error_contribuyente_delete = 0
+            
+            except Exception as exc:
+
+                error_message = f"Error de eliminación: {str(exc)}"
+                error_contribuyente_delete = 1
+
+            ctx = {
+                'error_message': error_message,
+                'error_contribuyente':error_contribuyente_delete
+            }
+
+
+    return render(request,'catastro/index_contribuyente.html', ctx)
+
+
+
+    
+"""------------------------------------"""     
+   
+   
 
 @login_required(login_url="pag_login")
 def predios_index(request):
@@ -246,7 +502,6 @@ def solicitud_dc017(request):
         'titulo_pag': 'SOLICITUD DC017',
     }
     return render(request,'catastro/solicitud_dc017.html', ctx)
-
 
 def registrar_solicitud_dc017(request):
 
