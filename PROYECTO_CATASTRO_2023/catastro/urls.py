@@ -30,6 +30,11 @@ urlpatterns = [
     path('perfil_su/',views.perfil_sup_user_catastro, name='perfil_su_cat'),
     path('view_registrar_usuario/',views.view_registrar_usuario, name='view_registrar_usuario'),
     path('view_cambiar_contra/', views.views_cambiar_password, name='view_cambiar_password'),
+    
+    # PRUEBA
+    path('preuba_vovler/',views.view_prueba, name='volver'),
+    path('redirigir_perfil/',views.redirigir_catastro, name='redirigir_perfil_cat'),
+    
 
     ############################ RUTAS QUE IMPLICA EL REGISTRO, MODIFICACION Y ELIMINACION DEL CONTRIBUYENTE #####
 
@@ -70,7 +75,7 @@ urlpatterns = [
 
     #RUTA VISUALIZAR FICHA CATASTRAL
     path('catastro/perfil/ficha_catastral/',views.ficha_catastral,name='ficha_catastral'),
-    path('catastro/perfil/ficha_catastral/redirigir',views.redirigir,name='redirect'),
+    # path('catastro/perfil/ficha_catastral/redirigir',views.redirigir,name='redirect'),
 
 
     #RUTA PARA CONSULTAR DATOS GENERALES DE LA FICHA CATASTRAL

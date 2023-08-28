@@ -498,7 +498,7 @@ button:hover {
 
 <div class="row  " style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
     <div class="col col-lg-2">
-        <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">Atras</button>
+        <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">VOLVER</button>
     </div>
     <div class="col-md-auto">
      
@@ -510,7 +510,8 @@ button:hover {
 
 <script>
     document.getElementById("btnBack").addEventListener("click", function() {
-        window.location.href = "{% url 'catastro:perfil_cat' %}";
+        
+        window.location.href = "{% url 'catastro:redirigir_perfil_cat' %}";
     });
 </script>
 

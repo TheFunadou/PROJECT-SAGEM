@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth import logout
 from django.urls import *
 from django.utils import timezone
+import json
 
 from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
 # CREATE VIEW PARA GENERAR UNA CLASE PARA GUARDAR DATOS
@@ -37,6 +38,14 @@ from django.db import transaction
 # CERRAR SESION NO LE QUITEN EL REQUEST QUE NO JALA XD
 def cerrar_sesion(request):
     return redirect('logout')
+
+@login_required(login_url="pag_login")
+def redirigir_catastro(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect ("catastro:perfil_su_cat")
+        else:
+            return redirect("catastro:perfil_cat")
 
 
 """
@@ -87,7 +96,8 @@ def perfil_catastro(request):
     ctx={
         'url_pag': 'x',
         'nom_pag': 'Catastro',
-        'titulo_pag': 'INICIO CATASTRO'
+        'titulo_pag': 'INICIO CATASTRO',
+        'nombre_user':request.user.username
     }
     
     return render(request,'catastro/inicio_catastro.html',ctx)
@@ -119,6 +129,9 @@ def perfil_sup_user_catastro(request):
 
     return render(request, 'catastro/inicio_sup_user_catastro.html', ctx)
 
+
+def view_prueba(request):
+    return render (request,'catastro/prueba.html')
 
 # Pantalla 
 @login_required(login_url="pag_login")
@@ -194,10 +207,12 @@ def views_cambiar_password(request):
 
 """funciones para procesos de un contribuyente, alta, baja y modificacones"""
 #vista pantalla consultas
+@login_required(login_url="pag_login")
 def vista_index_contribuyente(request):
     return render(request,'catastro/index_contribuyente.html')
 
 #consulta datos de los contribuyentes registrados
+@login_required(login_url="pag_login")
 def consulta_index_contribuyentes(request):
 
     context = {}
@@ -231,6 +246,7 @@ def contribuyente_index(request):
     return render(request,'catastro/alta_contribuyentes.html', ctx)
 
 #REGISTRAR DATOS DEL CIUDADANO
+@login_required(login_url="pag_login")
 def registro_contribuyente(request):
 
     if request.method == 'POST':
@@ -302,6 +318,7 @@ def registro_contribuyente(request):
     return render(request, 'catastro/alta_contribuyentes.html', {'error_message': error_message, 'error_contribuyente':error_contribuyente})
 
 #registra datos domicilio del contribuyente
+@login_required(login_url="pag_login")
 def registro_domicilio_contribuyente(request,fk_rfc):
    
    if request.method == 'POST':
@@ -346,6 +363,7 @@ def registro_domicilio_contribuyente(request,fk_rfc):
    return render(request, 'catastro/alta_contribuyentes.html', {'error_message': error_message, 'error_domicilio':error_domicilio})
 
 #vista solo muestra pantalla de modificacion
+@login_required(login_url="pag_login")
 def vista_update_contribuyentes(request,rfc):
     
     consulta_a_modificar = models.Domicilio_noti.objects.filter(Q(fk_rfc__rfc = rfc))
@@ -359,6 +377,7 @@ def vista_update_contribuyentes(request,rfc):
     return render(request,'catastro/modificacion_contribuyentes.html', ctx)
 
 #funcion que actualiza los datos
+@login_required(login_url="pag_login")
 def update_contribuyentes(request,rfc_u):
 
     if request.method == 'POST':
@@ -445,7 +464,7 @@ def update_contribuyentes(request,rfc_u):
     return render(request,'catastro/modificacion_contribuyentes.html', ctx)
 
 
-
+@login_required(login_url="pag_login")
 def delete_contribuyentes(request,rfc_u):
 
     if request.method == 'POST':
@@ -813,8 +832,8 @@ def crear_reporte_DC017(d_clave_cat_i):
 """--- APARTADO 1 DATOS GENERALES ---"""
 #CONSULTAR DATOS GENERALES DEL CONTRIBUYENTES PARA FICHA CATASTRAL
 
-def redirigir(request):
-    return redirect('catastro:perfil_su_cat')
+# def redirigir(request):
+#     return redirect('catastro:perfil_su_cat')
 
 def obtener_datos_busqueda_ficha(request, *args,**kwargs):
     search = request.GET.get('search')
