@@ -301,13 +301,13 @@ button:hover {
                             <div class="card-body justify-content-center" style="border: #992535 2px solid; ">
     
                                 
-                                <form action="{% url 'catastro:busqueda_contribuyentes' %}"method="POST" data-parsley-validate="" id="formFiltros">
+                                <form action="{% url 'catastro:busqueda_predios' %}"method="POST" data-parsley-validate="" id="formFiltros">
                                         {%csrf_token%}
                                         <div class="row">
                                             <p style="color: wheat; text-align: center;"><em>Ingrese la clave catastral o bien puede consultar a todos los contribuyentes pulsando solo el boton buscar.</em></p>
                                             <div id="autocomplete" class="autocomplete col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                                 
-                                                <label for="busqueda" style="color: wheat; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">RFC DEL CONTRIBUYENTE</label>
+                                                <label for="busqueda" style="color: wheat; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">CLAVE CATASTRAL DEL PREDIO</label>
                                                 <br>
                                                 
                                                 <input type="text" id="busqueda" values="" class="form-control" name="busqueda" style="background:rgb(255, 255, 255); border: #ac2546 solid 1px;" 
@@ -327,7 +327,7 @@ button:hover {
     
                                                 <div class="input-group-sm col-xl-1  " style=" width: max-content; margin-left: 45px;">
                                                     <div class="form-group">
-                                                        <a href="{% url 'catastro:vista_alta_contribuyente' %}"><button class="btn my-2 my-sm-0" type="button" style="color: black; background-color:wheat;">Nuevo contribuyente</button></a>
+                                                        <a href="{% url 'catastro:vista_alta_predios' %}"><button class="btn my-2 my-sm-0" type="button" style="color: black; background-color:wheat;">Nuevo predio</button></a>
                                                     </div>      
                                                 </div>
 
@@ -357,23 +357,23 @@ button:hover {
                 <div class="table-responsive" >
                     <table id="tabla-datos" class="table table-striped table-bordered">
                         <thead>
-                            <tr>
-                                <th>RFC</th>
-                                <th>CURP</th>
-                                <th>NOMBRE COMPLETO</th>
-                                <th>TELÉFONO</th>
+                            <tr style="background-color: wheat; text-align: center;">
+                                <th>CLAVE CATASTRAL</th>
+                                <th>FECHA DE REGISTRO</th>
+                                <th>CUENTA PREDIAL</th>
+                                <th>TIPO DE PREDIO</th>
                                 <th>DOMICILIO</th>
-                                <th>Acción</th>
+                                <th>ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            {% if resultado|length > 0 %}
+                            {% if resultado_predios|length > 0 %}
 
-                                {%for dat in resultado%}
+                                {%for dat in resultado_predios%}
                                 <tr>
                                     
-                                    <td>{{dat.fk_rfc.rfc}}</td>
+                                    <td>{{dat.fk_clave_catastral.clave_catastral}}</td>
                                     <td>{{dat.fk_rfc.curp}}</td>
                                     <td>{{dat.fk_rfc.nombre}} {{dat.fk_rfc.apaterno}} {{dat.fk_rfc.amaterno}}</td>
                                     <td>{{dat.fk_rfc.telefono_movil}}</td>
@@ -498,7 +498,7 @@ button:hover {
 
 <div class="row  " style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
     <div class="col col-lg-2">
-        <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">VOLVER</button>
+        <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">Atras</button>
     </div>
     <div class="col-md-auto">
      
@@ -510,8 +510,7 @@ button:hover {
 
 <script>
     document.getElementById("btnBack").addEventListener("click", function() {
-        
-        window.location.href = "{% url 'catastro:redirigir_perfil_cat' %}";
+        window.location.href = "{% url 'catastro:perfil_cat' %}";
     });
 </script>
 

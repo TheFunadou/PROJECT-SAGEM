@@ -304,7 +304,7 @@ button:hover {
 
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
 
-<form id="formulario" action="catastro:registrar_datos_predio" method="post">
+<form id="formulario" action="" method="post">
 
         {%csrf_token%}
         <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>
@@ -426,14 +426,14 @@ button:hover {
                                     
                                 </div>
                                 
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <!-- <div class="form-group">
+                                <!-- <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
                                         <label for="name">Clave catastral</label>
                                         <input type="text" id="tipo_identificacion" class="form-control" name="tipo_identificacion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
-                                    </div> -->
-                                </div>
+                                    </div> 
+                                </div> -->
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
@@ -444,13 +444,7 @@ button:hover {
                                     </div>
                                 </div>  
 
-                                 
 
-                            </div><br>
-
-                            <div class="row" style="text-align: center;">
-                                
-                                
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Cuenta predial</label>
@@ -459,6 +453,15 @@ button:hover {
                                                 <span></span>
                                     </div>
                                 </div>
+
+                                 
+
+                            </div><br>
+
+                            <div class="row" style="text-align: center;">
+                                
+                                
+                                
 
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
@@ -478,10 +481,7 @@ button:hover {
                                     </div>
                                 </div> 
 
-                            </div><br>
-
-                            <div class="row" style="text-align: center;">
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Tipo de predio</label>
                                         <select name="tipo_predio" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
@@ -492,8 +492,14 @@ button:hover {
                                     </div>
                                     
                                 </div>
+
+                            </div><br>
+
+                            <div class="row" style="text-align: center;">
                                 
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                
+                                
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Uso de predio</label>
                                         <input type="text" id="uso_predio" class="form-control" name="uso_predio" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
@@ -502,16 +508,16 @@ button:hover {
                                     </div>
                                 </div>
 
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Región</label>
-                                        <input type="text" id="region" class="form-control" name="region" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                        <input type="text" id="region_2" class="form-control" name="region_2" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
                                 </div>  
 
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="rfc">Zona de valor</label>
                                         <input type="text" id="zona_valor" class="form-control" name="zona_valor" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
@@ -734,9 +740,7 @@ button:hover {
                                  
 
                             </div><br>
-
-                            
-                            
+         
                             <hr>
 
         
@@ -768,6 +772,72 @@ button:hover {
                 </div>
             </div>
         </div>  
+
+        {% if error_predio == 1 or error_predio_domicilio == 1 %}
+        <script>
+            $(document).ready(function () {
+                $('#error').modal('show'); // Muestra la alerta modal de error
+
+                setTimeout(function() {     
+                              
+                    window.location.href = "{% url 'catastro:vista_alta_predios' %}"
+                          
+                }, 2000); 
+
+                
+            });
+        </script>
+
+        {%elif error_predio == 0 or error_predio_domicilio == 0%}
+
+        <script>
+            $(document).ready(function () {
+                $('#myModal').modal('show'); // Muestra la alerta modal de sucess
+                setTimeout(function() {     
+                          
+                    window.location.href = "{% url 'catastro:busqueda_predios' %}"
+                                
+                }, 6000); 
+            });
+        </script>
+
+        {% endif %}
+
+        <div id="error" class="modal fade" style="margin-top: 100px;">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header-error justify-content-center">
+                        <div class="icon-box">
+                            <i class="material-icons">&#xe5cd;</i>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-body text-center">
+                        <h4>ERROR</h4>	
+                        <p>{{ error_message|default:"" }}</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+        <div id="error_campos" class="modal fade" style="margin-top: 100px;">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header-error justify-content-center">
+                        <div class="icon-box">
+                            <i class="material-icons">&#xe5cd;</i>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-body text-center">
+                        <h4>ERROR</h4>	
+                        <h6>favor de llenar los campos.</h6>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="error" class="modal fade" style="margin-top: 100px;">
             <div class="modal-dialog modal-confirm">

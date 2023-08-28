@@ -38,34 +38,54 @@ urlpatterns = [
 
     ############################ RUTAS QUE IMPLICA EL REGISTRO, MODIFICACION Y ELIMINACION DEL CONTRIBUYENTE #####
 
-    #CREATE
+    #INICIO
     #página index de contribuyentes
     path('index_contribuyentes/',views.vista_index_contribuyente, name='index_contribuyente'),
-
     path('busqueda/',views.consulta_index_contribuyentes, name='busqueda_contribuyentes'),
 
+    #CREATE
     #vista para visualzar pantalla de registro
-    path('registro_contribuyente/',views.contribuyente_index,name='vista_alta_contribuyente'),
-
+    path('registro_contribuyente/',views.vista_alta_contribuyente,name='vista_alta_contribuyente'),
     # ruta para registrar al contribuyente
     path('registrar_contribuyente/',views.registro_contribuyente, name='registro_contribuyente'),
-
 
     #UPDATE
     #vista pantalla editar contribuyentes
     path('editar_contribuyente/<str:rfc>/',views.vista_update_contribuyentes, name='modificacion_contribuyentes'),
-
     #ruta que actualiza los datos del contribuyente
     path('update_contribuyente/<str:rfc_u>/',views.update_contribuyentes,name='update_contribuyentes'),
 
     #DELETE
     path('delete_contribuyente/<str:rfc_u>/',views.delete_contribuyentes,name='delete_contribuyentes'),
-    #############################
+    ###################################
+
+
+    ############################ RUTAS QUE IMPLICA EL REGISTRO, MODIFICACION Y ELIMINACION DE UN PREDIO #####
+
+    #INICIO
+    #vista para el inicio de predios
+    path('index_predios/',views.vista_index_predios, name='index_predios'),
+    path('busqueda_predios/',views.consulta_index_predios, name='busqueda_predios'),
+
+    #CREATE
+    #vista para visualzar pantalla de registro
+    path('registro_predios/',views.vista_alta_predios,name='vista_alta_predios'),
+    # ruta para registrar al predio
+    path('registrar_predios/',views.registro_predios, name='registro_predios'),
+
+    #UPDATE
+    #vista pantalla editar contribuyentes
+    #path('editar_predios/<str:clave>/',views.vista_update_predios, name='modificacion_predios'),
+    #ruta que actualiza los datos del contribuyente
+    #path('update_predios/<str:clave>/',views.update_predios,name='update_predios'),
+
+    #DELETE
+    #path('delete_contribuyente/<str:clave>/',views.delete_predios,name='delete_predios'),
+    
 
 
 
-    #RUTA PARA VISUALIZAR EL ALTA DEL PEDRIO
-    path('catastro/perfil/registro_predios/',views.predios_index,name='vista_alta_predios'),
+
 
 
     #RUTA VISUALIZAR SOLICITUD DC017

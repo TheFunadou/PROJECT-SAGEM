@@ -209,7 +209,11 @@ def views_cambiar_password(request):
 #vista pantalla consultas
 @login_required(login_url="pag_login")
 def vista_index_contribuyente(request):
-    return render(request,'catastro/index_contribuyente.html')
+    ctx = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'INICIO CONTRIBUYENTES',
+    }
+    return render(request,'catastro/contribuyentes/index_contribuyente.html',ctx)
 
 #consulta datos de los contribuyentes registrados
 @login_required(login_url="pag_login")
@@ -234,16 +238,16 @@ def consulta_index_contribuyentes(request):
             'resultado': consulta_general  # Pasa el valor al contexto
         }
 
-    return render(request,'catastro/index_contribuyente.html', context)
+    return render(request,'catastro/contribuyentes/index_contribuyente.html', context)
 
 #vista registro ciudadano
 @login_required(login_url="pag_login")
-def contribuyente_index(request):
+def vista_alta_contribuyente(request):
     ctx = {
         'nom_pag': 'Catastro',
         'titulo_pag': 'REGISTRO DE CIUDADANO',
     }
-    return render(request,'catastro/alta_contribuyentes.html', ctx)
+    return render(request,'catastro/contribuyentes/alta_contribuyentes.html', ctx)
 
 #REGISTRAR DATOS DEL CIUDADANO
 @login_required(login_url="pag_login")
@@ -258,8 +262,6 @@ def registro_contribuyente(request):
         curp = request.POST['curp']
 
         if not (len(curp.strip()) == 0 or len(rfc.strip()) == 0):
-
-            print(len(rfc.strip()), " curp: ",len(curp.strip()))
 
         
             tipo_persona = request.POST['tipo_persona']
@@ -315,7 +317,7 @@ def registro_contribuyente(request):
             error_message = "RFC y CURP deben tener un valor"
             
             
-    return render(request, 'catastro/alta_contribuyentes.html', {'error_message': error_message, 'error_contribuyente':error_contribuyente})
+    return render(request, 'catastro/contribuyentes/alta_contribuyentes.html', {'error_message': error_message, 'error_contribuyente':error_contribuyente})
 
 #registra datos domicilio del contribuyente
 @login_required(login_url="pag_login")
@@ -360,7 +362,7 @@ def registro_domicilio_contribuyente(request,fk_rfc):
         except Exception as e:
             error_message = f"Error al registrar: {str(e)}"
             error_domicilio = 1
-   return render(request, 'catastro/alta_contribuyentes.html', {'error_message': error_message, 'error_domicilio':error_domicilio})
+   return render(request, 'catastro/contribuyentes/alta_contribuyentes.html', {'error_message': error_message, 'error_domicilio':error_domicilio})
 
 #vista solo muestra pantalla de modificacion
 @login_required(login_url="pag_login")
@@ -374,7 +376,7 @@ def vista_update_contribuyentes(request,rfc):
         'consulta_contribuyente':consulta_a_modificar
     }
 
-    return render(request,'catastro/modificacion_contribuyentes.html', ctx)
+    return render(request,'catastro/contribuyentes/modificacion_contribuyentes.html', ctx)
 
 #funcion que actualiza los datos
 @login_required(login_url="pag_login")
@@ -461,10 +463,9 @@ def update_contribuyentes(request,rfc_u):
                 'error_contribuyente':error_contribuyente
             }
 
-    return render(request,'catastro/modificacion_contribuyentes.html', ctx)
+    return render(request,'catastro/contribuyentes/modificacion_contribuyentes.html', ctx)
 
-
-@login_required(login_url="pag_login")
+#función para eliminar un contribuyente
 def delete_contribuyentes(request,rfc_u):
 
     if request.method == 'POST':
@@ -493,24 +494,170 @@ def delete_contribuyentes(request,rfc_u):
             }
 
 
-    return render(request,'catastro/index_contribuyente.html', ctx)
+    return render(request,'catastro/contribuyentes/index_contribuyente.html', ctx)
 
 
-
-    
-"""------------------------------------"""     
+"""------------------------------------------------------"""     
    
    
+
+
+"""PROCESOS DE UN PREDIO. ALTA, BAJA, MODIDIFICACION Y CONSULTA"""   
+
+def vista_index_predios(request):
+    ctx = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'INICIO PREDIOS',
+    }
+    return render(request,'catastro/predios/index_predios.html',ctx)
+
+def consulta_index_predios(request):
+    context = {}
+
+    if request.method == 'POST':
+
+        dato = request.POST['busqueda'].strip()
+        consulta_general = []
+
+        if len(dato) == 0:
+
+            consulta_general = models.Domicilio_predio.objects.all()
+
+        else:
+
+            consulta_general = models.Domicilio_predio.objects.filter(Q(fk_clave_catastral = dato))
+        
+        context = {
+            'resultado': consulta_general  # Pasa el valor al contexto
+        }
+
+    return render(request,'catastro/predios/index_predios.html', context)
 
 @login_required(login_url="pag_login")
-def predios_index(request):
+def vista_alta_predios(request):
     ctx = {
         'nom_pag': 'Catastro',
         'titulo_pag': 'ALTA DE PREDIO',
     }
-    return render(request,'catastro/alta_predios.html', ctx)
+    return render(request,'catastro/predios/alta_predios.html', ctx)
+
+def registro_predios(request):
+
+    if request.method== 'POST':
+
+        error_mensaje_predio = 0
+        error_predio = ""
+
+        zona_cat = request.POST['zonacat']
+        muni = request.POST['muni']
+        loc = request.POST['loc']
+        region = request.POST['region']
+        manzana = request.POST['manzana']
+        lote = request.POST['lote']
+        nivel = request.POST['nivel']
+        depto = request.POST['depto']
+        dvs = request.POST['dvs']
+
+        clave_catastral = zona_cat+muni+loc+region+manzana+lote+nivel+depto+dvs
+        fecha_alta = request.POST['fecha_registro']
+        motivo_alta = request.POST['motivo_registro']
+        cuenta_predial =  request.POST['cuenta_predial']
+        denominacion =  request.POST['denominacion']
+        cuenta_origen = request.POST['cuenta_origen']
+        tipo_predio = request.POST['tipo_predio']
+        uso_predio = request.POST['uso_predio']
+        region_2 = request.POST['region_2']
+        zona_valor =request.POST['zona_valor']
+
+        if models.Datos_gen_predio.objects.filter(clave_catastral=clave_catastral).exists():
+                error_mensaje_predio = f"Ya existe un registro con la clave catastral '{clave_catastral}'"
+                error_predio = 1
+
+        else: 
+
+            try:
+
+                with transaction.atomic:
+
+                    models.Datos_gen_predio.objects.create(
+
+                        clave_catastral = clave_catastral,
+                        cuenta_predial =  cuenta_predial,
+                        denominacion =  denominacion ,
+                        tipo_predio = tipo_predio,
+                        uso_predio = uso_predio,
+                        region = region_2,
+                        zona_valor = zona_valor,
+                        cuenta_origen = cuenta_origen,
+                        fecha_alta = fecha_alta,
+                        motivo_alta = motivo_alta,
+
+                    )
+                    error_predio = 0
+                    return registro_domicilio_predios(request,clave_catastral)
+
+            except Exception as ex:
+                error_mensaje_predio = f"Error al registrar predio: {str(ex)}"
+                error_predio = 1
+
+            ctx = {
+                'error_mensaje_predio': error_mensaje_predio,
+                'error_predio':error_predio
+            }
+
+    return render(request,'catastro/predios/alta_predios.html', ctx)
+        
+        
+
+def registro_domicilio_predios(request,clave):
+    if request.method == 'POST':
+        error_mensaje_predio = ""
+        error_predio_domicilio = 0
+       
+        try:
+            
+            fk_clave_catastral = clave
+            entidad_fed = request.POST['ent_federativa']
+            municipio = request.POST['municipio_predio']
+            localidad = request.POST['localidad_predio']
+            col = request.POST['colonia_predio']
+            calle = request.POST['calle_predio']
+            num_ext = request.POST['num_exte_predio']
+            letra_ext = request.POST['letra_exte_predio']
+            num_int = request.POST['num_inte_predio']
+            letra_int = request.POST['letra_inte_predio']
+            ubic_coordenadas = 'XXXXX'
 
 
+            models.Domicilio_predio.objects.create(
+
+                fk_clave_catastral = models.Datos_gen_predio.objects.get(clave_catastral=fk_clave_catastral),
+                entidad_fed = entidad_fed,
+                municipio = municipio,
+                localidad = localidad,
+                col = col,
+                calle = calle,
+                num_ext = num_ext,
+                letra_ext = letra_ext,
+                num_int = num_int,
+                letra_int = letra_int,
+                ubic_coordenadas = ubic_coordenadas
+
+            )
+            
+        
+        except Exception as e:
+            error_mensaje_predio = f"Error al registrar domicilio: {str(e)}"
+            error_predio_domicilio = 1
+    return render(request, 'catastro/predios/alta_predios.html', {'error_mensaje_predio': error_mensaje_predio, 'error_predio_domicilio':error_predio_domicilio})
+
+
+
+#def vista_update_predios(request):
+
+#def update_predios(request):
+
+#def delete_predios(request):
 
 
 @login_required(login_url="pag_login")
