@@ -15,7 +15,7 @@ class NotifyConsumer(AsyncWebsocketConsumer):
         username= self.username
         self.group_name=f'consumer_notifications_{username}'
         
-         # Suscribir a usuario al grupo
+        # Suscribir a usuario al grupo
         await self.channel_layer.group_add(
             self.group_name,
             self.channel_name

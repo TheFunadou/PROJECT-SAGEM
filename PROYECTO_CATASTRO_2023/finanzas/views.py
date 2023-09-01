@@ -98,7 +98,7 @@ def perfil_sup_user_finanzas(request):
     #CONTEXTO PARA EL TEMPLATE
     ctx = {
         'nom_pag': 'INGRESOS',
-        'titulo_pag': 'INICIO SUPER USUARIO FINANZAS',
+        'titulo_pag': 'INICIO SUPER USUARIO INGRESOS',
         'nombre_user': request.user.username
     }
 
@@ -269,7 +269,6 @@ def solicitar_descuento(request, dato):
                print(info.contribuyente.clave_catastral, ", ", info.estatus, ", ", info.ejercicio)                
                info.aplica_descuento = 'SOLICITADO'
                clave_cat_contrib = info.contribuyente.clave_catastral
-               ejercicio_years = info.ejercicio
                info.save()
          
          
@@ -280,7 +279,7 @@ def solicitar_descuento(request, dato):
         destinatario = 'sup_fin'
         id_dest = User.objects.get(username=destinatario)
         titulo = 'SOLICITUD DE DESCUENTO'
-        cuerpo = f'Clave Catastral: {clave_cat_contrib}, Años solicitados: {ejercicio_years}'
+        cuerpo = f'Clave Catastral: {clave_cat_contrib}, Años solicitados: {años_seleccionados}'
 
         
         notify_finanzas.objects.create(
@@ -300,6 +299,9 @@ def solicitar_descuento(request, dato):
             }
         )
         # FIN BLOQUE MANDAR NOTIFICACION      
+        
+        # Mandar correo
+        
            
         # Devuelve una respuesta JSON
         return JsonResponse({'mensaje': 'Años recibidos con éxito.'})
