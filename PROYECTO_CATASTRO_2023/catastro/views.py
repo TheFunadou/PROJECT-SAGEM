@@ -9,7 +9,7 @@ import json
 from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
 # CREATE VIEW PARA GENERAR UNA CLASE PARA GUARDAR DATOS
 from django.views.generic import CreateView
-from notify import models as notify_models
+from notify.models import notify as notify_catastro
 #TABLA USUARIOS
 from django.contrib.auth.models import User, Group
 
@@ -46,6 +46,13 @@ def redirigir_catastro(request):
             return redirect ("catastro:perfil_su_cat")
         else:
             return redirect("catastro:perfil_cat")
+        
+def obtener_username(request):
+    nom_user = request.user.username
+    
+    obj_user = User.objects.get(username= nom_user)
+    
+    return obj_user
 
 
 """
@@ -166,43 +173,75 @@ def registrar_usuario(request):
     departamento = request.POST['departamento']
     rol = request.POST['rol']
     
-    # Crear nuevo usuario
-    new_user= User(username=username, email=email)
-    new_user.set_password(conf_password)
     
-    if(rol == 'STAFF'):
-        new_user.save()
-    elif(rol == 'SUPER_USUARIO'):
-        new_user.is_superuser=True
-        new_user.save()
+    if password == conf_password:
+        # Crear nuevo usuario
+        new_user= User(username=username, email=email)
+        new_user.set_password(conf_password)
+        
+        if(rol == 'STAFF'):
+            new_user.save()
+        elif(rol == 'SUPER USUARIO'):
+            new_user.is_superuser=True
+            new_user.save()
+        
+        # Asginar un grupo al usuario
+        usuario = User.objects.get(username=username)
+        grupo = Group.objects.get(name=departamento)
+        
+        usuario.groups.add(grupo)
+        
+        return redirigir_catastro(request)
+    else:
+        pass
     
-    # Asginar un grupo al usuario
-    usuario = User.objects.get(username=username)
-    grupo = Group.objects.get(name=departamento)
     
-    usuario.groups.add(grupo)
+# @login_required(login_url="pag_login")
+# def views_cambiar_password(request):
+#     if request.user.is_authenticated:
+#         if request.user.is_superuser:
+#             pass
+#             ### DEMAS IF DE PERFILES DE SUPER USUARIO
+#         else:
+#             if request.user.groups.filter()[0].name == 'CATASTRO':
+#                 return redirect('catastro:perfil_cat')
+#             elif request.user.groups.filter()[0].name == 'FINANZAS':
+#                 return redirect('finanzas:perfil_fin')
+#             elif request.user.groups.filter()[0].name == 'DESARROLLO_URBANO':
+#                 return redirect('desarrollo_urbano:perfil_du')
     
+#     ctx = {
+#         'nom_pag': 'Catastro',
+#         'titulo_pag': 'RECUPERAR CONTRASEÑA'
+#     }
     
-@login_required(login_url="pag_login")
-def views_cambiar_password(request):
+#     return render(request, 'catastro/cambiar_password', ctx)
+
+@login_required(login_url='pag_login')
+def administrar_usuarios(request):
+    
     if request.user.is_authenticated:
         if request.user.is_superuser:
-            pass
-            ### DEMAS IF DE PERFILES DE SUPER USUARIO
-        else:
             if request.user.groups.filter()[0].name == 'CATASTRO':
-                return redirect('catastro:perfil_cat')
-            elif request.user.groups.filter()[0].name == 'FINANZAS':
+                return redirect('catastro:perfil_su_catastro')
+                ### DEMAS IF DE PERFILES DE SUPER USUARIO
+        else:
+            if request.user.groups.filter()[0].name == 'FINANZAS':
                 return redirect('finanzas:perfil_fin')
             elif request.user.groups.filter()[0].name == 'DESARROLLO_URBANO':
                 return redirect('desarrollo_urbano:perfil_du')
+            
+    query_usuarios = User.objects.all()
     
-    ctx = {
-        'nom_pag': 'Catastro',
-        'titulo_pag': 'RECUPERAR CONTRASEÑA'
+    ctx ={
+        "nom_pag": 'CATASTRO',
+        'titulo_pag': 'BANDEJA DE NOTIFICACIONES',
+        'nombre_user': request.user.username,
+        # AQUI DEBO PASAR EL QUERY
     }
     
-    return render(request, 'catastro/cambiar_password', ctx)
+    
+    return render(request, 'catastro/administrar_usuarios.html', ctx)
 
 
 """funciones para procesos de un contribuyente, alta, baja y modificacones"""
@@ -2077,7 +2116,7 @@ def send_notify_test(request):
     cuerpo = request.POST['cuerpo']
 
     
-    notify_models.notify.objects.create(
+    notify_catastro.objects.create(
         remitente=remitente,
         destinatario = id_dest,
         titulo = titulo,
@@ -2097,7 +2136,19 @@ def send_notify_test(request):
     
     return HttpResponse('Notificacion enviada')
 
-
+def gestor_notify_catastro(request):
+    
+    notify_d = notify_catastro.objects.all().filter(destinatario = obtener_username(request))
+    
+    
+    ctx ={
+        "nom_pag": 'CATASTRO',
+        'titulo_pag': 'BANDEJA DE NOTIFICACIONES',
+        'nombre_user': request.user.username,
+        'notify':notify_d
+    }
+    
+    return render(request,'catastro/gestor_notify_catastro.html',ctx)
     
     
     

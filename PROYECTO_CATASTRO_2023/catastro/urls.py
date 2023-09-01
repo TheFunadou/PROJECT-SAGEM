@@ -29,11 +29,14 @@ urlpatterns = [
     #PERFIL SUPER USUARIO
     path('perfil_su/',views.perfil_sup_user_catastro, name='perfil_su_cat'),
     path('view_registrar_usuario/',views.view_registrar_usuario, name='view_registrar_usuario'),
-    path('view_cambiar_contra/', views.views_cambiar_password, name='view_cambiar_password'),
+    #path('view_cambiar_contra/', views.views_cambiar_password, name='view_cambiar_password'),
     
     # PRUEBA
     path('preuba_vovler/',views.view_prueba, name='volver'),
     path('redirigir_perfil/',views.redirigir_catastro, name='redirigir_perfil_cat'),
+    
+    # GESTOR DE NOTIFICACIONES
+    path('bandeja_notify_catastro/', views.gestor_notify_catastro, name='gestor_notify_catastro'),
     
 
     ############################ RUTAS QUE IMPLICA EL REGISTRO, MODIFICACION Y ELIMINACION DEL CONTRIBUYENTE #####
@@ -129,5 +132,6 @@ urlpatterns = [
     #PRUEBA_NOTIFY
     path('notify/',views.view_notify,name="view_notify"),
     path('send_not/',views.send_notify_test,name="send_not_2"),
+    
     
 ]
