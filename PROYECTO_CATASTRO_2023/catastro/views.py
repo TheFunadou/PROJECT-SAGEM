@@ -184,6 +184,9 @@ def registrar_usuario(request):
         elif(rol == 'SUPER USUARIO'):
             new_user.is_superuser=True
             new_user.save()
+            
+        if departamento == 'INGRESOS':
+            departamento = 'FINANZAS'
         
         # Asginar un grupo al usuario
         usuario = User.objects.get(username=username)
