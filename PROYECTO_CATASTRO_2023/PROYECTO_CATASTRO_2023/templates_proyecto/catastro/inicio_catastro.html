@@ -214,7 +214,7 @@
         background-size: cover;
         background-position-x: center;
         display: flex;
-        align-items: flex-start;
+        align-iteyyms: flex-start;
         justify-content: center;
     }
 
@@ -242,27 +242,21 @@
 
 <main>
     <nav>
-        <ul class="main-links">
-            <li class="dropdown-li">
+        <ul class="main-ul">
+            <li class="main-list">
                 <a href="" class="titulo">PROPIEDADES Y TITULARES</a>
-                <ul class="dropdown">
+                <ul class="sub-list">
                     <li><a href="{% url 'catastro:index_contribuyente' %}" class="as">CONTRIBUYENTES</a></li>
                     <li><a href="{%url 'catastro:index_predios'%}" class="as">PREDIOS</a></li>     
                     <li><a href="{%url 'catastro:index_asignacion'%}" class="as">ASIGNACIÓN</a></li>       
                 </ul>
             </li>
 
-            <li class="dropdown-li">
+            <li class="main-list">
                 <a href=""class="titulo">TRAMITES</a>
-                <ul class="dropdown">
+                <ul class="sub-list">
                     <li><a href="{% url 'catastro:solicitud' %}" class="as">DC017</a></li>
                     <li><a href="{%url 'catastro:ficha_catastral'%}" class="as">FICHA_CATASTRAL</a></li>
-        <ul class="main-ul">
-            <li class="main-list">
-                <a href="">PROPIEDADES Y TITULARES</a>
-                <ul class="sub-list">
-                    <li><a href="{% url 'catastro:index_contribuyente' %}" >CONTRIBUYENTES</a></li>
-                    <li><a href="" >PREDIOS</a></li>       
                 </ul>
             </li>
 
@@ -278,13 +272,6 @@
             </li>
 
             
-            <li class="main-list">
-                <a href="">TRAMITES</a>
-                <ul class="sub-list">
-                    <li><a href="{% url 'catastro:solicitud' %}" class="as">DC017</a></li>
-                    <li><a href="{%url 'catastro:ficha_catastral'%}" class="as">FICHA_CATASTRAL</a></li>
-                </ul>
-            </li>
 
             <li class="main-list">
                 <a href="">REPORTE</a>

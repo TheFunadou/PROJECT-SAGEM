@@ -1,0 +1,976 @@
+{%extends "master_blade.html"%}
+
+
+{%block body%}
+
+{% load static %}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'arial';
+    }
+
+    #mi-barra1 {
+        width: 100%;
+        height: 30px;
+        background-color: #880E0B;
+        position: fixed;
+        top: 100px;
+        left: 0;
+        z-index: 9999;
+    }
+
+    #mi-barra2 {
+        width: 100%;
+        height: 20px;
+        background-color: #B8860B;
+        position: fixed;
+        top: 120px;
+        left: 0;
+        z-index: 9999;
+    }
+
+
+    img {
+        display: block;
+        margin: 0 auto;
+        width: 18%;
+        height: auto;
+        position: center;
+    }
+
+    .izquierda {
+        float: left;
+        padding-top: 9px;
+
+    }
+
+    .derecha {
+        float: right;
+        padding-top: 9px;
+    }
+
+    .form {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1250px;
+        height: 290px;
+        border-radius: 10px;
+        border: solid 2px #B8860B;
+    }
+
+    .nt1 {
+        margin-left: 500px;
+    }
+
+    .t1 {
+        margin-left: 50px;
+    }
+
+    .t2 {
+        color: #880E4F;
+        margin-left: 400px;
+    }
+
+    .t3 {
+        margin-left: 1010px;
+    }
+
+    .n1 {
+        margin-left: 200px;
+    }
+
+    .n2 {
+        margin-left: 25px;
+    }
+
+    .n3 {
+        margin-left: 10px;
+    }
+
+    .n4 {
+        margin-left: 25px;
+    }
+
+    .n5 {
+        margin-left: 25px;
+    }
+
+    .n6 {
+        margin-left: 35px;
+    }
+
+    .n7 {
+        margin-left: 35px;
+    }
+
+    .n8 {
+        margin-left: 35px;
+    }
+
+    .n9 {
+        margin-left: 45px;
+    }
+
+    .c1 {
+        margin-left: 30px;
+    }
+
+    .c3 {
+        margin-left: 410px;
+    }
+
+    .tn1 {
+        margin-left: 200px;
+    }
+
+    .tn2 {
+        margin-left: 40px;
+    }
+
+    .tn3 {
+        margin-left: 55px;
+    }
+
+    .tn4 {
+        margin-left: 52px;
+    }
+
+    .tn5 {
+        margin-left: 52px;
+    }
+
+    .tn6 {
+        margin-left: 45px;
+    }
+
+    .tn7 {
+        margin-left: 28px;
+    }
+
+    .tn8 {
+        margin-left: 35px;
+    }
+
+    .tn9 {
+        margin-left: 30px;
+    }
+
+    .nt2 {
+        margin-left: 450px;
+    }
+
+    .t4 {
+        margin-left: 50px;
+    }
+
+    .t5 {
+        margin-left: 300px;
+    }
+
+    .t6 {
+        margin-left: 340px;
+    }
+
+    .c4 {
+        margin-left: 45px;
+    }
+
+    .c5 {
+        margin-left: 270px;
+    }
+
+    .c6 {
+        margin-left: 270px;
+    }
+
+    .nt3 {
+        margin-left: 450px;
+    }
+
+    .t7 {
+        margin-left: 100px;
+    }
+
+    .t8 {
+        margin-left: 200px;
+    }
+
+    .t9 {
+        margin-left: 300px;
+    }
+
+    .t99 {
+        margin-left: 250px;
+    }
+
+    .c7 {
+        margin-left: 45px;
+    }
+
+    .c8 {
+        margin-left: 80px;
+    }
+
+    .cC8 {
+        margin-left: 70px;
+    }
+
+    .c9 {
+        margin-left: 150px;
+    }
+
+    .c99 {
+        margin-left: 100px;
+    }
+
+    .cC9 {
+        margin-left: 140px;
+    }
+
+    .form2 {
+        position: absolute;
+        top: 95%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1250px;
+        height: 250px;
+        border-radius: 10px;
+        border: solid 2px #B8860B;
+    }
+
+
+    th {
+        border: solid #880E4F 2px;
+        background-color: #880E4F;
+        color: rgb(255, 255, 255);
+        width: 15em;
+        text-align: center;
+    }
+
+    td {
+        border: solid #880E4F 2px;
+        text-align: center;
+    }
+
+
+
+    .nt4 {
+        margin-left: 550px;
+    }
+
+    .btn1 {
+        width: 20px;
+        height: 20px;
+        margin-left: 1050px;
+        font-size: 30px;
+    }
+
+
+    .TT1 {
+        margin-left: 100px;
+    }
+
+    .CC11 {
+        margin-left: 50px;
+    }
+
+    .CC1 {
+        margin-left: 60px;
+    }
+
+    .TT2 {
+        margin-left: 100px;
+    }
+
+    .CC2 {
+        margin-left: 52px;
+    }
+
+    .TT3 {
+        margin-left: 100px;
+    }
+
+    .CC3 {
+        margin-left: 40px;
+    }
+
+    .TT4 {
+        margin-left: 100px;
+    }
+
+    .CC4 {
+        margin-left: 39px;
+    }
+
+    .TT5 {
+        margin-left: 100px;
+    }
+
+    .CC5 {
+        margin-left: 30px;
+    }
+
+    .TT6 {
+        margin-left: 100px;
+    }
+
+    .CC6 {
+        margin-left: 55px;
+    }
+
+    .TT7 {
+        margin-left: 100px;
+    }
+
+    .CC7 {
+        margin-left: 50px;
+    }
+
+    .btn {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 40px;
+        height: 40px;
+        background: #880E4F;
+        line-height: 90px;
+        border-radius: 50%;
+        text-align: center;
+        
+        transition: .9s;
+    }
+
+    .btn i {
+        font-size: 25px;
+        color: white;
+        line-height: 80px;
+        transition: all .7s ease;
+    }
+
+    .container:hover input {
+        width: 350px;
+    }
+
+    .container:hover i {
+        transform: rotate(-360deg);
+    }
+
+    .btn:hover {
+        background: #880E4F;
+    }
+
+    .container {
+        position: absolute;
+        left: 48%;
+        top: 22%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+    }
+</style>
+
+<div class="container">
+    <input type="text" placeholder="Buscar">
+    <div class="btn">
+        <i class="fa fa
+        -search"></i>
+    </div>
+</div>
+<div class="form">
+    <fieldset>
+        <legend class="nt1" style="color: #880E4F ;font-size: 20px;">DATOS GENERALES</legend>
+        <label for="fecha" class="t1"> FECHA</label>
+        <label for="Hora" class="t3"> HORA</label>
+
+        <div>
+            <input type="text" class="c1" style="width:100px;">
+            <label for="clave" class="t2">CLAVE CATASTRAL</label>
+            <input type="text" class="c3" style="width:90px;">
+        </div>
+
+            <label for="zona" class="n1">ZONA</label>
+            <label for="mun" class="n2">MUNICIPIO</label>
+            <label for="loc" class="n3">LOCALIDAD</label>
+            <label for="reg" class="n4">REGIÓN</label>
+            <label for="man" class="n5">MANZANA</label>
+            <label for="lote" class="n6">LOTE</label>
+            <label for="nvl" class="n7">NIVEL</label>
+            <label for="dpto" class="n8">DPTO</label>
+            <label for="dv" class="n9">DV</label>
+        <div class="p1">
+
+            <input class="tn1" type="text" style="width: 40px;">
+            <input class="tn2" type="text" style="width: 40px;">
+            <input class="tn3" type="text" style="width: 40px;">
+            <input class="tn4" type="text" style="width: 40px;">
+            <input class="tn5" type="text" style="width: 40px;">
+            <input class="tn6" type="text" style="width: 40px;">
+            <input class="tn7" type="text" style="width: 40px;">
+            <input class="tn8" type="text" style="width: 40px;">
+            <input class="tn9" type="text" style="width: 40px;">
+
+
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+
+        <legend class="nt2" style="color: #880E4F ;font-size: 20px;">INFORMACIÓN DEL PROPIETARIO</legend>
+            <label for="AP" class="t4"> APELLIDO PATERNO</label>
+            <label for="AM" class="t5"> APELLIDO MATERO</label>
+            <label for="NOM" class="t6"> NOMBRE(S)</label>
+
+        <div class="p2">
+            <input type="text" class="c4">
+            <input type="text" class="c5">
+            <input type="text" class="c6">
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+        <legend class="nt3" style="color: #880E4F ; font-size: 20px;">INFORMACIÓN DEL PREDIO</legend>
+        <label for="CALLE" class="t7">CALLE</label>
+        <label for="NUM" class="t8">NUM</label>
+        <label for="CP" class="t9">C.P</label>
+        <label for="COLONIA" class="t99"> COLONIA</label>
+
+        <div class="p3">
+            <input type="text" class="c7">
+            <input type="text" class="c8">
+            <input type="text" class="c9">
+            <input type="text" class="c99">
+        </div>
+
+    </fieldset>
+
+</div>
+
+<div class="form2">
+    <fieldset>
+        <legend class="nt4" style="color: #880E4F ; font-size: 20px;">DETALLE DE PAGO</legend>
+
+        <label for="CONCEPTO" class="TT1">CONECPTO</label>
+        <label for="tipo prd" class="TT2">TIPO PREDIO</label>
+        <label for="valor catastral" class="TT4 ">VALOR CATASTRAL</label>
+        <div class="p3">
+            <input id="CONCEPTO" type="text" style="width: 100px;" class="CC11">
+            <input type="tipo prd" class="cC8">
+            <input type="valor catastral" class="cC9">
+
+            <label for="subtotal" class="TT2">SUBTOTAL</label>
+            <label for="imp" class="TT3">IMP. ADICIONAL</label>
+            <label for="act" class="TT4 ">ACT</label>
+            <label for="recargo" class="TT5">RECARGO </label>
+            <label for="multa" class="TT6">MULTA</label>
+            <label for="total" class="TT7">TOTAL</label>
+
+            <div class="p3">
+                <input id="CONCEPTO" type="text" style="width: 100px;" class="CC1">
+                <input id="subtotal" type="text" style="width: 100px;" class="CC2">
+                <input id="imp" type="text" style="width: 120px;" class="CC3">
+                <input id="act" type="text" style="width: 100px;" class="CC4">
+                <input id="recargo" type="text" style="width: 100px;" class="CC5">
+                <input id="multa" type="text" style="width: 100px;" class="CC6">
+                <input id="total" type="text" style="width: 100px;" class="CC7">
+            </div>
+        </div>
+    </fieldset>
+</div>  
+
+
+{%endblock%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'arial';
+        }
+
+        #mi-barra1 {
+            width: 100%;
+            height: 30px;
+            background-color: #880E0B;
+            position: fixed;
+            top: 100px;
+            left: 0;
+            z-index: 9999;
+        }
+
+        #mi-barra2 {
+            width: 100%;
+            height: 20px;
+            background-color: #B8860B;
+            position: fixed;
+            top: 120px;
+            left: 0;
+            z-index: 9999;
+        }
+
+
+        img {
+            display: block;
+            margin: 0 auto;
+            width: 18%;
+            height: auto;
+            position: center;
+        }
+
+        .izquierda {
+            float: left;
+            padding-top: 9px;
+
+        }
+
+        .derecha {
+            float: right;
+            padding-top: 9px;
+        }
+
+        .form {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1250px;
+            height: 290px;
+            border-radius: 10px;
+            border: solid 2px #B8860B;
+        }
+
+        .nt1 {
+            margin-left: 500px;
+        }
+
+        .t1 {
+            margin-left: 50px;
+        }
+
+        .t2 {
+            color: #880E4F;
+            margin-left: 400px;
+        }
+
+        .t3 {
+            margin-left: 1010px;
+        }
+
+        .n1 {
+            margin-left: 200px;
+        }
+
+        .n2 {
+            margin-left: 25px;
+        }
+
+        .n3 {
+            margin-left: 10px;
+        }
+
+        .n4 {
+            margin-left: 25px;
+        }
+
+        .n5 {
+            margin-left: 25px;
+        }
+
+        .n6 {
+            margin-left: 35px;
+        }
+
+        .n7 {
+            margin-left: 35px;
+        }
+
+        .n8 {
+            margin-left: 35px;
+        }
+
+        .n9 {
+            margin-left: 45px;
+        }
+
+        .c1 {
+            margin-left: 30px;
+        }
+
+        .c3 {
+            margin-left: 410px;
+        }
+
+        .tn1 {
+            margin-left: 200px;
+        }
+
+        .tn2 {
+            margin-left: 40px;
+        }
+
+        .tn3 {
+            margin-left: 55px;
+        }
+
+        .tn4 {
+            margin-left: 52px;
+        }
+
+        .tn5 {
+            margin-left: 52px;
+        }
+
+        .tn6 {
+            margin-left: 45px;
+        }
+
+        .tn7 {
+            margin-left: 28px;
+        }
+
+        .tn8 {
+            margin-left: 35px;
+        }
+
+        .tn9 {
+            margin-left: 30px;
+        }
+
+        .nt2 {
+            margin-left: 450px;
+        }
+
+        .t4 {
+            margin-left: 50px;
+        }
+
+        .t5 {
+            margin-left: 300px;
+        }
+
+        .t6 {
+            margin-left: 340px;
+        }
+
+        .c4 {
+            margin-left: 45px;
+        }
+
+        .c5 {
+            margin-left: 270px;
+        }
+
+        .c6 {
+            margin-left: 270px;
+        }
+
+        .nt3 {
+            margin-left: 450px;
+        }
+
+        .t7 {
+            margin-left: 100px;
+        }
+
+        .t8 {
+            margin-left: 200px;
+        }
+
+        .t9 {
+            margin-left: 300px;
+        }
+
+        .t99 {
+            margin-left: 250px;
+        }
+
+        .c7 {
+            margin-left: 45px;
+        }
+
+        .c8 {
+            margin-left: 80px;
+        }
+
+        .cC8 {
+            margin-left: 70px;
+        }
+
+        .c9 {
+            margin-left: 150px;
+        }
+
+        .c99 {
+            margin-left: 100px;
+        }
+
+        .cC9 {
+            margin-left: 140px;
+        }
+
+        .form2 {
+            position: absolute;
+            top: 95%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1250px;
+            height: 250px;
+            border-radius: 10px;
+            border: solid 2px #B8860B;
+        }
+
+
+        th {
+            border: solid #880E4F 2px;
+            background-color: #880E4F;
+            color: rgb(255, 255, 255);
+            width: 15em;
+            text-align: center;
+        }
+
+        td {
+            border: solid #880E4F 2px;
+            text-align: center;
+        }
+
+
+
+        .nt4 {
+            margin-left: 550px;
+        }
+
+        .btn1 {
+            width: 20px;
+            height: 20px;
+            margin-left: 1050px;
+            font-size: 30px;
+        }
+
+
+        .TT1 {
+            margin-left: 100px;
+        }
+
+        .CC11 {
+            margin-left: 50px;
+        }
+
+        .CC1 {
+            margin-left: 60px;
+        }
+
+        .TT2 {
+            margin-left: 100px;
+        }
+
+        .CC2 {
+            margin-left: 52px;
+        }
+
+        .TT3 {
+            margin-left: 100px;
+        }
+
+        .CC3 {
+            margin-left: 40px;
+        }
+
+        .TT4 {
+            margin-left: 100px;
+        }
+
+        .CC4 {
+            margin-left: 39px;
+        }
+
+        .TT5 {
+            margin-left: 100px;
+        }
+
+        .CC5 {
+            margin-left: 30px;
+        }
+
+        .TT6 {
+            margin-left: 100px;
+        }
+
+        .CC6 {
+            margin-left: 55px;
+        }
+
+        .TT7 {
+            margin-left: 100px;
+        }
+
+        .CC7 {
+            margin-left: 50px;
+        }
+
+        .btn {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            width: 40px;
+            height: 40px;
+            background: #880E4F;
+            line-height: 90px;
+            border-radius: 50%;
+            text-align: center;
+            
+            transition: .9s;
+        }
+
+        .btn i {
+            font-size: 25px;
+            color: white;
+            line-height: 80px;
+            transition: all .7s ease;
+        }
+
+        .container:hover input {
+            width: 350px;
+        }
+
+        .container:hover i {
+            transform: rotate(-360deg);
+        }
+
+        .btn:hover {
+            background: #880E4F;
+        }
+
+        .container {
+            position: absolute;
+            left: 48%;
+            top: 22%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+        }
+    </style>
+</head>
+<header>
+    <div id="mi-barra1"></div>
+    <div id="mi-barra2"></div>
+</header>
+<img class="izquierda" src="imagenes/logomina.png" alt="logo">
+<img class="derecha" src="imagenes/descarga__2_-removebg-preview.png" alt="veracruz">
+</header>
+
+<body>
+    <div class="container">
+        <input type="text" placeholder="Buscar">
+        <div class="btn">
+            <i class="fa fa
+            -search"></i>
+        </div>
+    </div>
+    <div class="form">
+        <fieldset>
+            <legend class="nt1" style="color: #880E4F ;font-size: 20px;">DATOS GENERALES</legend>
+            <label for="fecha" class="t1"> FECHA</label>
+            <label for="Hora" class="t3"> HORA</label>
+
+            <div>
+                <input type="text" class="c1" style="width:100px;">
+                <label for="clave" class="t2">CLAVE CATASTRAL</label>
+                <input type="text" class="c3" style="width:90px;">
+            </div>
+
+            <label for="zona" class="n1">ZONA</label>
+            <label for="mun" class="n2">MUNICIPIO</label>
+            <label for="loc" class="n3">LOCALIDAD</label>
+            <label for="reg" class="n4">REGIÓN</label>
+            <label for="man" class="n5">MANZANA</label>
+            <label for="lote" class="n6">LOTE</label>
+            <label for="nvl" class="n7">NIVEL</label>
+            <label for="dpto" class="n8">DPTO</label>
+            <label for="dv" class="n9">DV</label>
+            <div class="p1">
+
+                <input class="tn1" type="text" style="width: 40px;">
+                <input class="tn2" type="text" style="width: 40px;">
+                <input class="tn3" type="text" style="width: 40px;">
+                <input class="tn4" type="text" style="width: 40px;">
+                <input class="tn5" type="text" style="width: 40px;">
+                <input class="tn6" type="text" style="width: 40px;">
+                <input class="tn7" type="text" style="width: 40px;">
+                <input class="tn8" type="text" style="width: 40px;">
+                <input class="tn9" type="text" style="width: 40px;">
+
+
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend class="nt2" style="color: #880E4F ;font-size: 20px;">INFORMACIÓN DEL PROPIETARIO</legend>
+            <label for="AP" class="t4"> APELLIDO PATERNO</label>
+            <label for="AM" class="t5"> APELLIDO MATERO</label>
+            <label for="NOM" class="t6"> NOMBRE(S)</label>
+
+            <div class="p2">
+                <input type="text" class="c4">
+                <input type="text" class="c5">
+                <input type="text" class="c6">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend class="nt3" style="color: #880E4F ; font-size: 20px;">INFORMACIÓN DEL PREDIO</legend>
+            <label for="CALLE" class="t7">CALLE</label>
+            <label for="NUM" class="t8">NUM</label>
+            <label for="CP" class="t9">C.P</label>
+            <label for="COLONIA" class="t99"> COLONIA</label>
+            <div class="p3">
+                <input type="text" class="c7">
+                <input type="text" class="c8">
+                <input type="text" class="c9">
+                <input type="text" class="c99">
+            </div>
+        </fieldset>
+    </div>
+    <div class="form2">
+        <fieldset>
+            <legend class="nt4" style="color: #880E4F ; font-size: 20px;">DETALLE DE PAGO</legend>
+
+            <label for="CONCEPTO" class="TT1">CONECPTO</label>
+            <label for="tipo prd" class="TT2">TIPO PREDIO</label>
+            <label for="valor catastral" class="TT4 ">VALOR CATASTRAL</label>
+            <div class="p3">
+                <input id="CONCEPTO" type="text" style="width: 100px;" class="CC11">
+                <input type="tipo prd" class="cC8">
+                <input type="valor catastral" class="cC9">
+
+                <label for="subtotal" class="TT2">SUBTOTAL</label>
+                <label for="imp" class="TT3">IMP. ADICIONAL</label>
+                <label for="act" class="TT4 ">ACT</label>
+                <label for="recargo" class="TT5">RECARGO </label>
+                <label for="multa" class="TT6">MULTA</label>
+                <label for="total" class="TT7">TOTAL</label>
+
+                <div class="p3">
+                    <input id="CONCEPTO" type="text" style="width: 100px;" class="CC1">
+                    <input id="subtotal" type="text" style="width: 100px;" class="CC2">
+                    <input id="imp" type="text" style="width: 120px;" class="CC3">
+                    <input id="act" type="text" style="width: 100px;" class="CC4">
+                    <input id="recargo" type="text" style="width: 100px;" class="CC5">
+                    <input id="multa" type="text" style="width: 100px;" class="CC6">
+                    <input id="total" type="text" style="width: 100px;" class="CC7">
+                </div>
+</body>
+
+</html>

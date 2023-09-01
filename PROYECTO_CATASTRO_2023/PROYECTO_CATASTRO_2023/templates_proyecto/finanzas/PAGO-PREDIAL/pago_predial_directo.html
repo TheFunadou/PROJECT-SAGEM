@@ -1,0 +1,181 @@
+{% extends "raiz/master_blade_v.1.html" %}
+
+{%block body%}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
+<script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+<div class="container py-5">
+
+    <form action="registrar_ficha_datosgenerales/" method="POST">
+        {%csrf_token%}
+        
+        <fieldset class=" container fieldset-1 card  rounded-3 p-3"
+            style="border: solid 3px #660b22; top: -10px; background:rgba(255, 255, 255, 0.5);">
+
+            <legend class="float-none w-auto px-3"
+            style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+            DATOS DEL CONTRIBUYENTE
+            </legend>
+
+            <fieldset class="fieldset-1 card  rounded-3 p-3" style="background:rgb(255, 255, 255,.5); top: 30px;">
+                <legend class="float-none w-auto px-3"
+                    style="font-size: 17px; color: brown; font-family: 'Calibri'; font-weight: bold;">BUSQUEDA POR NOMBRE</legend>
+                    <div class="row justify-content-center" style="margin-top: -23px;">
+
+
+                        <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label style="width: 150px;height: 25px;" for="t_suelo" class="lbl1"><strong>Apellido Paterno</strong></label>
+                                <input style="width: 150px;height: 25px;" type="text" id="t_suelo" class="form-control" name="t_suelo" 
+                                    placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                                          
+                            </div>  
+                        </div>
+                        
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label style="width: 150px; height: 25px;" for="t_suelo" class="lbl1"><strong>Apellido Materno</strong></label>
+                                <input style="width: 150px;height: 25px;" type="text" id="t_suelo" class="form-control" name="t_suelo" 
+                                    placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                                          
+                            </div>  
+                        </div>
+
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label style="width: 150px; height: 25px;" for="t_suelo" class="lbl1"><strong>Nombre(s)</strong></label>
+                                <input style="width: 150px;height: 25px;" type="text" id="t_suelo" class="form-control" name="t_suelo" 
+                                    placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                                          
+                            </div>  
+                        </div>
+        
+                        
+          
+                    </div>
+          
+            </fieldset>
+
+            <br><br><br><br>
+
+            <fieldset class="fieldset-1 card  rounded-3 p-3" style="background:rgb(255, 255, 255,.5);">
+                <legend class="float-none w-auto px-3"
+                    style="font-size: 17px; color: brown; font-family: 'Calibri'; font-weight: bold;">BUSQUEDA POR CLAVE
+                    CATASTRAL</legend>
+                    <div class="row " style="margin-top: -23px;">
+
+                        <div class="col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+        
+                        </div>
+        
+                        <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="fc_zon" class="lbl1">Zona cat</label>
+                                <input type="text" id="pc_zon" class="form-control" name="fc_zon" style="height: 25px;"
+                                        placeholder="" value="{{zon_cat}}" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                        
+                            </div>  
+                        </div>   
+                    
+                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="fc_mu">Municipio</label>
+                                <input type="text" id="pc_mu" class="form-control" name="fc_mu" style="height: 25px;"
+                                        placeholder="" required  value="{{mun}}"  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+        
+                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="fc_loc">Localidad</label>
+                                <input type="text" id="pc_loc" class="form-control" name="fc_loc" style="height: 25px;"
+                                        placeholder="" required value="{{loc}}" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>           
+                        
+                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="fc_re">Región</label>
+                                <input type="text" id="pc_re" class="form-control" name="fc_re" style="height: 25px;"
+                                        placeholder="" required value="{{reg}}" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+          
+                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="fc_ma">Manzana</label>
+                                <input type="text" id="pc_ma" class="form-control" name="fc_ma" style="height: 25px;"
+                                        placeholder="" required value="{{man}}" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+          
+                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="fc_lot">Lote</label>
+                                <input type="text" id="pc_lot" class="form-control" name="fc_lot" style="height: 25px;"
+                                        placeholder="" required value="{{lot}}" onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+          
+                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="fc_ni">Nivel</label>
+                                <input type="text" id="pc_ni" class="form-control" name="fc_ni" style="height: 25px;"
+                                        placeholder="" required value="{{niv}}" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+          
+                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="fc_de">Depto.</label>
+                                <input type="text" id="pc_de" class="form-control" name="fc_de" style="height: 25px;"
+                                        placeholder="" required value="{{dep}}" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+          
+                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="fc_de">DV</label>
+                                <input type="text" id="pc_dv" value="{{dv}}" class="form-control" name="fc_dv" style="height: 25px;"
+                                        placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+          
+                    </div>
+          
+                </fieldset>
+
+                
+                
+                
+                <div class="col-xl-12 " style="margin-top: 20px;">
+                    <div class="form-group" style="float:right;">
+                        <a href="pago_parte2/"><button type="button" id="guardar_c" class="btn btn-outline-primary">Continuar</button></a>
+                    </div>
+                </div>
+            </div>
+
+
+                
+        </fieldset>
+
+    </form>
+    
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
+
+
+<script src="{%static 'js/ficha_catastral.js'%}"></script>
+<script src="{%static 'js/ajax_datos_generales.js'%}"></script>
+<script src="{%static 'js/validaciones_datos_generales_ficha.js'%}"></script>
+
+
+{%endblock%}

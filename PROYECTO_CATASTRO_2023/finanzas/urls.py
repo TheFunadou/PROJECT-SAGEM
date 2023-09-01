@@ -31,6 +31,33 @@ urlpatterns = [
     
     #GESTOR_NOTIFY
     path('gestor_notify/',views.gestor_notify_finanzas, name= 'gestor_notify'),
+
+    #FINANZAS pago 1 (contribuyente al corriente)
+    path('buscar_adeudo/',views.buscar_adeudos, name='buscar_adeudos'),
+    path('buscar_adeudo/ajax/',views.obtener_datos_busqueda, name='buscar'),
+    path('buscar_adeudo/ajax/<str:dato>/',views.busqueda_valida_adeudos, name='validar_adeudos'),
+    path('buscar_adeudo/ajax/<str:dato>/redireccionar/',views.redireccionar_menu, name='redireccionar'),
+    
+    path('buscar_adeudo/ajax/<str:dato>/solicitar',views.solicitar_descuento),
+    ####################
+
+    #path('redireccionar/',views.redireccionar_menu_su, name='redireccionar_su'),
+    
+   
+
+   #PANTALLAS DE SELECCION DE CONTRIBUYENTES CON DESCUENTOS Y POR APLICAR
+    #path('descuento_aplicado/',views.pantalla_seleccion_cajera, name='descuento_aplicado'),
+    path('menu_principal/menu_finanzas/descuento_pendiente/',views.pantalla_seleccion_contadora, name='descuento_pendiente'),
+
+
+    path('menu_principal/menu_finanzas/descuento_aprobado/',views.pantalla_seleccion_cajera, name='descuento_aprobado'),
+
+    path('perfil_su/xd/',views.notificaciones_contabilizar),
+    path('perfil/cajera/',views.notificaciones_contabilizar_cajera),
+    #RUTAS PARA PANTALLA APLICAR DESCUENTO
+    path('descuento_pendiente/aplicar_descuento/<str:dato>',views.aplicar_descuentos, name='aplicar_descuento'),
+    path('descuento_aplicado/<str:dato>',views.redireccionar_menu_su, name='descuento_aplicado'),
+   
     
     
 ]

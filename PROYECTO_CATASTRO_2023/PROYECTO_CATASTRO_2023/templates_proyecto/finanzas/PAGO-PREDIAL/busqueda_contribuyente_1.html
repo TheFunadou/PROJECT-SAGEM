@@ -1,0 +1,96 @@
+{% extends "raiz/master_blade_v.1.html" %}
+
+
+{%block body%}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
+<script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+
+
+<div class="container py-5">
+
+    <form action="" method="POST">
+        {%csrf_token%}
+
+
+        <fieldset class=" card  rounded-3 p-3"
+            style="border: solid 3px #660b22; top: -10px; background:rgba(255, 255, 255, 0.5);">
+            <legend class="float-none w-auto px-3"
+                style="border: solid 1px gold; font-size: 18px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                BUSQUEDA POR CLAVE CATASTRAL, NOMBRE COMPLETO Y DOMICILIO
+            </legend>
+
+
+            <div id="1" style="margin-top: 10px;">
+
+                <fieldset class="card  rounded-3 p-3" style="background:rgb(255, 255, 255,.5);">
+                    <legend class="float-none w-auto px-3"
+                        style="text-align:left; font-size: 15px; color: brown; font-family: 'Calibri'; font-weight: bold;"> </legend>
+
+                        <br><br><br>
+                    <div class="row justify-content-center">
+                        <div id="autocomplete" class="autocomplete col-xl-6 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <input type="text" id="busqueda" values="" class="form-control" name="busqueda" style="background:rgb(255, 255, 255,.5); border: #ac2546 solid 1px;" 
+                                        placeholder="Buscar" required oninput ="this.value = this.value.toUpperCase();">
+                            <div class="" style="top: -23px;">
+
+                                <ul class="row justify-content-center">
+                                  
+                                </ul>
+
+                            </div>
+                            
+                        </div>
+
+                        <div class="input-group-sm col-xl-1">
+                            <div class="form-group">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="button">Buscar</button>
+                            </div>
+                            
+                        </div>
+
+                        
+                        
+
+                    </div>
+
+
+                    <br><br><br><br><br><br><br>
+
+                </fieldset>
+
+            </div>
+
+ 
+        </fieldset>
+
+
+
+    </form>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+
+<!-- <script src="{%static 'js/ficha_catastral.js'%}"></script> -->
+
+
+<!-- <script src="{%static 'js/limpiar_input.js'%}"></script> -->
+<!-- <script src="{%static 'js/ajax_datos_generales.js'%}"></script>
+<script src="{%static 'js/validaciones_datos_generales_ficha.js'%}"></script> -->
+<script src="{%static 'js/INGRESOS/autocompletar.js'%}"></script>
+
+
+
+{%endblock%}

@@ -1,0 +1,403 @@
+{% extends "raiz/master_blade_v.1.html" %}
+
+
+{%block body%}
+
+{% load static %}
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
+
+<style>
+
+.centered {
+    position: absolute;
+    top: 19%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+label{
+    color: rgb(122, 6, 41);
+    font-weight: bold ; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 58.7vh;
+    background-image: linear-gradient(to bottom, #ffffff 50%, transparent 50%), url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+    background-repeat: no-repeat;
+    background-size: contain; /* Ajustar el tamaño automáticamente */
+    background-position: center bottom;
+    
+}
+
+.bordes{
+    border: 4px solid rgb(80, 9, 36);
+}
+
+.bor{
+    border: 2px solid rgb(180, 172, 175);
+}
+
+
+
+    /**/
+    /* your CSS goes here*/
+
+    /* your CSS goes here*/
+ 
+
+
+
+h1 {
+    text-align: center
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa
+}
+
+input.invalid {
+    background-color: #ffdddd
+}
+
+.tab {
+    display: none
+}
+
+
+
+button:hover {
+    opacity: 0.8
+}
+
+
+
+.step {
+    height: 10px;
+    width: 10px;
+    margin: 0 6px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5
+}
+
+.step.active {
+    opacity: 1
+}
+
+.step.finish {
+    background-color: #4CAF50
+}
+
+.all-steps {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    
+}
+
+.thanks-message {
+    display: none
+}
+
+
+
+/* Hide the browser's default radio button */
+
+.container input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/* Create a custom radio button */
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+
+/* On mouse-over, add a grey background color */
+
+.container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+
+/* When the radio button is checked, add a blue background */
+
+.container input:checked~.checkmark {
+    background-color: #2196F3;
+}
+
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the indicator (dot/circle) when checked */
+
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+
+/* Style the indicator (dot/circle) */
+
+.container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+
+
+
+
+
+
+/**/
+
+.modal-confirm {		
+	color: #434e65;
+	width: 525px;
+}
+.modal-confirm .modal-content {
+	padding: 20px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: none;
+}
+
+.modal-confirm .modal-header-error {
+	background: #992535;
+	border-bottom: none;   
+	position: relative;
+	text-align: center;
+	margin: -20px -20px 0;
+	border-radius: 5px 5px 0 0;
+	padding: 35px;
+}
+
+.modal-confirm .modal-header {
+	background: #47c9a2;
+	border-bottom: none;   
+	position: relative;
+	text-align: center;
+	margin: -20px -20px 0;
+	border-radius: 5px 5px 0 0;
+	padding: 35px;
+}
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 36px;
+	margin: 10px 0;
+}
+.modal-confirm .form-control, .modal-confirm .btn {
+	min-height: 40px;
+	border-radius: 3px; 
+}
+.modal-confirm .close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	color: #fff;
+	text-shadow: none;
+	opacity: 0.5;
+}
+.modal-confirm .close:hover {
+	opacity: 0.8;
+}
+.modal-confirm .icon-box {
+	color: #fff;		
+	width: 95px;
+	height: 95px;
+	display: inline-block;
+	border-radius: 50%;
+	z-index: 9;
+	border: 5px solid #fff;
+	padding: 15px;
+	text-align: center;
+}
+.modal-confirm .icon-box i {
+	font-size: 64px;
+	margin: -4px 0 0 -4px;
+}
+.modal-confirm.modal-dialog {
+	margin-top: 80px;
+}
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: #eeb711 !important;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	border-radius: 30px;
+	margin-top: 10px;
+	padding: 6px 20px;
+	border: none;
+}
+.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+	background: #eda645 !important;
+	outline: none;
+}
+.modal-confirm .btn span {
+	margin: 1px 3px 0;
+	float: left;
+}
+.modal-confirm .btn i {
+	margin-left: 1px;
+	font-size: 20px;
+	float: right;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+ 
+
+.error{
+    color: #c00a40;
+    font-family: 'Consolas', 'monaco', monospace;
+    font-size: 13px;
+    font-weight: bold;
+}
+    
+
+    
+</style>
+
+
+
+<link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
+<script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+<div class="row  all-steps" style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
+    <div class="col col-lg-2">
+        <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">Atras</button>
+    </div>
+    <div class="col-md-auto" >
+        
+    </div>
+    <div class="col col-lg-2" style=" margin-left: 23%;">
+        <span class="step"></span> 
+    </div>
+</div>
+
+
+<div class="container py-5">
+
+    <form action="" method="POST">
+        {%csrf_token%}
+
+
+        <fieldset class=" card  rounded-3 p-3"
+            style="border: solid 3px #660b22; top: -10px; background:rgba(255, 255, 255, 0.5);">
+            <legend class="float-none w-auto px-3"
+                style="border: solid 1px gold; font-size: 18px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                BUSQUEDA POR CLAVE CATASTRAL, NOMBRE COMPLETO Y DOMICILIO
+            </legend>
+
+
+            <div id="1" style="margin-top: 10px;">
+
+                <fieldset class="card  rounded-3 p-3" style="background:rgb(255, 255, 255,.5);">
+                    <legend class="float-none w-auto px-3"
+                        style="text-align:left; font-size: 15px; color: brown; font-family: 'Calibri'; font-weight: bold;"> </legend>
+
+                        <br><br><br>
+                    <div class="row justify-content-center">
+                        <div id="autocomplete" class="autocomplete col-xl-6 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <input type="text" id="busqueda" values="" class="form-control" name="busqueda" style="background:rgb(255, 255, 255,.5); border: #ac2546 solid 1px;" 
+                                        placeholder="Buscar" required oninput ="this.value = this.value.toUpperCase();">
+                            <div class="" style="top: -23px;">
+
+                                <ul class="row justify-content-center">
+                                  
+                                </ul>
+
+                            </div>
+                            
+                        </div>
+
+                        <div class="input-group-sm col-xl-1">
+                            <div class="form-group">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="button">Buscar</button>
+                            </div>
+                            
+                        </div>
+
+                        
+                        
+
+                    </div>
+
+
+                    <br><br><br><br><br><br><br>
+
+                </fieldset>
+
+            </div>
+
+ 
+        </fieldset>
+
+
+
+    </form>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+
+<!-- <script src="{%static 'js/ficha_catastral.js'%}"></script> -->
+
+<script src="{%static 'js/autocompletar_2.js'%}"></script>
+<!-- <script src="{%static 'js/limpiar_input.js'%}"></script> -->
+<!-- <script src="{%static 'js/ajax_datos_generales.js'%}"></script>
+<script src="{%static 'js/validaciones_datos_generales_ficha.js'%}"></script> -->
+
+
+
+{%endblock%}
