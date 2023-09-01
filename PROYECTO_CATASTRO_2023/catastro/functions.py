@@ -118,15 +118,7 @@ def reporte_ficha_cat(datos_clav_c,datos_gral,datos_doc,datos_pred,datos_rp,dato
         'YEAR':'',
 
         # CLAVE CATASTRAL
-        'C_ZON': datos_clav_c['C_ZON'],
-        'C_MUN': datos_clav_c['C_MUN'],
-        'C_LOC': datos_clav_c['C_LOC'],
-        'C_REG': datos_clav_c['C_REG'],
-        'C_MAN': datos_clav_c['C_MAN'],
-        'C_LOT': datos_clav_c['C_LOT'],
-        'C_NIV': datos_clav_c['C_NIV'],
-        'C_DP': datos_clav_c['C_DP'],
-        'C_DV': datos_clav_c['C_DV'],
+        
 
         # DATOS CONTRIBUYENTE
         'NOM_GRAL': datos_gral['NOM_GRAL'],

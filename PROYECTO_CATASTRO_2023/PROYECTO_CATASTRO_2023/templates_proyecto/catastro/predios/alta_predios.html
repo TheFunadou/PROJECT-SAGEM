@@ -293,7 +293,12 @@ button:hover {
 	margin: 100px auto;
 }
  
-
+.error{
+    color: #c00a40;
+    font-family: 'Consolas', 'monaco', monospace;
+    font-size: 13px;
+    font-weight: bold;
+}
 
 
     
@@ -304,13 +309,24 @@ button:hover {
 
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
 
-<form id="formulario" action="" method="post">
+<form id="formulario" action="{% url 'catastro:registro_predios'%}" method="post">
 
         {%csrf_token%}
-        <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>
+        <div class="row  all-steps" style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
+            <div class="col col-lg-2">
+                <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">Atras</button>
+            </div>
+            <div class="col-md-auto" >
+                
+            </div>
+            <div class="col col-lg-2" style=" margin-left: 23%;">
+                <span class="step"></span> <span class="step"></span>
+            </div>
+        </div>
+       
 
         <!-- Div que contiene los elementos para los datos generales del contribuyente -->
-        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 530px; z-index: 1; position: relative;">
+        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 510px; z-index: 1; position: relative;">
    
             <fieldset class="container fieldset-1 p-3"
             style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -34px; background:rgba(255, 255, 255, 0.5);">
@@ -322,6 +338,7 @@ button:hover {
                     <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
                         
                         <div class="card-body" style="margin-top: 10px;">
+
                             <div class="" style=" margin-top: -50px;">
                                 <fieldset class="fieldset-1 card bor rounded-4 p-3" style=" margin-top: 30px; margin-left: 20px; margin-right: 20px;">
                                     <legend class="float-none w-auto px-3" style="font-size: 22px; color: brown;  font-family: 'Calibri'" >
@@ -337,7 +354,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name" class="lbl1">Zona cat</label>
                                                         <input type="text" id="zonacat" class="form-control" name="zonacat" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                value="08" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                                                                value="08" minlength="2" maxlength="2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                                                 
                                                     </div>  
                                                 </div>   
@@ -346,7 +363,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name">Municipio</label>
                                                         <input type="text" id="muni" class="form-control" name="muni" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                value="109" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                                value="109" minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
                                                 </div>
                     
@@ -354,7 +371,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name">Localidad</label>
                                                         <input type="text" id="loc" class="form-control" name="loc" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                value="01" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                                value="001" minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
                                                 </div>           
                                                 
@@ -362,7 +379,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name">Región</label>
                                                         <input type="text" id="region" class="form-control" name="region" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                                placeholder="" minlength="2" maxlength="2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
                                                 </div>
                             
@@ -370,7 +387,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name">Manzana</label>
                                                         <input type="text" id="manzana" class="form-control" name="manzana" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder=""onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                                placeholder=""minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
                                                 </div>
                             
@@ -378,7 +395,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name">Lote</label>
                                                         <input type="text" id="lote" class="form-control" name="lote" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                                placeholder="" minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
                                                 </div>
                             
@@ -386,7 +403,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name">Nivel</label>
                                                         <input type="text" id="nivel" class="form-control" name="nivel" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                                placeholder="" minlength="2" maxlength="2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
                                                 </div>
                         
@@ -394,7 +411,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name">Depto.</label>
                                                         <input type="text" id="depto" class="form-control" name="depto" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                                placeholder="" minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
                                                 </div>
                         
@@ -402,7 +419,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name">DV</label>
                                                         <input type="text" id="dvs" class="form-control" name="dvs" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                            minlength="2" maxlength="2" placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                                            minlength="1" maxlength="1" placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
                                                 </div>
     
@@ -418,7 +435,7 @@ button:hover {
                                 <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Fecha de registro</label>
-                                        <input type="text" id="fecha_registro" class="form-control" name="fecha_registro" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                        <input type="date" id="fecha_registro" class="form-control" name="fecha_registro" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                         
@@ -485,8 +502,8 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Tipo de predio</label>
                                         <select name="tipo_predio" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option value="SI">SI</option>
-                                            <option selected value="NO">NO</option>
+                                            <option selected value="URBANO">URBANO</option>
+                                            <option  value="RURAL">RURAL</option>
                                         </select>
                                         
                                     </div>
@@ -529,10 +546,9 @@ button:hover {
                             </div><br>
                             <hr>
 
-        
                         </div>
-                    </div><br>
 
+                    </div><br>
 
             </fieldset>   
             
@@ -662,7 +678,7 @@ button:hover {
 
         </div>
 
-        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 530px; z-index: 1; position: relative;">
+        <!-- <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 510px; z-index: 1; position: relative;">
         
             <fieldset class="container fieldset-1 p-3"
             style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -34px; background:rgba(255, 255, 255, 0.5);">
@@ -702,7 +718,7 @@ button:hover {
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Apellido paterno</label>
-                                        <input type="text" id="ent_federativa" class="form-control" name="ent_federativa" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                        <input type="text" id="" class="form-control" name="" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                         
@@ -713,7 +729,7 @@ button:hover {
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Apellido materno</label>
-                                        <input type="text" id="municipio" class="form-control" name="municipio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                        <input type="text" id="" class="form-control" name="" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
@@ -722,7 +738,7 @@ button:hover {
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Nombre</label>
-                                        <input type="text" id="localidad" class="form-control" name="localidad" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                        <input type="text" id="" class="form-control" name="" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
@@ -731,7 +747,7 @@ button:hover {
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Porcentaje de participación(%)</label>
-                                        <input type="text" id="localidad" class="form-control" name="localidad" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                        <input type="text" id="" class="form-control" name="" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                                 placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
                                                 <span></span>
                                     </div>
@@ -751,7 +767,13 @@ button:hover {
 
             </fieldset>
 
-        </div>
+        </div> -->
+
+        <script>
+            document.getElementById("btnBack").addEventListener("click", function() {
+                window.location.href = "{% url 'catastro:index_predios' %}";
+            });
+        </script>
 
 
 
@@ -765,16 +787,18 @@ button:hover {
                         
                     </div>
                     <div class="modal-body text-center">
-                        <h4>Great!</h4>	
+                        <h4>Bien!</h4>	
                         <p>Los datos han sido registrado correctamente.</p>
-                        <button class="btn btn-success" data-dismiss="modal"><span><a href="{% url 'catastro:redirigir_perfil_cat' %}">Ir a inicio</a></span> </button>
+                        <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
                     </div>
                 </div>
             </div>
         </div>  
 
         {% if error_predio == 1 or error_predio_domicilio == 1 %}
+
         <script>
+           
             $(document).ready(function () {
                 $('#error').modal('show'); // Muestra la alerta modal de error
 
@@ -814,7 +838,7 @@ button:hover {
                     </div>
                     <div class="modal-body text-center">
                         <h4>ERROR</h4>	
-                        <p>{{ error_message|default:"" }}</p>
+                        <p>{{ error_mensaje_predio|default:"" }}</p>
                         
                     </div>
                 </div>
@@ -832,30 +856,12 @@ button:hover {
                     </div>
                     <div class="modal-body text-center">
                         <h4>ERROR</h4>	
-                        <h6>favor de llenar los campos.</h6>
+                        <h6>favor de llenar los campos importantes.</h6>
                         
                     </div>
                 </div>
             </div>
         </div>
-
-        <div id="error" class="modal fade" style="margin-top: 100px;">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header-error justify-content-center">
-                        <div class="icon-box">
-                            <i class="material-icons">&#xe5cd;</i>
-                        </div>
-                        
-                    </div>
-                    <div class="modal-body text-center">
-                        <h4>Campos vacios</h4>	
-                        <p>Favor de completar los campos.</p>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>  
 
         <div class="container"  id="nextprevious">
             <div class="row" style="float:right;"> 
@@ -907,12 +913,12 @@ button:hover {
             currentTab = currentTab + n;
             if (currentTab >= x.length) {
 
-                $('#myModal').modal('show');
+               // $('#myModal').modal('show');
 
-                setTimeout(function() {     
+                //setTimeout(function() {     
                     document.getElementById("formulario").submit();
                     return false;
-                }, 2000); 
+                //}, 2000); 
 
             }
             showTab(currentTab);
@@ -926,10 +932,12 @@ button:hover {
                 if (y[i].value == "") {
                     y[i].className += " invalid";
                     
-                    valid = true;
+                    valid = false;
 
-                    if(y[i].id == 'num_ext' || y[i].id == 'num_int' || y[i].id == 'ne' || y[i].id == 'ni'){
+                    if(y[i].id == 'dvs' || y[i].id == 'lote' || y[i].id == 'nivel' || y[i].id == 'depto'){
                         if((y[i].value == "")){
+                            valid = false;
+                        }else{
                             valid = true;
                         }
                     }
@@ -942,11 +950,11 @@ button:hover {
                 document.getElementsByClassName("step")[currentTab].className += " finish"; 
             }else{
 
-                $('#error').modal('show');
+                $('#error_campos').modal('show');
 
                 // Ocultar el modal después de 3 segundos (3000 milisegundos)
                 setTimeout(function() {
-                    $('#error').modal('hide');
+                    $('#error_campos').modal('hide');
                 }, 3000);
                 
             }
@@ -963,21 +971,16 @@ button:hover {
 
 
 
-
-
-    
-
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
     integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
     integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
     crossorigin="anonymous"></script>
 
-  <script src="{%static 'js/codigo.js'%}"></script>
-  <script src="{%static 'js/consultas/consulta_clave_catastral.js'%}"></script>
-  <script src="{%static 'js/validaciones_contribuyentes.js'%}"></script>
+<!-- <script src="{%static 'js/codigo.js'%}"></script>
+<script src="{%static 'js/consultas/consulta_clave_catastral.js'%}"></script> -->
+<script src="{%static 'js/CATASTRO/predios/validaciones_predios.js'%}"></script>
   
-
 
 {%endblock%}

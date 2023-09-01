@@ -1,20 +1,8 @@
 
 //Validar inputs por medio de eventos
 
-//campos de datos de contribuyentes
-const apaterno = document.querySelector("[name=apaterno]")
-const amaterno = document.querySelector("[name=amaterno]")
-const nombre = document.querySelector("[name=nombre]")
-const rfc = document.querySelector("[name=rfc]")
-const telefono = document.querySelector("[name=telefono]")
-const tipo = document.querySelector("[name=tipo]")
-const calle = document.querySelector("[name=calle]")
-const colonia_fraccionamiento = document.querySelector("[name=colonia_fraccionamiento]")
-const localidad = document.querySelector("[name=localidad]")
-const codigo_postal = document.querySelector("[name=codigo_postal]")
-//campos datos del inmuble
-const calle2 = document.querySelector("[name=calle2]")
-const col_fracc = document.querySelector("[name=col_fracc]")
+//campos de datos de predios
+
 //campos de la clave catastral
 const zonacat = document.querySelector("[name=zonacat]")
 const muni = document.querySelector("[name=muni]")
@@ -27,15 +15,38 @@ const depto = document.querySelector("[name=depto]")
 const dv = document.querySelector("[name=dvs]")
 
 
+const fecha_registro = document.querySelector("[name=fecha_registro]")
+const motivo_registro = document.querySelector("[name=motivo_registro]")
+const cuenta_predial = document.querySelector("[name=cuenta_predial]")
+const denominacion = document.querySelector("[name=denominacion]")
+const cuenta_origen = document.querySelector("[name=cuenta_origen]")
+const tipo_predio = document.querySelector("[name=tipo_predio]")
+const uso_predio = document.querySelector("[name=uso_predio]")
+
+const region_2 = document.querySelector("[name=region_2]")
+const zona_valor = document.querySelector("[name=zona_valor]")
+
+
+
+const municipio_predio = document.querySelector("[name=municipio_predio]")
+const localidad_predio = document.querySelector("[name=localidad_predio]")
+const colonia_predio = document.querySelector("[name=colonia_predio]")
+const calle_predio = document.querySelector("[name=calle_predio]")
+
+
 const setErrors = (message, campo, isError=true)=>{
+ 
+  
   if(isError){
     campo.classList.add("inputs")
     campo.nextElementSibling.classList.add("error")
     campo.nextElementSibling.innerText= message;
+   
   }else{
     campo.classList.remove("inputs")
     campo.nextElementSibling.classList.remove("error")
     campo.nextElementSibling.innerText="";
+    
   }
 }
 
@@ -49,21 +60,25 @@ const validarCamposVacios = (message, e) =>{
   }
 }
 
-//validaciones de campos contribuyentes
-apaterno.addEventListener("blur", (e) => validarCamposVacios("Agrega tu apellido peterno",e))
-amaterno.addEventListener("blur",(e) => validarCamposVacios("Agrega tu apellido materno",e))
-nombre.addEventListener("blur",(e) => validarCamposVacios("Agrega tu nombre",e))
-rfc.addEventListener("blur",(e) => validarCamposVacios("Agrega tu RFC",e))
-telefono.addEventListener("blur",(e) => validarCamposVacios("Agrega tu teléfono",e))
-//tipo.addEventListener("blur",(e) => validarCamposVacios("Selecciona el tipo",e))
-calle.addEventListener("blur",(e) => validarCamposVacios("Ingresa tu calle",e))
-colonia_fraccionamiento.addEventListener("blur",(e) => validarCamposVacios("Agrega tu colonia o fraccionamiento",e))
-localidad.addEventListener("blur",(e) => validarCamposVacios("Agrega tu localidad",e))
-codigo_postal.addEventListener("blur",(e) => validarCamposVacios("Agrega el código postal",e))
-//validaciones campos datos inmuebles
-calle2.addEventListener("blur", (e) => validarCamposVacios("Ingresa la calle",e))
-col_fracc.addEventListener("blur",(e) => validarCamposVacios("Ingresa tu colonia o fraccionamiento",e))
-//validaciones clave catastral
+document.addEventListener("DOMContentLoaded", function() {
+  // Tu código aquí
+
+  fecha_registro.addEventListener("blur", (e) => validarCamposVacios("Ingrese la fecha de registro",e))
+  motivo_registro.addEventListener("blur", (e) => validarCamposVacios("Ingrese el motivo de registro",e))
+  cuenta_predial.addEventListener("blur",(e) => validarCamposVacios("Ingrese una cuenta predial",e))
+  denominacion.addEventListener("blur",(e) => validarCamposVacios("Ingrese una denominación",e))
+  cuenta_origen.addEventListener("blur",(e) => validarCamposVacios("Ingrese una cuenta de origen",e))
+  tipo_predio.addEventListener("blur", (e) => validarCamposVacios("Ingrese el tipo de predio",e))
+  uso_predio.addEventListener("blur", (e) => validarCamposVacios("Ingrese el uso del predio",e))
+
+  region_2.addEventListener("blur", (e) => validarCamposVacios("Ingrese una región",e))
+  zona_valor.addEventListener("blur", (e) => validarCamposVacios("Ingrese una zona de valor",e))
+
+  municipio_predio.addEventListener("blur", (e) => validarCamposVacios("Ingrese un municipio",e))
+  localidad_predio.addEventListener("blur", (e) => validarCamposVacios("Ingrese una localidad",e))
+  colonia_predio.addEventListener("blur", (e) => validarCamposVacios("Ingrese una colonia",e))
+  calle_predio.addEventListener("blur", (e) => validarCamposVacios("Ingrese una calle",e))
+
 zonacat.addEventListener("blur", (e) => validarCamposVacios("",e))
 muni.addEventListener("blur", (e) => validarCamposVacios("",e))
 loc.addEventListener("blur", (e) => validarCamposVacios("",e))
@@ -74,10 +89,12 @@ nivel.addEventListener("blur", (e) => validarCamposVacios("",e))
 depto.addEventListener("blur", (e) => validarCamposVacios("",e))
 dv.addEventListener("blur", (e) => validarCamposVacios("",e))
 
+});
+
 
 
 //Function para permitir solo digitos
-function valideKey(evt){
+function SoloNumeros(evt){
     
   // code is the decimal ASCII representation of the pressed key.
   var code = (evt.which) ? evt.which : evt.keyCode;
@@ -91,6 +108,7 @@ function valideKey(evt){
   } else{ // other keys.
     return false;
   }
+
 }
 
 function Espacios(string){

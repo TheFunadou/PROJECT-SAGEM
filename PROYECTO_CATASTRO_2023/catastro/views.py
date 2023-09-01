@@ -543,15 +543,17 @@ def delete_contribuyentes(request,rfc_u):
 
 """PROCESOS DE UN PREDIO. ALTA, BAJA, MODIDIFICACION Y CONSULTA"""   
 
+#vista inicial de predios
 def vista_index_predios(request):
-    ctx = {
+    ctxp = {
         'nom_pag': 'Catastro',
         'titulo_pag': 'INICIO PREDIOS',
     }
-    return render(request,'catastro/predios/index_predios.html',ctx)
+    return render(request,'catastro/predios/index_predios.html',ctxp)
 
+#consulta de los predios registrados
 def consulta_index_predios(request):
-    context = {}
+    contextp = {}
 
     if request.method == 'POST':
 
@@ -566,26 +568,28 @@ def consulta_index_predios(request):
 
             consulta_general = models.Domicilio_predio.objects.filter(Q(fk_clave_catastral = dato))
         
-        context = {
-            'resultado': consulta_general  # Pasa el valor al contexto
+        contextp = {
+            'resultado_predios': consulta_general  # Pasa el valor al contexto
         }
 
-    return render(request,'catastro/predios/index_predios.html', context)
+    return render(request,'catastro/predios/index_predios.html', contextp)
 
+#vista de alta de predios
 @login_required(login_url="pag_login")
 def vista_alta_predios(request):
-    ctx = {
+    ctxp = {
         'nom_pag': 'Catastro',
         'titulo_pag': 'ALTA DE PREDIO',
     }
-    return render(request,'catastro/predios/alta_predios.html', ctx)
+    return render(request,'catastro/predios/alta_predios.html', ctxp)
 
+#registro de los predios nuevos
 def registro_predios(request):
-
+    print('si')
     if request.method== 'POST':
 
-        error_mensaje_predio = 0
-        error_predio = ""
+        error_mensaje_predio = ""
+        error_predio = 0
 
         zona_cat = request.POST['zonacat']
         muni = request.POST['muni']
@@ -609,6 +613,7 @@ def registro_predios(request):
         zona_valor =request.POST['zona_valor']
 
         if models.Datos_gen_predio.objects.filter(clave_catastral=clave_catastral).exists():
+                print('existe')
                 error_mensaje_predio = f"Ya existe un registro con la clave catastral '{clave_catastral}'"
                 error_predio = 1
 
@@ -616,7 +621,6 @@ def registro_predios(request):
 
             try:
 
-                with transaction.atomic:
 
                     models.Datos_gen_predio.objects.create(
 
@@ -632,6 +636,7 @@ def registro_predios(request):
                         motivo_alta = motivo_alta,
 
                     )
+                    print('HOLA SE ACABA DE REGISTRAR')
                     error_predio = 0
                     return registro_domicilio_predios(request,clave_catastral)
 
@@ -639,15 +644,9 @@ def registro_predios(request):
                 error_mensaje_predio = f"Error al registrar predio: {str(ex)}"
                 error_predio = 1
 
-            ctx = {
-                'error_mensaje_predio': error_mensaje_predio,
-                'error_predio':error_predio
-            }
-
-    return render(request,'catastro/predios/alta_predios.html', ctx)
+    return render(request,'catastro/predios/alta_predios.html', {'error_mensaje_predio': error_mensaje_predio, 'error_predio':error_predio})
         
-        
-
+#registro de los domicilios de cada predio
 def registro_domicilio_predios(request,clave):
     if request.method == 'POST':
         error_mensaje_predio = ""
@@ -656,7 +655,7 @@ def registro_domicilio_predios(request,clave):
         try:
             
             fk_clave_catastral = clave
-            entidad_fed = request.POST['ent_federativa']
+            entidad_fed_p = request.POST['ent_federativa']
             municipio = request.POST['municipio_predio']
             localidad = request.POST['localidad_predio']
             col = request.POST['colonia_predio']
@@ -671,7 +670,7 @@ def registro_domicilio_predios(request,clave):
             models.Domicilio_predio.objects.create(
 
                 fk_clave_catastral = models.Datos_gen_predio.objects.get(clave_catastral=fk_clave_catastral),
-                entidad_fed = entidad_fed,
+                entidad_fed = entidad_fed_p,
                 municipio = municipio,
                 localidad = localidad,
                 col = col,
@@ -690,13 +689,243 @@ def registro_domicilio_predios(request,clave):
             error_predio_domicilio = 1
     return render(request, 'catastro/predios/alta_predios.html', {'error_mensaje_predio': error_mensaje_predio, 'error_predio_domicilio':error_predio_domicilio})
 
+#vista para actualizar la información de cada predio
+def vista_update_predios(request, clave_cat):
+
+    consulta_a_modificar_predios = models.Domicilio_predio.objects.filter(Q(fk_clave_catastral__clave_catastral = clave_cat))
+
+    con = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'MODIFICACION DE DATOS DEL PREDIO',
+        'consulta_predios':consulta_a_modificar_predios
+    }
+
+    return render(request,'catastro/predios/modificacion_predios.html', con)
+
+#función que actualiza la información 
+def update_predios(request, clave_cat):
+     
+    if request.method == 'POST':
+
+        fecha_alta = request.POST['fecha_registro']
+        motivo_alta = request.POST['motivo_registro']
+        cuenta_predial =  request.POST['cuenta_predial']
+        denominacion =  request.POST['denominacion']
+        cuenta_origen = request.POST['cuenta_origen']
+        tipo_predio = request.POST['tipo_predio']
+        uso_predio = request.POST['uso_predio']
+        region_2 = request.POST['region_2']
+        zona_valor =request.POST['zona_valor']
+
+        entidad_fed = request.POST['ent_federativa']
+        municipio = request.POST['municipio_predio']
+        localidad = request.POST['localidad_predio']
+        col = request.POST['colonia_predio']
+        calle = request.POST['calle_predio']
+        num_ext = request.POST['num_exte_predio']
+        letra_ext = request.POST['letra_exte_predio']
+        num_int = request.POST['num_inte_predio']
+        letra_int = request.POST['letra_inte_predio']
+
+        error_mensaje_predio =""
+
+        if not len(clave_cat.strip()) == 0:
+
+            try:
+
+                with transaction.atomic():
+
+                    consulta_mod =  models.Domicilio_predio.objects.filter(Q(fk_clave_catastral__clave_catastral = clave_cat))
+
+                    for datos_mod in consulta_mod:
+
+                        #datos principales predio
+                        datos_mod.fk_clave_catastral.cuenta_predial = cuenta_predial
+                        datos_mod.fk_clave_catastral.denominacion = denominacion
+                        datos_mod.fk_clave_catastral.tipo_predio = tipo_predio
+                        datos_mod.fk_clave_catastral.uso_predio = uso_predio
+                        datos_mod.fk_clave_catastral.region = region_2
+                        datos_mod.fk_clave_catastral.zona_valor = zona_valor
+                        datos_mod.fk_clave_catastral.cuenta_origen = cuenta_origen
+                        datos_mod.fk_clave_catastral.fecha_alta = fecha_alta
+                        datos_mod.fk_clave_catastral.motivo_alta = motivo_alta
 
 
-#def vista_update_predios(request):
+                        #domicilio del contribuyente
 
-#def update_predios(request):
+                        datos_mod.entidad_fed =entidad_fed
+                        datos_mod.municipio = municipio
+                        datos_mod.localidad = localidad
+                        datos_mod.col = col
+                        datos_mod.calle = calle
+                        datos_mod.num_ext = num_ext
+                        datos_mod.letra_ext = letra_ext
+                        datos_mod.num_int = num_int
+                        datos_mod.letra_int = letra_int
 
-#def delete_predios(request):
+                        datos_mod.fk_clave_catastral.save()
+                        datos_mod.save()
+
+                        error_predio = 0
+
+
+            except Exception as e:
+                error_mensaje_predio = f"Error de consulta: {str(e)}"
+                error_predio = 1
+
+            ctx = {
+                'error_message': error_mensaje_predio,
+                'error_predio':error_predio
+            }
+
+    return render(request,'catastro/predios/modificacion_predios.html', ctx)
+
+#función para eliminar un predio
+def delete_predios(request, clave_cat):
+    if request.method == 'POST':
+
+        error_mensaje_predio =""
+        error_predio_delete = 0
+
+    
+        if not len(clave_cat.strip()) == 0:
+           
+
+            try:
+   
+                consulta_predio_delete = models.Datos_gen_predio.objects.filter(clave_catastral=clave_cat)
+                consulta_predio_delete.delete()
+                error_predio_delete = 0
+            
+            except Exception as exc:
+
+                error_mensaje_predio = f"Error de eliminación: {str(exc)}"
+                error_predio_delete = 1
+
+
+
+    return render(request,'catastro/predios/index_predios.html', {
+                'error_mensaje_predio': error_mensaje_predio,
+                'error_predio':error_predio_delete
+            })
+
+"""-----------------------------------------"""
+
+
+"""PROCESOS ASIGNACIÓN DE PROPIETARIOS A UN PREDIO"""
+
+#vista inicial
+def vista_index_asignacion(request):
+    context_a = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'INICIO',
+    }
+    return render(request,'catastro/asignacion_propietario/index_asignacion.html',context_a)
+
+#vista para registro
+def vista_alta_asignacion(request):
+    context_a = {
+        'nom_pag': 'Catastro',
+        'titulo_pag': 'ASIGNACIÓN NUEVA',
+    }
+    return render(request,'catastro/asignacion_propietario/alta_asignacion.html', context_a)
+
+
+"""-----------------------------------------"""
+
+
+
+
+
+"""PROCESO SOLICITU DC017"""
+
+#Buscar si la clave catastral del predio está previamente registrada
+
+def buscar_predio_dc017(request, *args,**kwargsst):
+
+    lista = []
+    clave = request.GET.get('search')
+
+    if clave:
+
+        print(clave)
+
+        
+
+        #predio = Domicilio_inmueble.objects.select_related().filter(Q(pk_fk_clave_catastral__clave_catastral__startswith = search) | Q(pk_fk_clave_catastral__nombre__startswith = search) 
+                                                    #| Q(pk_fk_clave_catastral__apaterno__startswith = search) | Q(pk_fk_clave_catastral__amaterno__startswith = search)) 
+
+        predio = models.Domicilio_predio.objects.select_related().filter(Q(fk_clave_catastral__clave_catastral__startswith = clave)) 
+        print(predio)
+
+        for dato in predio:
+
+            lista.append({
+                #datos generales del predio
+                'clave_catastral': dato.fk_clave_catastral.clave_catastral,
+                'tipo_predio': dato.fk_clave_catastral.tipo_predio,
+                'uso_predio': dato.fk_clave_catastral.uso_predio,
+
+                #domicilio del predio
+                'calle':dato.calle,
+                'num_int':dato.num_int,
+                'num_ext':dato.num_ext,
+                'col':dato.col,
+                'localidad':dato.localidad,
+                'municipio' : dato.municipio
+                
+            })
+   
+
+    return JsonResponse({
+                    'status': True,
+                    'payload':lista
+                })
+
+    
+
+def buscar_contribuyente_dc017(request, *args,**kwargsst):
+    lista = []
+    rfc = request.GET.get('search')
+
+    if rfc:
+
+        print(rfc)
+
+        
+
+        #predio = Domicilio_inmueble.objects.select_related().filter(Q(pk_fk_clave_catastral__clave_catastral__startswith = search) | Q(pk_fk_clave_catastral__nombre__startswith = search) 
+                                                    #| Q(pk_fk_clave_catastral__apaterno__startswith = search) | Q(pk_fk_clave_catastral__amaterno__startswith = search)) 
+
+        contribuyente = models.Domicilio_noti.objects.filter(Q(fk_rfc__rfc__startswith = rfc))   
+        
+        print(contribuyente)
+
+        for dato in contribuyente:
+
+            lista.append({
+                #datos generales del contribuyente
+                'rfc': dato.fk_rfc.rfc,
+                'nombre': dato.fk_rfc.nombre,
+                'apaterno': dato.fk_rfc.apaterno,
+                'amaterno': dato.fk_rfc.amaterno,
+
+                #domicilio del contribuyente
+                'telefono_movil': dato.fk_rfc.telefono_movil,
+                'calle':dato.calle,
+                'num_int':dato.num_int,
+                'num_ext':dato.num_ext,
+                'cp':dato.num_ext,
+                'col':dato.col,
+                'localidad':dato.localidad,
+                
+            })
+   
+
+    return JsonResponse({
+                    'status': True,
+                    'payload':lista
+                })
 
 
 @login_required(login_url="pag_login")
@@ -711,7 +940,7 @@ def solicitud_dc017(request):
 def registrar_solicitud_dc017(request):
 
   
-    zoncat = request.POST['zonacat']
+    """zoncat = request.POST['zonacat']
     mun = request.POST['muni']
     loc = request.POST['loc']
     reg = request.POST['region']
@@ -719,20 +948,12 @@ def registrar_solicitud_dc017(request):
     lot = request.POST['lote']
     niv = request.POST['nivel']
     dep = request.POST['depto']
-    dv = request.POST['dvs']
+    dv = request.POST['dvs']"""
     
-    clave_catastral = zoncat + mun + loc + reg + man + lot + niv + dep + dv
+    clave_catastral = request.POST['busqueda']
 
     d_clave_cat = {
-        "zona_cat" : zoncat,
-        "mun" : mun,
-        "loc" : loc,
-        "reg" : reg,
-        "man" : man,
-        "lot" : lot,
-        "niv" : niv,
-        "dep" : dep,
-        "dv" : dv,
+        
         
         "clave_cat":clave_catastral
     }
