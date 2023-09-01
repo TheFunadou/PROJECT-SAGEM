@@ -70,12 +70,38 @@ urlpatterns = [
 
     #UPDATE
     #vista pantalla editar contribuyentes
-    #path('editar_predios/<str:clave>/',views.vista_update_predios, name='modificacion_predios'),
+    path('editar_predios/<str:clave_cat>/',views.vista_update_predios, name='modificacion_predios'),
     #ruta que actualiza los datos del contribuyente
-    #path('update_predios/<str:clave>/',views.update_predios,name='update_predios'),
+    path('update_predios/<str:clave_cat>/',views.update_predios,name='update_predios'),
 
     #DELETE
-    #path('delete_contribuyente/<str:clave>/',views.delete_predios,name='delete_predios'),
+    path('delete_predios/<str:clave_cat>/',views.delete_predios,name='delete_predios'),
+    #####################################
+
+
+    ############################ RUTAS PARA LA ASIGNACION DE PROPIETARIOS A LOS PREDIOS
+
+     #INICIO
+    #vista para el inicio de predios
+    path('index_asignacion/',views.vista_index_asignacion, name='index_asignacion'),
+    #path('busqueda_predios/',views.consulta_index_predios, name='busqueda_predios'),
+
+    #CREATE
+    #vista para visualzar pantalla de registro
+    path('registro_asignacion/',views.vista_alta_asignacion,name='vista_alta_asignacion'),
+    # ruta para registrar al predio
+    #path('registrar_predios/',views.registro_predios, name='registro_predios'),
+
+    #UPDATE
+    #vista pantalla editar contribuyentes
+    #path('editar_predios/<str:clave_cat>/',views.vista_update_predios, name='modificacion_predios'),
+    #ruta que actualiza los datos del contribuyente
+    #path('update_predios/<str:clave_cat>/',views.update_predios,name='update_predios'),
+
+    #DELETE
+    #path('delete_predios/<str:clave_cat>/',views.delete_predios,name='delete_predios'),
+
+
     
 
 
@@ -85,7 +111,14 @@ urlpatterns = [
 
     #RUTA VISUALIZAR SOLICITUD DC017
     path('catastro/perfil/solicitud_dc017/',views.solicitud_dc017,name='solicitud'),
+
+    path('catastro/perfil/solicitud_dc017/buscar_predio/',views.buscar_predio_dc017,name='buscar_predio_DC017'),
+
+    path('catastro/perfil/solicitud_dc017/buscar_contribuyente/',views.buscar_contribuyente_dc017,name='buscar_contribuyente_DC017'),
+
     path('catastro/perfil/solicitud_dc017/registrar_solicitud',views.registrar_solicitud_dc017,name='registrar_solicitud'),
+
+
 
 
     #RUTA VISUALIZAR FICHA CATASTRAL

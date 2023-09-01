@@ -301,7 +301,7 @@ button:hover {
                             <div class="card-body justify-content-center" style="border: #992535 2px solid; ">
     
                                 
-                                <form action="{% url 'catastro:busqueda_predios' %}"method="POST" data-parsley-validate="" id="formFiltros">
+                                <form action=""method="POST" data-parsley-validate="" id="formFiltros">
                                         {%csrf_token%}
                                         <div class="row">
                                             <p style="color: wheat; text-align: center;"><em>Ingrese la clave catastral o bien puede consultar a todos los contribuyentes pulsando solo el boton buscar.</em></p>
@@ -327,7 +327,7 @@ button:hover {
     
                                                 <div class="input-group-sm col-xl-1  " style=" width: max-content; margin-left: 45px;">
                                                     <div class="form-group">
-                                                        <a href="{% url 'catastro:vista_alta_predios' %}"><button class="btn my-2 my-sm-0" type="button" style="color: black; background-color:wheat;">Nuevo predio</button></a>
+                                                        <a href="{% url 'catastro:vista_alta_asignacion' %}"><button class="btn my-2 my-sm-0" type="button" style="color: black; background-color:wheat;">Nuevo asignacion</button></a>
                                                     </div>      
                                                 </div>
 
@@ -366,7 +366,7 @@ button:hover {
                                 <th>ACCIONES</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <!-- <tbody>
 
                             {% if resultado_predios|length > 0 %}
 
@@ -402,7 +402,7 @@ button:hover {
                                 </tr>
 
                             {%endif%}
-                        </tbody>
+                        </tbody> -->
                         <tfoot>
                             <tr>                               
                             </tr>
