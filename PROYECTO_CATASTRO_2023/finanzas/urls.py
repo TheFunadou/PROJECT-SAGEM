@@ -28,9 +28,10 @@ urlpatterns = [
     path('perfil/',views.perfil_finanzas,name='perfil_fin'),
     #PERFIL SUPER USUARIO
     path('perfil_su/',views.perfil_sup_user_finanzas,name='perfil_su_fin'),
+    path('redirigir_perf_fin/', views.redirigir_finanzas, name='redirigir_perfil_finanzas'),
     
     #GESTOR_NOTIFY
-    path('gestor_notify/',views.gestor_notify_finanzas, name= 'gestor_notify'),
+    path('gestor_notify_finanzas/',views.gestor_notify_finanzas, name= 'gestor_notify_finanzas'),
 
     #FINANZAS pago 1 (contribuyente al corriente)
     path('buscar_adeudo/',views.buscar_adeudos, name='buscar_adeudos'),

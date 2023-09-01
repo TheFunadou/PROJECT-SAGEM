@@ -24,6 +24,10 @@ from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
 from django.views.decorators.csrf import requires_csrf_token
 from django.db.models import Q
 
+# CHANNEL LAYERS
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
 # CERRAR SESION NO LE QUITEN EL REQUEST QUE NO JALA XD
 def cerrar_sesion(request):
     return redirect('logout')
@@ -36,7 +40,13 @@ def obtener_username(request):
     
     return obj_user
     
-    
+@login_required(login_url="pag_login")
+def redirigir_finanzas(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect ("finanzas:perfil_su_fin")
+        else:
+            return redirect("finanzas:perfil_fin")
 
 # Create your views here.
 @login_required(login_url="pag_login")
@@ -245,7 +255,7 @@ def pago_predial_datos_2(request,dato):
     return render(request, "finanzas/pago-predial/datos_consultados_contribuyente_años_debe.html",context)
 
 #FUNCION PARA ACTUALIZAR EL ESTATUS DE DESCUENTO PARA SOLICITAR 
-def solicitar_descuento(request,dato):
+def solicitar_descuento(request, dato):
  
     if request.method == 'GET':
         años_seleccionados = request.GET.getlist('años[]')
@@ -256,9 +266,40 @@ def solicitar_descuento(request,dato):
         for año in años_seleccionados:
            resultado = models.historial_pagos.objects.filter(contribuyente=clave.strip(), ejercicio=año.strip(),estatus=estatus.strip())
            for info in resultado:
-               print(info.contribuyente.clave_catastral, ", ", info.estatus, ", ", info.ejercicio)
+               print(info.contribuyente.clave_catastral, ", ", info.estatus, ", ", info.ejercicio)                
                info.aplica_descuento = 'SOLICITADO'
+               clave_cat_contrib = info.contribuyente.clave_catastral
+               ejercicio_years = info.ejercicio
                info.save()
+         
+         
+        # NOTIFICACIONES POR WEBSOCKETS
+        # CHANNELS LAYERS
+        remitente = request.user.username
+        # USERANME DE LA CONTADORA
+        destinatario = 'sup_fin'
+        id_dest = User.objects.get(username=destinatario)
+        titulo = 'SOLICITUD DE DESCUENTO'
+        cuerpo = f'Clave Catastral: {clave_cat_contrib}, Años solicitados: {ejercicio_years}'
+
+        
+        notify_finanzas.objects.create(
+            remitente=remitente,
+            destinatario = id_dest,
+            titulo = titulo,
+            cuerpo = cuerpo
+        )
+        
+        
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)(
+            f'consumer_notifications_{destinatario}',
+            {
+                'type':'update_not',
+                'destinatario': destinatario
+            }
+        )
+        # FIN BLOQUE MANDAR NOTIFICACION      
            
         # Devuelve una respuesta JSON
         return JsonResponse({'mensaje': 'Años recibidos con éxito.'})
@@ -462,7 +503,7 @@ def redireccionar_menu_su(request,dato):
         info.save()
            
         # Devuelve una respuesta JSON
-    return redirect('finanzas:perfil_su_fin')         
+    return redirect('finanzas:redirigir_perfil_finanzas')         
        
 def notificaciones_contabilizar_cajera(request):
     años =[]
@@ -509,8 +550,8 @@ def notificaciones_contabilizar_cajera(request):
 
 
 #REDIRECCIONA AL MENU PRINCIPAL
-def redireccionar_menu(request):
-    return redirect('finanzas:perfil_fin')
+def redireccionar_menu(request,dato):
+    return redirect('finanzas:redirigir_perfil_finanzas')
 
 
 

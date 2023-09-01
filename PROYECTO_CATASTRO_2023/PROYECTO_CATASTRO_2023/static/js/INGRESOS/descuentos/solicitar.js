@@ -45,7 +45,8 @@ function solicitar_descuento(){
 
       $.ajax({
             type: 'GET',
-            url: 'solicitar', // Reemplaza esto con la URL de tu vista en Django
+            // url: 'solicitar', // Reemplaza esto con la URL de tu vista en Django
+            url: 'solicitar',
             data: {
                 'años': añosSeleccionados,
                 'clave':clave,
