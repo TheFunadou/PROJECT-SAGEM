@@ -67,7 +67,7 @@
 			<staticText>
 				<reportElement x="142" y="0" width="218" height="27" uuid="030a5d22-57e1-4080-ba6e-1a2336acc7a9"/>
 				<textElement>
-					<font fontName="Arial Rounded MT Bold"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<text><![CDATA[DIRECCIÓN CATASTRO MUNICIPAL
 H. AYUNTAMIENTO DE MINATITLÁN, VER.]]></text>
@@ -75,7 +75,7 @@ H. AYUNTAMIENTO DE MINATITLÁN, VER.]]></text>
 			<staticText>
 				<reportElement x="390" y="0" width="165" height="42" uuid="68d07b42-8298-49c8-a795-e0c73f0c03d9"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[SOLICITUD DE REGISTRO CATASTRAL
 DE BIENES INMUEBLES O DE 
@@ -85,14 +85,14 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="0" y="42" width="65" height="10" uuid="29f409c1-fdaa-4dad-8967-ed004943fd0f"/>
 				<textElement>
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[EXPEDIDO POR:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="1" y="52" width="194" height="10" uuid="eb92a36d-6fc7-4ac0-8ee8-3afe668e2fe1"/>
 				<textElement>
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NOM_USER}]]></textFieldExpression>
 			</textField>
@@ -103,7 +103,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="45" uuid="999e8ba3-c6e7-4445-ad1f-fb9700e24c58"/>
 				<textElement textAlignment="Justified">
-					<font fontName="Arial Rounded MT Bold" size="10"/>
+					<font fontName="Calibri" size="10"/>
 				</textElement>
 				<text><![CDATA[Con fundamento en lo dispuesto en los artículos 8 y 19 de la Ley número 42 de Catastro del Estado de Veracruz de Ignacio de la Llave, 42, 43 y 44 del Reglamento de Ley de Catastro y demás relativos aplicables, se formula la presente solicitud de registro catastral.]]></text>
 			</staticText>
@@ -117,28 +117,28 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="0" y="0" width="128" height="15" uuid="34867f79-ba4b-45f6-b2b0-d4452479ee19"/>
 				<textElement>
-					<font fontName="Arial Rounded MT Bold" size="12" isBold="false"/>
+					<font fontName="Calibri" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[CLAVE CATASTRAL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="56" width="231" height="11" uuid="4e12c643-ade3-445c-a0d9-0d46a635de8e"/>
 				<textElement>
-					<font fontName="Arial Rounded MT Bold" size="8" isBold="false"/>
+					<font fontName="Calibri" size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[NOMBRE Y DOMICILIO DEL PROPIETARIO O POSEEEDOR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="378" y="56" width="177" height="11" uuid="2abea191-0aec-41fd-98b0-3fc8f7e6b556"/>
 				<textElement>
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[REGISTRO FEDERAL DE CONTRIBUYENTES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="3" y="69" width="108" height="10" uuid="16fb1942-1c6c-4195-a714-f970241ce83d"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[NOMBRE (S)]]></text>
 			</staticText>
@@ -157,28 +157,28 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="0" y="148" width="182" height="20" uuid="0d6178fa-58f7-47af-9b16-42b94c3c6bf4"/>
 				<textElement>
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[UBICACIÓN Y DATOS DEL INMUEBLE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="2" y="169" width="180" height="9" uuid="6bede4af-f123-4820-aa0a-c67ce4aa3afd"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[CALLE(S)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="183" y="169" width="69" height="9" uuid="b427fcb5-fe9a-473c-9331-537bb49efa8c"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[NÚM. OFICIAL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="253" y="169" width="165" height="9" uuid="955f4c7d-e6bb-4556-98ea-4f4deaa8a58d"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[COLONIA O FRACCIONAMIENTO]]></text>
 			</staticText>
@@ -206,14 +206,14 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="3" y="212" width="103" height="18" uuid="342530f4-6c41-45b4-867c-45dca40f4448"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[MUNICIPIO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="107" y="212" width="100" height="18" uuid="768ec2e3-34a1-4692-8ff0-0519d79d5d0c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[LOCALIDAD]]></text>
 			</staticText>
@@ -238,7 +238,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="78" y="553" width="102" height="17" uuid="1c54bac9-056b-4517-9d53-1ff60bc6bd19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[NÚMERO DE NIVELES]]></text>
 			</staticText>
@@ -248,35 +248,35 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="78" y="571" width="102" height="34" uuid="da271e46-1e42-4c9d-9bd3-d4e6f4ea7e0a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[ANOTAR LA SUPERFICIE CONSIDERADA EN LOS DIVERSOS NIVELES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="76" y="421" width="105" height="18" uuid="b0bce797-a354-44d0-aa1c-2a3f1220c8fa"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[PISOS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="77" y="461" width="103" height="18" uuid="f490b3b9-5bd9-49ed-9366-2edac9c9f1cb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[BAÑOS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="78" y="606" width="102" height="17" uuid="9f9950f3-a09e-46be-85ab-7cde81721f07"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[INVERSIÓN N$]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="77" y="442" width="103" height="19" uuid="f211b6ef-8289-4476-83ac-68f953ec3a7a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[MUROS]]></text>
 			</staticText>
@@ -286,7 +286,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="78" y="535" width="102" height="17" uuid="a91314b4-f390-4751-a5d4-87820a6a870e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[EDAD EN AÑOS]]></text>
 			</staticText>
@@ -296,49 +296,49 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="182" y="367" width="185" height="19" uuid="848e4611-8a98-4b13-82f6-df91699bcd91"/>
 				<textElement>
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[DATOS DE LA CONSTRUCCIÓN EXISTENTES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="288" y="387" width="186" height="14" uuid="79b4a724-7d5e-45bb-97d3-4db711e41361"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[CARACTERISTICAS DE LA CONSTRUCCIÓN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="77" y="480" width="104" height="21" uuid="74199b60-fe8d-4f69-9135-ed112357bed8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[INSTALACIÓN   ELECTRICA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="77" y="402" width="104" height="18" uuid="4b07d76d-b327-45e1-a8fd-0ee07a6181c2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[TECHOS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="77" y="502" width="103" height="20" uuid="1a3809a4-4312-45cf-ad6f-d803f9eeb541"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[PUERTAS  Y  VENTANAS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="76" y="387" width="104" height="14" uuid="b7c0354d-d81e-4459-986d-a5416c338a82"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[DESCRIPCIÓN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="182" y="387" width="105" height="14" uuid="d8f4d506-ce5b-45dd-904f-e7462b414fa3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[TIPO]]></text>
 			</staticText>
@@ -447,7 +447,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="95" y="265" width="92" height="19" uuid="6e2a74a9-2084-4822-b526-0b295bb66616"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[TENENCIA DEL PREDIO]]></text>
 			</staticText>
@@ -472,14 +472,14 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="455" y="264" width="98" height="20" uuid="dc033cd4-b2c4-428a-9a7f-08d110823e25"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[SUPERFICIE   DEL PREDIO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="1" y="265" width="75" height="19" uuid="dd850c49-7da4-41ff-a660-8f16d2e3985c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[TIPO DE PREDIO]]></text>
 			</staticText>
@@ -492,28 +492,28 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="209" y="264" width="100" height="20" uuid="59db7038-f70e-4178-a897-63de7da0cf22"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[ESTADO FÍSICO DEL PREDIO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="336" y="264" width="99" height="20" uuid="bd754daa-99dc-45e6-b2aa-eddf1e87a6c5"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[MODIFICACIÓN FÍSICA POR CONSTRUCCIÓN]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="3" y="80" width="108" height="15" uuid="5b1f60c5-cff5-4ec0-9c38-ebb5a4376598"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8" isBold="false"/>
+					<font fontName="Calibri" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NOM_P}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="232" y="69" width="103" height="10" uuid="c196cc61-df14-413e-bd82-1e9bfc68a3f1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[APELLIDO MATERNO]]></text>
 			</staticText>
@@ -541,21 +541,21 @@ CARACTERÍSTICAS]]></text>
 			<textField>
 				<reportElement x="112" y="80" width="119" height="16" uuid="f844d608-1670-436f-a193-e0cc727251ec"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8" isBold="false"/>
+					<font fontName="Calibri" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{AP_P}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="184" y="105" width="67" height="10" uuid="badb1ce9-e869-40b7-b2f4-2730199e88c3"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[NÚM. OFICIAL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="3" y="105" width="180" height="10" uuid="3c386538-3068-473f-8e6c-2c8cfc9fbfba"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[CALLE (S)]]></text>
 			</staticText>
@@ -565,28 +565,28 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="419" y="105" width="135" height="10" uuid="8ddcb163-3424-411d-af5b-25cdd0c555d1"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[LOCALIDAD]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="253" y="105" width="165" height="10" uuid="802a98d1-f2f2-422e-abb1-04c1924b8e2d"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[COLONIA O FRACCIONAMIENTO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="112" y="69" width="119" height="10" uuid="b1b8dfea-8f9a-4985-9e38-64689448c4c7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[APELLIDO PATERNO]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="232" y="80" width="103" height="15" uuid="eafd5763-29bb-4234-a857-bb58002fd638"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8" isBold="false"/>
+					<font fontName="Calibri" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{AM_P}]]></textFieldExpression>
 			</textField>
@@ -614,182 +614,182 @@ CARACTERÍSTICAS]]></text>
 			<textField>
 				<reportElement x="378" y="69" width="175" height="26" uuid="771be542-cce7-4df9-acaa-48df8bd6a45f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="12" isBold="false"/>
+					<font fontName="Calibri" size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RFC}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="2" y="116" width="181" height="19" uuid="f8a9e271-49a1-40a7-b6a9-c90b49179ea3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8" isBold="false"/>
+					<font fontName="Calibri" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CALLE_P}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="184" y="116" width="66" height="19" uuid="acf07e31-9f37-4cb0-899f-92d703c85e6c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NUM_O_P}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="252" y="116" width="166" height="19" uuid="6d9ddcdc-f621-4804-8743-df257941ecd4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{COL_P}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="419" y="116" width="135" height="19" uuid="7b02dd10-621f-4af2-9f0d-85ffc16bb374"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LOC_P}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="3" y="179" width="179" height="18" uuid="3977026b-d7d7-4842-a151-302907e70ee6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CALLE_INM}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="184" y="179" width="68" height="18" uuid="14728106-f0e7-4b17-bc0f-6e073368b0c2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NUM_O_INM}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="253" y="179" width="165" height="18" uuid="cc7bfe6a-b255-4414-a54b-6c9d6d19064d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{COL_O_FRA_INM}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="231" width="105" height="18" uuid="7fc69bd7-07e0-435c-96de-51e6045f18aa"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MUN_INM}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="107" y="231" width="100" height="18" uuid="9eab8a18-1a58-4a3d-8a14-4508d5e679de"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LOC_INM}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="285" width="75" height="20" uuid="8af99e34-7972-45a5-8fe6-a24c85811b87"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{T_PRED_INM}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="95" y="285" width="92" height="20" uuid="ca640723-f977-444e-9a2a-782c8f0eca69"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TEN_PRED}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="209" y="285" width="100" height="20" uuid="0b1c46b0-20e5-4a51-a768-2d414b6fba08"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{EST_F_PRED}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="336" y="285" width="99" height="20" uuid="08a7f89f-5712-41e3-b7ab-9852e82d1ece"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MOD_F_C_PRED}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="285" width="98" height="20" uuid="997e7b46-79b2-4023-9eb9-9e7ddd3ac51e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SUP_F_PRED}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="183" y="402" width="104" height="18" uuid="46b9db08-fc6f-4881-8da2-ceabbdae8cc6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_TECHOS}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="182" y="421" width="105" height="18" uuid="8a929674-0298-4506-ba8f-a3e195e3dcd7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_PISOS}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="182" y="440" width="105" height="19" uuid="ee646162-80b0-469a-a2e7-c1861d677d51"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_MUROS}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="182" y="460" width="105" height="19" uuid="087dd8ca-41da-4c25-a591-618d2cc15af4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_BA}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="182" y="480" width="105" height="21" uuid="d9efe5e0-4bed-4d5e-bbe5-a7b939350415"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_INST_ELEC}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="182" y="502" width="105" height="20" uuid="1803f9d5-4770-4de0-8ef6-0d009b3771c1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_P_V}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="182" y="535" width="292" height="17" uuid="b773e153-1bfd-4b94-8b11-f8da152d526a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{EDAD_A}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="182" y="553" width="292" height="17" uuid="a31bc310-8e59-49a9-9f1d-bae2605206f8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NUM_NIV}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="181" y="571" width="293" height="34" uuid="fedeb807-a86d-4895-b822-8bb1cf615b03"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{A_S_C_D_N}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="182" y="606" width="292" height="17" uuid="adcc6691-73cc-491d-b93e-74a96dae5b89"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{INVERSION}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="318" width="184" height="18" uuid="44517fd2-0bce-4ff4-b84d-82feba47fe5b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<text><![CDATA[USO O DESTINO PRINCIPAL DEL PREDIO]]></text>
 			</staticText>
@@ -811,7 +811,7 @@ CARACTERÍSTICAS]]></text>
 			<textField>
 				<reportElement x="4" y="337" width="182" height="21" uuid="0777c59d-692a-4f41-80fb-443a990212d0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{USO_O_DEST}]]></textFieldExpression>
 			</textField>
@@ -830,14 +830,14 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="1" y="17" width="47" height="10" uuid="715a570c-db55-4e17-bebb-156253e7ae80"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[ZONA CAT]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="50" y="17" width="47" height="10" uuid="579d8ba5-b2cf-4315-b996-479eeaab15a9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[MUNICIPIO]]></text>
 			</staticText>
@@ -850,7 +850,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="98" y="17" width="47" height="10" uuid="3858fc4e-b4a0-4fc9-9290-9a988d020b9d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[LOC.]]></text>
 			</staticText>
@@ -860,7 +860,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="146" y="17" width="47" height="10" uuid="cb50cb5c-cd00-43d5-92d2-5e7355d5fc54"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[REGIÓN]]></text>
 			</staticText>
@@ -870,7 +870,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="194" y="17" width="47" height="10" uuid="fcabc1f0-17bf-4301-a9f4-b2bbc0e8ae73"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[MANZANA]]></text>
 			</staticText>
@@ -880,7 +880,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="242" y="17" width="47" height="10" uuid="a3ce5262-be1b-4324-824e-2b51f8b75fa5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[LOTE]]></text>
 			</staticText>
@@ -890,14 +890,14 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="338" y="17" width="47" height="10" uuid="434f81ff-fc33-4662-bc1a-752748a75644"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[DTPO.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="290" y="17" width="47" height="10" uuid="a2ebc095-1632-4f37-bd4a-3abaeb955a0b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[NIVEL]]></text>
 			</staticText>
@@ -910,7 +910,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="386" y="17" width="47" height="10" uuid="1ced4f5a-00c7-4001-8a90-e2578f915959"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="7"/>
+					<font fontName="Calibri" size="7"/>
 				</textElement>
 				<text><![CDATA[DV]]></text>
 			</staticText>
@@ -920,63 +920,63 @@ CARACTERÍSTICAS]]></text>
 			<textField>
 				<reportElement x="2" y="28" width="46" height="17" uuid="3689dcda-42b0-4557-8597-5611e11b24d0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_ZON}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="50" y="28" width="47" height="17" uuid="5b44a71b-2b2a-4458-9b20-919dd22a6975"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_MUN}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="99" y="28" width="46" height="17" uuid="d1a01183-6af6-4f02-a5a2-b8fb7290d7f6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_LOC}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="147" y="28" width="46" height="17" uuid="4aa769bb-0ea3-4d1c-a44b-5322873f4dc0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_REG}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="195" y="28" width="46" height="17" uuid="4b9359a6-ac5b-4eb1-b71d-5b8a6b10e463"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_MAN}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="242" y="28" width="46" height="17" uuid="f9248e9e-a9e3-4b4c-999f-2ececb6155d7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_LOT}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="290" y="28" width="46" height="17" uuid="427968d3-0596-4bce-baec-f733b050b06b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_NIV}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="338" y="28" width="46" height="17" uuid="f761ddd7-88d1-46c2-9058-277050d05b07"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_DP}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="386" y="28" width="46" height="17" uuid="f4f9adc5-1561-49b8-8c82-dac3756a0e52"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="8"/>
+					<font fontName="Calibri" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_DV}]]></textFieldExpression>
 			</textField>
@@ -990,14 +990,14 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="0" y="0" width="335" height="11" uuid="dba386dc-5edb-4376-9807-2c88c2911c44"/>
 				<textElement>
-					<font fontName="Arial Rounded MT Bold" size="6"/>
+					<font fontName="Calibri" size="6"/>
 				</textElement>
 				<text><![CDATA[SE DECLARA BAJO PROTESTA DE DECIR VERDAD QUE LOS DATOS QUE SE PROPORCIONAN SON REALES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="388" y="0" width="167" height="11" uuid="0dd4fb61-0894-483f-8725-1890b3a37407"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Rounded MT Bold" size="6"/>
+					<font fontName="Calibri" size="6"/>
 				</textElement>
 				<text><![CDATA[SELLO]]></text>
 			</staticText>
@@ -1028,7 +1028,7 @@ CARACTERÍSTICAS]]></text>
 			<staticText>
 				<reportElement x="1" y="76" width="552" height="25" uuid="d77a5ea1-cc6f-4b45-a4f1-27b1df2065d0"/>
 				<textElement textAlignment="Justified">
-					<font fontName="Arial Rounded MT Bold" size="6"/>
+					<font fontName="Calibri" size="6"/>
 				</textElement>
 				<text><![CDATA[EL TRAMITE DE ESTE DOCUMENTO SERA DENTRO DE UN TERMINO NO MAYOR DE 15 DIAS HABILES NOTA: DESPUES DE CONCLUIRSE SU TRAMITE; TENDRA UN PLAZO NO MAYOR DE 90 DIAS NATURALES DE ACUERDO A LA LEY DE CATASTRO, ART. 24, PARRAFO III,  PARA RECOGER SU CEDULA CATASTRAL,  DESPUES DE ESTE TERMINO SE CANCELARA DICHO DOCUMENTO, POR LO QUE SE TENDRA QUE REALIZAR UNN NUEVO PAGO.]]></text>
 			</staticText>

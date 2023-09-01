@@ -40,7 +40,7 @@
             // Crear un nuevo elemento de lista y agregar los datos
             const etiqueta_a = document.createElement('a');
 
-            etiqueta_a.innerHTML = '<h1 class="titulo_not">'+titulo+'</h1><span class="remitente_not"><br>'+remitente+'</span>'
+            etiqueta_a.innerHTML = '<h1 class="titulo_not">'+titulo+'</h1><span class="remitente_not">'+remitente+'</span>'
 
             /*
             //Link a pantalla de notificaciones
@@ -102,124 +102,113 @@
 </script>
 
 <style>
-    #box-nav {
+    /*Establecer tamaño del nav*/
+    nav {
         width: 100%;
-        /*border: solid black; */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 27.3vh;
-    }
-
-    #box-nav nav {
+        height: 20vh;
         /*border: solid blue;*/
-        padding: 0.5%;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .main-links {
-        margin-top: 5vh;
-        /*border: solid black;*/
-        padding: 1%;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 1em;
+    }
+
+    /* Establecer tamaño de la ul principal */
+    .main-ul {
+        background-color: rgb(134, 22, 66);
+        width: 95%;
+        height: 40%;
+        /* Agregar flex para mostrar la lista en fila */
+        display: flex;
+        border-radius: 3vh;
+    }
+
+    /* Quitar las viñetas de la lista y alinear todo el texto al centro */
+    .main-ul li {
         list-style: none;
-        background-color: rgb(134, 22, 66);
-        border-radius: 2em;
-        font-size: 2vh;
-        width: 100%;
-        height: 3em;
+        text-align: center;
     }
 
-    .main-links li {
-        padding: 0.5rem 1rem;
-        background-color: rgb(134, 22, 66);
-        width: 20vh;
-        border-radius: 1em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .dropdown-li {
+    /* li principal*/
+    .main-list {
+        /*border: solid rgb(0, 0, 0);*/
+        margin: 0.8% 0.5% 0.8% 0.5%;
+        border-radius: 3vh;
+        /* Posicion relativa para manterner su jerarquia en la caja  */
         position: relative;
-        width: 100%;
-        transition: 0.5s;
-    }
-
-    .dropdown-li a {
-        color: white;
-        text-decoration: none;
-        text-align: center;
-        font-weight: bold;
-        font-size: 2vh;
-    }
-
-    .dropdown-li:hover {
-        background-color: rgb(88, 17, 44);
-    }
-
-    .dropdown-li:hover .dropdown {
-        display: block;
-        background-color: rgb(134, 22, 66);
-    }
-
-    .dropdown {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        position: absolute;
-        left: 0;
-        top: 100%;
-        display: none;
-        border-radius: 0 0 1em 1em;
-    }
-
-    .dropdown li {
-        list-style: none;
-        width: 100%;
-    }
-
-    /* BOX DOS
-    #box-nav .box-nav-2{
+        /* Alinear en columna los elementos de la caja principal e hijas */
         display: flex;
-        justify-content: center;
-        border: solid green;
-        height: 100%;
-        width: 20%;
-
-    }
-
-    .box-nav-2 div{
-        margin: 6.1vh 2vh 0 0;
-        border: solid black;
-        background-color: rgb(134, 22, 66);
-        width: 40%;
-        height: 22%;
-        border-radius: 2em;
-        display: flex;
+        /* Ajustar el ancho automaticamente al maximo del contenedor */
+        flex: 1;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        /*transicion para efecto hover*/
+        transition: 0.25s;
+
+    }
+
+    /* li hijo */
+    .sub-list {
+        /* Ocultar contenedor */
+        display: none;
+        background-color: rgb(134, 22, 66);
+        border-radius: 0 0 3vh 3vh;
+        /* Posicion absoluta para perder su lugar en la caja */
+        position: absolute;
+        /* Mandar el contenedor del li hijo abajo */
+        top: 100%;
+        /* Establecer como ancho maximo el tamaño del li padre */
+        width: 100%;
+    }
+
+    .main-list:hover>.sub-list {
+        display: block;
+    }
+
+    .main-list>a {
         color: white;
+        text-decoration: none;
         font-weight: bold;
+        font-size: 2vh;
+        /*border: solid white;*/
+    }
+
+    .sub-list a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold; 
         font-size: 2vh;
     }
 
-    div a{
-        list-style: none;
-        color: white;
-        text-decoration: none;
-        text-align: center;
-    } */
-
-    main {
+    .sub-list>li {
+        margin: 5%;
+        border-radius: 3vh;
         /*border: solid black;*/
-        height: 58.7vh;
+        padding: 4% 0 4% 0;
+        transition: 0.25s;
+    }
+
+    .main-list:hover{
+        background-color: rgb(252, 199, 53);
+    }
+
+    .main-list:hover > a{
+        color: rgb(134, 22, 66);
+    }
+
+    .main-list:hover #box_num_notify {
+        color: rgb(134, 22, 66)/* Cambia el color a lo que prefieras */
+    }
+
+    .sub-list li:hover{
+        background-color: rgb(73, 14, 38);
+    }
+
+    /*BLOQUE DE CODIGO BOX-2*/
+    #box-2{
+        /*border: solid black;*/
+        height: 65vh;
         background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
         background-repeat: no-repeat;
         background-size: cover;
@@ -229,107 +218,100 @@
         justify-content: center;
     }
 
-    #notify_box{
-        width: 100%;
+    #box-2 h1{
+        margin-top: 5vh;
+    }
 
+    /*Estilo notificaciones*/
+
+    #box_num_notify{
+        color: rgb(252, 199, 53);
+        font-size: 2.5vh;
+        margin-left: 1vh;
     }
 
     .titulo_not{
-        font-weight: bold;
-        font-size: 3vh;
+        color: rgb(252, 199, 53);
+        font-size: 100%;
+        margin-top: 1.5vh;
     }
+    
 
-    .remitente_not{
-        font-size: 1.4vh;
-    }
+
 </style>
 
-<div id="box-nav">
+<main>
     <nav>
-        <ul class="main-links">
-            <li class="dropdown-li">
+        <ul class="main-ul">
+            <li class="main-list">
+                <a href="">PROPIEDADES Y TITULARES</a>
+                <ul class="sub-list">
+                    <li><a href="{% url 'catastro:index_contribuyente' %}" >CONTRIBUYENTES</a></li>
+                    <li><a href="" >PREDIOS</a></li>       
+                </ul>
+            </li>
+
+            <li class="main-list">
                 <a href="">ALTAS</a>
-                <ul class="dropdown">
-                    <li><a href="{% url 'catastro:vista_alta_contribuyente' %}">NUEVO CONTRIBUYENTE</a></li>
-                    <li><a href="{% url 'catastro:vista_alta_predios' %}">NUEVO PREDIO</a></li>
-                    <li><a href="">INCORPORACIÓN</a></li>
-                    <li><a href="">SUBDIVISIÓN</a></li>
-                    <li><a href="">FUSIÓN DE PREDIOS</a></li>
+                <ul class="sub-list">
+                    <li><a href="{% url 'catastro:vista_alta_contribuyente' %}" class="as">NUEVO CONTRIBUYENTE</a></li>
+                    <li><a href="{% url 'catastro:vista_alta_predios' %}" class="as">NUEVO PREDIO</a></li>
+                    <li><a href="" class="as">INCORPORACIÓN</a></li>
+                    <li><a href="" class="as">SUBDIVISIÓN</a></li>
+                    <li><a href="" class="as">FUSIÓN DE PREDIOS</a></li>
                 </ul>
             </li>
-            <li class="dropdown-li">
+
+            <li class="main-list">
                 <a href="">TRAMITES</a>
-                <ul class="dropdown">
-                    <li><a href="{% url 'catastro:solicitud' %}">DC017</a></li>
-                    <li><a href="{%url 'catastro:ficha_catastral'%}">FICHA_CATASTRAL</a></li>
+                <ul class="sub-list">
+                    <li><a href="{% url 'catastro:solicitud' %}" class="as">DC017</a></li>
+                    <li><a href="{%url 'catastro:ficha_catastral'%}" class="as">FICHA_CATASTRAL</a></li>
                 </ul>
             </li>
-            <li class="dropdown-li">
-                <a href="">BAJAS</a>
-                <ul class="dropdown">
-                    <li><a href="{% url 'catastro:view_notify' %}">NUEVA BAJA</a></li>
-                    <li><a href="">NUEVO USUARIO</a></li>
-                </ul>
-            </li>
-            <li class="dropdown-li">
-                <a href="">MODIFICACIONES</a>
-                <ul class="dropdown">
-                    <li><a href="">NUEVA BAJA</a></li>
-                    <li><a href="">NUEVO USUARIO</a></li>
-                </ul>
-            </li>
-            <li class="dropdown-li">
-                <a href="">CONSULTAS</a>
-                <ul class="dropdown">
-                    <li><a href="">NUEVA BAJA</a></li>
-                    <li><a href="">NUEVO USUARIO</a></li>
-                </ul>
-            </li>
-            <li class="dropdown-li">
+
+            <li class="main-list">
                 <a href="">REPORTE</a>
-                <ul class="dropdown">
-                    <li><a href="">PRUEBA_REPORTE</a></li>
-                    <li><a href="">NUEVO USUARIO</a></li>
+                <ul class="sub-list">
+                    <li><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
                 </ul>
             </li>
-            <li class="dropdown-li">
+
+            <li class="main-list">
+                <a href="">TRAMITES</a>
+                <ul class="sub-list">
+                    <li><a href="" class="as">NUEVA BAJA</a></li>
+                    <li><a href="" class="as">NUEVO USUARIO</a></li>
+                </ul>
+            </li>
+
+            <li class="main-list">
                 <a href="">MANTENIMIENTO</a>
-                <ul class="dropdown">
-                    <li><a href="">MIGRAR DEUDORES</a></li>
-                    <li><a href="{% url 'catastro:view_registrar_usuario' %}">NUEVO USUARIO</a></li>
-                    <li><a href="">ELIMINAR REGISTROS</a></li>
-                    <li><a href="">MIGRAR DEUDORES</a></li>
-                    <li><a href="">NUEVO USUARIO</a></li>
-                    <li><a href="">ELIMINAR REGISTROS</a></li>
+                <ul class="sub-list">
+                    <li><a href="" class="as">NUEVA BAJA</a></li>
+                    <li><a href="" class="as">NUEVO USUARIO</a></li>
                 </ul>
             </li>
 
-            <li class="dropdown-li">
-                <a href="">NOTIFICACIONES<span id="box_num_notify" style="border-radius: 3vh; margin-left: 1vh; padding: 1%; color:rgb(252,219,85); font-size:x-large;"><!--NUMERO NOTIFICACIONES--></span></a>
-                <ul class="dropdown">
-                    <!--Caja de notificaciones-->
-                    <li id="notify_box"></li>
+
+            <li class="main-list">
+                <a href="">NOTIFICACIONES <span id="box_num_notify"><!--NUM_NOTIFICACIONES--></span></a>
+                <ul class="sub-list">
+                    <li id="notify_box"><!--NOTIFICACIONES--></li>
                 </ul>
             </li>
 
-            <li class="dropdown-li">
+            <li class="main-list">
                 <a href="{% url 'catastro:logout_catastro' %}">CERRAR SESIÓN</a>
             </li>
-
-
-
         </ul>
     </nav>
 
-    <!-- <div class="box-nav-2">
-         <div>N</div> 
-
-        <div><a id="btn-logout" href="{% url 'catastro:logout_catastro' %}">CERRAR SESIÓN</a></div>
-    </div> -->
-</div>
-
-<main>
-    <h1>Bienvenido, {{nombre_user}}</h1>
+    <div id="box-2">
+        <h1>Bienvenido, {{nombre_user}}</h1>
+    </div>
 </main>
 
 {% endblock %}
