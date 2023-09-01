@@ -7,7 +7,7 @@
     
     var username = "{{nombre_user}}";
 
-    const socket = new WebSocket('ws://' + window.location.host + '/ws/load_notify/finanzas/'+ username + '/');
+    const socket = new WebSocket('ws://' + window.location.host + '/ws/load_notify/'+ username + '/');
     
     socket.onopen = function (e){
         console.log('El socket esta abierto')
@@ -40,7 +40,7 @@
             // Crear un nuevo elemento de lista y agregar los datos
             const etiqueta_a = document.createElement('a');
 
-            etiqueta_a.innerHTML = '<h1 class="titulo_not">'+titulo+'</h1><span class="remitente_not"><br>'+remitente+'</span>'
+            etiqueta_a.innerHTML = '<h1 class="titulo_not">'+titulo+'</h1><span class="remitente_not">'+remitente+'</span>'
 
             /*
             //Link a pantalla de notificaciones
@@ -112,124 +112,113 @@
 
 
 <style>
-    #box-nav {
+    /*Establecer tamaño del nav*/
+    nav {
         width: 100%;
-        /*border: solid black; */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 27.3vh;
-    }
-
-    #box-nav nav {
+        height: 20vh;
         /*border: solid blue;*/
-        padding: 0.5%;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .main-links {
-        margin-top: 5vh;
-        /*border: solid black;*/
-        padding: 1%;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 1em;
+    }
+
+    /* Establecer tamaño de la ul principal */
+    .main-ul {
+        background-color: rgb(134, 22, 66);
+        width: 95%;
+        height: 40%;
+        /* Agregar flex para mostrar la lista en fila */
+        display: flex;
+        border-radius: 3vh;
+    }
+
+    /* Quitar las viñetas de la lista y alinear todo el texto al centro */
+    .main-ul li {
         list-style: none;
-        background-color: rgb(134, 22, 66);
-        border-radius: 2em;
-        font-size: 2vh;
-        width: 100%;
-        height: 3em;
+        text-align: center;
     }
 
-    .main-links li {
-        padding: 0.5rem 1rem;
-        background-color: rgb(134, 22, 66);
-        width: 20vh;
-        border-radius: 1em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .dropdown-li {
+    /* li principal*/
+    .main-list {
+        /*border: solid rgb(0, 0, 0);*/
+        margin: 0.8% 0.5% 0.8% 0.5%;
+        border-radius: 3vh;
+        /* Posicion relativa para manterner su jerarquia en la caja  */
         position: relative;
-        width: 100%;
-        transition: 0.5s;
-    }
-
-    .dropdown-li a {
-        color: white;
-        text-decoration: none;
-        text-align: center;
-        font-weight: bold;
-        font-size: 100%;
-    }
-
-    .dropdown-li:hover {
-        background-color: rgb(88, 17, 44);
-    }
-
-    .dropdown-li:hover .dropdown {
-        display: block;
-        background-color: rgb(134, 22, 66);
-    }
-
-    .dropdown {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        position: absolute;
-        left: 0;
-        top: 100%;
-        display: none;
-        border-radius: 0 0 1em 1em;
-    }
-
-    .dropdown li {
-        list-style: none;
-        width: 100%;
-    }
-
-    /* BOX DOS
-    #box-nav .box-nav-2{
+        /* Alinear en columna los elementos de la caja principal e hijas */
         display: flex;
-        justify-content: center;
-        border: solid green;
-        height: 100%;
-        width: 20%;
-
-    }
-
-    .box-nav-2 div{
-        margin: 6.1vh 2vh 0 0;
-        border: solid black;
-        background-color: rgb(134, 22, 66);
-        width: 40%;
-        height: 22%;
-        border-radius: 2em;
-        display: flex;
+        /* Ajustar el ancho automaticamente al maximo del contenedor */
+        flex: 1;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        /*transicion para efecto hover*/
+        transition: 0.25s;
+
+    }
+
+    /* li hijo */
+    .sub-list {
+        /* Ocultar contenedor */
+        display: none;
+        background-color: rgb(134, 22, 66);
+        border-radius: 0 0 3vh 3vh;
+        /* Posicion absoluta para perder su lugar en la caja */
+        position: absolute;
+        /* Mandar el contenedor del li hijo abajo */
+        top: 100%;
+        /* Establecer como ancho maximo el tamaño del li padre */
+        width: 100%;
+    }
+
+    .main-list:hover>.sub-list {
+        display: block;
+    }
+
+    .main-list>a {
         color: white;
+        text-decoration: none;
         font-weight: bold;
+        font-size: 2vh;
+        /*border: solid white;*/
+    }
+
+    .sub-list a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold; 
         font-size: 2vh;
     }
 
-    div a{
-        list-style: none;
-        color: white;
-        text-decoration: none;
-        text-align: center;
-    } */
-
-    main {
+    .sub-list>li {
+        margin: 5%;
+        border-radius: 3vh;
         /*border: solid black;*/
-        height: 58.7vh;
+        padding: 4% 0 4% 0;
+        transition: 0.25s;
+    }
+
+    .main-list:hover{
+        background-color: rgb(252, 199, 53);
+    }
+
+    .main-list:hover > a{
+        color: rgb(134, 22, 66);
+    }
+
+    .main-list:hover #box_num_notify {
+        color: rgb(134, 22, 66)/* Cambia el color a lo que prefieras */
+    }
+
+    .sub-list li:hover{
+        background-color: rgb(73, 14, 38);
+    }
+
+    /*BLOQUE DE CODIGO BOX-2*/
+    #box-2{
+        /*border: solid black;*/
+        height: 65vh;
         background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
         background-repeat: no-repeat;
         background-size: cover;
@@ -239,63 +228,67 @@
         justify-content: center;
     }
 
-    #notify_box{
-        width: 100%;
+    #box-2 h1{
+        margin-top: 5vh;
+    }
 
+    /*Estilo notificaciones*/
+
+    #box_num_notify{
+        color: rgb(252, 199, 53);
+        font-size: 2.5vh;
+        margin-left: 1vh;
     }
 
     .titulo_not{
-        font-weight: bold;
-        font-size: 3vh;
+        color: rgb(252, 199, 53);
+        font-size: 100%;
+        margin-top: 1.5vh;
     }
+    
 
-    .remitente_not{
-        font-size: 1.4vh;
-    }
+
 </style>
 
-<div id="box-nav">
+<main>
     <nav>
-        <ul class="main-links">
-            <li class="dropdown-li">
-                <a href="">PREDIAL</a>
-                <ul class="dropdown">
+        <ul class="main-ul">
+            <li class="main-list">
+                <a href="">PAGO PREDIAL</a>
+                <ul class="sub-list">
                     <li><a href="">PAGO DE PREDIAL</a></li>
                     <!-- <li><a href="{% url 'finanzas:descuento_pendiente' %}">APROBAR DESCUENTOS</a></li> -->
                 </ul>
             </li>
-            <li class="dropdown-li">
+
+            <li class="main-list">
                 <a href="">TRAMITES</a>
-                <ul class="dropdown">
+                <ul class="sub-list">
                     <li><a href="">DEFUNCIONES</a></li>
                     <li><a href="">PERMISOS DE DESARROLLO URBANO</a></li>
                     <li><a href="">DEFUNCIONES</a></li>
                 </ul>
             </li>
-            <li class="dropdown-li">
+
+            <li class="main-list">
                 <a href="">IMPUESTOS</a>
-                <ul class="dropdown">
+                <ul class="sub-list">
                     <li><a href="">#</a></li>
                     <li><a href="">#</a></li>
                 </ul>
             </li>
-            <li class="dropdown-li">
-                <a href="">CONSULTAS</a>
-                <ul class="dropdown">
-                    <li><a href="">HISTORIAL DE DEUDOR</a></li>
-                    <li><a href="">#</a></li>
-                </ul>
-            </li>
-            <li class="dropdown-li">
-                <a href="">REPORTES</a>
-                <ul class="dropdown">
+
+            <li class="main-list">
+                <a href="">REPORTE</a>
+                <ul class="sub-list">
                     <li><a href="">PAGOS DE PREDIAL</a></li>
                     <li><a href="">DEUDORES ANUALES</a></li>
                 </ul>
             </li>
-            <li class="dropdown-li">
+
+            <li class="main-list">
                 <a href="">MANTENIMIENTO</a>
-                <ul class="dropdown">
+                <ul class="sub-list">
                     <li><a href="">MIGRAR DEUDORES</a></li>
                     <li><a href="">REGISTRAR CAJERO</a></li>
                     <li><a href="">ADMINISTRACION DE CAJEROS</a></li>
@@ -310,22 +303,15 @@
                 </ul>
             </li>
 
-            <li class="dropdown-li">
+            <li class="main-list">
                 <a href="{% url 'finanzas:logout_finanzas' %}">CERRAR SESIÓN</a>
             </li>
-
         </ul>
     </nav>
 
-    <!-- <div class="box-nav-2">
-         <div>N</div> 
-
-        <div><a id="btn-logout" href="{% url 'catastro:logout_catastro' %}">CERRAR SESIÓN</a></div>
-    </div> -->
-</div>
-
-<main>
-    <h1>Bienvenido, {{nombre_user}}</h1>
+    <div id="box-2">
+        <h1>Bienvenido, {{nombre_user}}</h1>
+    </div>
 </main>
 
 
