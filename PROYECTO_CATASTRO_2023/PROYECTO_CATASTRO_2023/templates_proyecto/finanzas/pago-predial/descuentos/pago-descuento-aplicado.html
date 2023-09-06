@@ -1,5 +1,4 @@
 {% extends "raiz/master_blade_v.1.html" %} {%block body%} {% load static %}
-
 <style>
   .form1 h1 {
     margin-top: -50px;
@@ -220,16 +219,17 @@
     margin-left: 550px;
   }
 
+  input {
+    text-align: center;
+  }
+
+  /*BACKGROUND*/
   main {
     background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
     background-repeat: no-repeat;
     background-size: contain;
     background-position-x: center;
     background-position-y: bottom;
-  }
-
-  input {
-    text-align: center;
   }
 </style>
 
@@ -264,16 +264,6 @@
         {% for item in my_list %}
 
         <div class="col-xl-12" style="top: 20px">
-          <!-- <div class="form-group" style="float: right;">
-            <a href=""><button onclick="" type="button"
-                class="btn btn-outline-warning">
-                Aplicar descuento
-              </button></a>
-            <button type="button" id="guardar_c" class="btn btn-outline-primary">
-              Pagar
-            </button>
-          </div> -->
-
           <div class="row" style="margin-top: -23px">
             <div class="col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2"></div>
 
@@ -283,7 +273,7 @@
                 <label for="fc_zon" class="lbl1"><strong>Zona cat</strong></label>
 
                 {% with cadena=item.clave_catastral %}
-                {% with zc=cadena|slice:":3" %}
+                {% with zc=cadena|slice:"0:3" %}
                 <input type="text" id="zc" class="form-control" name="zc" style="height: 25px" readonly value="{{zc}}"
                   aria-describedby="inputGroup-sizing-sm" />
                 {% endwith %}
@@ -521,7 +511,7 @@
       ADEUDOS
     </legend>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="tabla_adeudos_predial">
       <thead style="
           border: solid #880e4f 2px;
           background-color: #880e4f;
@@ -533,9 +523,10 @@
           <th scope="col">EJERCICIO</th>
           <th scope="col">SUBTOTAL</th>
           <th scope="col">IMPUESTO ADICIONAL</th>
+          <th scope="col"></th>
           <th scope="col">RECARGO</th>
+          <th scope="col"></th>
           <th scope="col">MULTA</th>
-          <th scope="col">TOTAL</th>
         </tr>
       </thead>
       <tbody class="table-group-divider"
@@ -545,16 +536,18 @@
           <td>
             <div class="form-check form-switch">
               <input class="form-check-input" checked type="checkbox" id="checkbox{{forloop.counter}}"
-                value="{{ item.total }}, {{item.subtotal}}, {{item.multa}}, {{item.recargo}}, {{item.impuesto_adicional}}, {{item.ejercicio}}, {{item.clave}}, {{item.estatus}}"
-                onchange="suma();descuento_recargo();descuento_multa()" />
-              <label class="form-check-label" for="flexSwitchCheckDefault">{{item.ejercicio}}</label>
+                value="{{ item.total }},{{item.subtotal}}, {{item.multa}}, {{item.recargo}}, {{item.impuesto_adicional}}, {{item.ejercicio}}, {{item.clave}}, {{item.estatus}}"
+                onchange="suma();descuento_recargo();descuento_multa()" disabled />
+              <label class="form-check-label" for="flexSwitchCheckDefault"
+                style="font-weight: bold;">{{item.ejercicio}}</label>
             </div>
           </td>
           <td>{{item.subtotal}}</td>
           <td>{{item.impuesto_adicional}}</td>
+          <td></td>
           <td>{{item.recargo}}</td>
+          <td></td>
           <td>{{item.multa}}</td>
-          <td>{{item.total}}</td>
         </tr>
         {% endfor %}
         <tr>
@@ -564,206 +557,106 @@
           <td></td>
           <td></td>
         </tr>
-        <tr style="color: #25758d; background-color: #ffff;">
-          <td></td>
+        {% for item in adeudos %}
+        {% if forloop.first %}
+        <tr style="color: #ffff; background-color: #880e4f;">
+          <td><strong>RESUMEN:</strong></td>
           <td><strong>$<span id="subtotal">0</span></strong></td>
           <td><strong>$<span id="impuesto_adicional">0</span></strong></td>
-          <td><strong>$<span id="recargo">0</span></strong></td>
-          <td><strong>$<span id="multa">0</span></strong></td>
-          <td>
-            <strong>$<span id="suma_total">0</span></strong>
-          </td>
+          <td style="color: #d5ff1b;"><strong>-%<span id="desc_recargo">{{item.desc_recargo}}</span></strong></td>
+          <td style="color: #d5ff1b;;"><strong>$<span id="recargo">0</span></strong></td>
+          <td style="color: #d5ff1b;;"><strong>-%<span id="desc_multa">{{item.desc_multa}}</span></strong></td>
+          <td style="color: #d5ff1b;;"><strong>$<span id="multa">0</span></strong></td>
         </tr>
+
       </tbody>
     </table>
+    <div class="input-group" style="margin-bottom: 1%;">
+      <span class="input-group-text" style="background-color: #d5ff1b; color: #660b22; font-weight: bold;">TOTAL CON
+        DESCUENTO APROBADO:</span>
 
+      <input type="text" aria-label="First name" class="form-control" id="total_descuento" readonly
+        style="font-weight: bold; background-color: #ffff; color: red; font-size: 3vh;" value="{{item.total}}">
 
-    <div class="container" style="height: 50px;">
-      <div class="row justify-content-center" style="margin-top: 5px; ;">
-        <div class="col-2" style="background-color: #880e4f; color: #ffff"><label
-            style="margin-top: 9px; font-family:'Lucida Sans Unicode';"><strong>CONDONACIONES:</strong></label></div>
-        <div class="col-1"></div>
-        <div class="col-2">
-          <div class="input-group">
-            <label class="input-group-text text-white" for="recargos"
-              style="background-color: #880e4f;">RECARGO:</label>
-            <select class="form-select" id="recargos" onchange="descuento_recargo(); suma_total_descuento()" required>
-              <option selected value=""></option>
-              <option value="100">100%</option>
-              <option value="95">95%</option>
-              <option value="90">90%</option>
-              <option value="85">85%</option>
-              <option value="80">80%</option>
-              <option value="75">75%</option>
-              <option value="70">70%</option>
-              <option value="65">65%</option>
-              <option value="60">60%</option>
-              <option value="55">55%</option>
-              <option value="50">50%</option>
-              <option value="45">45%</option>
-              <option value="40">40%</option>
-              <option value="35">35%</option>
-              <option value="30">30%</option>
-              <option value="25">25%</option>
-              <option value="20">20%</option>
-              <option value="15">15%</option>
-              <option value="10">10%</option>
-              <option value="5">5%</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-2">
-          <div class="input-group">
-            <label class="input-group-text text-white" for="multas" style="background-color: #880e4f;">MULTA:</label>
-            <select class="form-select" id="multas" onchange="descuento_multa(); suma_total_descuento()" required>
-              <option selected value=""></option>
-              <option value="100">100%</option>
-              <option value="95">95%</option>
-              <option value="90">90%</option>
-              <option value="85">85%</option>
-              <option value="80">80%</option>
-              <option value="75">75%</option>
-              <option value="70">70%</option>
-              <option value="65">65%</option>
-              <option value="60">60%</option>
-              <option value="55">55%</option>
-              <option value="50">50%</option>
-              <option value="45">45%</option>
-              <option value="40">40%</option>
-              <option value="35">35%</option>
-              <option value="30">30%</option>
-              <option value="25">25%</option>
-              <option value="20">20%</option>
-              <option value="15">15%</option>
-              <option value="10">10%</option>
-              <option value="5">5%</option>
-
-            </select>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="input-group">
-            <span class="input-group-text text-white" style="background-color: #880e4f;">Total con descuento
-              aplicado:</span>
-
-            <input type="text" aria-label="First name" class="form-control" id="total_descuento" readonly
-              style="font-weight: bold;" value="0.0">
-
-          </div>
-        </div>
-      </div>
-
-    </div><br>
-    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; height:5%;">
-      <a href=""><button id="rechazar_descuento" type="button" class="btn btn-outline-warning"
-        style="width:100%; background-color: #880e4f; color: #FFFF; font-weight: bold; border: #660b22;">RECHAZAR
-        PETICION</button></a>
-      <a href=""><button id="aprobar_descuento" type="button" class="btn btn-outline-warning"
-        style="width:100%; background-color: #b8860b; color: #FFFF; font-weight: bold; ">APROBAR DESCUENTO</button></a>
     </div>
-  </fieldset>
+    {% endif %}
+    {% endfor %}
+
+
+    <div style="width: 100%; display: flex; align-items: center; justify-content: flex-end;">
+      <a href="#" style="width: 15%;"><button type="button" id="btn_pagar" class="btn btn-outline-primary"
+          style="background-color: #660b22; color: #ffff; border:none; font-weight:bold; font-size: 2vh; width: 100%;">Pagar</button></a>
+    </div>
+</div>
+</fieldset>
+
+
 </div>
 
 <script>
-  const boton_aprobar_descuento = document.getElementById('aprobar_descuento');
-  const boton_rechazar_descuento = document.getElementById('rechazar_descuento');
 
-  //OBTENER LA CLAVE CATASTRAL
-  var url_window = window.location.pathname;
-  var partesUrl = url_window.split('/');
-  const clave_cat = partesUrl[partesUrl.length - 1];
+  // MANDAR LA INFORMACION A LA VISTA PAGO PREDIAL
+  const btn_pagar_predial = document.getElementById('btn_pagar');
+  const tabla_adeudos = document.getElementById('tabla_adeudos_predial');
 
-  //FUNCION ONCLICK RECHAZAR DESCUENTO
-  boton_rechazar_descuento.addEventListener('click', function () {
+  btn_pagar_predial.addEventListener('click', function () {
 
-    var url_descuento_aprobado = "{% url 'finanzas:descuento_rechazado' %}"
+    var years_selected = [];
+
+    for (let i = 1; i < tabla_adeudos.rows.length; i++) {
+      const fila = tabla_adeudos.rows[i];
+      //trim() se utiliza para limpiar los espacios en blanco que contiene el texto
+      var years = fila.cells[0].textContent.trim(); // Accede al contenido de la primera celda (nombre)
+
+      //Verificar que la variable year sea diferente a valores no numericos
+      if (!isNaN(years)) {
+        // verificar que la variable year no contenga valores vacios o nulos
+        if (years != '') {
+          years_selected.push(years);
+        }
+      }
+
+
+    }
+
+    var url_window = window.location.pathname;
+    var partesUrl = url_window.split('/');
+    const clave_cat = partesUrl[partesUrl.length - 1];
+    var total = document.getElementById('total_descuento').value;
+
+    /*for (i = 0; i < years_selected.length; i++) {
+      console.log(years_selected[i])
+    }
+    */
+
+    const url_pago = "{% url 'finanzas:pago_predial_contribuyente_years_debe' %}";
+
     $.ajax({
       type: 'GET',
-      url: url_descuento_aprobado, // Reemplaza esto con la URL de tu vista en Django
+      url: url_pago, // Reemplaza esto con la URL de tu vista en Django
       data: {
-        'clave_cat': clave_cat
+        'clave_cat': clave_cat,
+        'years_selected': years_selected,
+        'total': total
       },
       dataType: 'json',
       success: function (response) {
-        console.log('descuento rechazado con exito')
+        console.log('descuento aprobado con exito')
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        console.log("Error en la solicitud AJAX RECHAZAR DESCUENTO:");
+        console.log("Error en la solicitud AJAX:");
         console.log("Estado: " + textStatus);
         console.log("Error: " + errorThrown);
       }
     });
 
-  });
-
-  //FUNCION ONCLICK APROBAR DESCUENTO
-  boton_aprobar_descuento.addEventListener('click', function () {
-
-    const recargo_total = parseFloat(document.getElementById('recargo').textContent);
-    const multa_total = parseFloat(document.getElementById('multa').textContent);
-
-    if (recargos == '' || multas == '') {
-      console.log('los campos estan vacios');
-      alert('REGISTRE RECARGO Y MULTA PARA CONTINUAR');
-    } else {
-      // MANDAR LA INFORMACION DE LOS DESCUENTOS CONDONADOS A LA VISTA DESCUENTO_APROBADO
-
-      const recargos = document.getElementById('recargos').value;
-      const multas = document.getElementById('multas').value;
-      
-      const subtotal_total = parseFloat(document.getElementById('subtotal').textContent)
-      const impuesto_adicional_total = parseFloat(document.getElementById('impuesto_adicional').textContent)
-      const resultado_total = subtotal_total + impuesto_adicional_total + recargo_total + multa_total
-
-      /*
-        var añosSeleccionados = [];
-        var checkboxes = document.querySelectorAll('.form-check-input');
-        AQUI SE SUPONE QUE QUIERO EXTRAER LOS AÑOS
-
-        checkboxes.forEach(function (checkbox) {
-        if (checkbox.checked) {
-          var valores = checkbox.value.split(",");
-
-          año = valores[1];
-          añosSeleccionados.push(año);
-          console.log(" año: "+ año);
-        }
-
-        });
-
-      */
-
-      var url_descuento_aprobado = "{% url 'finanzas:descuento_aprobado' %}"
-      $.ajax({
-        type: 'GET',
-        url: url_descuento_aprobado, // Reemplaza esto con la URL de tu vista en Django
-        data: {
-          'recargo_condonado': recargos,
-          'multa_condonado': multas,
-          'total_con_descuento': resultado_total,
-          'clave_cat': clave_cat
-        },
-        dataType: 'json',
-        success: function (response) {
-          console.log('descuento aprobado con exito')
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.log("Error en la solicitud AJAX:");
-          console.log("Estado: " + textStatus);
-          console.log("Error: " + errorThrown);
-        }
-      });
-
-    }
-
-
 
 
   });
+
 
 
 </script>
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
@@ -773,6 +666,6 @@
 
 <script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 
-<script src="{%static 'js/descuentos/aplicar.js'%}"></script>
+<script src="{%static 'js/INGRESOS/descuentos/pago_descuento_aplicado.js'%}"></script>
 
 {%endblock%}

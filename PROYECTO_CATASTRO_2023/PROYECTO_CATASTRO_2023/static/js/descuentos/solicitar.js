@@ -59,7 +59,7 @@ function solicitar_descuento(){
                 console.error(error);
             }
       });
-      console.log("clave: " + clave + " años: "+ añosSeleccionados + " Estatus: "+ estatus);
+      //console.log("clave: " + clave + " años: "+ añosSeleccionados + " Estatus: "+ estatus);
 }
 
 

@@ -1,9 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
 </head>
 <body>
     <form action="{% url 'catastro:send_not_2' %}" method="POST">
@@ -15,5 +18,15 @@
 
         <button type="submit">mandar_not</button>
     </form>
+
+    <button id="boton_audio">SONIDO</button>
+
+    <script>
+        const btn_audio = document.getElementById('boton_audio');
+            const audio_notify = new Audio("{% static 'sounds/notify_sfx.wav' %}");
+            btn_audio.addEventListener('click', function() {
+                audio_notify.play();
+            });
+    </script>
 </body>
 </html>

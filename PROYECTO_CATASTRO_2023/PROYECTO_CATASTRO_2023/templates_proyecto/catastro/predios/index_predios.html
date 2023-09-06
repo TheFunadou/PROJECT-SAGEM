@@ -46,10 +46,10 @@
     }
 
     body {
-        height: 58.7vh;
-        background-image: linear-gradient(to bottom, #ffffff 50%, transparent 50%), url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        height: 60vh;
+        background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
         background-repeat: no-repeat;
-        background-size: contain; /* Ajustar el tamaño automáticamente */
+        background-size: contain;
         background-position: center bottom;
         
       }
@@ -292,11 +292,7 @@ button:hover {
         <div class="col-xl-12">   
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="section-block" id="basicform">
-                        
-                        <h4 class="section-title">Búsqueda</h4>
-                    </div>
-                    <div class="card" style="background-color: #8b214a;">
+                    <div class="card" style="background-color: #8b214a; margin-top: 4vh;">
                     
                             <div class="card-body justify-content-center" style="border: #992535 2px solid; ">
     
@@ -304,7 +300,7 @@ button:hover {
                                 <form action="{% url 'catastro:busqueda_predios' %}"method="POST" data-parsley-validate="" id="formFiltros">
                                         {%csrf_token%}
                                         <div class="row">
-                                            <p style="color: wheat; text-align: center;"><em>Ingrese la clave catastral o bien puede consultar a todos los contribuyentes pulsando solo el boton buscar.</em></p>
+                                            <p style="color: wheat; text-align: center;"><em>INGRESE LA CLAVE CATASTRAL Ó SELECCIONE BUSCAR PARA MOSTRAR A TODOS LOS PREDIOS.</em></p>
                                             <div id="autocomplete" class="autocomplete col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                                 
                                                 <label for="busqueda" style="color: wheat; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">CLAVE CATASTRAL DEL PREDIO</label>
@@ -498,7 +494,7 @@ button:hover {
 
 <div class="row  " style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
     <div class="col col-lg-2">
-        <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">Atras</button>
+        <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left;  background-color: #e7b038; color:#ffff; font-weight: bold; border: none; ">VOLVER</button>
     </div>
     <div class="col-md-auto">
      
@@ -510,7 +506,7 @@ button:hover {
 
 <script>
     document.getElementById("btnBack").addEventListener("click", function() {
-        window.location.href = "{% url 'catastro:perfil_cat' %}";
+        window.location.href = "{% url 'finanzas:redirigir_perfil_finanzas' %}";
     });
 </script>
 

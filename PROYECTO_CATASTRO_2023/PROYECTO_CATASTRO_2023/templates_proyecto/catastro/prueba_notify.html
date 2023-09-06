@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <script>
+        const btn_audio = document.getElementById('boton_audio')
+        btn_audio.addEventListener('click', function(){
+            const audio_notify = new Audio ("{% static 'sounds/notify_sfx.wav' %}");
+
+            audio_notify.play();
+        });
+    </script>
 </head>
 <body>
     <form action="{% url 'catastro:not' %}" method="POST">
@@ -13,5 +22,7 @@
         <input type="text" name="cuerpo2" placeholder="cuerpo2">
         <button type="submit">ENVIAR</button>
     </form>
+
+    <button onclick="sonido()" id="boton_audio"></button>
 </body>
 </html>

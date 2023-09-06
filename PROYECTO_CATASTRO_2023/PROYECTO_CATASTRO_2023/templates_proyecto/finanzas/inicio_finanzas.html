@@ -221,8 +221,9 @@
         height: 65vh;
         background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: contain;
         background-position-x: center;
+        background-position-y: bottom;
         display: flex;
         align-items: flex-start;
         justify-content: center;
@@ -257,7 +258,7 @@
                 <a href="">PAGO PREDIAL</a>
                 <ul class="sub-list">
                     <li><a href="{%url 'finanzas:buscar_adeudos'%}">PAGO DE PREDIAL</a></li>
-                    <li><a href="{% url 'finanzas:descuento_aprobado' %}">DESCUENTOS APROBADOS</a></li>
+                    <li><a href="{% url 'finanzas:seleccion_descuentos_aprobados' %}">DESCUENTOS APROBADOS</a></li>
                 </ul>
             </li>
 
@@ -285,13 +286,6 @@
                     <li><a href="">DEUDORES ANUALES</a></li>
                 </ul>
             </li>
-
-            <!-- <li class="dropdown-li">
-                <a href="#">NOTIFICACIONES<span id="box_num_notify" style="border-radius: 3vh; margin-left: 1vh; padding: 1%; color:rgb(252,219,85); font-size:x-large;"></span></a>
-                <ul class="dropdown">
-                    Caja de notificaciones
-                    <li><a href="{% url 'finanzas:descuento_pendiente' %}">APROBAR DESCUENTOS<span id="box_num_notify" style="border-radius: 3vh; margin-left: 1vh; padding: 1%; color:rgb(252,219,85); font-size:x-large;"></span></a></li>
-            </li> -->
 
             <li class="main-list">
                 <a href="{% url 'finanzas:gestor_notify_finanzas'%}">NOTIFICACIONES <span id="box_num_notify"><!--NUM_NOTIFICACIONES--></span></a>

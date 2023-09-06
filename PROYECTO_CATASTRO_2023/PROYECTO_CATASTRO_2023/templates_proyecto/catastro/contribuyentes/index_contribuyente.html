@@ -32,329 +32,352 @@
 <style>
 
     .centered {
-    position: absolute;
-    top: 19%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
+        position: absolute;
+        top: 19%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
     }
 
-    label{
+    label {
         color: rgb(122, 6, 41);
-        font-weight: bold ; 
+        font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
         height: 58.7vh;
-        background-image: linear-gradient(to bottom, #ffffff 50%, transparent 50%), url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
         background-repeat: no-repeat;
-        background-size: contain; /* Ajustar el tamaño automáticamente */
+        background-size: contain;
         background-position: center bottom;
-        
-      }
 
-    .bordes{
+    }
+
+    .bordes {
         border: 4px solid rgb(80, 9, 36);
     }
 
-    .bor{
+    .bor {
         border: 2px solid rgb(180, 172, 175);
     }
 
 
 
-h1 {
-    text-align: center
-}
+    h1 {
+        text-align: center
+    }
 
-input {
-    padding: 10px;
-    width: 100%;
-    font-size: 17px;
-    font-family: Raleway;
-    border: 1px solid #aaaaaa
-}
+    input {
+        padding: 10px;
+        width: 100%;
+        font-size: 17px;
+        font-family: Raleway;
+        border: 1px solid #aaaaaa
+    }
 
-input.invalid {
-    background-color: #ffdddd
-}
+    input.invalid {
+        background-color: #ffdddd
+    }
 
-.tab {
-    display: none
-}
-
-
-
-button:hover {
-    opacity: 0.8
-}
+    .tab {
+        display: none
+    }
 
 
-.step {
-    height: 10px;
-    width: 10px;
-    margin: 0 6px;
-    background-color: #bbbbbb;
-    border: none;
-    border-radius: 50%;
-    display: inline-block;
-    opacity: 0.5
-}
 
-.step.active {
-    opacity: 1
-}
-
-.step.finish {
-    background-color: #4CAF50
-}
-
-.all-steps {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 30px
-}
-
-.thanks-message {
-    display: none
-}
+    button:hover {
+        opacity: 0.8
+    }
 
 
-/* Hide the browser's default radio button */
+    .step {
+        height: 10px;
+        width: 10px;
+        margin: 0 6px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5
+    }
 
-.container input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
+    .step.active {
+        opacity: 1
+    }
 
+    .step.finish {
+        background-color: #4CAF50
+    }
 
-/* Create a custom radio button */
+    .all-steps {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 30px
+    }
 
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 50%;
-}
-
-
-/* On mouse-over, add a grey background color */
-
-.container:hover input~.checkmark {
-    background-color: #ccc;
-}
-
-
-/* When the radio button is checked, add a blue background */
-
-.container input:checked~.checkmark {
-    background-color: #2196F3;
-}
+    .thanks-message {
+        display: none
+    }
 
 
-/* Create the indicator (the dot/circle - hidden when not checked) */
+    /* Hide the browser's default radio button */
 
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-
-/* Show the indicator (dot/circle) when checked */
-
-.container input:checked~.checkmark:after {
-    display: block;
-}
+    .container input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
 
 
-/* Style the indicator (dot/circle) */
+    /* Create a custom radio button */
 
-.container .checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
-}
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 50%;
+    }
 
 
-/**/
+    /* On mouse-over, add a grey background color */
 
-.modal-confirm {		
-	color: #434e65;
-	width: 525px;
-}
-.modal-confirm .modal-content {
-	padding: 20px;
-	font-size: 16px;
-	border-radius: 5px;
-	border: none;
-}
+    .container:hover input~.checkmark {
+        background-color: #ccc;
+    }
 
-.modal-confirm .modal-header-error {
-	background: #992535;
-	border-bottom: none;   
-	position: relative;
-	text-align: center;
-	margin: -20px -20px 0;
-	border-radius: 5px 5px 0 0;
-	padding: 35px;
-}
 
-.modal-confirm .modal-header {
-	background: #e7b038;
-	border-bottom: none;   
-	position: relative;
-	text-align: center;
-	margin: -20px -20px 0;
-	border-radius: 5px 5px 0 0;
-	padding: 35px;
-}
-.modal-confirm h4 {
-	text-align: center;
-	font-size: 36px;
-	margin: 10px 0;
-}
-.modal-confirm .form-control, .modal-confirm .btn {
-	min-height: 40px;
-	border-radius: 3px; 
-}
-.modal-confirm .close {
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	color: #fff;
-	text-shadow: none;
-	opacity: 0.5;
-}
-.modal-confirm .close:hover {
-	opacity: 0.8;
-}
-.modal-confirm .icon-box {
-	color: #fff;		
-	width: 95px;
-	height: 95px;
-	display: inline-block;
-	border-radius: 50%;
-	z-index: 9;
-	border: 5px solid #fff;
-	padding: 15px;
-	text-align: center;
-}
-.modal-confirm .icon-box i {
-	font-size: 64px;
-	margin: -4px 0 0 -4px;
-}
-.modal-confirm.modal-dialog {
-	margin-top: 80px;
-}
-.modal-confirm .btn, .modal-confirm .btn:active {
-	color: #fff;
-	border-radius: 4px;
-	background: #eeb711 !important;
-	text-decoration: none;
-	transition: all 0.4s;
-	line-height: normal;
-	border-radius: 30px;
-	margin-top: 10px;
-	padding: 6px 20px;
-	border: none;
-}
-.modal-confirm .btn:hover, .modal-confirm .btn:focus {
-	background: #eda645 !important;
-	outline: none;
-}
-.modal-confirm .btn span {
-	margin: 1px 3px 0;
-	float: left;
-}
-.modal-confirm .btn i {
-	margin-left: 1px;
-	font-size: 20px;
-	float: right;
-}
-.trigger-btn {
-	display: inline-block;
-	margin: 100px auto;
-}
+    /* When the radio button is checked, add a blue background */
+
+    .container input:checked~.checkmark {
+        background-color: #2196F3;
+    }
+
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+
+    /* Show the indicator (dot/circle) when checked */
+
+    .container input:checked~.checkmark:after {
+        display: block;
+    }
+
+
+    /* Style the indicator (dot/circle) */
+
+    .container .checkmark:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+
+
+    /**/
+
+    .modal-confirm {
+        color: #434e65;
+        width: 525px;
+    }
+
+    .modal-confirm .modal-content {
+        padding: 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .modal-confirm .modal-header-error {
+        background: #992535;
+        border-bottom: none;
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+
+    .modal-confirm .modal-header {
+        background: #e7b038;
+        border-bottom: none;
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 36px;
+        margin: 10px 0;
+    }
+
+    .modal-confirm .form-control,
+    .modal-confirm .btn {
+        min-height: 40px;
+        border-radius: 3px;
+    }
+
+    .modal-confirm .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #fff;
+        text-shadow: none;
+        opacity: 0.5;
+    }
+
+    .modal-confirm .close:hover {
+        opacity: 0.8;
+    }
+
+    .modal-confirm .icon-box {
+        color: #fff;
+        width: 95px;
+        height: 95px;
+        display: inline-block;
+        border-radius: 50%;
+        z-index: 9;
+        border: 5px solid #fff;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .modal-confirm .icon-box i {
+        font-size: 64px;
+        margin: -4px 0 0 -4px;
+    }
+
+    .modal-confirm.modal-dialog {
+        margin-top: 80px;
+    }
+
+    .modal-confirm .btn,
+    .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #eeb711 !important;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        border-radius: 30px;
+        margin-top: 10px;
+        padding: 6px 20px;
+        border: none;
+    }
+
+    .modal-confirm .btn:hover,
+    .modal-confirm .btn:focus {
+        background: #eda645 !important;
+        outline: none;
+    }
+
+    .modal-confirm .btn span {
+        margin: 1px 3px 0;
+        float: left;
+    }
+
+    .modal-confirm .btn i {
+        margin-left: 1px;
+        font-size: 20px;
+        float: right;
+    }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
 </style>
 
 <div class="container py-5" style=" background-color: rgb(255, 255, 255);  border-radius: 15px;">
 
     <div class="row" style="margin-top: -40px;">
-        <div class="col-xl-12">   
+        <div class="col-xl-12">
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="section-block" id="basicform">
-                        
-                        <h4 class="section-title">Búsqueda</h4>
-                    </div>
-                    <div class="card" style="background-color: #8b214a;">
-                    
-                            <div class="card-body justify-content-center" style="border: #992535 2px solid; ">
-    
-                                
-                                <form action="{% url 'catastro:busqueda_contribuyentes' %}"method="POST" data-parsley-validate="" id="formFiltros">
-                                        {%csrf_token%}
-                                        <div class="row">
-                                            <p style="color: wheat; text-align: center;"><em>Ingrese el RFC o bien puede consultar a todos los contribuyentes pulsando solo el boton buscar.</em></p>
-                                            <div id="autocomplete" class="autocomplete col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                
-                                                <label for="busqueda" style="color: wheat; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">RFC DEL CONTRIBUYENTE</label>
-                                                <br>
-                                                
-                                                <input type="text" id="busqueda" values="" class="form-control" name="busqueda" style="background:rgb(255, 255, 255); border: #ac2546 solid 1px;" 
-                                                            placeholder="Buscar"   oninput ="this.value = this.value.toUpperCase();">
-                                               
-                                                
+                    <div class="card" style="background-color: #8b214a; margin-top: 4vh;">
+
+                        <div class="card-body justify-content-center" style="border: #992535 2px solid; ">
+
+
+                            <form action="{% url 'catastro:busqueda_contribuyentes' %}" method="POST"
+                                data-parsley-validate="" id="formFiltros">
+                                {%csrf_token%}
+                                <div class="row">
+                                    <p style="color: wheat; text-align: center;"><em>INGRESE EL RFC DEL CONTRIBUYENTE Ó
+                                            SELECCIONE BUSCAR PARA MOSTRAR A TODOS LOS CONTRIBUYENTES.</em></p>
+                                    <div id="autocomplete"
+                                        class="autocomplete col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+
+                                        <label for="busqueda"
+                                            style="color: wheat; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">RFC
+                                            DEL CONTRIBUYENTE</label>
+                                        <br>
+
+                                        <input type="text" id="busqueda" values="" class="form-control" name="busqueda"
+                                            style="background:rgb(255, 255, 255); border: #ac2546 solid 1px;"
+                                            placeholder="Buscar" oninput="this.value = this.value.toUpperCase();">
+
+
+                                    </div>
+
+
+                                    <div class="row col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2"
+                                        style="margin-top: 24px;">
+
+                                        <div class="input-group-sm col-xl-1">
+                                            <div class="form-group">
+                                                <button class="btn btn-info my-2 my-sm-0" type="submit">Buscar</button>
                                             </div>
-
-
-                                            <div class="row col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2" style="margin-top: 24px;">
-
-                                                <div class="input-group-sm col-xl-1">
-                                                    <div class="form-group">
-                                                        <button class="btn btn-info my-2 my-sm-0" type="submit">Buscar</button>
-                                                    </div>      
-                                                </div>
-    
-                                                <div class="input-group-sm col-xl-1  " style=" width: max-content; margin-left: 45px;">
-                                                    <div class="form-group">
-                                                        <a href="{% url 'catastro:vista_alta_contribuyente' %}"><button class="btn my-2 my-sm-0" type="button" style="color: black; background-color:wheat;">Nuevo contribuyente</button></a>
-                                                    </div>      
-                                                </div>
-
-                                            </div>
-
-                    
                                         </div>
-                                </form>
-    
-                            </div>
-                        
-                        
-                        
+
+                                        <div class="input-group-sm col-xl-1  "
+                                            style=" width: max-content; margin-left: 45px;">
+                                            <div class="form-group">
+                                                <a href="{% url 'catastro:vista_alta_contribuyente' %}"><button
+                                                        class="btn my-2 my-sm-0" type="button"
+                                                        style="color: black; background-color:wheat;">Nuevo
+                                                        contribuyente</button></a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </form>
+
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-     <br><br>
+    <br><br>
 
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: -45px;">
         <div class="card">
             <div class="card-header" style="background-color: #8b214a;">
             </div>
-            <div class="card-body" >
-                <div class="table-responsive" >
+            <div class="card-body">
+                <div class="table-responsive">
                     <table id="tabla-datos" class="table table-striped table-bordered">
                         <thead>
                             <tr style="background-color: wheat; text-align: center;">
@@ -370,41 +393,44 @@ button:hover {
 
                             {% if resultado|length > 0 %}
 
-                                {%for dat in resultado%}
-                                <tr>
-                                    
-                                    <td>{{dat.fk_rfc.rfc}}</td>
-                                    <td>{{dat.fk_rfc.curp}}</td>
-                                    <td>{{dat.fk_rfc.nombre}} {{dat.fk_rfc.apaterno}} {{dat.fk_rfc.amaterno}}</td>
-                                    <td>{{dat.fk_rfc.telefono_movil}}</td>
-                                    <td>Calle {{dat.calle}} Col. {{dat.col}}  Ext. {{dat.num_ext}} Int. {{dat.num_int}}</td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="{% url 'catastro:modificacion_contribuyentes' rfc=dat.fk_rfc.rfc%}" class="btn btn-secondary btn-sm">
-                                                <i class="far fa-edit"></i> Editar
-                                            </a>   
-                                            <form class="d-inline" method="POST" action="{% url 'catastro:delete_contribuyentes' rfc_u=dat.fk_rfc.rfc%}">
-                                                {%csrf_token%} 
-                                                <button type="submit" class="btn btn-primary btn-sm" style="margin-left: 20px;">
-                                                    <i class="fas fa-trash-alt"></i> Eliminar
-                                                </button>   
-                                            </form>
-                                        </div>
-                                    </td>
-                                    
-                                </tr>  
-                                {%endfor%}
+                            {%for dat in resultado%}
+                            <tr>
+
+                                <td>{{dat.fk_rfc.rfc}}</td>
+                                <td>{{dat.fk_rfc.curp}}</td>
+                                <td>{{dat.fk_rfc.nombre}} {{dat.fk_rfc.apaterno}} {{dat.fk_rfc.amaterno}}</td>
+                                <td>{{dat.fk_rfc.telefono_movil}}</td>
+                                <td>Calle {{dat.calle}} Col. {{dat.col}} Ext. {{dat.num_ext}} Int. {{dat.num_int}}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{% url 'catastro:modificacion_contribuyentes' rfc=dat.fk_rfc.rfc%}"
+                                            class="btn btn-secondary btn-sm">
+                                            <i class="far fa-edit"></i> Editar
+                                        </a>
+                                        <form class="d-inline" method="POST"
+                                            action="{% url 'catastro:delete_contribuyentes' rfc_u=dat.fk_rfc.rfc%}">
+                                            {%csrf_token%}
+                                            <button type="submit" class="btn btn-primary btn-sm"
+                                                style="margin-left: 20px;">
+                                                <i class="fas fa-trash-alt"></i> Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            {%endfor%}
 
                             {%else%}
 
-                                <tr>
-                                    <td colspan="6" style="text-align: center;">No hay datos para mostrar.</td>
-                                </tr>
+                            <tr>
+                                <td colspan="6" style="text-align: center;">No hay datos para mostrar.</td>
+                            </tr>
 
                             {%endif%}
                         </tbody>
                         <tfoot>
-                            <tr>                               
+                            <tr>
                             </tr>
                         </tfoot>
                     </table>
@@ -421,54 +447,54 @@ button:hover {
                     <div class="icon-box">
                         <i class="material-icons">&#xE876;</i>
                     </div>
-                    
+
                 </div>
                 <div class="modal-body text-center">
-                    <h4>Bien!</h4>	
+                    <h4>Bien!</h4>
                     <h6>El contribuyente ha sido dado de baja satisfactoriamente.</h6>
                     <button class="btn btn-success" data-dismiss="modal"><span>Redirigiendo...</span> </button>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 
-    
+
     <script>
         var currentTab = 0;
 
-        document.addEventListener("DOMContentLoaded", function(event) {
+        document.addEventListener("DOMContentLoaded", function (event) {
 
             showTab(currentTab);
         });
     </script>
 
 
-    {% if error_contribuyente == 1  %}
+    {% if error_contribuyente == 1 %}
     <script>
         $(document).ready(function () {
             $('#error').modal('show'); // Muestra la alerta modal de error
 
-            setTimeout(function() {     
-                          
-                window.location.href = "{% url 'catastro:busqueda_contribuyentes' %}"
-                      
-            }, 6000); 
+            setTimeout(function () {
 
-            
+                window.location.href = "{% url 'catastro:busqueda_contribuyentes' %}"
+
+            }, 6000);
+
+
         });
     </script>
 
     {%elif error_contribuyente == 0 %}
     <script>
-        
+
         $(document).ready(function () {
             $('#myModal').modal('show'); // Muestra la alerta modal de sucess
 
-            setTimeout(function() {     
-                          
+            setTimeout(function () {
+
                 window.location.href = "{% url 'catastro:busqueda_contribuyentes' %}"
-                                
-             }, 6000); 
+
+            }, 6000);
 
         });
     </script>
@@ -482,35 +508,36 @@ button:hover {
                     <div class="icon-box">
                         <i class="material-icons">&#xe5cd;</i>
                     </div>
-                    
+
                 </div>
                 <div class="modal-body text-center">
-                    <h4>ERROR</h4>	
+                    <h4>ERROR</h4>
                     <p>{{ error_message|default:"" }}</p>
-                    
+
                 </div>
             </div>
         </div>
-    </div>  
-             
+    </div>
+
 </div>
 
 
 <div class="row  " style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
     <div class="col col-lg-2">
-        <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">VOLVER</button>
+        <button type="button" class="btn btn-outline-primary" id="btnBack"
+            style="width: 150px; float: left; background-color: #e7b038; color:#ffff; font-weight: bold; border: none;">VOLVER</button>
     </div>
     <div class="col-md-auto">
-     
+
     </div>
     <div class="col col-lg-2">
-      
+
     </div>
 </div>
 
 <script>
-    document.getElementById("btnBack").addEventListener("click", function() {
-        
+    document.getElementById("btnBack").addEventListener("click", function () {
+
         window.location.href = "{% url 'catastro:redirigir_perfil_cat' %}";
     });
 </script>
@@ -518,15 +545,15 @@ button:hover {
 
 
 <script>
-    
-    $(document).ready(function() {
-    $('#tabla-datos').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+
+    $(document).ready(function () {
+        $('#tabla-datos').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
     });
-});
 </script>
 
 

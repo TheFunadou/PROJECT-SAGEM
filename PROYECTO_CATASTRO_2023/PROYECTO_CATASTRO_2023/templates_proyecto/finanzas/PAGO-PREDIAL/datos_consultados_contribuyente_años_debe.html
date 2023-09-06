@@ -10,13 +10,7 @@
     margin-left: 450px;
     font-size:30px
 }
-img2{
-    float: left; 
-    }
-    .img3{
-    float: right;
-    margin-top: -85px;
-    }
+
 #linea1 {
     width: 100%;
     height: 10px;
@@ -179,11 +173,28 @@ th{
 .table td {
     border: none; /* Quital el borde de las celdas */
     padding: 8px; /* Ajusta el espaciado interno de las celdas según sea necesario */
-  }
+    font-weight: bold;
+   
+}
 
 .tt1{
     margin-left: 550px;
 }
+
+input{
+    text-align: center;
+}
+
+/*BACKGROUND*/
+main{
+    background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: bottom;
+}
+
+
 </style>
 
 <link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
@@ -201,28 +212,6 @@ th{
 
             <div id="1" style="margin-top: -5px;">
 
-                <div style="margin-top: -23px;">
-
-                        <div class="col-xl-2" style="float: left;">               
-                            <label for="tipo_mov" class="lbl1">FECHA</label>
-                            <input type="text" id="tipo_mov" class="form-control" name="tipo_mov" style="height: 25px;"
-                                     placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">                  
-                        </div>  
-                        
-                        
-                    
-                        <div class="col-xl-2" style="float: right;">
-                            
-                            <label for="folio">HORA</label>
-                            <input type="text" id="folio" class="form-control" name="folio" style="height: 25px;"
-                                    placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">
-                            
-                        </div>
-                    </div>
-            </div>
-
-            <div id="1" style="margin-top: -5px;">
-
                 <fieldset class="fieldset-1 card  rounded-3 p-3" style="background:rgb(255, 255, 255,.5);">
                     <legend class="float-none w-auto px-3"
                         style="font-size: 17px; color: brown; font-family: 'Calibri'; font-weight: bold;">CLAVE
@@ -233,8 +222,6 @@ th{
                             <div class="col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
             
                             </div>
-    
-    
                       
                             {% for item in my_list %}
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
@@ -242,7 +229,7 @@ th{
                                     <label for="fc_zon" class="lbl1"><Strong>Zona cat</Strong></label>
     
                                 {% with cadena=item.clave_catastral %}
-                                    {% with zc=cadena|slice:":2" %}
+                                    {% with zc=cadena|slice:"0:3" %}
                                     <input type="text" id="zc" class="form-control" name="zc" style="height: 25px;"
                                     readonly value="{{zc}}"    aria-describedby="inputGroup-sizing-sm">                  
                                     {% endwith %}
@@ -253,7 +240,7 @@ th{
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="fc_mu"><strong>Municipio</strong></label>
-                                    {% with mpio=cadena|slice:"2:5" %}
+                                    {% with mpio=cadena|slice:"3:6" %}
                                     <input type="text" id="mpio" class="form-control" name="mpio" style="height: 25px;"
                                     readonly   value="{{mpio}}"  aria-describedby="inputGroup-sizing-sm">
                                     {% endwith %}
@@ -263,7 +250,7 @@ th{
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="locd"><strong>Localidad</strong></label>
-                                    {% with locd=cadena|slice:"5:8" %}
+                                    {% with locd=cadena|slice:"6:9" %}
                                     <input type="text" id="locd" class="form-control" name="locd" style="height: 25px;"
                                     readonly  value="{{locd}}"  aria-describedby="inputGroup-sizing-sm">
                                     {% endwith %}
@@ -273,7 +260,7 @@ th{
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="rg"><strong>Región</strong></label>
-                                    {% with rg=cadena|slice:"8:10" %}
+                                    {% with rg=cadena|slice:"9:12" %}
                                     <input type="text" id="rg" class="form-control" name="rg" style="height: 25px;"
                                     readonly  value="{{rg}}"  aria-describedby="inputGroup-sizing-sm">
                                     {% endwith %}
@@ -282,7 +269,7 @@ th{
               
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
-                                    {% with mzn=cadena|slice:"10:13" %}
+                                    {% with mzn=cadena|slice:"12:15" %}
                                     <label for="mzn"><strong>Manzana</strong></label>
                                     <input type="text" id="mzn" class="form-control" name="mzn" style="height: 25px;"
                                     readonly value="{{mzn}}"  aria-describedby="inputGroup-sizing-sm">
@@ -293,7 +280,7 @@ th{
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="lt"><strong>Lote</strong></label>
-                                    {% with lt=cadena|slice:"13:16" %}
+                                    {% with lt=cadena|slice:"15:18" %}
                                     <input type="text" id="lt" class="form-control" name="lt" style="height: 25px;"
                                     readonly  value="{{lt}}"   aria-describedby="inputGroup-sizing-sm">
                                     {% endwith %}
@@ -303,7 +290,7 @@ th{
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="nvl"><strong>Nivel</strong></label>
-                                    {% with nvl=cadena|slice:"16:18" %}
+                                    {% with nvl=cadena|slice:"18:21" %}
                                     <input type="text" id="nvl" class="form-control" name="nvl" style="height: 25px;"
                                     readonly  value="{{nvl}}"  aria-describedby="inputGroup-sizing-sm">
                                     {% endwith %}
@@ -313,7 +300,7 @@ th{
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="dpt"><strong>Depto.</strong></label>
-                                    {% with dpt=cadena|slice:"18:21" %}
+                                    {% with dpt=cadena|slice:"21:24" %}
                                     <input type="text" id="dpt" class="form-control" name="dpt" style="height: 25px;"
                                     readonly  value="{{dpt}}"  aria-describedby="inputGroup-sizing-sm">
                                     {% endwith %}
@@ -323,7 +310,7 @@ th{
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="dev"><strong>DV</strong></label>
-                                    {% with dev=cadena|slice:"21:22" %}
+                                    {% with dev=cadena|slice:"24:27" %}
                                     <input type="text" id="dev" value="{{dev}}" class="form-control" name="dev" style="height: 25px;"
                                     readonly   aria-describedby="inputGroup-sizing-sm">
                                     {% endwith %}
@@ -502,7 +489,7 @@ th{
                         
                     
                     </td>
-                    <td>{{item.subtotal}}</td>
+                    <td>{{item.subtotal_years_sd}}</td>
                     <td>{{item.impuesto_adicional}}</td>
                     <td>{{item.recargo}}</td>
                     <td>{{item.multa}}</td>
@@ -522,7 +509,7 @@ th{
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
+                                <td style="background-color: #ffff;">
                                     <strong>$<span id="suma">0</span></strong>
                                 </td>
                             </tr>
@@ -531,9 +518,9 @@ th{
               </div>
               <br>
               <div class="col-xl-12 " style="top: 20px;">
-                    <div class="form-group" style="float:right;">
-                        <a href="redireccionar/"><button onclick="solicitar_descuento()" type="button" id="guardar_c" class="btn btn-outline-warning">Solicitar descuento</button></a>
-                        <button type="button" id="guardar_c" class="btn btn-outline-primary">Pagar</button>
+                    <div class="form-group" style="float:right; margin-top: 2%;">
+                        <a href="{% url 'finanzas:redirigir_perfil_finanzas' %}"><button onclick="solicitar_descuento()" type="button" id="guardar_c" class="btn btn-outline-warning" style="background-color: #B8860B; color: #ffff; border:none; font-weight:bold">Solicitar descuento</button></a>
+                        <a href="#"><button type="button" id="guardar_c" class="btn btn-outline-primary" style="background-color: #660b22; color: #ffff; border:none; font-weight:bold">Pagar</button></a>
                     </div>
               </div>
 

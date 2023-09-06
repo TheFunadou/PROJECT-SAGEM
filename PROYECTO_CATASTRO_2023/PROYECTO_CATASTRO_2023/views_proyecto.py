@@ -71,14 +71,10 @@ def autenticacion(request):
                     return redirect('desarrollo_urbano:perfil_du')        
 
     else:
+        
         messages.error(request, 'Usuario o contraseña incorrecto. Ingrese los datos nuevamente.')
         return redirect('pag_login')
 
-
-# def registrar_usuarios(request):
-    
-#     id_user = request.POST['user']
-#     password = request.POST['user']
     
     
 

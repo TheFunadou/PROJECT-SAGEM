@@ -306,7 +306,6 @@ button:hover {
     
 </style>
 
-
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
 
 <form id="formulario" action="{% url 'catastro:registro_predios'%}" method="post">
@@ -354,7 +353,7 @@ button:hover {
                                                     <div class="form-group">
                                                         <label for="name" class="lbl1">Zona cat</label>
                                                         <input type="text" id="zonacat" class="form-control" name="zonacat" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                value="08" minlength="2" maxlength="2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
+                                                                value="008" minlength="2" maxlength="2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                                                 
                                                     </div>  
                                                 </div>   
@@ -436,7 +435,7 @@ button:hover {
                                     <div class="form-group">
                                         <label for="name">Fecha de registro</label>
                                         <input type="date" id="fecha_registro" class="form-control" name="fecha_registro" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
+                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" onclick="transformClaveCat()">
                                                 <span></span>
                                         
                                     </div>

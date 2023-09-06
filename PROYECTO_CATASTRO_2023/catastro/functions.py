@@ -11,6 +11,15 @@ num_oficial = lambda num_ext, num_int: num_int if len(num_ext) == 0 else num_ext
 #FUNCION PARA CHECKBOX PARA EL REPORTE
 checkbox_rep = lambda seleccion: 'O' if seleccion == 'SI' else 'X'
 
+def formato_clave_cat(valor):
+    
+    if (len(valor) == 3):
+        return valor
+    if (len(valor)==2):
+        return f'00{valor}'
+    if (len(valor) == 1):
+        return f'0{valor}'
+
 #REPORTE DC017 -- Se le pasan diccionarios como parametros para facilitar la insercion de datos
 def crear_reporte_p(datos_clav_c,datos_contribuyente,datos_inm,detalles_inm,datos_cons):
     # Crear scrpit json

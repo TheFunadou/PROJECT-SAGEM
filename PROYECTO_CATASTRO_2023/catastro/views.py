@@ -30,8 +30,27 @@ from django.db.models import Q
 #transacciones
 from django.db import transaction
 
-
-
+#Mandar una notificacion
+def send_notify(remitente, destinatario, titulo, cuerpo):
+    
+    id_dest = User.objects.get(username=destinatario)
+    
+    notify_catastro.objects.create(
+            remitente=remitente,
+            destinatario = id_dest,
+            titulo = titulo,
+            cuerpo = cuerpo
+        )
+        
+        
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        f'consumer_notifications_{destinatario}',
+        {
+            'type':'update_not',
+            'destinatario': destinatario
+        }
+    )
 
 
 
@@ -252,8 +271,8 @@ def administrar_usuarios(request):
 @login_required(login_url="pag_login")
 def vista_index_contribuyente(request):
     ctx = {
-        'nom_pag': 'Catastro',
-        'titulo_pag': 'INICIO CONTRIBUYENTES',
+        'nom_pag': 'CATASTRO',
+        'titulo_pag': 'BUSQUEDA DE CONTRIBUYENTES',
     }
     return render(request,'catastro/contribuyentes/index_contribuyente.html',ctx)
 
@@ -277,7 +296,8 @@ def consulta_index_contribuyentes(request):
             consulta_general = models.Domicilio_noti.objects.filter(Q(fk_rfc__rfc = dato))
         
         context = {
-            'resultado': consulta_general  # Pasa el valor al contexto
+            'resultado': consulta_general,  # Pasa el valor al contexto
+            'titulo_pag': 'BUSQUEDA DE CONTRIBUYENTES'
         }
 
     return render(request,'catastro/contribuyentes/index_contribuyente.html', context)
@@ -550,7 +570,7 @@ def delete_contribuyentes(request,rfc_u):
 def vista_index_predios(request):
     ctxp = {
         'nom_pag': 'Catastro',
-        'titulo_pag': 'INICIO PREDIOS',
+        'titulo_pag': 'BUSQUEDA DE PREDIOS',
     }
     return render(request,'catastro/predios/index_predios.html',ctxp)
 
@@ -572,7 +592,8 @@ def consulta_index_predios(request):
             consulta_general = models.Domicilio_predio.objects.filter(Q(fk_clave_catastral = dato))
         
         contextp = {
-            'resultado_predios': consulta_general  # Pasa el valor al contexto
+            'resultado_predios': consulta_general,
+            'titulo_pag': 'BUSQUEDA DE PREDIOS' # Pasa el valor al contexto
         }
 
     return render(request,'catastro/predios/index_predios.html', contextp)
@@ -585,6 +606,7 @@ def vista_alta_predios(request):
         'titulo_pag': 'ALTA DE PREDIO',
     }
     return render(request,'catastro/predios/alta_predios.html', ctxp)
+
 
 #registro de los predios nuevos
 def registro_predios(request):
@@ -603,8 +625,8 @@ def registro_predios(request):
         nivel = request.POST['nivel']
         depto = request.POST['depto']
         dvs = request.POST['dvs']
-
-        clave_catastral = zona_cat+muni+loc+region+manzana+lote+nivel+depto+dvs
+ 
+        clave_catastral = zona_cat+muni+loc+functions.formato_clave_cat(region)+functions.formato_clave_cat(manzana)+functions.formato_clave_cat(lote)+functions.formato_clave_cat(nivel)+functions.formato_clave_cat(depto)+functions.formato_clave_cat(dvs)
         fecha_alta = request.POST['fecha_registro']
         motivo_alta = request.POST['motivo_registro']
         cuenta_predial =  request.POST['cuenta_predial']
@@ -2339,8 +2361,8 @@ def send_notify_test(request):
     titulo = request.POST['titulo']
     cuerpo = request.POST['cuerpo']
 
-    
-    notify_catastro.objects.create(
+    """
+     notify_catastro.objects.create(
         remitente=remitente,
         destinatario = id_dest,
         titulo = titulo,
@@ -2356,6 +2378,19 @@ def send_notify_test(request):
             'destinatario': destinatario
         }
     )
+    
+    """
+
+    send_notify(remitente,destinatario,titulo, cuerpo)    
+    
+    # channel_layer = get_channel_layer()
+    # async_to_sync(channel_layer.group_send)(
+    #     'consumer_notifications',
+    #     {
+    #         'type':'update_not',
+    #         'destinatario': destinatario
+    #     }
+    # )
     
     
     return HttpResponse('Notificacion enviada')

@@ -171,23 +171,6 @@ class valores_catastro(models.Model):
      valor_construccion = models.BigIntegerField()
      valor_catastral = models.BigIntegerField()
 
-class historial_pagos(models.Model):
-     folio = models.CharField(max_length=6)
-     contribuyente =  models.ForeignKey(Datos_Contribuyentes,on_delete=models.CASCADE)
-     ejercicio = models.CharField(max_length=40)
-     subtotal_sin_des = models.FloatField()
-     subtotal_años = models.FloatField()
-     impuesto_adicional = models.FloatField()
-     recargo = models.FloatField()
-     multa = models.FloatField()
-     aplica_descuento = models.CharField(max_length=15)
-     descuento = models.FloatField(null=True)
-     total = models.FloatField()
-     estatus = models.CharField(max_length=15)
-     autorizacion = models.CharField(max_length=20, null=True)
-     cajero = models.CharField(max_length=20, null=True)
-
-
 #CLASES PARA LOS PREDIOS Y CONTRIBUYENTES
 
 class Datos_Gen_contribuyente(models.Model):

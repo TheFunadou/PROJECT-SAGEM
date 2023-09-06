@@ -9,8 +9,8 @@ from django.dispatch import receiver
 class notify(models.Model):
     remitente = models.CharField(max_length=30)
     destinatario = models.ForeignKey(User, on_delete=models.CASCADE)
-    titulo = models.CharField(max_length=30)
-    cuerpo = models.CharField(max_length=100)
+    titulo = models.CharField(max_length=60)
+    cuerpo = models.CharField(max_length=200)
     fecha_hora= models.DateTimeField(auto_now_add=True)
     leido = models.BooleanField(default=False)
     

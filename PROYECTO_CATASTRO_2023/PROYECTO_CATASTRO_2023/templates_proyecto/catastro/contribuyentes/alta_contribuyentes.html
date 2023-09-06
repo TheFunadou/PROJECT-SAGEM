@@ -27,37 +27,36 @@
 <link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
 
 <style>
+    .centered {
+        position: absolute;
+        top: 19%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+    }
 
-.centered {
-    position: absolute;
-    top: 19%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-}
+    label {
+        color: rgb(122, 6, 41);
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-label{
-    color: rgb(122, 6, 41);
-    font-weight: bold ; 
-    font-family: Arial, Helvetica, sans-serif;
-}
+    body {
+        height: 58.7vh;
+        background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center bottom;
 
-body {
-    height: 58.7vh;
-    background-image: linear-gradient(to bottom, #ffffff 50%, transparent 50%), url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
-    background-repeat: no-repeat;
-    background-size: contain; /* Ajustar el tamaño automáticamente */
-    background-position: center bottom;
-    
-}
+    }
 
-.bordes{
-    border: 4px solid rgb(80, 9, 36);
-}
+    .bordes {
+        border: 4px solid rgb(80, 9, 36);
+    }
 
-.bor{
-    border: 2px solid rgb(180, 172, 175);
-}
+    .bor {
+        border: 2px solid rgb(180, 172, 175);
+    }
 
 
 
@@ -65,249 +64,262 @@ body {
     /* your CSS goes here*/
 
     /* your CSS goes here*/
- 
-
-
-
-h1 {
-    text-align: center
-}
-
-input {
-    padding: 10px;
-    width: 100%;
-    font-size: 17px;
-    font-family: Raleway;
-    border: 1px solid #aaaaaa
-}
-
-input.invalid {
-    background-color: #ffdddd
-}
-
-.tab {
-    display: none
-}
-
-
-
-button:hover {
-    opacity: 0.8
-}
-
-
-
-.step {
-    height: 10px;
-    width: 10px;
-    margin: 0 6px;
-    background-color: #bbbbbb;
-    border: none;
-    border-radius: 50%;
-    display: inline-block;
-    opacity: 0.5
-}
-
-.step.active {
-    opacity: 1
-}
-
-.step.finish {
-    background-color: #4CAF50
-}
-
-.all-steps {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 30px;
-    
-}
-
-.thanks-message {
-    display: none
-}
-
-
-
-/* Hide the browser's default radio button */
-
-.container input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
-
-
-/* Create a custom radio button */
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 50%;
-}
-
-
-/* On mouse-over, add a grey background color */
-
-.container:hover input~.checkmark {
-    background-color: #ccc;
-}
-
-
-/* When the radio button is checked, add a blue background */
-
-.container input:checked~.checkmark {
-    background-color: #2196F3;
-}
-
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-
-/* Show the indicator (dot/circle) when checked */
-
-.container input:checked~.checkmark:after {
-    display: block;
-}
-
-
-/* Style the indicator (dot/circle) */
-
-.container .checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
-}
 
 
 
 
+    h1 {
+        text-align: center
+    }
+
+    input {
+        padding: 10px;
+        width: 100%;
+        font-size: 17px;
+        font-family: Raleway;
+        border: 1px solid #aaaaaa
+    }
+
+    input.invalid {
+        background-color: #ffdddd
+    }
+
+    .tab {
+        display: none
+    }
 
 
 
-/**/
+    button:hover {
+        opacity: 0.8
+    }
 
-.modal-confirm {		
-	color: #434e65;
-	width: 525px;
-}
-.modal-confirm .modal-content {
-	padding: 20px;
-	font-size: 16px;
-	border-radius: 5px;
-	border: none;
-}
 
-.modal-confirm .modal-header-error {
-	background: #992535;
-	border-bottom: none;   
-	position: relative;
-	text-align: center;
-	margin: -20px -20px 0;
-	border-radius: 5px 5px 0 0;
-	padding: 35px;
-}
 
-.modal-confirm .modal-header {
-	background: #47c9a2;
-	border-bottom: none;   
-	position: relative;
-	text-align: center;
-	margin: -20px -20px 0;
-	border-radius: 5px 5px 0 0;
-	padding: 35px;
-}
-.modal-confirm h4 {
-	text-align: center;
-	font-size: 36px;
-	margin: 10px 0;
-}
-.modal-confirm .form-control, .modal-confirm .btn {
-	min-height: 40px;
-	border-radius: 3px; 
-}
-.modal-confirm .close {
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	color: #fff;
-	text-shadow: none;
-	opacity: 0.5;
-}
-.modal-confirm .close:hover {
-	opacity: 0.8;
-}
-.modal-confirm .icon-box {
-	color: #fff;		
-	width: 95px;
-	height: 95px;
-	display: inline-block;
-	border-radius: 50%;
-	z-index: 9;
-	border: 5px solid #fff;
-	padding: 15px;
-	text-align: center;
-}
-.modal-confirm .icon-box i {
-	font-size: 64px;
-	margin: -4px 0 0 -4px;
-}
-.modal-confirm.modal-dialog {
-	margin-top: 80px;
-}
-.modal-confirm .btn, .modal-confirm .btn:active {
-	color: #fff;
-	border-radius: 4px;
-	background: #eeb711 !important;
-	text-decoration: none;
-	transition: all 0.4s;
-	line-height: normal;
-	border-radius: 30px;
-	margin-top: 10px;
-	padding: 6px 20px;
-	border: none;
-}
-.modal-confirm .btn:hover, .modal-confirm .btn:focus {
-	background: #eda645 !important;
-	outline: none;
-}
-.modal-confirm .btn span {
-	margin: 1px 3px 0;
-	float: left;
-}
-.modal-confirm .btn i {
-	margin-left: 1px;
-	font-size: 20px;
-	float: right;
-}
-.trigger-btn {
-	display: inline-block;
-	margin: 100px auto;
-}
- 
+    .step {
+        height: 10px;
+        width: 10px;
+        margin: 0 6px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5
+    }
 
-.error{
-    color: #c00a40;
-    font-family: 'Consolas', 'monaco', monospace;
-    font-size: 13px;
-    font-weight: bold;
-}
-    
+    .step.active {
+        opacity: 1
+    }
 
-    
+    .step.finish {
+        background-color: #4CAF50
+    }
+
+    .all-steps {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 30px;
+
+    }
+
+    .thanks-message {
+        display: none
+    }
+
+
+
+    /* Hide the browser's default radio button */
+
+    .container input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+
+    /* Create a custom radio button */
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 50%;
+    }
+
+
+    /* On mouse-over, add a grey background color */
+
+    .container:hover input~.checkmark {
+        background-color: #ccc;
+    }
+
+
+    /* When the radio button is checked, add a blue background */
+
+    .container input:checked~.checkmark {
+        background-color: #2196F3;
+    }
+
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+
+    /* Show the indicator (dot/circle) when checked */
+
+    .container input:checked~.checkmark:after {
+        display: block;
+    }
+
+
+    /* Style the indicator (dot/circle) */
+
+    .container .checkmark:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+
+
+
+
+
+
+
+    /**/
+
+    .modal-confirm {
+        color: #434e65;
+        width: 525px;
+    }
+
+    .modal-confirm .modal-content {
+        padding: 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .modal-confirm .modal-header-error {
+        background: #992535;
+        border-bottom: none;
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+
+    .modal-confirm .modal-header {
+        background: #47c9a2;
+        border-bottom: none;
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 36px;
+        margin: 10px 0;
+    }
+
+    .modal-confirm .form-control,
+    .modal-confirm .btn {
+        min-height: 40px;
+        border-radius: 3px;
+    }
+
+    .modal-confirm .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #fff;
+        text-shadow: none;
+        opacity: 0.5;
+    }
+
+    .modal-confirm .close:hover {
+        opacity: 0.8;
+    }
+
+    .modal-confirm .icon-box {
+        color: #fff;
+        width: 95px;
+        height: 95px;
+        display: inline-block;
+        border-radius: 50%;
+        z-index: 9;
+        border: 5px solid #fff;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .modal-confirm .icon-box i {
+        font-size: 64px;
+        margin: -4px 0 0 -4px;
+    }
+
+    .modal-confirm.modal-dialog {
+        margin-top: 80px;
+    }
+
+    .modal-confirm .btn,
+    .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #eeb711 !important;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        border-radius: 30px;
+        margin-top: 10px;
+        padding: 6px 20px;
+        border: none;
+    }
+
+    .modal-confirm .btn:hover,
+    .modal-confirm .btn:focus {
+        background: #eda645 !important;
+        outline: none;
+    }
+
+    .modal-confirm .btn span {
+        margin: 1px 3px 0;
+        float: left;
+    }
+
+    .modal-confirm .btn i {
+        margin-left: 1px;
+        font-size: 20px;
+        float: right;
+    }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+
+
+    .error {
+        color: #c00a40;
+        font-family: 'Consolas', 'monaco', monospace;
+        font-size: 13px;
+        font-weight: bold;
+    }
 </style>
 
 
@@ -316,482 +328,530 @@ button:hover {
 
 <form id="formulario" action="{% url 'catastro:registro_contribuyente'%}" method="post">
 
-        {%csrf_token%}
+    {%csrf_token%}
 
 
-        <div class="row  all-steps" style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
-            <div class="col col-lg-2">
-                <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">Atras</button>
-            </div>
-            <div class="col-md-auto" >
-                
-            </div>
-            <div class="col col-lg-2" style=" margin-left: 23%;">
-                <span class="step"></span> 
-            </div>
+    <div class="row  all-steps"
+        style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
+        <div class="col col-lg-2">
+            <button type="button" class="btn btn-outline-primary" id="btnBack"
+                style="width: 150px; float: left; background:#eda645; color: #ffff; font-weight:bold; border:none;">Atras</button>
         </div>
+        <div class="col-md-auto">
 
-    
-        <!-- Div que contiene los elementos para los datos generales del contribuyente -->
-        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 510px; z-index: 1; position: relative;">
-   
-            <fieldset class="container fieldset-1 p-3"
+        </div>
+        <div class="col col-lg-2" style=" margin-left: 23%;">
+            <span class="step"></span>
+        </div>
+    </div>
+
+
+    <!-- Div que contiene los elementos para los datos generales del contribuyente -->
+    <div class="container tab py-5 bordes"
+        style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 60vh; z-index: 1; position: relative;">
+
+        <fieldset class="container fieldset-1 p-3"
             style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -34px; background:rgba(255, 255, 255, 0.5);">
             <legend class="float-none w-auto px-3"
-                    style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
-                    DATOS GENERALES DEL CONTRIBUYENTE
-                    </legend>
+                style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                DATOS GENERALES DEL CONTRIBUYENTE
+            </legend>
 
-                    <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
-                        
-                        <div class="card-body" style="margin-top: 10px;" style="text-align: center;">
+            <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
 
-                            <div class="row" style="text-align: center;">
+                <div class="card-body" style="margin-top: 10px;" style="text-align: center;">
 
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Tipo de persona</label>
-                                        <select name="tipo_persona" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option selected value="FISICA">FÍSICA</option>
-                                            <option  value="MORAL">MORAL</option>
-                                        </select>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Tipo de identificación</label>
-                                        <select name="tipo_identificacion" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option selected value="INE">INE</option>
-                                            <option value="ACTA CONSTITUTIVA">ACTA CONSTITUTIVA</option>
-                                            <option value="PASAPORTE">PASAPORTE</option>
-                                            <option value="CARTILLA MILITAR">CARTILLA MILITAR</option>
-                                            <option value="CEDULA PROFESIONAL">CÉDULA PROFESIONAL</option>
-                                            <option value="TITULO PROFESIONAL">TÍTULO PROFESIONAL</option>
-                                        </select>
-                                    </div>
-                                </div>
+                    <div class="row" style="text-align: center;">
 
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Número de identificación</label>
-                                        <input type="text" id="num_identificacion" class="form-control" name="num_identificacion" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="15"  onkeypress="return SoloNumeros(event);">
-                                                <span></span>
-                                    </div>
-                                </div>  
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Tipo de persona</label>
+                                <select name="tipo_persona" class="form-select" aria-label="Default select example"
+                                    style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
+                                    <option selected value="FISICA">FÍSICA</option>
+                                    <option value="MORAL">MORAL</option>
+                                </select>
 
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">Nombre/Razón social</label>
-                                        <input type="text" id="nombre_razon" class="form-control" name="nombre_razon" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  oninput ="this.value = this.value.toUpperCase();" onkeypress="return soloLetras(event);">
-                                                <span></span>
-                                    </div>
-                                </div>   
-
-                            </div><br>
-
-                            <div class="row" style="text-align: center;">
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Apellido paterno</label>
-                                        <input type="text" id="apaterno" class="form-control" name="apaterno" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Apellido materno</label>
-                                        <input type="text" id="amaterno" class="form-control" name="amaterno" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">RFC</label>
-                                        <input type="text" id="rfc" class="form-control" name="rfc" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">CURP</label>
-                                        <input type="text" id="curp" class="form-control" name="curp" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXXXXXX" minlength="18" maxlength="18" onkeypress="return soloLetrasNumeros(event);" oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div> 
-
-                            </div><br>
-
-                            <div class="row" style="text-align: center;">
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Finado</label>
-                                        <select name="finado" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option value="SI">SI</option>
-                                            <option selected value="NO">NO</option>
-                                        </select>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Fecha de nacimiento / Registro</label>
-                                        <input type="date" id="fecha_nacimiento" class="form-control" name="fecha_nacimiento" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30" >
-                                                <span></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Teléfono</label>
-                                        <input type="text" id="telefono" class="form-control" name="telefono" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30"  onkeypress="return SoloNumeros(event);">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">Celular</label>
-                                        <input type="text" id="celular" class="form-control" name="celular" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="13" maxlength="13" onkeypress="return SoloNumeros(event);">
-                                                <span></span>
-                                    </div>
-                                </div> 
-                                
-                            </div><br>
-                            <hr>
-
-                            <div class="row" style="text-align: center;">
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Correo electrónico</label>
-                                        <input type="email" id="email" class="form-control" name="email" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30"  oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Observaciones</label>
-                                        <input type="text" id="observaciones" class="form-control" name="observaciones" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" >
-                                                <span></span>
-                                    </div>
-                                </div>
                             </div>
-        
+
                         </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Tipo de identificación</label>
+                                <select name="tipo_identificacion" class="form-select"
+                                    aria-label="Default select example"
+                                    style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
+                                    <option selected value="INE">INE</option>
+                                    <option value="ACTA CONSTITUTIVA">ACTA CONSTITUTIVA</option>
+                                    <option value="PASAPORTE">PASAPORTE</option>
+                                    <option value="CARTILLA MILITAR">CARTILLA MILITAR</option>
+                                    <option value="CEDULA PROFESIONAL">CÉDULA PROFESIONAL</option>
+                                    <option value="TITULO PROFESIONAL">TÍTULO PROFESIONAL</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Número de identificación</label>
+                                <input type="text" id="num_identificacion" class="form-control"
+                                    name="num_identificacion"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="15" onkeypress="return SoloNumeros(event);">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="rfc">Nombre/Razón social</label>
+                                <input type="text" id="nombre_razon" class="form-control" name="nombre_razon"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" oninput="this.value = this.value.toUpperCase();"
+                                    onkeypress="return soloLetras(event);">
+                                <span></span>
+                            </div>
+                        </div>
+
                     </div><br>
 
+                    <div class="row" style="text-align: center;">
 
-            </fieldset>   
-            
-            
-            <fieldset class="container fieldset-1 p-3"
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Apellido paterno</label>
+                                <input type="text" id="apaterno" class="form-control" name="apaterno"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Apellido materno</label>
+                                <input type="text" id="amaterno" class="form-control" name="amaterno"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">RFC</label>
+                                <input type="text" id="rfc" class="form-control" name="rfc"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="XXXX000000XXX" minlength="13" maxlength="13"
+                                    onkeypress="return soloLetrasNumeros(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="rfc">CURP</label>
+                                <input type="text" id="curp" class="form-control" name="curp"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="XXXX000000XXXXXXX" minlength="18" maxlength="18"
+                                    onkeypress="return soloLetrasNumeros(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                    </div><br>
+
+                    <div class="row" style="text-align: center;">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Finado</label>
+                                <select name="finado" class="form-select" aria-label="Default select example"
+                                    style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
+                                    <option value="SI">SI</option>
+                                    <option selected value="NO">NO</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Fecha de nacimiento / Registro</label>
+                                <input type="date" id="fecha_nacimiento" class="form-control" name="fecha_nacimiento"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="dd/mm/aaaa" minlength="3" maxlength="30">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Teléfono</label>
+                                <input type="text" id="telefono" class="form-control" name="telefono"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return SoloNumeros(event);">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="rfc">Celular</label>
+                                <input type="text" id="celular" class="form-control" name="celular"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="13" maxlength="13"
+                                    onkeypress="return SoloNumeros(event);">
+                                <span></span>
+                            </div>
+                        </div>
+
+                    </div><br>
+                    <hr>
+
+                    <div class="row" style="text-align: center;">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Correo electrónico</label>
+                                <input type="email" id="email" class="form-control" name="email"
+                                    style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;"
+                                    placeholder="dd/mm/aaaa" minlength="3" maxlength="30"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Observaciones</label>
+                                <input type="text" id="observaciones" class="form-control" name="observaciones"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><br>
+
+
+        </fieldset>
+
+
+        <fieldset class="container fieldset-1 p-3"
             style="border-top: #660b22 solid 2px; border-width: 2px 0 0;  background:rgba(255, 255, 255, 0.5);">
             <legend class="float-none w-auto px-3"
-                    style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
-                    DOMICILIO DE NOTIFICACIÓN
-                    </legend>
+                style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                DOMICILIO DE NOTIFICACIÓN
+            </legend>
 
-                    <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: center;">
-                        
-                        <div class="card-body" style="margin-top: 10px;">
+            <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: center;">
 
-                            <div class="row">
+                <div class="card-body" style="margin-top: 10px;">
 
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Entidad federativa</label>
-                                        <select name="entidad_federativa" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option value="Aguascalientes">Aguascalientes</option>
-                                            <option value="Baja California">Baja California</option>
-                                            <option value="Baja California Sur">Baja California Sur</option>
-                                            <option value="Campeche">Campeche</option>
-                                            <option value="Chiapas">Chiapas</option>
-                                            <option value="Chihuahua">Chihuahua</option>
-                                            <option value="Coahuila">Coahuila</option>
-                                            <option value="Colima">Colima</option>
-                                            <option value="Durango">Durango</option>
-                                            <option value="Estado de México">Estado de México</option>
-                                            <option value="Guanajuato">Guanajuato</option>
-                                            <option value="Guerrero">Guerrero</option>
-                                            <option value="Hidalgo">Hidalgo</option>
-                                            <option value="Jalisco">Jalisco</option>
-                                            <option value="Michoacán">Michoacán</option>
-                                            <option value="Morelos">Morelos</option>
-                                            <option value="Nayarit">Nayarit</option>
-                                            <option value="Nuevo León">Nuevo León</option>
-                                            <option value="Oaxaca">Oaxaca</option>
-                                            <option value="Puebla">Puebla</option>
-                                            <option value="Querétaro">Querétaro</option>
-                                            <option value="Quintana Roo">Quintana Roo</option>
-                                            <option value="San Luis Potosí">San Luis Potosí</option>
-                                            <option value="Sinaloa">Sinaloa</option>
-                                            <option value="Sonora">Sonora</option>
-                                            <option value="Tabasco">Tabasco</option>
-                                            <option value="Tamaulipas">Tamaulipas</option>
-                                            <option value="Tlaxcala">Tlaxcala</option>
-                                            <option selected value="Veracruz">Veracruz</option>
-                                            <option value="Yucatán">Yucatán</option>
-                                            <option value="Zacatecas">Zacatecas</option>
-                                        </select>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Municipio</label>
-                                        <input type="text" id="munic" class="form-control" name="munic" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>
+                    <div class="row">
 
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Localidad</label>
-                                        <input type="text" id="loca" class="form-control" name="loca" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Entidad federativa</label>
+                                <select name="entidad_federativa" class="form-select"
+                                    aria-label="Default select example"
+                                    style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
+                                    <option value="Aguascalientes">Aguascalientes</option>
+                                    <option value="Baja California">Baja California</option>
+                                    <option value="Baja California Sur">Baja California Sur</option>
+                                    <option value="Campeche">Campeche</option>
+                                    <option value="Chiapas">Chiapas</option>
+                                    <option value="Chihuahua">Chihuahua</option>
+                                    <option value="Coahuila">Coahuila</option>
+                                    <option value="Colima">Colima</option>
+                                    <option value="Durango">Durango</option>
+                                    <option value="Estado de México">Estado de México</option>
+                                    <option value="Guanajuato">Guanajuato</option>
+                                    <option value="Guerrero">Guerrero</option>
+                                    <option value="Hidalgo">Hidalgo</option>
+                                    <option value="Jalisco">Jalisco</option>
+                                    <option value="Michoacán">Michoacán</option>
+                                    <option value="Morelos">Morelos</option>
+                                    <option value="Nayarit">Nayarit</option>
+                                    <option value="Nuevo León">Nuevo León</option>
+                                    <option value="Oaxaca">Oaxaca</option>
+                                    <option value="Puebla">Puebla</option>
+                                    <option value="Querétaro">Querétaro</option>
+                                    <option value="Quintana Roo">Quintana Roo</option>
+                                    <option value="San Luis Potosí">San Luis Potosí</option>
+                                    <option value="Sinaloa">Sinaloa</option>
+                                    <option value="Sonora">Sonora</option>
+                                    <option value="Tabasco">Tabasco</option>
+                                    <option value="Tamaulipas">Tamaulipas</option>
+                                    <option value="Tlaxcala">Tlaxcala</option>
+                                    <option selected value="Veracruz">Veracruz</option>
+                                    <option value="Yucatán">Yucatán</option>
+                                    <option value="Zacatecas">Zacatecas</option>
+                                </select>
 
-                                 
+                            </div>
 
-                            </div><br>
-
-                            <div class="row">
-                                
-                                
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Colonia</label>
-                                        <input type="text" id="colon" class="form-control" name="colon" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Calle</label>
-                                        <input type="text" id="calle" class="form-control" name="calle" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">Codigo postal</label>
-                                        <input type="text" id="cp" class="form-control" name="cp" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXXX" minlength="5" maxlength="5" onkeypress="return SoloNumeros(event);">
-                                                <span></span>
-                                    </div>
-                                </div> 
-
-                            </div><br>
-
-                            <div class="row">
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Número exterior</label>
-                                        <input type="text" id="num_ext" class="form-control" name="num_ext" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="4" maxlength="4" onkeypress="return SoloNumeros(event);">
-                                                <span></span>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Letra exterior</label>
-                                        <input type="text" id="let_ext" class="form-control" name="let_ext" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="A-Z" minlength="1" maxlength="1"  onkeypress="return soloLetras(event);"  oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Número interior</label>
-                                        <input type="text" id="num_int" class="form-control" name="num_int" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="4" maxlength="4" onkeypress="return SoloNumeros(event);">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">Letra interior</label>
-                                        <input type="text" id="let_int" class="form-control" name="let_int" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="A-Z" minlength="1" maxlength="1"  onkeypress="return soloLetras(event);" oninput ="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div> 
-                                
-                            </div><br>
-                            <hr>
-
-        
                         </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Municipio</label>
+                                <input type="text" id="munic" class="form-control" name="munic"
+                                    style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Localidad</label>
+                                <input type="text" id="loca" class="form-control" name="loca"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+
+
                     </div><br>
 
+                    <div class="row">
 
-            </fieldset>                                              
 
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Colonia</label>
+                                <input type="text" id="colon" class="form-control" name="colon"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Calle</label>
+                                <input type="text" id="calle" class="form-control" name="calle"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="rfc">Codigo postal</label>
+                                <input type="text" id="cp" class="form-control" name="cp"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="XXXXX" minlength="5" maxlength="5"
+                                    onkeypress="return SoloNumeros(event);">
+                                <span></span>
+                            </div>
+                        </div>
+
+                    </div><br>
+
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Número exterior</label>
+                                <input type="text" id="num_ext" class="form-control" name="num_ext"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="4" maxlength="4" onkeypress="return SoloNumeros(event);">
+                                <span></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Letra exterior</label>
+                                <input type="text" id="let_ext" class="form-control" name="let_ext"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="A-Z" minlength="1" maxlength="1" onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Número interior</label>
+                                <input type="text" id="num_int" class="form-control" name="num_int"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="4" maxlength="4" onkeypress="return SoloNumeros(event);">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="rfc">Letra interior</label>
+                                <input type="text" id="let_int" class="form-control" name="let_int"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="A-Z" minlength="1" maxlength="1" onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                    </div><br>
+                    <hr>
+
+
+                </div>
+            </div><br>
+
+
+        </fieldset>
+
+    </div>
+
+    <div id="myModal" class="modal fade" style="margin-top: 90px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
+                    </div>
+
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Bien!</h4>
+                    <h6>Los datos han sido registrado correctamente.</h6>
+                    <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div id="myModal" class="modal fade" style="margin-top: 90px;">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header justify-content-center">
-                        <div class="icon-box">
-                            <i class="material-icons">&#xE876;</i>
-                        </div>
-                        
+    <script>
+        document.getElementById("btnBack").addEventListener("click", function () {
+            window.location.href = "{% url 'catastro:index_contribuyente' %}";
+        });
+    </script>
+
+
+    {% if error_contribuyente == 1 or error_domicilio == 1 %}
+    <script>
+        $(document).ready(function () {
+            $('#error').modal('show'); // Muestra la alerta modal de error
+
+            setTimeout(function () {
+
+                window.location.href = "{% url 'catastro:vista_alta_contribuyente' %}"
+
+            }, 2000);
+
+
+        });
+    </script>
+
+    {%elif error_contribuyente == 0 or error_domicilio == 0%}
+
+    <script>
+        $(document).ready(function () {
+            $('#myModal').modal('show'); // Muestra la alerta modal de sucess
+            setTimeout(function () {
+
+                window.location.href = "{% url 'catastro:busqueda_contribuyentes' %}"
+
+            }, 6000);
+        });
+    </script>
+
+    {% endif %}
+
+    <div id="error" class="modal fade" style="margin-top: 100px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header-error justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xe5cd;</i>
                     </div>
-                    <div class="modal-body text-center">
-                        <h4>Bien!</h4>	
-                        <h6>Los datos han sido registrado correctamente.</h6>
-                        <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
-                    </div>
+
                 </div>
-            </div>
-        </div> 
-        
-        <script>
-            document.getElementById("btnBack").addEventListener("click", function() {
-                window.location.href = "{% url 'catastro:index_contribuyente' %}";
-            });
-        </script>
+                <div class="modal-body text-center">
+                    <h4>ERROR</h4>
+                    <p>{{ error_message|default:"" }}</p>
 
-
-        {% if error_contribuyente == 1 or error_domicilio == 1 %}
-        <script>
-            $(document).ready(function () {
-                $('#error').modal('show'); // Muestra la alerta modal de error
-
-                setTimeout(function() {     
-                              
-                    window.location.href = "{% url 'catastro:vista_alta_contribuyente' %}"
-                          
-                }, 2000); 
-
-                
-            });
-        </script>
-
-        {%elif error_contribuyente == 0 or error_domicilio == 0%}
-
-        <script>
-            $(document).ready(function () {
-                $('#myModal').modal('show'); // Muestra la alerta modal de sucess
-                setTimeout(function() {     
-                          
-                    window.location.href = "{% url 'catastro:busqueda_contribuyentes' %}"
-                                
-                }, 6000); 
-            });
-        </script>
-
-        {% endif %}
-
-        <div id="error" class="modal fade" style="margin-top: 100px;">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header-error justify-content-center">
-                        <div class="icon-box">
-                            <i class="material-icons">&#xe5cd;</i>
-                        </div>
-                        
-                    </div>
-                    <div class="modal-body text-center">
-                        <h4>ERROR</h4>	
-                        <p>{{ error_message|default:"" }}</p>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>  
-
-        <div id="error_campos" class="modal fade" style="margin-top: 100px;">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header-error justify-content-center">
-                        <div class="icon-box">
-                            <i class="material-icons">&#xe5cd;</i>
-                        </div>
-                        
-                    </div>
-                    <div class="modal-body text-center">
-                        <h4>ERROR</h4>	
-                        <h6>favor de llenar los campos.</h6>
-                        
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="container"  id="nextprevious">
-            <div class="row" style="float:right;"> 
-
-                <div class="col-xl-12 " style="margin-top: 5px;">
-                    <div class="form-group" style="float:right;">
-                        <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
-                        <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)" style="width: 120px; ">Siguiente</button>
-        
+    <div id="error_campos" class="modal fade" style="margin-top: 100px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header-error justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xe5cd;</i>
                     </div>
+
                 </div>
-                <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button> 
+                <div class="modal-body text-center">
+                    <h4>ERROR</h4>
+                    <h6>favor de llenar los campos.</h6>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="nextprevious">
+        <div class="row" style="float:right;">
+
+            <div class="col-xl-12 " style="margin-top: 5px;">
+                <div class="form-group" style="float:right;">
+                    <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)"
+                        style="width: 150px; background:#eda645; color: #ffff; font-weight:bold;">Atras</button>
+                    <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)"
+                        style="width: 120px; background:#992535; color: #ffff; font-weight:bold; ">Siguiente</button>
+
+                </div>
+            </div>
+            <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button> 
                 <button type="button" class="btn btn-warning" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>  -->
-            </div>
         </div>
-          
+    </div>
+
 </form>
 
 <script>
 
-var boton = document.getElementById("nextBtn");
+    var boton = document.getElementById("nextBtn");
 
-function verificarValor() {
-  var spans = document.querySelectorAll("span");
-  
-  for (let span of spans) {
-    var valorSpan = span.innerHTML.trim();
+    function verificarValor() {
+        var spans = document.querySelectorAll("span");
 
-    if (valorSpan !== "") {
-      boton.disabled = true;
-      return; // Si encontramos un valor, no es necesario verificar más
+        for (let span of spans) {
+            var valorSpan = span.innerHTML.trim();
+
+            if (valorSpan !== "") {
+                boton.disabled = true;
+                return; // Si encontramos un valor, no es necesario verificar más
+            }
+        }
+        boton.disabled = false;
     }
-  }
-  boton.disabled = false;
-}
 
 // Ejecutar verificarValor cada 1 segundo usando setInterval
 //setInterval(verificarValor, 100);
@@ -801,101 +861,101 @@ function verificarValor() {
 
 
 <script>
-      
-        var currentTab = 0;
-        document.addEventListener("DOMContentLoaded", function(event) {
 
-            showTab(currentTab);
+    var currentTab = 0;
+    document.addEventListener("DOMContentLoaded", function (event) {
 
-        });
+        showTab(currentTab);
 
-        function showTab(n) {
-            var x = document.getElementsByClassName("tab");
-            x[n].style.display = "block";
-            if (n == 0) {
-                document.getElementById("prevBtn").style.display = "none";
-            } else {
-                document.getElementById("prevBtn").style.display = "inline";
-            }
-            if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Enviar";
-            } else {
-                document.getElementById("nextBtn").innerHTML = "Siguiente";
-            }
-            fixStepIndicator(n)
+    });
+
+    function showTab(n) {
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
         }
-
-        function nextPrev(n) {
-            var x = document.getElementsByClassName("tab");
-            if (n == 1 && !validateForm()) return false;
-            x[currentTab].style.display = "none";
-            currentTab = currentTab + n;
-            if (currentTab >= x.length) {
-
-                //$('#myModal').modal('show');
-
-                //setTimeout(function() {     
-                    document.getElementById("formulario").submit();
-                    return false;
-                //}, 2000); 
-
-            }
-            showTab(currentTab);
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "ENVIAR";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "SIGUIENTE";
         }
+        fixStepIndicator(n)
+    }
 
-        function validateForm() {
-            var x, y, i, valid = true;
-            x = document.getElementsByClassName("tab");
-            y = x[currentTab].getElementsByTagName("input");
-            for (i = 0; i < y.length; i++) {
-                if (y[i].value == "") {
-                    y[i].className += " invalid";
-                    
-                    valid = false;
+    function nextPrev(n) {
+        var x = document.getElementsByClassName("tab");
+        if (n == 1 && !validateForm()) return false;
+        x[currentTab].style.display = "none";
+        currentTab = currentTab + n;
+        if (currentTab >= x.length) {
 
-                    if(y[i].id == 'rfc' || y[i].id == 'curp' || y[i].id == 'nombre' || y[i].id == 'apaterno' || y[i].id == 'amaterno'){
-                        if((y[i].value == "")){
-                            valid = false;
-                        }else{
-                            valid = true;
-                        }
+            //$('#myModal').modal('show');
+
+            //setTimeout(function() {     
+            document.getElementById("formulario").submit();
+            return false;
+            //}, 2000); 
+
+        }
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        for (i = 0; i < y.length; i++) {
+            if (y[i].value == "") {
+                y[i].className += " invalid";
+
+                valid = false;
+
+                if (y[i].id == 'rfc' || y[i].id == 'curp' || y[i].id == 'nombre' || y[i].id == 'apaterno' || y[i].id == 'amaterno') {
+                    if ((y[i].value == "")) {
+                        valid = false;
+                    } else {
+                        valid = true;
                     }
                 }
             }
-            if (valid) { 
-                document.getElementsByClassName("step")[currentTab].className += " finish"; 
-            }else{
+        }
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        } else {
 
-                $('#error_campos').modal('show');
+            $('#error_campos').modal('show');
 
-                // Ocultar el modal después de 3 segundos (3000 milisegundos)
-                setTimeout(function() {
-                    $('#error_campos').modal('hide');
-                }, 3000);
-                
-            }
-            
-            return valid;
+            // Ocultar el modal después de 3 segundos (3000 milisegundos)
+            setTimeout(function () {
+                $('#error_campos').modal('hide');
+            }, 3000);
+
         }
 
-        function fixStepIndicator(n) {
-            var i, x = document.getElementsByClassName("step");
-            for (i = 0; i < x.length; i++) { x[i].className = x[i].className.replace(" active", ""); }
-            x[n].className += " active";
-        }
+        return valid;
+    }
+
+    function fixStepIndicator(n) {
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) { x[i].className = x[i].className.replace(" active", ""); }
+        x[n].className += " active";
+    }
 </script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
-integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
-crossorigin="anonymous"></script>
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
-integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
-crossorigin="anonymous"></script>
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
 
 
 <script src="{%static 'js/CATASTRO/contribuyentes/validaciones_contribuyentes.js'%}"></script>
-  
+
 
 
 {%endblock%}
