@@ -626,7 +626,7 @@ def registro_predios(request):
         depto = request.POST['depto']
         dvs = request.POST['dvs']
  
-        clave_catastral = zona_cat+muni+loc+functions.formato_clave_cat(region)+functions.formato_clave_cat(manzana)+functions.formato_clave_cat(lote)+functions.formato_clave_cat(nivel)+functions.formato_clave_cat(depto)+functions.formato_clave_cat(dvs)
+        clave_catastral = zona_cat+muni+loc+region+manzana+lote+nivel+depto+dvs
         fecha_alta = request.POST['fecha_registro']
         motivo_alta = request.POST['motivo_registro']
         cuenta_predial =  request.POST['cuenta_predial']

@@ -17,8 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include,path
 from . import views_proyecto
-
-#DJANGO NOTIFICATIONS
+#RUTAS GLOBALES
 
 
 urlpatterns = [
@@ -39,6 +38,8 @@ urlpatterns = [
     path('finanzas/',include('finanzas.urls', namespace='finanzas')),
     path('desarrollo_urbano/',include('desarrollo_urbano.urls',namespace='desarrollo_urbano')),
     
+
     
+    #IMPORTAR FUNCIONALIDADES DE REPORTES
     
 ]

@@ -584,7 +584,7 @@
 
 
     <div style="width: 100%; display: flex; align-items: center; justify-content: flex-end;">
-      <a href="#" style="width: 15%;"><button type="button" id="btn_pagar" class="btn btn-outline-primary"
+      <a href="{% url 'finanzas:redirigir_perfil_finanzas'%}" style="width: 15%;"><button type="button" id="btn_pagar" class="btn btn-outline-primary"
           style="background-color: #660b22; color: #ffff; border:none; font-weight:bold; font-size: 2vh; width: 100%;">Pagar</button></a>
     </div>
 </div>
@@ -602,6 +602,10 @@
   btn_pagar_predial.addEventListener('click', function () {
 
     var years_selected = [];
+    var resumen_pago = [];
+
+    var fila_resumen = tabla_adeudos.rows[tabla_adeudos.rows.length - 1];
+
 
     for (let i = 1; i < tabla_adeudos.rows.length; i++) {
       const fila = tabla_adeudos.rows[i];
@@ -615,7 +619,16 @@
           years_selected.push(years);
         }
       }
+    }
 
+    //OBTENER DATOS DEL RESUMEN DE PAGO
+
+    var valores_resumen;
+    for (let i = 1; i < fila_resumen.cells.length; i++) {
+
+      valores_resumen = fila_resumen.cells[i].textContent.trim().replace("$", "").replace("-%","");
+      console.log('Se agrego el valor a lista resumen: ' + valores_resumen);
+      resumen_pago.push(valores_resumen);
 
     }
 
@@ -637,6 +650,7 @@
       data: {
         'clave_cat': clave_cat,
         'years_selected': years_selected,
+        'resumen_pago': resumen_pago,
         'total': total
       },
       dataType: 'json',
@@ -649,12 +663,7 @@
         console.log("Error: " + errorThrown);
       }
     });
-
-
-
   });
-
-
 
 </script>
 

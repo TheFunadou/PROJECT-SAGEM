@@ -655,10 +655,10 @@
 
     </div><br>
     <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; height:5%;">
-      <a href=""><button id="rechazar_descuento" type="button" class="btn btn-outline-warning"
+      <a href="{% url 'finanzas:redirigir_perfil_finanzas'%}"><button id="rechazar_descuento" type="button" class="btn btn-outline-warning"
         style="width:100%; background-color: #880e4f; color: #FFFF; font-weight: bold; border: #660b22;">RECHAZAR
         PETICION</button></a>
-      <a href=""><button id="aprobar_descuento" type="button" class="btn btn-outline-warning"
+      <a href="{% url 'finanzas:redirigir_perfil_finanzas'%}"><button id="aprobar_descuento" type="button" class="btn btn-outline-warning"
         style="width:100%; background-color: #b8860b; color: #FFFF; font-weight: bold; ">APROBAR DESCUENTO</button></a>
     </div>
   </fieldset>

@@ -57,6 +57,7 @@ urlpatterns = [
     path('aprobar_descuento_contribuyente/',views.descuento_aprobado, name='descuento_aprobado'),
     path('rechazar_descuento_contribuyente/',views.descuento_rechazado, name='descuento_rechazado'),
     path('pago_predial_contribuyente_years_debe/',views.pago_predial_contribuyente, name='pago_predial_contribuyente_years_debe'),
+    path('pago_predial_contribuyente_years_corriente/',views.pago_predial_contribuyente_years_corriente, name='pago_predial_contribuyente_years_corriente'),
     
    
     

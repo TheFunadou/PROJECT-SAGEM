@@ -10,6 +10,7 @@ from catastro import models as models_catastro
 from finanzas import models as models_finanzas
 from catastro.models import Domicilio_inmueble
 
+import datetime
 import json
 import random
 import re
@@ -27,6 +28,9 @@ from django.db.models import Q
 # CHANNEL LAYERS
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+
+from .reports.reporte_pago_predial_ad import reporte_pago_predial_ad
+from .reports.reporte_pago_predial_c import reporte_pago_predial_corriente
 
 
 #Mandar una notificacion
@@ -610,6 +614,7 @@ def pago_predial_contribuyente(request):
         clave_cat = request.GET.get('clave_cat')
         total = request.GET.get('total')
         years_selected = request.GET.getlist('years_selected[]')
+        resumen_pago = request.GET.getlist('resumen_pago[]')
     
     # Convertir lista a cadena
     selecccion = str(years_selected)
@@ -626,37 +631,83 @@ def pago_predial_contribuyente(request):
         print('Se elimino el folio: '+ folio)
         query_historial_pagos.delete()
     
+    lista_resumen_pago_float = []
+    for i in resumen_pago:
+        valor_float = float(i)
+        lista_resumen_pago_float.append(valor_float)
+    
+    print(lista_resumen_pago_float)
+    #print(f'subtotal: {resumen_pago[0]}')
+    
+    
     # Obtener el numero de folio
     folio_list = re.findall(r'\d+', folio)
     str_folio = str(folio_list)
     num_folio = str_folio.replace('[','').replace(']','').replace("'","")
     
-    #print(num_folio)
-    
     # Contribuyente que pasara como llave foranea
     contribuyente=models_catastro.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
     
     models_finanzas.historial_pagos.objects.create(
-        folio = num_folio,
-        contribuyente= contribuyente,
+        folio = num_folio,contribuyente= contribuyente,
         ejercicio = years_seleccionados,
-        subtotal_sin_des = 0,
-        subtotal_años  = 0,
-        impuesto_adicional = 0,
+        subtotal_años  = lista_resumen_pago_float[0],
+        impuesto_adicional = lista_resumen_pago_float[1],
+        recargo = lista_resumen_pago_float[3],
+        descuento_recargo = lista_resumen_pago_float[2],
+        multa = lista_resumen_pago_float[5],
+        descuento_multa = lista_resumen_pago_float[4],
+        aplica_descuento = 'APROBADO',
+        total=total,
+        estatus = 'PAGADO',
+        autorizacion='AUTORIZADO',
+        cajero = request.user.username
+    )
+    
+    # GENERAR REPORTE
+    reporte_pago_predial_ad(request.user.username,clave_cat)
+
+    return JsonResponse({'mensaje': 'pago exitoso'})
+
+def pago_predial_contribuyente_years_corriente(request):
+    
+    if request.method == 'GET':
+        folio = request.GET.get('folio')
+        clave_cat = request.GET.get('clave_cat')
+        concepto = request.GET.get('concepto')
+        subtotal = request.GET.get('subtotal')
+        contrib_adi = request.GET.get('contrib_adi')
+        total = request.GET.get('total')
+        observaciones = request.GET.get('observaciones')
+        
+    print('La clave catastral es: '+clave_cat)
+    # Contribuyente que pasara como llave foranea
+    contribuyente=models_catastro.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
+    
+    date = datetime.datetime.now()
+    
+    year = date.year
+    
+    models_finanzas.historial_pagos.objects.create(
+        folio = folio,contribuyente= contribuyente,
+        ejercicio = year,
+        subtotal_años  = subtotal,
+        impuesto_adicional = contrib_adi,
         recargo = 0,
         descuento_recargo = 0,
         multa = 0,
         descuento_multa = 0,
-        aplica_descuento = 'APROBADO',
+        aplica_descuento = 'NO APLICA',
         total=total,
+        estatus = 'PAGADO',
         autorizacion='AUTORIZADO',
         cajero = request.user.username
     )
-
-    return JsonResponse({'mensaje': 'pago exitoso'})
-
     
-
+    reporte_pago_predial_corriente(folio,concepto,clave_cat,request.user.username,observaciones)
+    
+    
+    return JsonResponse ({'mensaje': 'pago exitoso'})
 
 
 

@@ -6,395 +6,474 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
-<script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+<script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+<style>
+    main {
+        background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: center;
+        background-position-y: bottom;
+    }
+
+    input {
+        text-align: center;
+    }
+</style>
 
 <div class="container py-5">
 
     <form action="registrar_ficha_datosgenerales/" method="POST">
         {%csrf_token%}
-        
+
         <fieldset class=" container fieldset-1 card  rounded-3 p-3"
             style="border: solid 3px #660b22; top: -10px; background:rgba(255, 255, 255, 0.5);">
 
             <legend class="float-none w-auto px-3"
-            style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
-            DATOS DEL PAGO
+                style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                DATOS DEL PAGO
             </legend>
 
             <div id="1">
 
                 <div class="row" style="margin-top: 5px;">
 
-                        <div class="col-xl-2" style="float: left;">               
-                            <label for="tipo_mov" class="lbl1">FECHA</label>
-                            <input type="text" id="tipo_mov" class="form-control" name="tipo_mov" style="height: 25px;"
-                                     placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">                  
-                        </div>  
+                    <div class="col-xl-2" style="float: left;">
+                        <label for="tipo_mov" class="lbl1">FOLIO DE PAGO</label>
+                        <input type="text" id="folio_pago" class="form-control" name="tipo_mov" style="height: 25px;"
+                            placeholder="" required data-parsley-length="[1,30]"
+                            aria-describedby="inputGroup-sizing-sm">
+                    </div>
 
 
-                        <div class="col-xl-4" style="float: left;">               
-                                             
-                        </div> 
+                    <div class="col-xl-4" style="float: left;">
+
+                    </div>
 
 
 
 
-                        <div class="col-xl-4" style="float: left;">               
-                                             
-                        </div> 
-                        
-                        
-                    
-                        <div class="col-xl-2" style="float: right;">
-                            
-                            <label for="folio">HORA</label>
-                            <input type="text" id="folio" class="form-control" name="folio" style="height: 25px;"
-                                    placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">
-                            
-                        </div>
+                    <div class="col-xl-4" style="float: left;">
+
+                    </div>
+
                 </div>
             </div>
 
-            <fieldset class="fieldset-1 card  rounded-3 p-3" style="border: 1px solid #660b22; background:rgb(255, 255, 255,.5); top: 5px;">
+            <fieldset class="fieldset-1 card  rounded-3 p-3"
+                style="border: 1px solid #660b22; background:rgb(255, 255, 255,.5); top: 5px;">
                 <legend class="card float-none w-auto px-3"
                     style="font-size: 17px; color: brown; font-family: 'Calibri'; font-weight: bold;">CLAVE
                     CATASTRAL</legend>
-                    <div class="row " style="margin-top: -23px;">
+                <div class="row " style="margin-top: -23px;">
 
-                        <div class="col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-        
-                        </div>
+                    <div class="col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+
+                    </div>
 
 
-                  
-                        {% for item in my_list %}
-                        <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="fc_zon" class="lbl1"><Strong>Zona cat</Strong></label>
+
+                    {% for item in my_list %}
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="fc_zon" class="lbl1"><Strong>Zona cat</Strong></label>
 
                             {% with cadena=item.clave_catastral %}
-                                {% with zc=cadena|slice:":2" %}
-                                <input type="text" id="zc" class="form-control" name="zc" style="height: 25px;"
-                                readonly value="{{zc}}"    aria-describedby="inputGroup-sizing-sm">                  
-                                {% endwith %}
-                            
-                            </div>  
-                        </div>   
-                    
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="fc_mu"><strong>Municipio</strong></label>
-                                {% with mpio=cadena|slice:"2:5" %}
-                                <input type="text" id="mpio" class="form-control" name="mpio" style="height: 25px;"
-                                readonly   value="{{mpio}}"  aria-describedby="inputGroup-sizing-sm">
-                                {% endwith %}
-                            </div>
-                        </div>
-        
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="locd"><strong>Localidad</strong></label>
-                                {% with locd=cadena|slice:"5:8" %}
-                                <input type="text" id="locd" class="form-control" name="locd" style="height: 25px;"
-                                readonly  value="{{locd}}"  aria-describedby="inputGroup-sizing-sm">
-                                {% endwith %}
-                            </div>
-                        </div>           
-                        
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="rg"><strong>Región</strong></label>
-                                {% with rg=cadena|slice:"8:10" %}
-                                <input type="text" id="rg" class="form-control" name="rg" style="height: 25px;"
-                                readonly  value="345"  aria-describedby="inputGroup-sizing-sm">
-                                {% endwith %}
-                            </div>
-                        </div>
-          
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                {% with mzn=cadena|slice:"10:13" %}
-                                <label for="mzn"><strong>Manzana</strong></label>
-                                <input type="text" id="mzn" class="form-control" name="mzn" style="height: 25px;"
-                                readonly value="001"  aria-describedby="inputGroup-sizing-sm">
-                                {% endwith %}
-                            </div>
-                        </div>
-          
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="lt"><strong>Lote</strong></label>
-                                {% with lt=cadena|slice:"13:16" %}
-                                <input type="text" id="lt" class="form-control" name="lt" style="height: 25px;"
-                                readonly  value="123"   aria-describedby="inputGroup-sizing-sm">
-                                {% endwith %}
-                            </div>
-                        </div>
-          
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="nvl"><strong>Nivel</strong></label>
-                                {% with nvl=cadena|slice:"16:18" %}
-                                <input type="text" id="nvl" class="form-control" name="nvl" style="height: 25px;"
-                                readonly  value="123"  aria-describedby="inputGroup-sizing-sm">
-                                {% endwith %}
-                            </div>
-                        </div>
-          
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="dpt"><strong>Depto.</strong></label>
-                                {% with dpt=cadena|slice:"18:21" %}
-                                <input type="text" id="dpt" class="form-control" name="dpt" style="height: 25px;"
-                                readonly  value="234"  aria-describedby="inputGroup-sizing-sm">
-                                {% endwith %}
-                            </div>
-                        </div>
-          
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="dev"><strong>DV</strong></label>
-                                {% with dev=cadena|slice:"21:22" %}
-                                <input type="text" id="dev" value="092" class="form-control" name="dev" style="height: 25px;"
-                                readonly   aria-describedby="inputGroup-sizing-sm">
-                                {% endwith %}
-                            </div>
-                        </div>
+                            {% with zc=cadena|slice:":3" %}
+                            <input type="text" id="zc" class="form-control" name="zc" style="height: 25px;" readonly
+                                value="{{zc}}" aria-describedby="inputGroup-sizing-sm">
                             {% endwith %}
-                        {% endfor %}
-                    </div>
-          
-                </fieldset>
-                <br>
-                
-                <fieldset class="fieldset-1 card  rounded-3 p-3" style="background:rgb(255, 255, 255,.5);">
-                    <legend class=" card float-none w-auto px-3"
-                        style="font-size: 17px; color: brown; font-family: 'Calibri'; font-weight: bold;">DATOS DEL PROPIETARIO
-                    </legend>
 
-                    <div class="row justify-content-center">
-                    
-                        <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label style="width: 150px;height: 25px;" for="" class="lbl1"><strong>Apellido Paterno</strong></label>
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="fc_mu"><strong>Municipio</strong></label>
+                            {% with mpio=cadena|slice:"3:6" %}
+                            <input type="text" id="mpio" class="form-control" name="mpio" style="height: 25px;" readonly
+                                value="{{mpio}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="locd"><strong>Localidad</strong></label>
+                            {% with locd=cadena|slice:"6:9" %}
+                            <input type="text" id="locd" class="form-control" name="locd" style="height: 25px;" readonly
+                                value="{{locd}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="rg"><strong>Región</strong></label>
+                            {% with rg=cadena|slice:"9:12" %}
+                            <input type="text" id="rg" class="form-control" name="rg" style="height: 25px;" readonly
+                                value="{{rg}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            {% with mzn=cadena|slice:"12:15" %}
+                            <label for="mzn"><strong>Manzana</strong></label>
+                            <input type="text" id="mzn" class="form-control" name="mzn" style="height: 25px;" readonly
+                                value="{{mzn}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="lt"><strong>Lote</strong></label>
+                            {% with lt=cadena|slice:"15:18" %}
+                            <input type="text" id="lt" class="form-control" name="lt" style="height: 25px;" readonly
+                                value="{{lt}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="nvl"><strong>Nivel</strong></label>
+                            {% with nvl=cadena|slice:"18:21" %}
+                            <input type="text" id="nvl" class="form-control" name="nvl" style="height: 25px;" readonly
+                                value="{{nvl}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="dpt"><strong>Depto.</strong></label>
+                            {% with dpt=cadena|slice:"21:24" %}
+                            <input type="text" id="dpt" class="form-control" name="dpt" style="height: 25px;" readonly
+                                value="{{dpt}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="dev"><strong>DV</strong></label>
+                            {% with dev=cadena|slice:"24:27" %}
+                            <input type="text" id="dev" value="{{dev}}" class="form-control" name="dev"
+                                style="height: 25px;" readonly aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+                    {% endwith %}
+                    {% endfor %}
+                </div>
+
+            </fieldset>
+            <br>
+
+            <fieldset class="fieldset-1 card  rounded-3 p-3" style="background:rgb(255, 255, 255,.5);">
+                <legend class=" card float-none w-auto px-3"
+                    style="font-size: 17px; color: brown; font-family: 'Calibri'; font-weight: bold;">DATOS DEL
+                    PROPIETARIO
+                </legend>
+
+                <div class="row justify-content-center">
+
+                    <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label style="width: 150px;height: 25px;" for="" class="lbl1"><strong>Apellido
+                                    Paterno</strong></label>
 
                             {% for item in my_list %}
-                                
-                                <input style="width: 150px;height: 25px;" type="text" id="" class="form-control" name="" 
-                                     readonly value="{{item.apellido_paterno}}"  aria-describedby="inputGroup-sizing-sm">                                          
-                                
 
-                            </div>  
-                        </div>
-                        
-                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label style="width: 150px; height: 25px;" for="t_suelo" class="lbl1"><strong>Apellido Materno</strong></label>
-                                <input style="width: 150px;height: 25px;" type="text" id="t_suelo" class="form-control" name="t_suelo" 
-                                     readonly value="{{item.apellido_materno}}"  aria-describedby="inputGroup-sizing-sm">                                          
-                            </div>  
-                        </div>
+                            <input style="width: 150px;height: 25px;" type="text" id="" class="form-control" name=""
+                                readonly value="{{item.apellido_paterno}}" aria-describedby="inputGroup-sizing-sm">
 
-                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label style="width: 150px; height: 25px;" for="t_suelo" class="lbl1"><strong>Nombre(s)</strong></label>
-                                <input style="width: 150px;height: 25px;" type="text" id="t_suelo" class="form-control" name="t_suelo" 
-                                     readonly value="{{item.nombre}}"  aria-describedby="inputGroup-sizing-sm">                                          
-                            </div>  
-                            
-                        </div>
-                            {% endfor %}
 
-                    
-                    </div>
-
-                    
-                </fieldset>
-
-                <fieldset class=" card border rounded-3 p-3"
-                    style=" height:min-content; background:rgb(255, 255, 255,.5); text-align: center; top: 20px;">
-                    <legend class=" card float-none w-auto px-3"
-                        style="font-size: 17px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5); font-weight: bold;">
-                        INFORMACIÓN DEL PREDIO</legend>
-
-                    <div class="row" style="margin-top: -23px;">
-                       
-                        <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                {% for item in my_list %}
-                                <label for="f_calle" class="lbl1">Calle</label>
-                                <input type="text" id="f_calle" style="height: 27px;" class="form-control" name="f_calle" placeholder=""
-                                    required readonly value="{{item.calle_s}}" onKeyUp="this.value = this.value.toUpperCase();" aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-                        </div>
-
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="f_int" class="lbl1">Interior</label>
-                                <input type="text" id="f_int" style="height: 27px;" class="form-control" name="f_int" placeholder=""
-                                    required readonly value="{{item.num_int}}" data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-                        </div>
-
-                        <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="name" class="lbl1">Exterior</label>
-                                <input type="text" id="f_ext" style="height: 27px;" class="form-control" name="f_ext" placeholder=""
-                                    required readonly value="{{item.num_ext}}" data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-                        </div>
-
-                        <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="f_col_fracc" class="lbl1">Colonia/Fracc.</label>
-                                <input type="text" id="f_col_fracc" style="height: 27px;" class="form-control" name="f_col_fracc" placeholder=""
-                                    required readonly value="{{item.colonia_f}}" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-                        </div>
-
-                        <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="f_tipopredio" class="lbl1">Tipo de predio</label>
-                                <input type="text" id="f_tipopredio" style="font-size: 14px;  height: 27px;" class="form-control" name="f_tipopredio" placeholder=""
-                                    required readonly value="{{item.tipo_predio}}" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-                        </div>
-
-                        <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="f_uso_predio" class="lbl1">Estado físico</label>
-                                <input type="text" id="f_uso_predio" style="height: 27px;" class="form-control" name="f_uso_predio" placeholder=""
-                                    required readonly value="{{item.estado_fisico}}" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-                            {% endfor %}
                         </div>
                     </div>
 
-                </fieldset>
-
-                <br><br>
-                <div style="margin-top: 30px;" style="float:left;">
-
-                    <div class="row"></div>
-
-                    <div class=" col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2" style="float:left;">
-
-                        <div class="form-group" style="float:left;">
-
-                            
-                            
-    
+                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label style="width: 150px; height: 25px;" for="t_suelo" class="lbl1"><strong>Apellido
+                                    Materno</strong></label>
+                            <input style="width: 150px;height: 25px;" type="text" id="t_suelo" class="form-control"
+                                name="t_suelo" readonly value="{{item.apellido_materno}}"
+                                aria-describedby="inputGroup-sizing-sm">
                         </div>
-    
-                        <div class="form-group" style="float:left;">
-    
-                            <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2" style="float: right;">
-                                <div class="form-group">
-                                    <label for="">CONCEPTO</label>
-    
-                                    <input type="text" id="zona_inscripcion" style="height: 27px;" class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                   
-                                    <span></span>
-            
-                                </div>
-                            </div>
-                            
-    
-                        </div>
-    
-                        <div class="form-group" style="float:right;">
-    
-                            <div class="row input-group-sm col-xl-10 col-lg-3 col-md-12 col-sm-12 col-12 mb-2" style="float: left;">
-                                <div class="form-group">
-                                    <label for="">DETALLE DE PAGO</label>
-    
-                                    <label for="zona_inscripcion" class="lbl1">Subtotal</label>
-                                    <input type="text" id="zona_inscripcion" style="height: 27px;" class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                    <span></span>
-            
-                                </div>
-
-                                
-                            </div>
-            
-                            <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                <div class="form-group">
-                                    <label for="zona_inscripcion" class="lbl1">Contribucion adicional</label>
-                                    <input type="text" id="zona_inscripcion" style="height: 27px;" class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                    <span></span>
-            
-                                </div>
-                            </div>
-
-                            <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                <div class="form-group">
-                                    <label for="zona_inscripcion" class="lbl1">Recargo</label>
-                                    <input type="text" id="zona_inscripcion" style="height: 27px;" class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                    <span></span>
-            
-                                </div>
-                            </div>
-            
-                            <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                <div class="form-group">
-                                    <label for="zona_inscripcion" class="lbl1">Total</label>
-                                    <input type="text" id="zona_inscripcion" style="height: 27px;" class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                    <span></span>
-            
-                                </div>
-                            </div>
-
-
-    
-                        </div>
-    
-
                     </div>
 
-                    
-                       
+                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label style="width: 150px; height: 25px;" for="t_suelo"
+                                class="lbl1"><strong>Nombre(s)</strong></label>
+                            <input style="width: 150px;height: 25px;" type="text" id="t_suelo" class="form-control"
+                                name="t_suelo" readonly value="{{item.nombre}}" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+
+                    </div>
+                    {% endfor %}
 
 
-    
-    
                 </div>
 
-                
 
+            </fieldset>
 
-                <div class="col-xl-12 " style="top: 20px;">
-                    <div class="form-group" style="float:right;">
-                        <button type="button" id="guardar_c" class="btn btn-outline-primary">Pagar</button>
+            <fieldset class=" card border rounded-3 p-3"
+                style=" height:min-content; background:rgb(255, 255, 255,.5); text-align: center; top: 20px;">
+                <legend class=" card float-none w-auto px-3"
+                    style="font-size: 17px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5); font-weight: bold;">
+                    INFORMACIÓN DEL PREDIO</legend>
+
+                <div class="row" style="margin-top: -23px;">
+
+                    <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            {% for item in my_list %}
+                            <label for="f_calle" class="lbl1">Calle</label>
+                            <input type="text" id="f_calle" style="height: 27px;" class="form-control" name="f_calle"
+                                placeholder="" required readonly value="{{item.calle_s}}"
+                                onKeyUp="this.value = this.value.toUpperCase();"
+                                aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="f_int" class="lbl1">Interior</label>
+                            <input type="text" id="f_int" style="height: 27px;" class="form-control" name="f_int"
+                                placeholder="" required readonly value="{{item.num_int}}" data-parsley-length="[1,30]"
+                                value="" aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="name" class="lbl1">Exterior</label>
+                            <input type="text" id="f_ext" style="height: 27px;" class="form-control" name="f_ext"
+                                placeholder="" required readonly value="{{item.num_ext}}" data-parsley-length="[1,30]"
+                                value="" aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="f_col_fracc" class="lbl1">Colonia/Fracc.</label>
+                            <input type="text" id="f_col_fracc" style="height: 27px;" class="form-control"
+                                name="f_col_fracc" placeholder="" required readonly value="{{item.colonia_f}}"
+                                onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();"
+                                value="" aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="f_tipopredio" class="lbl1">Tipo de predio</label>
+                            <input type="text" id="f_tipopredio" style="font-size: 14px;  height: 27px;"
+                                class="form-control" name="f_tipopredio" placeholder="" required readonly
+                                value="{{item.tipo_predio}}" onkeypress="return valideKey(event);"
+                                aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="f_uso_predio" class="lbl1">Estado físico</label>
+                            <input type="text" id="f_uso_predio" style="height: 27px;" class="form-control"
+                                name="f_uso_predio" placeholder="" required readonly value="{{item.estado_fisico}}"
+                                onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
+
+            </fieldset>
+
+            <br><br>
+            <div style="margin-top: 30px;" style="float:left;">
+
+                <div class="row"></div>
+
+                <div class=" col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2" style="float:left;">
+
+                    <div class="form-group" style="float:left;">
+
+
+
+
+                    </div>
+
+                    <div class="form-group" style="float:left;">
+
+                        <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2"
+                            style="float: right; width: 100%;">
+                            <div class="form-group">
+                                <label for="">CONCEPTO</label>
+
+                                <input type="text" id="concepto" style="height: 25%; width: 100%;" class="form-control"
+                                    name="zona_inscripcion" onkeypress="return valideKey(event);"
+                                    aria-describedby="inputGroup-sizing-sm">
+
+                                <span></span>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group" style="float:right; width: 50%;">
+
+                        <div class="row input-group-sm col-xl-10 col-lg-3 col-md-12 col-sm-12 col-12 mb-2"
+                            style="float: left;">
+                            <label for="">RESUMEN DE PAGO</label>
+                            <div class="form-group">
+
+                                <label for="zona_inscripcion" class="lbl1">Subtotal</label>
+                                <input type="text" id="subtotal" style="height: 27px; width: 96%;" class="form-control"
+                                    name="zona_inscripcion" onkeypress="return valideKey(event);"
+                                    aria-describedby="inputGroup-sizing-sm">
+                                <span></span>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="zona_inscripcion" class="lbl1">Contribucion adicional</label>
+                                <input type="text" id="contrib_adi" style="height: 27px; width: 100%;"
+                                    class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);"
+                                    aria-describedby="inputGroup-sizing-sm">
+                                <span></span>
+
+                            </div>
+                        </div>
+
+                        <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="zona_inscripcion" class="lbl1">Total</label>
+                                <input type="text" id="total" style="height: 27px; width: 100%;" class="form-control"
+                                    name="zona_inscripcion" onkeypress="return valideKey(event);"
+                                    aria-describedby="inputGroup-sizing-sm">
+                                <span></span>
+
+                            </div>
+                        </div>
+
+                        <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="zona_inscripcion" class="lbl1">Observaciones</label>
+                                <input type="text" id="observaciones" style="height: 27px; width: 100%;"
+                                    class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);"
+                                    aria-describedby="inputGroup-sizing-sm">
+                                <span></span>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
 
 
             </div>
 
-            
-
-            
 
 
-                
-        </fieldset>
 
-    </form>
-    
+            <div class="col-xl-12 " style="top: 20px;">
+                <div class="form-group" style="float:right;">
+                    <button type="button" id="pagar" class="btn btn-outline-primary"
+                        style="background-color: #660b22; color: #ffff; font-weight: bold; border: none; ">Pagar</button>
+                </div>
+            </div>
+
+
 </div>
 
+
+
+
+</fieldset>
+
+</form>
+
+</div>
+
+<script>
+
+    var btn_pagar = document.getElementById('pagar');
+
+    //FUNCION ONCLICK RECHAZAR DESCUENTO
+    btn_pagar.addEventListener('click', function () {
+
+        var url_window = window.location.pathname;
+        var partesUrl = url_window.split('/');
+        var clave_cat = partesUrl[partesUrl.length - 1];
+
+        console.log(clave_cat);
+
+        var folio = document.getElementById("folio_pago").value;
+        var concepto = document.getElementById('concepto').value;
+        var subtotal = document.getElementById('subtotal').value;
+        var contrib_adi = document.getElementById('contrib_adi').value;
+        var total = document.getElementById('total').value;
+        var observaciones = document.getElementById('observaciones').value;
+
+        
+        
+        var url_descuento_aprobado = "{% url 'finanzas:pago_predial_contribuyente_years_corriente' %}"
+        $.ajax({
+            type: 'GET',
+            url: url_descuento_aprobado, // Reemplaza esto con la URL de tu vista en Django
+            data: {
+                'clave_cat': '008109001012012032012031001',
+                'concepto': concepto,
+                'subtotal': subtotal,
+                'contrib_adi': contrib_adi,
+                'total': total,
+                'folio': folio,
+                'observaciones': observaciones
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log('descuento rechazado con exito')
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error en la solicitud AJAX RECHAZAR DESCUENTO:");
+                console.log("Estado: " + textStatus);
+                console.log("Error: " + errorThrown);
+            }
+        });
+
+    });
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"

@@ -23,35 +23,36 @@
 <link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
 
 <style>
-
     .centered {
-    position: absolute;
-    top: 19%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
+        position: absolute;
+        top: 19%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
     }
 
-    label{
+    label {
         color: rgb(122, 6, 41);
-        font-weight: bold ; 
+        font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
         height: 58.7vh;
-        background-image: linear-gradient(to bottom, #ffffff 50%, transparent 50%), url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        background-image: linear-gradient(to bottom, #ffffff 50%, transparent 50%),
+        url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
         background-repeat: no-repeat;
-        background-size: contain; /* Ajustar el tamaño automáticamente */
+        background-size: contain;
+        /* Ajustar el tamaño automáticamente */
         background-position: center bottom;
-        
-      }
 
-    .bordes{
+    }
+
+    .bordes {
         border: 4px solid rgb(80, 9, 36);
     }
 
-    .bor{
+    .bor {
         border: 2px solid rgb(180, 172, 175);
     }
 
@@ -61,623 +62,704 @@
     /* your CSS goes here*/
 
     /* your CSS goes here*/
- 
-
-
-
-h1 {
-    text-align: center
-}
-
-input {
-    padding: 10px;
-    width: 100%;
-    font-size: 17px;
-    font-family: Raleway;
-    border: 1px solid #aaaaaa
-}
-
-input.invalid {
-    background-color: #ffdddd
-}
-
-.tab {
-    display: none
-}
-
-
-
-button:hover {
-    opacity: 0.8
-}
-
-
-
-.step {
-    height: 10px;
-    width: 10px;
-    margin: 0 6px;
-    background-color: #bbbbbb;
-    border: none;
-    border-radius: 50%;
-    display: inline-block;
-    opacity: 0.5
-}
-
-.step.active {
-    opacity: 1
-}
-
-.step.finish {
-    background-color: #4CAF50
-}
-
-.all-steps {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 30px
-}
-
-.thanks-message {
-    display: none
-}
-
-
-
-/* Hide the browser's default radio button */
-
-.container input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
-
-
-/* Create a custom radio button */
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 50%;
-}
-
-
-/* On mouse-over, add a grey background color */
-
-.container:hover input~.checkmark {
-    background-color: #ccc;
-}
-
-
-/* When the radio button is checked, add a blue background */
-
-.container input:checked~.checkmark {
-    background-color: #2196F3;
-}
-
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-
-/* Show the indicator (dot/circle) when checked */
-
-.container input:checked~.checkmark:after {
-    display: block;
-}
-
-
-/* Style the indicator (dot/circle) */
-
-.container .checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
-}
 
 
 
 
+    h1 {
+        text-align: center
+    }
+
+    input {
+        padding: 10px;
+        width: 100%;
+        font-size: 17px;
+        font-family: Raleway;
+        border: 1px solid #aaaaaa
+    }
+
+    input.invalid {
+        background-color: #ffdddd
+    }
+
+    .tab {
+        display: none
+    }
 
 
 
-/**/
-
-.modal-confirm {		
-	color: #434e65;
-	width: 525px;
-}
-.modal-confirm .modal-content {
-	padding: 20px;
-	font-size: 16px;
-	border-radius: 5px;
-	border: none;
-}
-
-.modal-confirm .modal-header-error {
-	background: #992535;
-	border-bottom: none;   
-	position: relative;
-	text-align: center;
-	margin: -20px -20px 0;
-	border-radius: 5px 5px 0 0;
-	padding: 35px;
-}
-
-.modal-confirm .modal-header {
-	background: #47c9a2;
-	border-bottom: none;   
-	position: relative;
-	text-align: center;
-	margin: -20px -20px 0;
-	border-radius: 5px 5px 0 0;
-	padding: 35px;
-}
-.modal-confirm h4 {
-	text-align: center;
-	font-size: 36px;
-	margin: 10px 0;
-}
-.modal-confirm .form-control, .modal-confirm .btn {
-	min-height: 40px;
-	border-radius: 3px; 
-}
-.modal-confirm .close {
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	color: #fff;
-	text-shadow: none;
-	opacity: 0.5;
-}
-.modal-confirm .close:hover {
-	opacity: 0.8;
-}
-.modal-confirm .icon-box {
-	color: #fff;		
-	width: 95px;
-	height: 95px;
-	display: inline-block;
-	border-radius: 50%;
-	z-index: 9;
-	border: 5px solid #fff;
-	padding: 15px;
-	text-align: center;
-}
-.modal-confirm .icon-box i {
-	font-size: 64px;
-	margin: -4px 0 0 -4px;
-}
-.modal-confirm.modal-dialog {
-	margin-top: 80px;
-}
-.modal-confirm .btn, .modal-confirm .btn:active {
-	color: #fff;
-	border-radius: 4px;
-	background: #eeb711 !important;
-	text-decoration: none;
-	transition: all 0.4s;
-	line-height: normal;
-	border-radius: 30px;
-	margin-top: 10px;
-	padding: 6px 20px;
-	border: none;
-}
-.modal-confirm .btn:hover, .modal-confirm .btn:focus {
-	background: #eda645 !important;
-	outline: none;
-}
-.modal-confirm .btn span {
-	margin: 1px 3px 0;
-	float: left;
-}
-.modal-confirm .btn i {
-	margin-left: 1px;
-	font-size: 20px;
-	float: right;
-}
-.trigger-btn {
-	display: inline-block;
-	margin: 100px auto;
-}
- 
-.error{
-    color: #c00a40;
-    font-family: 'Consolas', 'monaco', monospace;
-    font-size: 13px;
-    font-weight: bold;
-}
+    button:hover {
+        opacity: 0.8
+    }
 
 
-    
 
-    
+    .step {
+        height: 10px;
+        width: 10px;
+        margin: 0 6px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5
+    }
+
+    .step.active {
+        opacity: 1
+    }
+
+    .step.finish {
+        background-color: #4CAF50
+    }
+
+    .all-steps {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 30px
+    }
+
+    .thanks-message {
+        display: none
+    }
+
+
+
+    /* Hide the browser's default radio button */
+
+    .container input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+
+    /* Create a custom radio button */
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 50%;
+    }
+
+
+    /* On mouse-over, add a grey background color */
+
+    .container:hover input~.checkmark {
+        background-color: #ccc;
+    }
+
+
+    /* When the radio button is checked, add a blue background */
+
+    .container input:checked~.checkmark {
+        background-color: #2196F3;
+    }
+
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+
+    /* Show the indicator (dot/circle) when checked */
+
+    .container input:checked~.checkmark:after {
+        display: block;
+    }
+
+
+    /* Style the indicator (dot/circle) */
+
+    .container .checkmark:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+
+
+
+
+
+
+
+    /**/
+
+    .modal-confirm {
+        color: #434e65;
+        width: 525px;
+    }
+
+    .modal-confirm .modal-content {
+        padding: 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .modal-confirm .modal-header-error {
+        background: #992535;
+        border-bottom: none;
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+
+    .modal-confirm .modal-header {
+        background: #47c9a2;
+        border-bottom: none;
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 36px;
+        margin: 10px 0;
+    }
+
+    .modal-confirm .form-control,
+    .modal-confirm .btn {
+        min-height: 40px;
+        border-radius: 3px;
+    }
+
+    .modal-confirm .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #fff;
+        text-shadow: none;
+        opacity: 0.5;
+    }
+
+    .modal-confirm .close:hover {
+        opacity: 0.8;
+    }
+
+    .modal-confirm .icon-box {
+        color: #fff;
+        width: 95px;
+        height: 95px;
+        display: inline-block;
+        border-radius: 50%;
+        z-index: 9;
+        border: 5px solid #fff;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .modal-confirm .icon-box i {
+        font-size: 64px;
+        margin: -4px 0 0 -4px;
+    }
+
+    .modal-confirm.modal-dialog {
+        margin-top: 80px;
+    }
+
+    .modal-confirm .btn,
+    .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #eeb711 !important;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        border-radius: 30px;
+        margin-top: 10px;
+        padding: 6px 20px;
+        border: none;
+    }
+
+    .modal-confirm .btn:hover,
+    .modal-confirm .btn:focus {
+        background: #eda645 !important;
+        outline: none;
+    }
+
+    .modal-confirm .btn span {
+        margin: 1px 3px 0;
+        float: left;
+    }
+
+    .modal-confirm .btn i {
+        margin-left: 1px;
+        font-size: 20px;
+        float: right;
+    }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+
+    .error {
+        color: #c00a40;
+        font-family: 'Consolas', 'monaco', monospace;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    input {
+        text-align: center;
+    }
 </style>
 
 <div class="container centered alert" style="display: none; z-index: 2; "></div>
 
 <form id="formulario" action="{% url 'catastro:registro_predios'%}" method="post">
 
-        {%csrf_token%}
-        <div class="row  all-steps" style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
-            <div class="col col-lg-2">
-                <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">Atras</button>
-            </div>
-            <div class="col-md-auto" >
-                
-            </div>
-            <div class="col col-lg-2" style=" margin-left: 23%;">
-                <span class="step"></span> <span class="step"></span>
-            </div>
+    {%csrf_token%}
+    <div class="row  all-steps"
+        style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
+        <div class="col col-lg-2">
+            <button type="button" class="btn btn-outline-primary" id="btnBack"
+                style="width: 150px; float: left; background-color: #660b22; color: #ffff; font-weight: bold; border: none; ">Atras</button>
         </div>
-       
+        <div class="col-md-auto">
 
-        <!-- Div que contiene los elementos para los datos generales del contribuyente -->
-        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 510px; z-index: 1; position: relative;">
-   
-            <fieldset class="container fieldset-1 p-3"
+        </div>
+        <div class="col col-lg-2" style=" margin-left: 23%;">
+            <span class="step"></span> <span class="step"></span>
+        </div>
+    </div>
+
+
+    <!-- Div que contiene los elementos para los datos generales del contribuyente -->
+    <div class="container tab py-5 bordes"
+        style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 66vh; z-index: 1; position: relative;">
+
+        <fieldset class="container fieldset-1 p-3"
             style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -34px; background:rgba(255, 255, 255, 0.5);">
             <legend class="float-none w-auto px-3"
-                    style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
-                    DATOS GENERALES DEL PREDIO
-                    </legend>
+                style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                DATOS GENERALES DEL PREDIO
+            </legend>
 
-                    <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
-                        
-                        <div class="card-body" style="margin-top: 10px;">
+            <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
 
-                            <div class="" style=" margin-top: -50px;">
-                                <fieldset class="fieldset-1 card bor rounded-4 p-3" style=" margin-top: 30px; margin-left: 20px; margin-right: 20px;">
-                                    <legend class="float-none w-auto px-3" style="font-size: 22px; color: brown;  font-family: 'Calibri'" >
-                                        <img src="{% static 'img/Key.svg' %}" alt="">CLAVE CATASTRAL</legend>
-                    
-                                            <div class="row " style="margin-top: 0px;">
-                    
-                                                <div class="col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                
-                                                </div>   
-                        
-                                                <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name" class="lbl1">Zona cat</label>
-                                                        <input type="text" id="zonacat" class="form-control" name="zonacat" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                value="008" minlength="2" maxlength="2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
-                                                
-                                                    </div>  
-                                                </div>   
-                                            
-                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name">Municipio</label>
-                                                        <input type="text" id="muni" class="form-control" name="muni" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                value="109" minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name">Localidad</label>
-                                                        <input type="text" id="loc" class="form-control" name="loc" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                value="001" minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                                    </div>
-                                                </div>           
-                                                
-                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name">Región</label>
-                                                        <input type="text" id="region" class="form-control" name="region" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder="" minlength="2" maxlength="2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                                    </div>
-                                                </div>
-                            
-                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name">Manzana</label>
-                                                        <input type="text" id="manzana" class="form-control" name="manzana" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder=""minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                                    </div>
-                                                </div>
-                            
-                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name">Lote</label>
-                                                        <input type="text" id="lote" class="form-control" name="lote" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder="" minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                                    </div>
-                                                </div>
-                            
-                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name">Nivel</label>
-                                                        <input type="text" id="nivel" class="form-control" name="nivel" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder="" minlength="2" maxlength="2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                                    </div>
-                                                </div>
-                        
-                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name">Depto.</label>
-                                                        <input type="text" id="depto" class="form-control" name="depto" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder="" minlength="3" maxlength="3" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                                    </div>
-                                                </div>
-                        
-                                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name">DV</label>
-                                                        <input type="text" id="dvs" class="form-control" name="dvs" style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                            minlength="1" maxlength="1" placeholder="" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
-                                                    </div>
-                                                </div>
-    
-                                                
-                        
-                                            </div>    
-                                            
-                                </fieldset>
-                            </div><br>
+                <div class="card-body" style="margin-top: 10px;">
 
-                            <div class="row" style="text-align: center;">
+                    <div class="" style=" margin-top: -50px;">
+                        <fieldset class="fieldset-1 card bor rounded-4 p-3"
+                            style=" margin-top: 30px; margin-left: 20px; margin-right: 20px;">
+                            <legend class="float-none w-auto px-3"
+                                style="font-size: 22px; color: brown;  font-family: 'Calibri'">
+                                <img src="{% static 'img/Key.svg' %}" alt="">CLAVE CATASTRAL
+                            </legend>
 
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Fecha de registro</label>
-                                        <input type="date" id="fecha_registro" class="form-control" name="fecha_registro" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder=""  minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();" onclick="transformClaveCat()">
-                                                <span></span>
-                                        
-                                    </div>
-                                    
+                            <div class="row " style="margin-top: 0px;">
+
+                                <div class="col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+
                                 </div>
-                                
-                                <!-- <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Clave catastral</label>
-                                        <input type="text" id="tipo_identificacion" class="form-control" name="tipo_identificacion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div> 
-                                </div> -->
 
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Motivo de registro</label>
-                                        <input type="text" id="motivo_registro" class="form-control" name="motivo_registro" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
+                                        <label for="name" class="lbl1">Zona cat</label>
+                                        <input type="text" id="zonacat" class="form-control" name="zonacat"
+                                            style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                            value="008" minlength="1" maxlength="3"
+                                            onkeypress="return valideKey(event);"
+                                            aria-describedby="inputGroup-sizing-sm">
 
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Cuenta predial</label>
-                                        <input type="text" id="cuenta_predial" class="form-control" name="cuenta_predial" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
                                     </div>
                                 </div>
 
-                                 
-
-                            </div><br>
-
-                            <div class="row" style="text-align: center;">
-                                
-                                
-                                
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Denominación</label>
-                                        <input type="text" id="denominacion" class="form-control" name="denominacion" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">Cuenta de origen</label>
-                                        <input type="text" id="cuenta_origen" class="form-control" name="cuenta_origen" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div> 
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Tipo de predio</label>
-                                        <select name="tipo_predio" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                            <option selected value="URBANO">URBANO</option>
-                                            <option  value="RURAL">RURAL</option>
-                                        </select>
-                                        
-                                    </div>
-                                    
-                                </div>
-
-                            </div><br>
-
-                            <div class="row" style="text-align: center;">
-                                
-                                
-                                
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Uso de predio</label>
-                                        <input type="text" id="uso_predio" class="form-control" name="uso_predio" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Región</label>
-                                        <input type="text" id="region_2" class="form-control" name="region_2" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">Zona de valor</label>
-                                        <input type="text" id="zona_valor" class="form-control" name="zona_valor" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div> 
-                                
-                            </div><br>
-                            <hr>
-
-                        </div>
-
-                    </div><br>
-
-            </fieldset>   
-            
-            
-            <fieldset class="container fieldset-1 p-3"
-            style="border-top: #660b22 solid 2px; border-width: 2px 0 0;  background:rgba(255, 255, 255, 0.5);">
-            <legend class="float-none w-auto px-3"
-                    style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
-                    DOMICILIO DEL PREDIO
-                    </legend>
-
-                    <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
-                        
-                        <div class="card-body" style="margin-top: 10px;">
-
-                            <div class="row" style="text-align: center;">
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Entidad federativa</label>
-                                        <input type="text" id="ent_federativa" class="form-control" name="ent_federativa" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                value="Veracruz" readonly minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Municipio</label>
-                                        <input type="text" id="municipio_predio" class="form-control" name="municipio_predio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                value="Minatitlán" readonly minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
+                                        <input type="text" id="muni" class="form-control" name="muni"
+                                            style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                            value="109" minlength="1" maxlength="3"
+                                            onkeypress="return valideKey(event);"
+                                            aria-describedby="inputGroup-sizing-sm">
                                     </div>
                                 </div>
 
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
                                         <label for="name">Localidad</label>
-                                        <input type="text" id="localidad_predio" class="form-control" name="localidad_predio" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                 
-
-                            </div><br>
-
-                            <div class="row" style="text-align: center;">
-                                
-                                
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Colonia</label>
-                                        <input type="text" id="colonia_predio" class="form-control" name="colonia_predio" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
+                                        <input type="text" id="loc" class="form-control" name="loc"
+                                            style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                            value="001" minlength="1" maxlength="3"
+                                            onkeypress="return valideKey(event);"
+                                            aria-describedby="inputGroup-sizing-sm">
                                     </div>
                                 </div>
 
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Calle</label>
-                                        <input type="text" id="calle_predio" class="form-control" name="calle_predio" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div>  
-
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="rfc">Numero exterior</label>
-                                        <input type="text" id="num_exte_predio" class="form-control" name="num_exte_predio" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="XXXX000000XXX" minlength="13" maxlength="13" onkeypress="return soloLetrasNumeros(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                    </div>
-                                </div> 
-
-                            </div><br>
-
-                            <div class="row" style="text-align: center;">
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Letra exterior</label>
-                                        <input type="text" id="letra_exte_predio" class="form-control" name="letra_exte_predio" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    <div class="form-group">
-                                        <label for="name">Número interior</label>
-                                        <input type="text" id="num_inte_predio" class="form-control" name="num_inte_predio" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="dd/mm/aaaa" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
+                                        <label for="name">Región</label>
+                                        <input type="text" id="region" class="form-control" name="region"
+                                            style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                            placeholder="XXX" minlength="1" maxlength="3"
+                                            onkeypress="return valideKey(event);"
+                                            aria-describedby="inputGroup-sizing-sm">
                                     </div>
                                 </div>
 
-                                <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <div class="form-group">
-                                        <label for="name">Letra interior</label>
-                                        <input type="text" id="letra_inte_predio" class="form-control" name="letra_inte_predio" style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                                placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();">
-                                                <span></span>
+                                        <label for="name">Manzana</label>
+                                        <input type="text" id="manzana" class="form-control" name="manzana"
+                                            style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                            placeholder="XXX" minlength="1" maxlength="3"
+                                            onkeypress="return valideKey(event);"
+                                            aria-describedby="inputGroup-sizing-sm">
                                     </div>
-                                </div>  
+                                </div>
 
-                                
-                                
-                            </div><br>
-                            <hr>
+                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Lote</label>
+                                        <input type="text" id="lote" class="form-control" name="lote"
+                                            style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                            placeholder="XXX" minlength="1" maxlength="3"
+                                            onkeypress="return valideKey(event);"
+                                            aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
 
-        
-                        </div>
+                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Nivel</label>
+                                        <input type="text" id="nivel" class="form-control" name="nivel"
+                                            style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                            placeholder="XXX" minlength="1" maxlength="3"
+                                            onkeypress="return valideKey(event);"
+                                            aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+
+                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">Depto.</label>
+                                        <input type="text" id="depto" class="form-control" name="depto"
+                                            style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                            placeholder="XXX" minlength="1" maxlength="3"
+                                            onkeypress="return valideKey(event);"
+                                            aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+
+                                <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="name">DV</label>
+                                        <input type="text" id="dvs" class="form-control" name="dvs"
+                                            style="height: 25px; border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                            minlength="1" maxlength="3" placeholder="XXX"
+                                            onkeypress="return valideKey(event);"
+                                            aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </fieldset>
                     </div><br>
 
+                    <div class="row" style="text-align: center;">
 
-            </fieldset>  
-                       
-                                              
-                       
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Fecha de registro</label>
+                                <input type="date" id="fecha_registro" class="form-control" name="fecha_registro"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();" onclick="transformClaveCat()">
+                                <span></span>
 
-        </div>
+                            </div>
 
-        <!-- <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 510px; z-index: 1; position: relative;">
+                        </div>
+
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Motivo de registro</label>
+                                <input type="text" id="motivo_registro" class="form-control" name="motivo_registro"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Cuenta predial</label>
+                                <input type="text" id="cuenta_predial" class="form-control" name="cuenta_predial"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+
+
+                    </div><br>
+
+                    <div class="row" style="text-align: center;">
+
+
+
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Denominación</label>
+                                <input type="text" id="denominacion" class="form-control" name="denominacion"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="rfc">Cuenta de origen</label>
+                                <input type="text" id="cuenta_origen" class="form-control" name="cuenta_origen"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="XXXX000000XXX" minlength="13" maxlength="13"
+                                    onkeypress="return soloLetrasNumeros(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Tipo de predio</label>
+                                <select name="tipo_predio" class="form-select" aria-label="Default select example"
+                                    style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
+                                    <option selected value="URBANO">URBANO</option>
+                                    <option value="RURAL">RURAL</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div><br>
+
+                    <div class="row" style="text-align: center;">
+
+
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Uso de predio</label>
+                                <input type="text" id="uso_predio" class="form-control" name="uso_predio"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Región</label>
+                                <input type="text" id="region_2" class="form-control" name="region_2"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="rfc">Zona de valor</label>
+                                <input type="text" id="zona_valor" class="form-control" name="zona_valor"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="XXXX000000XXX" minlength="13" maxlength="13"
+                                    onkeypress="return soloLetrasNumeros(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                    </div><br>
+                    <hr>
+
+                </div>
+
+            </div><br>
+
+        </fieldset>
+
+
+        <fieldset class="container fieldset-1 p-3"
+            style="border-top: #660b22 solid 2px; border-width: 2px 0 0;  background:rgba(255, 255, 255, 0.5);">
+            <legend class="float-none w-auto px-3"
+                style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+                DOMICILIO DEL PREDIO
+            </legend>
+
+            <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px; text-align: left;">
+
+                <div class="card-body" style="margin-top: 10px;">
+
+                    <div class="row" style="text-align: center;">
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Entidad federativa</label>
+                                <input type="text" id="ent_federativa" class="form-control" name="ent_federativa"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    value="Veracruz" readonly minlength="3" maxlength="30"
+                                    onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Municipio</label>
+                                <input type="text" id="municipio_predio" class="form-control" name="municipio_predio"
+                                    style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                    value="Minatitlán" readonly minlength="3" maxlength="30"
+                                    onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Localidad</label>
+                                <input type="text" id="localidad_predio" class="form-control" name="localidad_predio"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+
+
+                    </div><br>
+
+                    <div class="row" style="text-align: center;">
+
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Colonia</label>
+                                <input type="text" id="colonia_predio" class="form-control" name="colonia_predio"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Calle</label>
+                                <input type="text" id="calle_predio" class="form-control" name="calle_predio"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="rfc">Numero exterior</label>
+                                <input type="text" id="num_exte_predio" class="form-control" name="num_exte_predio"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="XXXX000000XXX" minlength="13" maxlength="13"
+                                    onkeypress="return soloLetrasNumeros(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                    </div><br>
+
+                    <div class="row" style="text-align: center;">
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Letra exterior</label>
+                                <input type="text" id="letra_exte_predio" class="form-control" name="letra_exte_predio"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Número interior</label>
+                                <input type="text" id="num_inte_predio" class="form-control" name="num_inte_predio"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="dd/mm/aaaa" minlength="3" maxlength="30"
+                                    onkeypress="return soloLetrasNumeros(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">Letra interior</label>
+                                <input type="text" id="letra_inte_predio" class="form-control" name="letra_inte_predio"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                <span></span>
+                            </div>
+                        </div>
+
+
+
+                    </div><br>
+                    <hr>
+
+
+                </div>
+            </div><br>
+
+
+        </fieldset>
+
+
+
+
+    </div>
+
+    <!-- <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 510px; z-index: 1; position: relative;">
         
             <fieldset class="container fieldset-1 p-3"
             style="border-top: #660b22 solid 2px; border-width: 2px 0 0; margin-top: -34px; background:rgba(255, 255, 255, 0.5);">
@@ -768,204 +850,286 @@ button:hover {
 
         </div> -->
 
-        <script>
-            document.getElementById("btnBack").addEventListener("click", function() {
-                window.location.href = "{% url 'catastro:index_predios' %}";
-            });
-        </script>
+    <script>
+        document.getElementById("btnBack").addEventListener("click", function () {
+            window.location.href = "{% url 'catastro:index_predios' %}";
+        });
+
+        var input_motivo_registro = document.getElementById('motivo_registro');
+        var input_cuenta_predial = document.getElementById('cuenta_predial');
+        var input_denominacion = document.getElementById('denominacion');
+
+        var input_region = document.getElementById('region');
+        var input_manzana = document.getElementById('manzana');
+        var input_lote = document.getElementById('lote');
+        var input_nivel = document.getElementById('nivel');
+        var input_depto = document.getElementById('depto');
+        var input_dv = document.getElementById('dvs');
+
+
+        input_motivo_registro.addEventListener('click', function () {
+            formatoClaveCat();
+        });
+        input_cuenta_predial.addEventListener('click', function () {
+            formatoClaveCat();
+        });
+        input_denominacion.addEventListener('click', function () {
+            formatoClaveCat();
+        });
+
+        function formatoClaveCat(){
+            var txt_region = input_region.value;
+            var txt_manzana = input_manzana.value;
+            var txt_lote = input_lote.value;
+            var txt_nivel = input_nivel.value;
+            var txt_depto = input_depto.value;
+            var txt_dv = input_dv.value;
+
+
+            txt_region = modificarTextoClave(txt_region);
+            input_region.value = txt_region;
+
+            txt_manzana = modificarTextoClave(txt_manzana);
+            input_manzana.value = txt_manzana;
+
+            txt_lote = modificarTextoClave(txt_lote);
+            input_lote.value = txt_lote;
+
+            txt_nivel = modificarTextoClave(txt_nivel);
+            input_nivel.value = txt_nivel;
+
+            txt_depto = modificarTextoClave(txt_depto);
+            input_depto.value = txt_depto;
+
+            txt_dv = modificarTextoClave(txt_dv);
+            input_dv.value = txt_dv;
+
+        }
 
 
 
-        <div id="myModal" class="modal fade" style="margin-top: 90px;">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header justify-content-center">
-                        <div class="icon-box">
-                            <i class="material-icons">&#xE876;</i>
-                        </div>
-                        
+        function modificarTextoClave(texto) {
+
+            if (texto.length == 3) {
+                console.log('No se modifica nada');
+                return texto;
+            }
+
+            if (texto.length == 2) {
+                console.log('0' + texto);
+                return '0' + texto;
+            }
+
+            if (texto.length == 1) {
+                console.log('00' + texto);
+                return '00' + texto;
+            }
+
+            if (texto.length == 0) {
+                console.log(console.log('El texto esta vacio'));
+                return '';
+            }
+
+
+        }
+
+
+    </script>
+
+
+
+    <div id="myModal" class="modal fade" style="margin-top: 90px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
                     </div>
-                    <div class="modal-body text-center">
-                        <h4>Bien!</h4>	
-                        <p>Los datos han sido registrado correctamente.</p>
-                        <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
-                    </div>
+
                 </div>
-            </div>
-        </div>  
-
-        {% if error_predio == 1 or error_predio_domicilio == 1 %}
-
-        <script>
-           
-            $(document).ready(function () {
-                $('#error').modal('show'); // Muestra la alerta modal de error
-
-                setTimeout(function() {     
-                              
-                    window.location.href = "{% url 'catastro:vista_alta_predios' %}"
-                          
-                }, 2000); 
-
-                
-            });
-        </script>
-
-        {%elif error_predio == 0 or error_predio_domicilio == 0%}
-
-        <script>
-            $(document).ready(function () {
-                $('#myModal').modal('show'); // Muestra la alerta modal de sucess
-                setTimeout(function() {     
-                          
-                    window.location.href = "{% url 'catastro:busqueda_predios' %}"
-                                
-                }, 6000); 
-            });
-        </script>
-
-        {% endif %}
-
-        <div id="error" class="modal fade" style="margin-top: 100px;">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header-error justify-content-center">
-                        <div class="icon-box">
-                            <i class="material-icons">&#xe5cd;</i>
-                        </div>
-                        
-                    </div>
-                    <div class="modal-body text-center">
-                        <h4>ERROR</h4>	
-                        <p>{{ error_mensaje_predio|default:"" }}</p>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>  
-
-        <div id="error_campos" class="modal fade" style="margin-top: 100px;">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header-error justify-content-center">
-                        <div class="icon-box">
-                            <i class="material-icons">&#xe5cd;</i>
-                        </div>
-                        
-                    </div>
-                    <div class="modal-body text-center">
-                        <h4>ERROR</h4>	
-                        <h6>favor de llenar los campos importantes.</h6>
-                        
-                    </div>
+                <div class="modal-body text-center">
+                    <h4>Bien!</h4>
+                    <p>Los datos han sido registrado correctamente.</p>
+                    <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="container"  id="nextprevious">
-            <div class="row" style="float:right;"> 
+    {% if error_predio == 1 or error_predio_domicilio == 1 %}
 
-                <div class="col-xl-12 " style="margin-top: 5px;">
-                    <div class="form-group" style="float:right;">
-                        <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
-                        <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
-        
+    <script>
+
+        $(document).ready(function () {
+            $('#error').modal('show'); // Muestra la alerta modal de error
+
+            setTimeout(function () {
+
+                window.location.href = "{% url 'catastro:vista_alta_predios' %}"
+
+            }, 2000);
+
+
+        });
+    </script>
+
+    {%elif error_predio == 0 or error_predio_domicilio == 0%}
+
+    <script>
+        $(document).ready(function () {
+            $('#myModal').modal('show'); // Muestra la alerta modal de sucess
+            setTimeout(function () {
+
+                window.location.href = "{% url 'catastro:busqueda_predios' %}"
+
+            }, 6000);
+        });
+    </script>
+
+    {% endif %}
+
+    <div id="error" class="modal fade" style="margin-top: 100px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header-error justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xe5cd;</i>
                     </div>
+
                 </div>
-                <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button> 
+                <div class="modal-body text-center">
+                    <h4>ERROR</h4>
+                    <p>{{ error_mensaje_predio|default:"" }}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="error_campos" class="modal fade" style="margin-top: 100px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header-error justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xe5cd;</i>
+                    </div>
+
+                </div>
+                <div class="modal-body text-center">
+                    <h4>ERROR</h4>
+                    <h6>favor de llenar los campos importantes.</h6>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="nextprevious">
+        <div class="row" style="float:right;">
+
+            <div class="col-xl-12 " style="margin-top: 5px;">
+                <div class="form-group" style="float:right;">
+                    <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)"
+                        style="width: 150px; border: none; background-color: #660b22; color: #ffff; font-weight: bold;">Atras</button>
+                    <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)"
+                        style="background-color: #eda645; color: #660b22; border: none; font-weight: bold;">Siguiente</button>
+
+                </div>
+            </div>
+            <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button> 
                 <button type="button" class="btn btn-warning" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>  -->
-            </div>
         </div>
-          
+    </div>
+
 </form>
 
 
 <script>
-      
-        var currentTab = 0;
-        document.addEventListener("DOMContentLoaded", function(event) {
 
-            showTab(currentTab);
+    var currentTab = 0;
+    document.addEventListener("DOMContentLoaded", function (event) {
 
-        });
+        showTab(currentTab);
 
-        function showTab(n) {
-            var x = document.getElementsByClassName("tab");
-            x[n].style.display = "block";
-            if (n == 0) {
-                document.getElementById("prevBtn").style.display = "none";
-            } else {
-                document.getElementById("prevBtn").style.display = "inline";
-            }
-            if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Enviar";
-            } else {
-                document.getElementById("nextBtn").innerHTML = "Siguiente";
-            }
-            fixStepIndicator(n)
+    });
+
+    function showTab(n) {
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
         }
-
-        function nextPrev(n) {
-            var x = document.getElementsByClassName("tab");
-            if (n == 1 && !validateForm()) return false;
-            x[currentTab].style.display = "none";
-            currentTab = currentTab + n;
-            if (currentTab >= x.length) {
-
-               // $('#myModal').modal('show');
-
-                //setTimeout(function() {     
-                    document.getElementById("formulario").submit();
-                    return false;
-                //}, 2000); 
-
-            }
-            showTab(currentTab);
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Enviar";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Siguiente";
         }
+        fixStepIndicator(n)
+    }
 
-        function validateForm() {
-            var x, y, i, valid = true;
-            x = document.getElementsByClassName("tab");
-            y = x[currentTab].getElementsByTagName("input");
-            for (i = 0; i < y.length; i++) {
-                if (y[i].value == "") {
-                    y[i].className += " invalid";
-                    
-                    valid = false;
+    function nextPrev(n) {
+        var x = document.getElementsByClassName("tab");
+        if (n == 1 && !validateForm()) return false;
+        x[currentTab].style.display = "none";
+        currentTab = currentTab + n;
+        if (currentTab >= x.length) {
 
-                    if(y[i].id == 'dvs' || y[i].id == 'lote' || y[i].id == 'nivel' || y[i].id == 'depto'){
-                        if((y[i].value == "")){
-                            valid = false;
-                        }else{
-                            valid = true;
-                        }
+            // $('#myModal').modal('show');
+
+            //setTimeout(function() {     
+            document.getElementById("formulario").submit();
+            return false;
+            //}, 2000); 
+
+        }
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        for (i = 0; i < y.length; i++) {
+            if (y[i].value == "") {
+                y[i].className += " invalid";
+
+                valid = false;
+
+                if (y[i].id == 'dvs' || y[i].id == 'lote' || y[i].id == 'nivel' || y[i].id == 'depto') {
+                    if ((y[i].value == "")) {
+                        valid = false;
+                    } else {
+                        valid = true;
                     }
-
-                    
-
                 }
-            }
-            if (valid) { 
-                document.getElementsByClassName("step")[currentTab].className += " finish"; 
-            }else{
 
-                $('#error_campos').modal('show');
 
-                // Ocultar el modal después de 3 segundos (3000 milisegundos)
-                setTimeout(function() {
-                    $('#error_campos').modal('hide');
-                }, 3000);
-                
+
             }
-            
-            return valid;
+        }
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        } else {
+
+            $('#error_campos').modal('show');
+
+            // Ocultar el modal después de 3 segundos (3000 milisegundos)
+            setTimeout(function () {
+                $('#error_campos').modal('hide');
+            }, 3000);
+
         }
 
-        function fixStepIndicator(n) {
-            var i, x = document.getElementsByClassName("step");
-            for (i = 0; i < x.length; i++) { x[i].className = x[i].className.replace(" active", ""); }
-            x[n].className += " active";
-        }
+        return valid;
+    }
+
+    function fixStepIndicator(n) {
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) { x[i].className = x[i].className.replace(" active", ""); }
+        x[n].className += " active";
+    }
 </script>
 
 
@@ -980,6 +1144,6 @@ button:hover {
 <!-- <script src="{%static 'js/codigo.js'%}"></script>
 <script src="{%static 'js/consultas/consulta_clave_catastral.js'%}"></script> -->
 <script src="{%static 'js/CATASTRO/predios/validaciones_predios.js'%}"></script>
-  
+
 
 {%endblock%}

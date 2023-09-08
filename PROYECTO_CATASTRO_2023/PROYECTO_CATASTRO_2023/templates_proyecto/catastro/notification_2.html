@@ -19,6 +19,8 @@
         <button type="submit">mandar_not</button>
     </form>
 
+    <input type="text" id="input_prueba" placeholder="input_prueba" maxlength="3">
+
     <button id="boton_audio">SONIDO</button>
 
     <script>
@@ -27,6 +29,39 @@
             btn_audio.addEventListener('click', function() {
                 audio_notify.play();
             });
+        
+        var input_prueba = document.getElementById('input_prueba');
+
+        input_prueba.addEventListener('input', function () {
+
+            var txt = input_prueba.value;
+
+            nvoText = modificarTextoClave(txt);
+
+            input_prueba.value = nvoText;
+
+        });
+
+
+
+        function modificarTextoClave(texto) {
+
+            if (texto.length == 3) {
+                console.log('No se modifica nada');
+            }
+
+            if (texto.length == 2) {
+                console.log('0' + texto);
+                return '0' + texto;
+            }
+
+            if (texto.length == 1) {
+                console.log('00' + texto);
+                return '00' + texto;
+            }
+
+        }
+
     </script>
 </body>
 </html>

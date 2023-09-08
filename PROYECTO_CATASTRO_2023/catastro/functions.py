@@ -341,7 +341,7 @@ def crear_reporte(ruta_archivo_json,arch_ent,arch_sal):
         conn = {
         'driver': 'json',
         'data_file': ruta_archivo_json,
-        'json_query': 'datos'
+        'json_query': 'data'
         }
 
         # Crear el reporte con PyReportJasper
