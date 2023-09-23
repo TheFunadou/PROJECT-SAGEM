@@ -32,6 +32,8 @@ from asgiref.sync import async_to_sync
 from .reports.reporte_pago_predial_ad import reporte_pago_predial_ad
 from .reports.reporte_pago_predial_c import reporte_pago_predial_corriente
 
+from django.db.models import Max
+
 
 #Mandar una notificacion
 def send_notify(remitente, destinatario, titulo, cuerpo):
@@ -259,7 +261,7 @@ def pago_predial_datos_2(request,dato):
         'clave':deudas.contribuyente.clave_catastral,
         'ejercicio' : deudas.ejercicio,
         #Extraer subtotal años sin descuento, para lo años con descuento mejor en la columa subtotal años
-        'subtotal_years_sd': deudas.subtotal_sin_des,
+        'subtotal_years_sd': deudas.subtotal_años,
         #'subtotal' : deudas.subtotal_años,
         'impuesto_adicional' : deudas.impuesto_adicional,
         'recargo' : deudas.recargo,
@@ -311,7 +313,7 @@ def solicitar_descuento(request, dato):
         titulo = 'SOLICITUD DE DESCUENTO'
         cuerpo = f'Clave Catastral: {clave_cat_contrib}, Años solicitados: {años_seleccionados}'
 
-        send_notify(request.user.username,'sup_fin',titulo, cuerpo)
+        send_notify(request.user.username,'contadora',titulo, cuerpo)
         
         # Mandar correo
         
@@ -442,7 +444,7 @@ def aplicar_descuentos(request,dato):
         'clave':deudas.contribuyente.clave_catastral,
         'ejercicio' : deudas.ejercicio,
         #'subtotal' : deudas.subtotal_años,
-        'subtotal' : deudas.subtotal_sin_des,
+        'subtotal' : deudas.subtotal_años,
         'impuesto_adicional' : deudas.impuesto_adicional,
         'recargo' : deudas.recargo,
         'multa' : deudas.multa,
@@ -488,7 +490,7 @@ def view_pago_descuentos_aplicados(request,dato):
        lista_adeudos.append({
         'clave':deudas.contribuyente.clave_catastral,
         'ejercicio' : deudas.ejercicio,
-        'subtotal' : deudas.subtotal_sin_des,
+        'subtotal' : deudas.subtotal_años,
         'subtotal_con_descuento' : deudas.subtotal_años,
         'impuesto_adicional' : deudas.impuesto_adicional,
         'recargo' : deudas.recargo,
@@ -613,6 +615,8 @@ def pago_predial_contribuyente(request):
     if request.method == 'GET':
         clave_cat = request.GET.get('clave_cat')
         total = request.GET.get('total')
+        honorarios = request.GET.get('honorarios')
+        observaciones = request.GET.get('observaciones')
         years_selected = request.GET.getlist('years_selected[]')
         resumen_pago = request.GET.getlist('resumen_pago[]')
     
@@ -665,14 +669,13 @@ def pago_predial_contribuyente(request):
     )
     
     # GENERAR REPORTE
-    reporte_pago_predial_ad(request.user.username,clave_cat)
+    reporte_pago_predial_ad(request.user.username,clave_cat,years_seleccionados,honorarios, observaciones)
 
     return JsonResponse({'mensaje': 'pago exitoso'})
 
 def pago_predial_contribuyente_years_corriente(request):
     
     if request.method == 'GET':
-        folio = request.GET.get('folio')
         clave_cat = request.GET.get('clave_cat')
         concepto = request.GET.get('concepto')
         subtotal = request.GET.get('subtotal')
@@ -688,8 +691,17 @@ def pago_predial_contribuyente_years_corriente(request):
     
     year = date.year
     
+    query_historial_pagos = models_finanzas.historial_pagos.objects.filter(Q(contribuyente=clave_cat) & Q(estatus = 'NO PAGADO'))
+    
+    for rs in query_historial_pagos:
+        folio = rs.folio
+    
+    print('el folio es: '+folio)
+    
+    
     models_finanzas.historial_pagos.objects.create(
-        folio = folio,contribuyente= contribuyente,
+        folio = folio[0:1],
+        contribuyente= contribuyente,
         ejercicio = year,
         subtotal_años  = subtotal,
         impuesto_adicional = contrib_adi,
@@ -709,5 +721,8 @@ def pago_predial_contribuyente_years_corriente(request):
     
     return JsonResponse ({'mensaje': 'pago exitoso'})
 
-
+def pago_predial_adeudos(request,data):
+    
+    query_info_contrib = Domicilio_inmueble.objects.select_related().filter(Q(pk_fk_clave_catastral__clave_catastral = data))
+    query_adeudos = models_finanzas.historial_adeudos.objects.filter(Q())
 

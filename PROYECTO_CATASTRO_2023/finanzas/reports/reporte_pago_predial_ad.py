@@ -7,14 +7,14 @@ import json
 import os
 from catastro import functions
 
-def reporte_pago_predial_ad(cajero, clave_cat):
+def reporte_pago_predial_ad(cajero, clave_cat, ejercicios, honorarios, observaciones):
     
     
     query_datos_grales_cont= models_cat.Datos_Contribuyentes.objects.filter(clave_catastral=clave_cat)
     
     for qdc in query_datos_grales_cont:
         nombre_completo = f'{qdc.nombre} {qdc.apaterno} {qdc.amaterno}'
-        domicilio = f'Calle:{qdc.calle} Col.{qdc.colonia_fraccionamiento}'
+        domicilio = f'{qdc.calle} #{qdc.num_ext},{qdc.colonia_fraccionamiento}'
         localidad = qdc.localidad
         
     query_datos_pred = models_cat.Datos_gen_predio.objects.filter(clave_catastral=clave_cat)
@@ -37,21 +37,22 @@ def reporte_pago_predial_ad(cajero, clave_cat):
     
     data = {'data': [{
         
-        'folio':'',
+        'folio':folio,
         'propietario':nombre_completo,
         'domicilio':domicilio,
         'localidad': localidad,
         'clave_cat': clave_cat,
-        'tipo_preido':tipo_predio,
-        'valor_cat':'$ 2400000 MXN',
-        'impuesto_adicional':impuesto_adicional,
+        'tipo_predio':tipo_predio,
+        'valor_catastral':'$ 2400000 MXN',
+        'impuesto_adicional':f'{impuesto_adicional} MXN',
         'impuesto_predial':'',
-        'multas':multas,
-        'recargos':recargos,
-        'honorarios':'',
-        'descuento':'',
-        'total':total,
-        'observaciones':'',
+        'multas':f'{multas} MXN',
+        'recargos':f'{recargos} MXN',
+        'honorarios':f'{honorarios} MXN',
+        'concepto': f'PAGO PREDIAL AÑOS {ejercicios}',
+        'descuento':f'{multas+recargos} MXN',
+        'total':f'{total} MXN',
+        'observaciones':observaciones,
         'cajero':cajero,
     }]}
     

@@ -1,0 +1,162 @@
+{% extends 'raiz/aster_blade_v.1.html' %}
+{% load static %}
+
+{%block body%}
+
+    <script>
+
+        //const socket = new WebSocket('ws://' + window.location.host + '/ws/index_contribuyentes/');
+
+        socket.onopen = function (e) {
+            console.log('El socket esta abierto')
+
+            //CARGAR NOTIFICACIONES DE USUARIO-
+            socket.send(JSON.stringify({ event: 'conexion' }));
+        }
+
+        socket.onmessage = (e) => {
+            //Obtener datos del backend
+            const data = JSON.parse(e.data);
+
+            //Obtener el contenedor donde se vaciaran los mensajes
+            const box_notify = document.getElementById('notify_box')
+            const box_num_notify = document.getElementById('box_num_notify')
+
+            //
+            box_notify.innerHTML = '';
+
+            //
+
+            num_notify = 0;
+
+            data.forEach((notifications) => {
+                var titulo = notifications.titulo;
+                var remitente = notifications.remitente;
+
+
+
+                // Crear un nuevo elemento de lista y agregar los datos
+                const etiqueta_a = document.createElement('a');
+
+                etiqueta_a.innerHTML = '<h1 class="titulo_not">' + titulo + '</h1><span class="remitente_not">' + remitente + '</span>'
+
+                /*
+                //Link a pantalla de notificaciones
+                //
+                etiqueta_a.href = "#";
+                
+                //Crear etiqueta span
+                const etiqueta_span = document.createElement('span');
+                etiqueta_span.innerHTML='<br>'+remitente;
+
+                etiqueta_a.textContent=titulo;
+                //Agregar etiqueta span a la etiqueta a
+                etiqueta_a.appendChild(etiqueta_span);
+                */
+
+                box_notify.appendChild(etiqueta_a);
+
+                num_notify++;
+
+            });
+
+            if (num_notify == null || num_notify == 0) {
+                box_num_notify.innerText = 0;
+            } else {
+                box_num_notify.innerText = num_notify;
+            }
+
+            socket.onclose = (event) => {
+                console.log('WebSocket cerrado con código:', event.code, 'razón:', event.reason);
+            };
+
+            socket.onerror = (error) => {
+                console.error('Error en el WebSocket:', error);
+            };
+
+            //CERRAR LA CONEXION CON EL WEBSOCKET
+            window.addEventListener('beforeunload', function (event) {
+                event.preventDefault();
+                // Realiza aquí las acciones necesarias antes de que el usuario abandone la página
+                // Por ejemplo, cerrar conexiones WebSocket
+                websocket.close();
+
+            });
+
+
+        };
+
+
+
+        /*
+        const socket = new WebSocket('wss://' + window.location.host + '/prueba/');
+        
+        socket.onopen = function (e){
+            console.log('El socket esta abierto')
+        }
+
+        */
+
+    </script>
+
+    <style>
+        main{
+            height: 85vh;
+            background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position-x: center;
+            
+            display: flex;
+            flex-direction: center;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        #main-box{
+            width: 80%;
+            height: 5%;
+            border: solid red;
+            position: relative;
+        }
+
+        #main-box input{
+            width: 100%;
+            border-radius: 3vh;
+            position: relative;
+            background-color: blue;
+            padding: 2%;
+            color: white;
+            font-weight: bold;
+            font-size: 3vh;
+            height: 100%;
+        }
+
+        #main-box div{
+            display: none;
+            position: absolute;
+            width: 100%;
+            background-color: blueviolet;
+        }
+
+        #main-box input:hover >#main-box div{
+            display: block;
+        }
+
+
+    </style>
+
+    <main>
+
+        <section>
+
+        </section>
+        
+        <section id="main-box">
+            <input type="text" class="search">
+            <div></div>
+        </section>
+
+    </main>
+
+{% endblock %}

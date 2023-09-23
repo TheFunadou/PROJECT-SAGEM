@@ -30,6 +30,33 @@ from django.db.models import Q
 #transacciones
 from django.db import transaction
 
+current_app = 'CATASTRO'
+
+
+#Funcion en testeo
+def acceso_catastro(request):
+    
+    try:
+        if request.user.is_authenticated:
+            #Si es verdadero
+            #Obtener el grupo al que pertenece el usuario
+            grupo_user = request.user.groups.filter().first()
+            if grupo_user:
+                nom_grupo = grupo_user.name
+                
+            nom_grupo.lower()    
+            nom_app = request.resolver_match.app_name
+            
+            if (nom_grupo != nom_app):
+                if request.user.is_superuser:
+                    return redirect(f'{nom_grupo}:perfil_su_{nom_grupo}')
+                else:
+                    return redirect(f'{nom_grupo}:perfil_{nom_grupo}')   
+            
+    except (Group.DoesNotExist):
+        HttpResponse('El usuario no pertenece actualmente a ningun grupo')
+
+
 #Mandar una notificacion
 def send_notify(remitente, destinatario, titulo, cuerpo):
     
@@ -72,34 +99,6 @@ def obtener_username(request):
     obj_user = User.objects.get(username= nom_user)
     
     return obj_user
-
-
-"""
-#Funcion en testeo
-    def acceso_catastro(request):
-    
-    try:
-        if request.user.is_authenticated:
-            #Si es verdadero
-            #Obtener el grupo al que pertenece el usuario
-            grupo_user = request.user.groups.filter().first()
-            if grupo_user:
-                nom_grupo = grupo_user.name
-                
-            nom_grupo.lower()    
-            nom_app = request.resolver_match.app_name
-            
-            if (nom_grupo != nom_app):
-                if request.user.is_superuser:
-                    return redirect(f'{nom_grupo}:perfil_su_{nom_grupo}')
-                else:
-                    return redirect(f'{nom_grupo}:perfil_{nom_grupo}')   
-            
-    except (Group.DoesNotExist):
-        HttpResponse('El usuario no pertenece actualmente a ningun grupo')
-
-"""
-    
 
 # Create your views here.
 @login_required(login_url="pag_login")
@@ -2355,6 +2354,8 @@ def view_notify(request):
     
 def send_notify_test(request):
 
+    acceso_catastro(request)
+    
     remitente = request.user.username
     destinatario = request.POST['destinatario']
     id_dest = User.objects.get(username=destinatario)
@@ -2410,4 +2411,5 @@ def gestor_notify_catastro(request):
     return render(request,'catastro/gestor_notify_catastro.html',ctx)
     
     
-    
+def migrar_contribuyentes(request):
+    return render (request,'catastro/migrar_contrib.html',{"nom_pag":'CATASTRO','titulo_pag': 'MIGRAR CONTRIBUYENTES',})

@@ -83,3 +83,16 @@ class TestConsumer(AsyncWebsocketConsumer):
         # Responder al mensaje recibido
         response = f"Recibido: {message}"
         await self.send(text_data=json.dumps({'response': response}))
+        
+        
+# class index_contribuyentes(AsyncWebsocketConsumer):
+#     async def connect(self):
+#         await self.accept()
+    
+#     async def disconnect(self, code):
+#         return await super().disconnect(code)
+    
+#     async def receive(self, text_data):
+#         data = json.load(text_data)
+        
+        

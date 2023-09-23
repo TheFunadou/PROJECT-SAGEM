@@ -76,6 +76,3 @@ def autenticacion(request):
         return redirect('pag_login')
 
     
-    
-
-    

@@ -39,13 +39,6 @@
 
                 <div class="row" style="margin-top: 5px;">
 
-                    <div class="col-xl-2" style="float: left;">
-                        <label for="tipo_mov" class="lbl1">FOLIO DE PAGO</label>
-                        <input type="text" id="folio_pago" class="form-control" name="tipo_mov" style="height: 25px;"
-                            placeholder="" required data-parsley-length="[1,30]"
-                            aria-describedby="inputGroup-sizing-sm">
-                    </div>
-
 
                     <div class="col-xl-4" style="float: left;">
 
@@ -439,7 +432,6 @@
 
         console.log(clave_cat);
 
-        var folio = document.getElementById("folio_pago").value;
         var concepto = document.getElementById('concepto').value;
         var subtotal = document.getElementById('subtotal').value;
         var contrib_adi = document.getElementById('contrib_adi').value;
@@ -458,7 +450,6 @@
                 'subtotal': subtotal,
                 'contrib_adi': contrib_adi,
                 'total': total,
-                'folio': folio,
                 'observaciones': observaciones
             },
             dataType: 'json',

@@ -571,6 +571,19 @@
 
       </tbody>
     </table>
+    <div style="margin-bottom: 1%; width: 100%;display: flex;">
+
+      <span style="padding: 1%; background-color: #880e4f; color: #ffff; font-weight: bold;">HONORARIOS</span>
+      <input type="text" aria-label="First name" class="form-control" id="honorarios"
+        style="font-weight: bold; background-color: #ffff; color: black; padding: 1%; width: 15%;">
+
+      <span style="padding: 1%; background-color: #880e4f; color: #ffff; font-weight: bold; margin-left: 1%;">OBSERVACIONES</span>
+      <input type="text" aria-label="First name" class="form-control" id="observaciones"
+        style="font-weight: bold; background-color: #ffff; color: black; padding: 1%; "
+        onkeypress="return SoloNumeros(event);">
+
+
+    </div>
     <div class="input-group" style="margin-bottom: 1%;">
       <span class="input-group-text" style="background-color: #d5ff1b; color: #660b22; font-weight: bold;">TOTAL CON
         DESCUENTO APROBADO:</span>
@@ -584,7 +597,8 @@
 
 
     <div style="width: 100%; display: flex; align-items: center; justify-content: flex-end;">
-      <a href="{% url 'finanzas:redirigir_perfil_finanzas'%}" style="width: 15%;"><button type="button" id="btn_pagar" class="btn btn-outline-primary"
+      <a href="{% url 'finanzas:redirigir_perfil_finanzas'%}" style="width: 15%;"><button type="button" id="btn_pagar"
+          class="btn btn-outline-primary"
           style="background-color: #660b22; color: #ffff; border:none; font-weight:bold; font-size: 2vh; width: 100%;">Pagar</button></a>
     </div>
 </div>
@@ -598,6 +612,29 @@
   // MANDAR LA INFORMACION A LA VISTA PAGO PREDIAL
   const btn_pagar_predial = document.getElementById('btn_pagar');
   const tabla_adeudos = document.getElementById('tabla_adeudos_predial');
+  var input_honorarios = document.getElementById('honorarios');
+
+  var total_original = input_honorarios.value
+  
+  input_honorarios.addEventListener('input', function () {
+    
+    /*var total_descuento = document.getElementById('total_descuento');
+
+    if(input_honorarios.value == ''){
+      
+      total_descuento.value = total_original;
+
+    }else{
+      
+      var sum = parseFloat(total_descuento.value) + parseFloat(input_honorarios.value);
+
+      total_descuento.value = sum;
+    }
+
+    */
+
+  });
+
 
   btn_pagar_predial.addEventListener('click', function () {
 
@@ -626,7 +663,7 @@
     var valores_resumen;
     for (let i = 1; i < fila_resumen.cells.length; i++) {
 
-      valores_resumen = fila_resumen.cells[i].textContent.trim().replace("$", "").replace("-%","");
+      valores_resumen = fila_resumen.cells[i].textContent.trim().replace("$", "").replace("-%", "");
       console.log('Se agrego el valor a lista resumen: ' + valores_resumen);
       resumen_pago.push(valores_resumen);
 
@@ -636,6 +673,8 @@
     var partesUrl = url_window.split('/');
     const clave_cat = partesUrl[partesUrl.length - 1];
     var total = document.getElementById('total_descuento').value;
+    const honorarios = document.getElementById('honorarios').value;
+    const observaciones = document.getElementById('observaciones').value;
 
     /*for (i = 0; i < years_selected.length; i++) {
       console.log(years_selected[i])
@@ -651,6 +690,8 @@
         'clave_cat': clave_cat,
         'years_selected': years_selected,
         'resumen_pago': resumen_pago,
+        'honorarios': honorarios,
+        'observaciones':observaciones,
         'total': total
       },
       dataType: 'json',
