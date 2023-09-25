@@ -460,7 +460,7 @@ main{
                 ADEUDOS
             </legend>
 
-            <table class="table table-bordered">
+            <table id='tabla_adeudos' class="table table-bordered">
                 <thead style="border: solid #880e4f 2px;
                 background-color: #880e4f;
                 color: rgb(255, 255, 255);
@@ -520,7 +520,7 @@ main{
               <div class="col-xl-12 " style="top: 20px;">
                     <div class="form-group" style="float:right; margin-top: 2%;">
                         <a href="{% url 'finanzas:redirigir_perfil_finanzas' %}"><button onclick="solicitar_descuento()" type="button" id="guardar_c" class="btn btn-outline-warning" style="background-color: #B8860B; color: #ffff; border:none; font-weight:bold">Solicitar descuento</button></a>
-                        <a href="#"><button type="button" id="guardar_c" class="btn btn-outline-primary" style="background-color: #660b22; color: #ffff; border:none; font-weight:bold">Pagar</button></a>
+                        <a href="#"><button type="button" id="btn_pagar" class="btn btn-outline-primary" style="background-color: #660b22; color: #ffff; border:none; font-weight:bold">Pagar</button></a>
                     </div>
               </div>
 
@@ -531,6 +531,77 @@ main{
      
 
 </div>
+
+<script>
+
+    // MANDAR LA INFORMACION A LA VISTA PAGO PREDIAL
+    const btn_pagar_predial = document.getElementById('btn_pagar');
+    const tabla_adeudos = document.getElementById('tabla_adeudos');
+  
+  
+    btn_pagar_predial.addEventListener('click', function () {
+  
+      var years_selected = [];
+      var resumen_pago = [];
+  
+      var fila_resumen = tabla_adeudos.rows[tabla_adeudos.rows.length - 1];
+  
+
+        //Obtener info tabla adeudos
+        var filas = tabla_adeudos.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+        // Itera a través de las filas de datos y obtén los valores de cada celda
+        for (var i = 0; i < filas.length; i++) {
+            var celdas = filas[i].getElementsByTagName("td");
+            var ejercicio = celdas[0].innerText;
+            conosle.log(ejercicio)
+            var impuesto_predial = celdas[1].innerText;
+            var impuesto_adicional = celdas[2].innerText;
+            var total = celdas[3].innerText;
+        }
+
+
+  
+      for (let i = 1; i < tabla_adeudos.rows.length; i++) {
+        const fila = tabla_adeudos.rows[i];
+        //trim() se utiliza para limpiar los espacios en blanco que contiene el texto
+        var years = fila.cells[0].textContent.trim(); // Accede al contenido de la primera celda (nombre)
+  
+        //Verificar que la variable year sea diferente a valores no numericos
+        if (!isNaN(years)) {
+          // verificar que la variable year no contenga valores vacios o nulos
+          if (years != '') {
+            years_selected.push(years);
+          }
+        }
+      }
+
+      //OBTENER DATOS DEL RESUMEN DE PAGO
+  
+      var valores_resumen;
+      for (let i = 1; i < fila_resumen.cells.length; i++) {
+  
+        valores_resumen = fila_resumen.cells[i].textContent.trim().replace("$", "").replace("-%", "");
+        console.log('Se agrego el valor a lista resumen: ' + valores_resumen);
+        resumen_pago.push(valores_resumen);
+  
+      }
+  
+      var url_window = window.location.pathname;
+      var partesUrl = url_window.split('/');
+      const clave_cat = partesUrl[partesUrl.length - 1];
+      var total = document.getElementById('total_descuento').value;
+      const observaciones = document.getElementById('observaciones').value;
+  
+      for (i = 0; i < years_selected.length; i++) {
+        console.log(years_selected[i])
+      }
+      
+  
+     
+    });
+  
+  </script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"

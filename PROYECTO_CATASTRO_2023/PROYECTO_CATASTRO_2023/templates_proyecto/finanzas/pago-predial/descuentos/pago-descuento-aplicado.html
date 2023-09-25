@@ -617,7 +617,6 @@
 
     var fila_resumen = tabla_adeudos.rows[tabla_adeudos.rows.length - 1];
 
-
     for (let i = 1; i < tabla_adeudos.rows.length; i++) {
       const fila = tabla_adeudos.rows[i];
       //trim() se utiliza para limpiar los espacios en blanco que contiene el texto
@@ -642,6 +641,7 @@
       resumen_pago.push(valores_resumen);
 
     }
+    
 
     var url_window = window.location.pathname;
     var partesUrl = url_window.split('/');
@@ -654,7 +654,7 @@
     }
     */
 
-    const url_pago = "{% url 'finanzas:pago_predial_contribuyente_years_debe' %}";
+    const url_pago = "{% url 'finanzas:pago_predial_descuento_aplicado' %}";
 
     $.ajax({
       type: 'GET',

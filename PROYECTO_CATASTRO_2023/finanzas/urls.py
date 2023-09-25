@@ -52,11 +52,12 @@ urlpatterns = [
     # path('perfil/cajera/',views.notificaciones_contabilizar_cajera),
     #RUTAS PARA PANTALLA APLICAR DESCUENTO
     path('descuento_pendiente/aplicar_descuento/<str:dato>',views.aplicar_descuentos, name='aplicar_descuento'),
-    # PAGO DESCUENTO APLICADO
+    # PAGO PREDIAL
     path('pago_predial/descuento_aprobado/<str:dato>',views.view_pago_descuentos_aplicados, name='pago_descuentos_aplicados'),
     path('aprobar_descuento_contribuyente/',views.descuento_aprobado, name='descuento_aprobado'),
     path('rechazar_descuento_contribuyente/',views.descuento_rechazado, name='descuento_rechazado'),
-    path('pago_predial_contribuyente_years_debe/',views.pago_predial_contribuyente, name='pago_predial_contribuyente_years_debe'),
+    path('pago_predial_contribuyente_years_debe_directo/',views.pago_predial_years_debe_directo, name='pago_predial_years_debe_directo'),
+    path('pago_predial_contribuyente_years_descuento_aplicado/',views.pago_predial_descuento_aplicado, name='pago_predial_descuento_aplicado'),
     path('pago_predial_contribuyente_years_corriente/',views.pago_predial_contribuyente_years_corriente, name='pago_predial_contribuyente_years_corriente'),
     
    

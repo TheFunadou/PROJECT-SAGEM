@@ -298,106 +298,54 @@
 
             </fieldset>
 
-            <br><br>
-            <div style="margin-top: 30px;" style="float:left;">
+            <br>
 
-                <div class="row"></div>
+            <fieldset class=" card border rounded-3 p-3"
+                style=" height:min-content; background:rgb(255, 255, 255,.5); text-align: center; top: 20px;">
+                <legend class=" card float-none w-auto px-3"
+                    style="font-size: 17px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5); font-weight: bold;">
+                    ADEUDOS</legend>
 
-                <div class=" col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2" style="float:left;">
+                <div class="row" style="margin:0.3%;">
 
-                    <div class="form-group" style="float:left;">
+                    <table id="tabla_adeudos" class="table table-bordered">
+                        <thead style="border: solid #880e4f 2px;
+                        background-color: #880e4f;
+                        color: rgb(255, 255, 255);
+                        width: 100%;
+                        text-align: center;">
+                            <tr>
+                                <th scope="col">EJERCICIO</th>
+                                <th scope="col">IMPUESTO PREDIAL</th>
+                                <th scope="col">IMPUESTO ADICIONAL</th>
+                                <th scope="col">TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider"
+                            style="text-align: center; color: #880e4f; font-family: Verdana, Geneva, Tahoma, sans-serif; background-color: #ffff;">
+                            {% for item in adeudos %}
+                            <tr id="fila" style="border: #660b22 1px solid; font-weight: bold;">
+                                <td>{{item.ejercicio}}</td>
+                                <td>{{item.subtotal_years_sd}}</td>
+                                <td>{{item.impuesto_adicional}}</td>
+                                <td>{{item.total}}</td>
+                            </tr>
+                            {% endfor %}
 
+                        </tbody>
+                    </table>
 
-
-
+                    <div style="display: flex; width: 100%;">
+                        <span style="background-color: #880e4f; color:#ffff; width: 20%; display: flex; align-items: center; justify-content: center; font-weight: bold;">OBSERVACIONES</span>
+                        <input type="text" id="observaciones" style="width: 100%;" class="form-control"
+                                name="observaciones" placeholder="(Opcional)" required aria-describedby="inputGroup-sizing-sm">
                     </div>
-
-                    <div class="form-group" style="float:left;">
-
-                        <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2"
-                            style="float: right; width: 100%;">
-                            <div class="form-group">
-                                <label for="">CONCEPTO</label>
-
-                                <input type="text" id="concepto" style="height: 25%; width: 100%;" class="form-control"
-                                    name="zona_inscripcion" onkeypress="return valideKey(event);"
-                                    aria-describedby="inputGroup-sizing-sm">
-
-                                <span></span>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <div class="form-group" style="float:right; width: 50%;">
-
-                        <div class="row input-group-sm col-xl-10 col-lg-3 col-md-12 col-sm-12 col-12 mb-2"
-                            style="float: left;">
-                            <label for="">RESUMEN DE PAGO</label>
-                            <div class="form-group">
-
-                                <label for="zona_inscripcion" class="lbl1">Subtotal</label>
-                                <input type="text" id="subtotal" style="height: 27px; width: 96%;" class="form-control"
-                                    name="zona_inscripcion" onkeypress="return valideKey(event);"
-                                    aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="zona_inscripcion" class="lbl1">Contribucion adicional</label>
-                                <input type="text" id="contrib_adi" style="height: 27px; width: 100%;"
-                                    class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);"
-                                    aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-                        </div>
-
-                        <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="zona_inscripcion" class="lbl1">Total</label>
-                                <input type="text" id="total" style="height: 27px; width: 100%;" class="form-control"
-                                    name="zona_inscripcion" onkeypress="return valideKey(event);"
-                                    aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-                        </div>
-
-                        <div class="input-group-sm col-xl-9 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                            <div class="form-group">
-                                <label for="zona_inscripcion" class="lbl1">Observaciones</label>
-                                <input type="text" id="observaciones" style="height: 27px; width: 100%;"
-                                    class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);"
-                                    aria-describedby="inputGroup-sizing-sm">
-                                <span></span>
-
-                            </div>
-                        </div>
-
-
-
-                    </div>
-
 
                 </div>
 
+            </fieldset>
 
-
-
-
-
-
-            </div>
-
-
+            <br><br>
 
 
             <div class="col-xl-12 " style="top: 20px;">
@@ -422,33 +370,39 @@
 <script>
 
     var btn_pagar = document.getElementById('pagar');
+    const tabla_adeudos = document.getElementById('tabla_adeudos');
+
 
     //FUNCION ONCLICK RECHAZAR DESCUENTO
     btn_pagar.addEventListener('click', function () {
 
         var url_window = window.location.pathname;
         var partesUrl = url_window.split('/');
-        var clave_cat = partesUrl[partesUrl.length - 1];
+        var clave_cat = partesUrl[partesUrl.length-2];
 
-        console.log(clave_cat);
+        //Obtener info tabla adeudos
+        var filas = tabla_adeudos.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
 
-        var concepto = document.getElementById('concepto').value;
-        var subtotal = document.getElementById('subtotal').value;
-        var contrib_adi = document.getElementById('contrib_adi').value;
-        var total = document.getElementById('total').value;
+        // Itera a través de las filas de datos y obtén los valores de cada celda
+        for (var i = 0; i < filas.length; i++) {
+            var celdas = filas[i].getElementsByTagName("td");
+            var ejercicio = celdas[0].innerText;
+            var impuesto_predial = celdas[1].innerText;
+            var impuesto_adicional = celdas[2].innerText;
+            var total = celdas[3].innerText;
+        }
+
         var observaciones = document.getElementById('observaciones').value;
 
-        
-        
         var url_descuento_aprobado = "{% url 'finanzas:pago_predial_contribuyente_years_corriente' %}"
         $.ajax({
             type: 'GET',
             url: url_descuento_aprobado, // Reemplaza esto con la URL de tu vista en Django
             data: {
-                'clave_cat': '008109001012012032012031001',
-                'concepto': concepto,
-                'subtotal': subtotal,
-                'contrib_adi': contrib_adi,
+                'clave_cat': clave_cat,
+                'ejercicio': ejercicio,
+                'impuesto_predial': impuesto_predial,
+                'impuesto_adicional': impuesto_adicional,
                 'total': total,
                 'observaciones': observaciones
             },
@@ -462,6 +416,11 @@
                 console.log("Error: " + errorThrown);
             }
         });
+
+        
+        
+
+
 
     });
 </script>
