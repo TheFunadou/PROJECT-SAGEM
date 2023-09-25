@@ -9,9 +9,7 @@
 
 </head>
 <body>
-    <form action="{% url 'catastro:send_not_2' %}" method="POST">
-
-        {% csrf_token %}
+    <form action="#" method="POST">
         <input type="text" name="destinatario" placeholder="destinatario">
         <input type="text" name="titulo" placeholder="titulo">
         <input type="text" name="cuerpo" placeholder="cuerpo">
@@ -22,6 +20,14 @@
     <input type="text" id="input_prueba" placeholder="input_prueba" maxlength="3">
 
     <button id="boton_audio">SONIDO</button>
+
+    <form action="{% url 'catastro:gen_reporte_dc017' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="clave_cat" placeholder="inserta la clave catastral">
+        <button type="submit">GENERAR REPORTE</button>
+    </form>
+
+
 
     <script>
         const btn_audio = document.getElementById('boton_audio');

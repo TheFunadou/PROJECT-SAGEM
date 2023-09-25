@@ -573,11 +573,7 @@
     </table>
     <div style="margin-bottom: 1%; width: 100%;display: flex;">
 
-      <span style="padding: 1%; background-color: #880e4f; color: #ffff; font-weight: bold;">HONORARIOS</span>
-      <input type="text" aria-label="First name" class="form-control" id="honorarios"
-        style="font-weight: bold; background-color: #ffff; color: black; padding: 1%; width: 15%;">
-
-      <span style="padding: 1%; background-color: #880e4f; color: #ffff; font-weight: bold; margin-left: 1%;">OBSERVACIONES</span>
+      <span style="padding: 1%; background-color: #880e4f; color: #ffff; font-weight: bold; font-size: 100%;">OBSERVACIONES</span>
       <input type="text" aria-label="First name" class="form-control" id="observaciones"
         style="font-weight: bold; background-color: #ffff; color: black; padding: 1%; "
         onkeypress="return SoloNumeros(event);">
@@ -612,28 +608,6 @@
   // MANDAR LA INFORMACION A LA VISTA PAGO PREDIAL
   const btn_pagar_predial = document.getElementById('btn_pagar');
   const tabla_adeudos = document.getElementById('tabla_adeudos_predial');
-  var input_honorarios = document.getElementById('honorarios');
-
-  var total_original = input_honorarios.value
-  
-  input_honorarios.addEventListener('input', function () {
-    
-    /*var total_descuento = document.getElementById('total_descuento');
-
-    if(input_honorarios.value == ''){
-      
-      total_descuento.value = total_original;
-
-    }else{
-      
-      var sum = parseFloat(total_descuento.value) + parseFloat(input_honorarios.value);
-
-      total_descuento.value = sum;
-    }
-
-    */
-
-  });
 
 
   btn_pagar_predial.addEventListener('click', function () {
@@ -673,7 +647,6 @@
     var partesUrl = url_window.split('/');
     const clave_cat = partesUrl[partesUrl.length - 1];
     var total = document.getElementById('total_descuento').value;
-    const honorarios = document.getElementById('honorarios').value;
     const observaciones = document.getElementById('observaciones').value;
 
     /*for (i = 0; i < years_selected.length; i++) {
@@ -690,7 +663,6 @@
         'clave_cat': clave_cat,
         'years_selected': years_selected,
         'resumen_pago': resumen_pago,
-        'honorarios': honorarios,
         'observaciones':observaciones,
         'total': total
       },

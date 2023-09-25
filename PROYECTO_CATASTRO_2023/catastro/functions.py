@@ -4,6 +4,12 @@ import os
 from pyreportjasper import PyReportJasper
 import json
 import webbrowser
+from django.contrib.auth.models import User
+from notify.models import notify
+
+# channels
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 #FUNCION PARA DETERMINAR EL NUMERO OFICIAL DE UNA CASA
 num_oficial = lambda num_ext, num_int: num_int if len(num_ext) == 0 else num_ext
@@ -11,32 +17,43 @@ num_oficial = lambda num_ext, num_int: num_int if len(num_ext) == 0 else num_ext
 #FUNCION PARA CHECKBOX PARA EL REPORTE
 checkbox_rep = lambda seleccion: 'O' if seleccion == 'SI' else 'X'
 
-def formato_clave_cat(valor):
+#Mandar una notificacion
+def send_notify(remitente, destinatario, titulo, cuerpo):
     
-    if (len(valor) == 3):
-        return valor
-    if (len(valor)==2):
-        return f'00{valor}'
-    if (len(valor) == 1):
-        return f'0{valor}'
+    id_dest = User.objects.get(username=destinatario)
+    
+    notify.objects.create(
+            remitente=remitente,
+            destinatario = id_dest,
+            titulo = titulo,
+            cuerpo = cuerpo
+        )
+        
+        
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        f'consumer_notifications_{destinatario}',
+        {
+            'type':'update_not',
+            'destinatario': destinatario
+        }
+    )
 
 #REPORTE DC017 -- Se le pasan diccionarios como parametros para facilitar la insercion de datos
-def crear_reporte_p(datos_clav_c,datos_contribuyente,datos_inm,detalles_inm,datos_cons):
+def crear_reporte_p(clave_cat,datos_contribuyente,datos_inm,detalles_inm,datos_cons):
     # Crear scrpit json
     datos = {'datos': [{
         # DATOS USUARIO
-        
-
         # CLAVE CATASTRAL
-        'C_ZON': datos_clav_c['zona_cat'],
-        'C_MUN': datos_clav_c['mun'],
-        'C_LOC': datos_clav_c['loc'],
-        'C_REG': datos_clav_c['reg'],
-        'C_MAN': datos_clav_c['man'],
-        'C_LOT': datos_clav_c['lot'],
-        'C_NIV': datos_clav_c['niv'],
-        'C_DP': datos_clav_c['dep'],
-        'C_DV': datos_clav_c['dv'],
+        'C_ZON': clave_cat[0:3],
+        'C_MUN':clave_cat[3:6],
+        'C_LOC': clave_cat[6:9],
+        'C_REG': clave_cat[9:12],
+        'C_MAN': clave_cat[12:15],
+        'C_LOT': clave_cat[15:18],
+        'C_NIV': clave_cat[18:21],
+        'C_DP': clave_cat[21:24],
+        'C_DV': clave_cat[24:27],
 
         # DATOS CONTRIBUYENTE
         'NOM_P': datos_contribuyente['nombre'],
@@ -44,7 +61,7 @@ def crear_reporte_p(datos_clav_c,datos_contribuyente,datos_inm,detalles_inm,dato
         'AM_P': datos_contribuyente['am'],
         'RFC': datos_contribuyente['rfc'],
         'CALLE_P': datos_contribuyente['calle'],
-        'NUM_O_P': datos_contribuyente['num_ofi'],
+        'NUM_EXT': datos_contribuyente['num_ext'],
         'COL_P': datos_contribuyente['col_fracc'],
         'LOC_P': 'Minatitlan',
 
@@ -105,7 +122,7 @@ def crear_reporte_p(datos_clav_c,datos_contribuyente,datos_inm,detalles_inm,dato
         os.makedirs(ruta_carpeta)
 
     # Archivo de entrada jrxml
-    arch_jrxml='R_DC017.jrxml'
+    arch_jrxml='REPORTE_TEST.jrxml'
     ruta_jrxml = os.path.dirname(os.path.abspath(__file__))
     arch_ent = os.path.join(ruta_jrxml,'static' ,'reports', 'DC017', arch_jrxml)
 

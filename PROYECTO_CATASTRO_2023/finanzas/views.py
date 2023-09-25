@@ -615,7 +615,6 @@ def pago_predial_contribuyente(request):
     if request.method == 'GET':
         clave_cat = request.GET.get('clave_cat')
         total = request.GET.get('total')
-        honorarios = request.GET.get('honorarios')
         observaciones = request.GET.get('observaciones')
         years_selected = request.GET.getlist('years_selected[]')
         resumen_pago = request.GET.getlist('resumen_pago[]')
@@ -669,7 +668,7 @@ def pago_predial_contribuyente(request):
     )
     
     # GENERAR REPORTE
-    reporte_pago_predial_ad(request.user.username,clave_cat,years_seleccionados,honorarios, observaciones)
+    reporte_pago_predial_ad(request.user.username,clave_cat,years_seleccionados, observaciones)
 
     return JsonResponse({'mensaje': 'pago exitoso'})
 

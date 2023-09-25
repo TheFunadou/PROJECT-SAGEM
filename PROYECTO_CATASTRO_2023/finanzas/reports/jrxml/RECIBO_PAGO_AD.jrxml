@@ -32,21 +32,21 @@
 			<staticText>
 				<reportElement x="247" y="0" width="394" height="22" forecolor="#990000" uuid="43e05a4c-b72c-46c6-9d06-558a5510da73"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="18"/>
+					<font fontName="Arial" size="18"/>
 				</textElement>
 				<text><![CDATA[RECIBO DE PAGO DE IMPUESTO PREDIAL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="287" y="21" width="318" height="20" uuid="5e7767f3-43eb-47c0-aa48-ec95e303453f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="12" isBold="false"/>
+					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Municipio de Minatitlán,Ver. R.F.C MMV980401KB0]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="334" y="41" width="212" height="16" uuid="706e4327-9a59-431b-b9d5-17b4165687fd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Rounded MT Bold" size="12" isBold="false"/>
+					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Hidalgo 107 Col. Centro C.P 96700]]></text>
 			</staticText>

@@ -164,6 +164,7 @@ urlpatterns = [
     
     #PRUEBA_NOTIFY
     path('notify/',views.view_notify,name="view_notify"),
+    path('generar_reporte',views.gen_reporte_dc017, name='gen_reporte_dc017'),
     path('send_not/',views.send_notify_test,name="send_not_2"),
     
     

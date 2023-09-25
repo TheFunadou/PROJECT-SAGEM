@@ -6,7 +6,7 @@ from django.urls import *
 from django.utils import timezone
 import json
 
-from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
+from django.http import Http404, HttpResponseRedirect, HttpResponse,JsonResponse
 # CREATE VIEW PARA GENERAR UNA CLASE PARA GUARDAR DATOS
 from django.views.generic import CreateView
 from notify.models import notify as notify_catastro
@@ -16,7 +16,9 @@ from django.contrib.auth.models import User, Group
 #APLICACION CATASTRO
 from catastro import models
 from catastro.models import Datos_Contribuyentes,Domicilio_inmueble
-from catastro import functions
+from catastro.functions import send_notify
+from .static.reports.DC017 import crear_reporte_DC017
+from .static.reports.FICHA_CATASTRAL import crear_ficha_catastral
 
 #DJANGO NOTIFICACIONS
 
@@ -56,29 +58,24 @@ def acceso_catastro(request):
     except (Group.DoesNotExist):
         HttpResponse('El usuario no pertenece actualmente a ningun grupo')
 
-
-#Mandar una notificacion
-def send_notify(remitente, destinatario, titulo, cuerpo):
-    
-    id_dest = User.objects.get(username=destinatario)
-    
-    notify_catastro.objects.create(
-            remitente=remitente,
-            destinatario = id_dest,
-            titulo = titulo,
-            cuerpo = cuerpo
-        )
-        
-        
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        f'consumer_notifications_{destinatario}',
-        {
-            'type':'update_not',
-            'destinatario': destinatario
-        }
-    )
-
+def redirigir_user_cat(request):
+    if request.user.is_authenticated:
+            
+            if request.user.is_superuser:
+                if request.user.groups.filter()[0].name == 'CATASTRO':
+                    return redirect('catastro:perfil_su_cat')
+                if request.user.groups.filter()[0].name == 'FINANZAS':
+                    return redirect('finanzas:perfil_su_fin')
+                ### DEMAS IF DE PERFILES DE SUPER USUARIO
+            else:
+                if request.user.groups.filter()[0].name == 'CATASTRO':
+                    return redirect('catastro:perfil_cat')
+                elif request.user.groups.filter()[0].name == 'FINANZAS':
+                    return redirect('finanzas:perfil_fin')
+                elif request.user.groups.filter()[0].name == 'DESARROLLO_URBANO':
+                    return redirect('desarrollo_urbano:perfil_du')
+    else:
+        raise Http404("Usuario no autenticado")
 
 
 # CERRAR SESION NO LE QUITEN EL REQUEST QUE NO JALA XD
@@ -278,53 +275,32 @@ def vista_index_contribuyente(request):
 #consulta datos de los contribuyentes registrados
 @login_required(login_url="pag_login")
 def consulta_index_contribuyentes(request):
-
-    context = {}
-
+    consulta_general = []
     if request.method == 'POST':
-
         dato = request.POST['busqueda'].strip()
-        consulta_general = []
-
         if len(dato) == 0:
-
             consulta_general = models.Domicilio_noti.objects.all()
-
         else:
-
             consulta_general = models.Domicilio_noti.objects.filter(Q(fk_rfc__rfc = dato))
-        
-        context = {
-            'resultado': consulta_general,  # Pasa el valor al contexto
-            'titulo_pag': 'BUSQUEDA DE CONTRIBUYENTES'
-        }
 
-    return render(request,'catastro/contribuyentes/index_contribuyente.html', context)
+    return render(request,'catastro/contribuyentes/index_contribuyente.html', {'resultado': consulta_general,'titulo_pag': 'BUSQUEDA DE CONTRIBUYENTES' })
 
 #vista registro ciudadano
 @login_required(login_url="pag_login")
 def vista_alta_contribuyente(request):
-    ctx = {
-        'nom_pag': 'Catastro',
-        'titulo_pag': 'REGISTRO DE CIUDADANO',
-    }
-    return render(request,'catastro/contribuyentes/alta_contribuyentes.html', ctx)
+    return render(request,'catastro/contribuyentes/alta_contribuyentes.html', {'nom_pag': 'Catastro','titulo_pag': 'REGISTRO DE CIUDADANO',})
 
 #REGISTRAR DATOS DEL CIUDADANO
 @login_required(login_url="pag_login")
 def registro_contribuyente(request):
 
     if request.method == 'POST':
-
         error_contribuyente = 0
         error_message =""
-
         rfc = request.POST['rfc']
         curp = request.POST['curp']
 
         if not (len(curp.strip()) == 0 or len(rfc.strip()) == 0):
-
-        
             tipo_persona = request.POST['tipo_persona']
             tipo_identificacion = request.POST['tipo_identificacion']
             num_identificacion = request.POST['num_identificacion']
@@ -343,13 +319,9 @@ def registro_contribuyente(request):
             if models.Datos_Gen_contribuyente.objects.filter(rfc=rfc).exists():
                 error_message = f"Ya existe un registro con el RFC '{rfc}'"
                 error_contribuyente = 1
-
             else:
-
                 try:
-
                     models.Datos_Gen_contribuyente.objects.create(
-
                         rfc = rfc,
                         tipo_persona = tipo_persona,
                         tipo_identificacion = tipo_identificacion,
@@ -364,13 +336,10 @@ def registro_contribuyente(request):
                         telefono_movil = celular,
                         email = email,
                         observaciones = observaciones
-
                     )
                     error_contribuyente = 0
                     return registro_domicilio_contribuyente(request,rfc)
-
                 except Exception as ex:
-
                     error_message = f"Error al registrar: {str(ex)}"
                     error_contribuyente = 1
         else:
@@ -383,13 +352,10 @@ def registro_contribuyente(request):
 #registra datos domicilio del contribuyente
 @login_required(login_url="pag_login")
 def registro_domicilio_contribuyente(request,fk_rfc):
-   
    if request.method == 'POST':
         error_message =""
         error_domicilio = 0
-       
         try:
-            
             fk_rfc = fk_rfc
             entidad_fed = request.POST['entidad_federativa']
             municipio = request.POST['munic']
@@ -401,25 +367,11 @@ def registro_domicilio_contribuyente(request,fk_rfc):
             letra_ext = request.POST['let_ext']
             num_int = request.POST['num_int']
             letra_int = request.POST['let_int']
-
-
+            
             models.Domicilio_noti.objects.create(
-
-                fk_rfc = models.Datos_Gen_contribuyente.objects.get(rfc=fk_rfc),
-                entidad_fed = entidad_fed,
-                municipio = municipio,
-                localidad = localidad,
-                col = col,
-                calle = calle,
-                cp = cp,
-                num_ext = num_ext,
-                letra_ext = letra_ext,
-                num_int = num_int,
-                letra_int = letra_int
-
+                fk_rfc = models.Datos_Gen_contribuyente.objects.get(rfc=fk_rfc), entidad_fed = entidad_fed,municipio = municipio,localidad = localidad,col = col,calle = calle,cp = cp,num_ext = num_ext,letra_ext = letra_ext,num_int = num_int,letra_int = letra_int
             )
             
-        
         except Exception as e:
             error_message = f"Error al registrar: {str(e)}"
             error_domicilio = 1
@@ -431,13 +383,7 @@ def vista_update_contribuyentes(request,rfc):
     
     consulta_a_modificar = models.Domicilio_noti.objects.filter(Q(fk_rfc__rfc = rfc))
 
-    ctx = {
-        'nom_pag': 'Catastro',
-        'titulo_pag': 'MODIFICACION DE DATOS DEL CONTRIBUYENTE',
-        'consulta_contribuyente':consulta_a_modificar
-    }
-
-    return render(request,'catastro/contribuyentes/modificacion_contribuyentes.html', ctx)
+    return render(request,'catastro/contribuyentes/modificacion_contribuyentes.html', {'nom_pag': 'Catastro','titulo_pag': 'MODIFICACION DE DATOS DEL CONTRIBUYENTE','consulta_contribuyente':consulta_a_modificar})
 
 #funcion que actualiza los datos
 @login_required(login_url="pag_login")
@@ -478,11 +424,8 @@ def update_contribuyentes(request,rfc_u):
             try:
 
                 with transaction.atomic():
-
                     consulta_mod =  models.Domicilio_noti.objects.filter(Q(fk_rfc__rfc = rfc_u))
-
                     for datos_mod in consulta_mod:
-
                         #datos principales contribuyente
                         datos_mod.fk_rfc.tipo_identificacion = tipo_identificacion
                         datos_mod.fk_rfc.numero_identificacion = num_identificacion
@@ -513,8 +456,6 @@ def update_contribuyentes(request,rfc_u):
                         datos_mod.save()
 
                         error_contribuyente = 0
-
-
             except Exception as e:
                 error_message = f"Error de consulta: {str(e)}"
                 error_contribuyente = 1
@@ -530,38 +471,18 @@ def update_contribuyentes(request,rfc_u):
 def delete_contribuyentes(request,rfc_u):
 
     if request.method == 'POST':
-
         error_message =""
         error_contribuyente_delete = 0
-
-    
         if not len(rfc_u.strip()) == 0:
-           
-
             try:
-   
                 consulta_delete = models.Datos_Gen_contribuyente.objects.filter(rfc=rfc_u)
                 consulta_delete.delete()
                 error_contribuyente_delete = 0
-            
             except Exception as exc:
-
                 error_message = f"Error de eliminación: {str(exc)}"
                 error_contribuyente_delete = 1
-
-            ctx = {
-                'error_message': error_message,
-                'error_contribuyente':error_contribuyente_delete
-            }
-
-
-    return render(request,'catastro/contribuyentes/index_contribuyente.html', ctx)
-
-
-"""------------------------------------------------------"""     
-   
-   
-
+                
+    return render(request,'catastro/contribuyentes/index_contribuyente.html', {'error_message': error_message,'error_contribuyente':error_contribuyente_delete})
 
 """PROCESOS DE UN PREDIO. ALTA, BAJA, MODIDIFICACION Y CONSULTA"""   
 
@@ -575,27 +496,16 @@ def vista_index_predios(request):
 
 #consulta de los predios registrados
 def consulta_index_predios(request):
-    contextp = {}
-
     if request.method == 'POST':
-
         dato = request.POST['busqueda'].strip()
         consulta_general = []
 
         if len(dato) == 0:
-
             consulta_general = models.Domicilio_predio.objects.all()
-
         else:
-
             consulta_general = models.Domicilio_predio.objects.filter(Q(fk_clave_catastral = dato))
         
-        contextp = {
-            'resultado_predios': consulta_general,
-            'titulo_pag': 'BUSQUEDA DE PREDIOS' # Pasa el valor al contexto
-        }
-
-    return render(request,'catastro/predios/index_predios.html', contextp)
+    return render(request,'catastro/predios/index_predios.html', {'resultado_predios': consulta_general,'titulo_pag': 'BUSQUEDA DE PREDIOS'})
 
 #vista de alta de predios
 @login_required(login_url="pag_login")
@@ -955,34 +865,11 @@ def buscar_contribuyente_dc017(request, *args,**kwargsst):
 @login_required(login_url="pag_login")
 #vista solicitud dc017
 def solicitud_dc017(request):
-    ctx = {
-        'nom_pag': 'Catastro',
-        'titulo_pag': 'SOLICITUD DC017',
-    }
-    return render(request,'catastro/solicitud_dc017.html', ctx)
+    return render(request,'catastro/solicitud_dc017.html', {'nom_pag': 'Catastro','titulo_pag': 'SOLICITUD DC017',})
 
 def registrar_solicitud_dc017(request):
-
-  
-    """zoncat = request.POST['zonacat']
-    mun = request.POST['muni']
-    loc = request.POST['loc']
-    reg = request.POST['region']
-    man = request.POST['manzana']
-    lot = request.POST['lote']
-    niv = request.POST['nivel']
-    dep = request.POST['depto']
-    dv = request.POST['dvs']"""
-    
-    clave_catastral = request.POST['busqueda']
-
-    d_clave_cat = {
-        
-        
-        "clave_cat":clave_catastral
-    }
-
-   
+    clave_cat = request.POST['busqueda']
+    print(F'LA CLAVE CATASTRAL ES : {clave_cat}')
     apaterno = request.POST['apaterno']
     amaterno = request.POST['amaterno']
     nombre = request.POST['nombre']
@@ -996,8 +883,9 @@ def registrar_solicitud_dc017(request):
     localidad = request.POST['localidad']
     codigo_postal = request.POST['codigo_postal']
 
-    ob = models.Datos_Contribuyentes.objects.create(
-        clave_catastral=clave_catastral,
+    #Almacenar info gral del DC017 
+    models.Datos_Contribuyentes.objects.create(
+        clave_catastral=clave_cat,
         rfc=rfc,
         nombre=nombre,
         apaterno=apaterno,
@@ -1011,42 +899,21 @@ def registrar_solicitud_dc017(request):
         localidad=localidad,
         codigo_postal=codigo_postal)
     
-    
-    # Hacemos un llamado a la función domicilio inmueble para que se ejecute a la par con los datos del contribuyente y asi almacene los datos.
-    return domicilio_inmueble(request, d_clave_cat)
-
-# REGISTRO DEL DOMICILIO DEL INMUEBLE
-def domicilio_inmueble(request, d_clave_cat):
-   
     calle = request.POST['calle2']
     col_fracc = request.POST['col_fracc']
     num_int = request.POST['ni']
     num_ext=request.POST['ne']
     localidad = request.POST['localidad']
 
+    # Enlazar info del domicilio con la clave_cat del contribuyente
     models.Domicilio_inmueble.objects.create(
-        pk_fk_clave_catastral=models.Datos_Contribuyentes.objects.get(clave_catastral=d_clave_cat["clave_cat"]),
+        pk_fk_clave_catastral=models.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat),
         calle=calle,
         num_int=num_int,
         num_ext=num_ext,
         col_fracc=col_fracc,
         localidad=localidad
     )
-
-    return registrar_datos_inmueble(request, d_clave_cat)
-
-# REGISTRAR DATOS DEL INMUEBLE
-def registrar_datos_inmueble(request, pk_fk_clave_catastral_id):
-
-   
-    
-
-    clave_catastral =pk_fk_clave_catastral_id
-
-    d_clave_cat_i = {
-        "clave_cat": clave_catastral,
-        
-    }
 
     #DATOS DEL INMUEBLE
     estado_fisico = request.POST['estadofisico']
@@ -1082,11 +949,11 @@ def registrar_datos_inmueble(request, pk_fk_clave_catastral_id):
         municipio=municipio,
         ciudad_localidad=ciudad,
         uso_predio=uso_destino,
-        fk_clave_catastral=models.Datos_Contribuyentes.objects.get(clave_catastral=pk_fk_clave_catastral_id['clave_cat'])
+        fk_clave_catastral=models.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
     )
     
     models.Datos_Construccion.objects.create(
-        fk_clave_catastral=models.Datos_Contribuyentes.objects.get(clave_catastral=pk_fk_clave_catastral_id['clave_cat']),
+        fk_clave_catastral=models.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat),
         techos=techos,
         pisos=pisos,
         muros=muros,
@@ -1098,184 +965,22 @@ def registrar_datos_inmueble(request, pk_fk_clave_catastral_id):
         plano_croquis = plan_croq,
         doc_just_prop = doc_just,
         ult_rec_imp = ult_rec,
-
-
-
-
         lic_obr_dem = lic_obr
     )
+    crear_reporte_DC017(clave_cat,request.user.username)
+    return redirect('catastro:redirigir_perfil_cat')
     
-    crear_reporte_DC017(pk_fk_clave_catastral_id)
-
-    return redirect('catastro:perfil_su_cat')
- 
-def crear_reporte_DC017(d_clave_cat_i):
-
-    num_int_c =''
-    num_ext_c=''
-    c_c = ''
-    rfc = ''
-    tramite = ''
-    nombre = ''
-    ap = ''
-    am = ''
-    telefono = ''
-    tipo_tel = ''
-    calle = ''
-    col_fracc_c = ''
-    query = models.Datos_Contribuyentes.objects.filter(clave_catastral=d_clave_cat_i["clave_cat"])
-
-    for datos_p in query:
-        c_c = datos_p.clave_catastral
-        rfc = datos_p.rfc
-        tramite = datos_p.tramite
-        nombre = datos_p.nombre
-        ap = datos_p.apaterno
-        am = datos_p.amaterno
-        telefono = datos_p.telefono
-        tipo_tel = datos_p.tipo
-        calle = datos_p.calle
-        num_int_c = datos_p. num_int
-        num_ext_c = datos_p.num_ext
-        col_fracc_c= datos_p.colonia_fraccionamiento
-
-    num_ofi_con = functions.num_oficial(num_int_c,num_ext_c)
-
-    datos_contribuyente = {
-        "clave_catastral": c_c,
-        "rfc": rfc,
-        "tramite":tramite,
-        "nombre": nombre,
-        "ap": ap,
-        "am": am,
-        "telefono": telefono,
-        "tipo_tel": tipo_tel,
-        "calle": calle,
-        "num_ofi":num_ofi_con ,
-        "col_fracc": col_fracc_c
-    }
-
-    num_int_inm = ''
-    col_fracc_inm = ''
-    num_ext_inm = ''
-    query_2 = models.Domicilio_inmueble.objects.filter(pk_fk_clave_catastral=d_clave_cat_i["clave_cat"])
-
-    for dom_inm in query_2:
-        calle = dom_inm.calle
-        col_fracc_inm=dom_inm.col_fracc
-        num_int_inm = dom_inm.num_int
-        num_ext_inm = dom_inm.num_ext
-
-    num_ofi_inm=functions.num_oficial(num_int_inm,num_ext_inm)
-
-    datos_inm = {
-        "calle": calle,
-        "col_fracc": col_fracc_inm,
-        "num_ofi": num_ofi_inm
-    }
-
-
-
-    estado_fis = ''
-    tp_pred = ''
-    tenen = ''
-    mod_f =''
-    sup = ''
-    mun = ''
-    ciudad = ''
-    uso_d = ''
-    query_3 = models.Datos_inmuebles.objects.filter(fk_clave_catastral=d_clave_cat_i["clave_cat"])
-
-    for d_inm in query_3:
-        estado_fis = d_inm.pk_estado_fisico_predio
-        tp_pred = d_inm.tipo_predio
-        tenen = d_inm.tenencia_predio
-        mod_f = d_inm.modificacion_física_construccion
-        sup = d_inm.superficie_predio
-        mun = d_inm.municipio
-        ciudad = d_inm.ciudad_localidad
-        uso_d = d_inm.uso_predio
-
-    detalles_inm = {
-        "estado_fis": estado_fis,
-        "tp_pred": tp_pred,
-        "tenen": tenen,
-        "mod_f": mod_f,
-        "sup": sup+"m2",
-        "mun": mun,
-        "ciudad": ciudad,
-        "uso_d": uso_d
-    }
-
-    techos = ''
-    pisos  = ''
-    muros  = ''
-    tp_ba = ''
-    inst_e = ''
-    puertas_v = ''
-    edad_inm= ''
-    niv = ''
-    plan_cro = ''
-    doc_jus = ''
-    ult_rec = ''
-    lic_obr = ''
-    dat_con= []
-    query_4 = models.Datos_Construccion.objects.filter(fk_clave_catastral=d_clave_cat_i["clave_cat"])
-    
-    for dat_con in query_4:
-        techos = dat_con.techos
-        pisos = dat_con.pisos
-        muros = dat_con.muros
-        tp_ba = dat_con.tipo_baños
-        inst_e = dat_con.instalacion_electrica
-        puertas_v = dat_con.puertas_ventanas
-        edad_inm=dat_con.edad
-        niv = dat_con.niveles
-        plan_cro = dat_con.plano_croquis
-        doc_jus = dat_con.doc_just_prop
-        ult_rec = dat_con.ult_rec_imp
-        lic_obr = dat_con.lic_obr_dem
-
-    c_plan_cro=functions.checkbox_rep(plan_cro)
-    c_doc_jus=functions.checkbox_rep(doc_jus)
-    c_ult_rec=functions.checkbox_rep(ult_rec)
-    c_lic_obr=functions.checkbox_rep(lic_obr)
-    
-    datos_cons = {
-        "techos": techos,
-        "pisos": pisos,
-        "muros": muros,
-        "tp_ba": tp_ba,
-        "inst_e": inst_e,
-        "puertas_v": puertas_v,
-        "edad":edad_inm,
-        "niv": niv,
-        "pla_cro":c_plan_cro,
-        "doc_jus":c_doc_jus,
-        "ult_rec":c_ult_rec,
-        "lic_obr":c_lic_obr
-    }
-
-    functions.crear_reporte_p(d_clave_cat_i, datos_contribuyente, datos_inm, detalles_inm,datos_cons)
-
 
 """---FICHA CATASTRAL"""
 """--- APARTADO 1 DATOS GENERALES ---"""
 #CONSULTAR DATOS GENERALES DEL CONTRIBUYENTES PARA FICHA CATASTRAL
-
-# def redirigir(request):
-#     return redirect('catastro:perfil_su_cat')
-
 def obtener_datos_busqueda_ficha(request, *args,**kwargs):
     search = request.GET.get('search')
     lista = []
 
     if search:
-
         con = Domicilio_inmueble.objects.select_related().filter(Q(pk_fk_clave_catastral__clave_catastral__startswith = search) | Q(pk_fk_clave_catastral__nombre__startswith = search) 
                                                         | Q(pk_fk_clave_catastral__apaterno__startswith = search) | Q(pk_fk_clave_catastral__amaterno__startswith = search)) 
-         
-
         for dato in con:
             lista.append({
                 #datos generales
@@ -1284,7 +989,6 @@ def obtener_datos_busqueda_ficha(request, *args,**kwargs):
                 'apaterno': dato.pk_fk_clave_catastral.apaterno,
                 'amaterno': dato.pk_fk_clave_catastral.amaterno,
                 'rfc':dato.pk_fk_clave_catastral.rfc,
-
                 #domicilio del contribuyente
                 'calle_con':dato.pk_fk_clave_catastral.calle,
                 'int_con':dato.pk_fk_clave_catastral.num_int,
@@ -1292,17 +996,12 @@ def obtener_datos_busqueda_ficha(request, *args,**kwargs):
                 'codigo_postal':dato.pk_fk_clave_catastral.codigo_postal,
                 'colonia_fraccionamiento_con':dato.pk_fk_clave_catastral.colonia_fraccionamiento,
                 'localidad_con':dato.pk_fk_clave_catastral.localidad,
-
-
                 #domicilio del predio
                 'calle':dato.calle,
                 'colonia':dato.col_fracc,
                 'localidad':dato.localidad,
                 'num_ext':dato.num_ext,
                 'num_int':dato.num_int,
-
-
-                
             })
 
         print(lista)
@@ -1346,9 +1045,6 @@ def ficha_catastral(request):
     return render(request,'catastro/ficha_catastral.html', ctx)
 
 def registrar_ficha_datosgenerales(request):
-   
-   
-
     clave_catastral = request.POST['busqueda']
     d_clave_cat = {    
         "clave_cat": clave_catastral
@@ -1616,720 +1312,6 @@ def registrar_valores(request):
     
     return HttpResponseRedirect(reverse('menu_secundario'))
 
-def crear_ficha_catastral(datos_clav_c):
-
-# DATOS DEL CONTRIBUYENTE
-    query_datos_c = models.Datos_Contribuyentes.objects.filter(clave_catastral=datos_clav_c)
-
-    for datos_p in query_datos_c:
-        rfc = datos_p.rfc
-        nombre = datos_p.nombre
-        ap = datos_p.apaterno
-        am = datos_p.amaterno
-        calle = datos_p.calle
-        num_int_c = datos_p. num_int
-        num_ext_c = datos_p.num_ext
-        col_fracc_c= datos_p.colonia_fraccionamiento
-        codigo_postal = datos_p.codigo_postal
-
-    num_ofi_con = functions.num_oficial(num_int_c,num_ext_c)
-
-    datos_gral = {
-        "RFC_GRAL": rfc,
-        "NOM_GRAL": nombre,
-        "AP_GRAL": ap,
-        "AM_GRAL": am,
-        "CALLE_N": calle,
-        "NUM_O_INM_N":num_ofi_con ,
-        "COL_O_FRA_INM_N": col_fracc_c,
-        "COD_POS_N": codigo_postal
-    }
-
-# DATOS DIRECCION INMUEBLE
-    query_direccion_inm = models.Domicilio_inmueble.objects.filter(pk_fk_clave_catastral=datos_clav_c)
-
-    for dom_inm in query_direccion_inm:
-        calle = dom_inm.calle
-        col_fracc_inm=dom_inm.col_fracc
-        num_int_inm = dom_inm.num_int
-        num_ext_inm = dom_inm.num_ext
-
-    num_ofi_inm=functions.num_oficial(num_int_inm,num_ext_inm)
-
-    datos_inm = {
-        "CALL_INM_GRAL": calle,
-        "COL_FRA_GRAL": col_fracc_inm,
-        "NUM_O_GRAL": num_ofi_inm
-    }
-
-    datos_gral.update(datos_inm)
-
-# DATOS USO O DESTINO DEL PREDIO
-    query_datos_inm = models.Datos_inmuebles.objects.filter(fk_clave_catastral=datos_clav_c)
-
-    for d_inm in query_datos_inm:
-        uso_d = d_inm.uso_predio
-
-    detalles_inm = {
-        "USO_DES_GRAL": uso_d
-    }
-
-    datos_gral.update(detalles_inm)
-
-# DATOS DOCUMENTO PREDIO
-    query_doc_pred= models.datos_documento_predio.objects.filter(pk_clave_catastral=datos_clav_c)
-
-    for doc_pred in query_doc_pred:
-        lugar_exp= doc_pred.lugar_expedision
-        td = doc_pred.td
-        num_doc = doc_pred.num_documento
-        dia = doc_pred.dia
-        mes = doc_pred.mes
-        year = doc_pred.año
-        not_no = doc_pred.num_notaria
-
-    datos_doc = {
-        "LUG_EXP_DOC": lugar_exp,
-        "TD_DOC": td,
-        "NUM_DOC": num_doc ,
-        "DIA_DOC": dia ,
-        "MES_DOC": mes ,
-        "YEAR_DOC":year ,
-        "NOT_DOC": not_no
-    }
-    
-
-# DATOS PREDIO
-    query_datos_predio= models.datos_predio_ficha.objects.filter(pk_clave_catastral=datos_clav_c)
-
-    for dat_pred in query_datos_predio:
-        tipo_ava= dat_pred.tipo_avaluo
-        fracc = dat_pred.fraccionamiento
-        tras_dom = dat_pred.traslado_dominio
-        regi = dat_pred.regimen
-        tenen = dat_pred.tenencia
-        est_fis = dat_pred.estado_fisico
-        cod_uso = dat_pred.codigo_uso
-        tipo_pos = dat_pred.tipo_posecion
-        num_emi = dat_pred.num_emision
-        uso_pred = dat_pred.uso_predio
-
-    datos_pred = {
-        "TIP_AVA_DP": tipo_ava,
-        "FRAC_DP": fracc,
-        "TRAS_DOM_DP": tras_dom ,
-        "REG_LEG_DP": regi ,
-        "TEN_DP": tenen ,
-        "EST_FIS_DP":est_fis ,
-        "COD_USO_DP": cod_uso,
-        "TIP_POS_DP":tipo_pos ,
-        "NO_EMI_DP": num_emi
-    }
-
-# DATOS INSCRIPCION
-    query_datos_insc= models.datos_inscripcion.objects.filter(pk_fk_clave_catastral=datos_clav_c,tipo='ACTUAL')
-
-    for dat_insc in query_datos_insc:
-        bajo_num = dat_insc.bajo_numero
-        tomo= dat_insc.tomo
-        dia_ins = dat_insc.dia_i
-        mes_ins = dat_insc.mes_i
-        year_ins = dat_insc.año_i
-        zona_ins = dat_insc.zona_i
-
-    datos_rp = {
-        "BN_ACT_DRP": bajo_num,
-        "TO_ACT_DRP": tomo ,
-        "DIA_ACT_DRP": dia_ins ,
-        "MES_ACT_DRP": mes_ins ,
-        "YEAR_ACT_DRP":year_ins ,
-        "ZON_ACT_DRP": zona_ins
-    }
-
-    query_datos_insc_2= models.datos_inscripcion.objects.filter(pk_fk_clave_catastral=datos_clav_c,tipo='ANTECEDENTE')
-
-    for dat_insc in query_datos_insc_2:
-        bajo_num = dat_insc.bajo_numero
-        tomo= dat_insc.tomo
-        dia_ins = dat_insc.dia_i
-        mes_ins = dat_insc.mes_i
-        year_ins = dat_insc.año_i
-        zona_ins = dat_insc.zona_i
-
-    datos_rp_2 = {
-        "BN_ANTE_DRP": bajo_num,
-        "TO_ANTE_DRP": tomo ,
-        "DIA_ANTE_DRP": dia_ins ,
-        "MES_ANTE_DRP": mes_ins ,
-        "YEAR_ANTE_DRP":year_ins ,
-        "ZON_ANTE_DRP": zona_ins
-    }
-
-    datos_rp.update(datos_rp_2)
-
-# DATOS TERRENOS RURALES ################
-    query_datos_tr = models.terrenos_rurales.objects.filter(pk_fk_clave_catastral=datos_clav_c)
-
-    if len(query_datos_tr)==1:
-        info_f1=query_datos_tr[0]
-
-        datos_tr={
-        "TIP_SUE_TR_1":info_f1.tipo_suelo,
-        "VAL_HAS_TR_1":info_f1.valor_has,
-        "HAS_TR_1":info_f1.sup_has,
-        "A_TR_1":info_f1.a,
-        "C_TR_1":info_f1.c,
-        "TOP_TR":info_f1.top,
-        "VIAS_TR":info_f1.vias_c,
-
-        "TIP_SUE_TR_2":'',
-        "VAL_HAS_TR_2":'',
-        "HAS_TR_2":'',
-        "A_TR_2":'',
-        "C_TR_2":'',
-
-        "TIP_SUE_TR_3":'',
-        "VAL_HAS_TR_3":'',
-        "HAS_TR_3":'',
-        "A_TR_3":'',
-        "C_TR_3":'',
-
-        "TIP_SUE_TR_4":'',
-        "VAL_HAS_TR_4":'',
-        "HAS_TR_4":'',
-        "A_TR_4":'',
-        "C_TR_4":''
-
-        }
-    
-    if len(query_datos_tr)>=2:
-        info_f1=query_datos_tr[0]
-        info_f2=query_datos_tr[1]
-
-        datos_tr={
-        "TIP_SUE_TR_1":info_f1.tipo_suelo,
-        "VAL_HAS_TR_1":info_f1.valor_has,
-        "HAS_TR_1":info_f1.sup_has,
-        "A_TR_1":info_f1.a,
-        "C_TR_1":info_f1.c,
-        "TOP_TR":info_f1.top,
-        "VIAS_TR":info_f1.vias_c,
-
-        "TIP_SUE_TR_2":info_f2.tipo_suelo,
-        "VAL_HAS_TR_2":info_f2.valor_has,
-        "HAS_TR_2":info_f2.a,
-        "A_TR_2":info_f2.a,
-        "C_TR_2":info_f2.c,
-
-        "TIP_SUE_TR_3":'',
-        "VAL_HAS_TR_3":'',
-        "HAS_TR_3":'',
-        "A_TR_3":'',
-        "C_TR_3":'',
-
-        "TIP_SUE_TR_4":'',
-        "VAL_HAS_TR_4":'',
-        "HAS_TR_4":'',
-        "A_TR_4":'',
-        "C_TR_4":''
-
-        }
-    
-    if len(query_datos_tr)>=3:
-        info_f1=query_datos_tr[0]
-        info_f2=query_datos_tr[1]
-        info_f3=query_datos_tr[2]
-
-        datos_tr={
-        "TIP_SUE_TR_1":info_f1.tipo_suelo,
-        "VAL_HAS_TR_1":info_f1.valor_has,
-        "HAS_TR_1":info_f1.sup_has,
-        "A_TR_1":info_f1.a,
-        "C_TR_1":info_f1.c,
-        "TOP_TR":info_f1.top,
-        "VIAS_TR":info_f1.vias_c,
-
-        "TIP_SUE_TR_2":info_f2.tipo_suelo,
-        "VAL_HAS_TR_2":info_f2.valor_has,
-        "HAS_TR_2":info_f2.a,
-        "A_TR_2":info_f2.a,
-        "C_TR_2":info_f2.c,
-
-        "TIP_SUE_TR_3":info_f3.tipo_suelo,
-        "VAL_HAS_TR_3":info_f3.valor_has,
-        "HAS_TR_3":info_f3.a,
-        "A_TR_3":info_f3.a,
-        "C_TR_3":info_f3.c,
-
-        "TIP_SUE_TR_4":'',
-        "VAL_HAS_TR_4":'',
-        "HAS_TR_4":'',
-        "A_TR_4":'',
-        "C_TR_4":''
-
-        }
-    
-    if len(query_datos_tr)>=4:
-        info_f1=query_datos_tr[0]
-        info_f2=query_datos_tr[1]
-        info_f3=query_datos_tr[2]
-        info_f4=query_datos_tr[3]
-
-        datos_tr={
-        "TIP_SUE_TR_1":info_f1.tipo_suelo,
-        "VAL_HAS_TR_1":info_f1.valor_has,
-        "HAS_TR_1":info_f1.sup_has,
-        "A_TR_1":info_f1.a,
-        "C_TR_1":info_f1.c,
-        "TOP_TR":info_f1.top,
-        "VIAS_TR":info_f1.vias_c,
-
-        "TIP_SUE_TR_2":info_f2.tipo_suelo,
-        "VAL_HAS_TR_2":info_f2.valor_has,
-        "HAS_TR_2":info_f2.a,
-        "A_TR_2":info_f2.a,
-        "C_TR_2":info_f2.c,
-
-        "TIP_SUE_TR_3":info_f3.tipo_suelo,
-        "VAL_HAS_TR_3":info_f3.valor_has,
-        "HAS_TR_3":info_f3.a,
-        "A_TR_3":info_f3.a,
-        "C_TR_3":info_f3.c,
-
-        "TIP_SUE_TR_4":info_f4.tipo_suelo,
-        "VAL_HAS_TR_4":info_f4.valor_has,
-        "HAS_TR_4":info_f4.a,
-        "A_TR_4":info_f4.a,
-        "C_TR_4":info_f4.c
-
-        }
-
-    query_datos_tr_2 = models.terrenos_rurales_superficietotal.objects.filter(pk_fk_clave_catastral=datos_clav_c)
-    for dat_tr in query_datos_tr_2:
-        has_sp = dat_tr.sup_t_has
-        a_sp = dat_tr.a
-        c_sp = dat_tr.c
-
-
-    datos_tr_2={
-        # DATOS RURALES INFRAESTRUCTURA NO SE GUARDA?
-        "INF_HAS_TR":'',
-        "INF_A_TR":'',
-        "INF_C_TR":'',
-
-        # DATOS RURALES SUPERFICIA AGOSTADERO TAMPOCO?
-        "SUP_AG_HAS_TR":'',
-        "SUP_AG_A_TR":'',
-        "SUP_AG_C_TR":'',
-
-        # SUPERFICIE TOTAL
-        "SUP_T_HAS_TR":has_sp,
-        "SUP_T_A_TR":a_sp,
-        "SUP_T_C_TR":c_sp,
-    }
-
-    datos_tr.update(datos_tr_2)
-    
-
-# DATOS TERRENOS URBANOS Y SUBURBANOS
-
-    query_datos_us = models.terrenos_urbanos_suburbanos.objects.filter(fk_clave_catastral=datos_clav_c)
-
-    if len(query_datos_us)==1:
-        info_us_1=query_datos_us[0]
-
-        datos_us={
-        "VAL_M2_DUS":info_us_1.valor_m2,
-        "ARE_TER_DUS":info_us_1.area,
-        
-        "T_C_DUS_1":info_us_1.c,
-        "T_VAL_M2_DUS_1":info_us_1.valor,
-        "T_FRE_DUS_1":info_us_1.frente,
-        "T_PROF_DUS_1":info_us_1.profundidad,
-
-        "T_C_DUS_2":'',
-        "T_VAL_M2_DUS_2":'',
-        "T_FRE_DUS_2":'',
-        "T_PROF_DUS_2":'',
-
-        "T_C_DUS_3":'',
-        "T_VAL_M2_DUS_3":'',
-        "T_FRE_DUS_3":'',
-        "T_PROF_DUS_3":'',
-
-        "T_C_DUS_4":'',
-        "T_VAL_M2_DUS_4":'',
-        "T_FRE_DUS_4":'',
-        "T_PROF_DUS_4":''
-
-    }
-        
-    if len(query_datos_us)>=2:
-        info_us_1=query_datos_us[0]
-        info_us_2=query_datos_us[1]
-
-        datos_us={
-        "VAL_M2_DUS":info_us_1.valor_m2,
-        "ARE_TER_DUS":info_us_1.area,
-
-        "T_C_DUS_1":info_us_1.c,
-        "T_VAL_M2_DUS_1":info_us_1.valor,
-        "T_FRE_DUS_1":info_us_1.frente,
-        "T_PROF_DUS_1":info_us_1.profundidad,
-
-        "T_C_DUS_2":info_us_2.c,
-        "T_VAL_M2_DUS_2":info_us_2.valor,
-        "T_FRE_DUS_2":info_us_2.frente,
-        "T_PROF_DUS_2":info_us_2.profundidad,
-
-
-        "T_C_DUS_3":'',
-        "T_VAL_M2_DUS_3":'',
-        "T_FRE_DUS_3":'',
-        "T_PROF_DUS_3":'',
-
-        "T_C_DUS_4":'',
-        "T_VAL_M2_DUS_4":'',
-        "T_FRE_DUS_4":'',
-        "T_PROF_DUS_4":''
-
-    }
-        
-    if len(query_datos_us)>=3:
-        info_us_1=query_datos_us[0]
-        info_us_2=query_datos_us[1]
-        info_us_3=query_datos_us[2]
-
-        datos_us={
-        "VAL_M2_DUS":info_us_1.valor_m2,
-        "ARE_TER_DUS":info_us_1.area,
-
-        "T_C_DUS_1":info_us_1.c,
-        "T_VAL_M2_DUS_1":info_us_1.valor,
-        "T_FRE_DUS_1":info_us_1.frente,
-        "T_PROF_DUS_1":info_us_1.profundidad,
-
-        "T_C_DUS_2":info_us_2.c,
-        "T_VAL_M2_DUS_2":info_us_2.valor,
-        "T_FRE_DUS_2":info_us_2.frente,
-        "T_PROF_DUS_2":info_us_2.profundidad,
-
-
-        "T_C_DUS_3":info_us_3.c,
-        "T_VAL_M2_DUS_3":info_us_3.valor,
-        "T_FRE_DUS_3":info_us_3.frente,
-        "T_PROF_DUS_3":info_us_3.profundidad,
-
-        "T_C_DUS_4":'',
-        "T_VAL_M2_DUS_4":'',
-        "T_FRE_DUS_4":'',
-        "T_PROF_DUS_4":''
-
-    }
-        
-    if len(query_datos_us)>=4:
-        info_us_1=query_datos_us[0]
-        info_us_2=query_datos_us[1]
-        info_us_3=query_datos_us[2]
-        info_us_4=query_datos_us[3]
-
-        datos_us={
-        "VAL_M2_DUS":info_us_1.valor_m2,
-        "ARE_TER_DUS":info_us_1.area,
-
-        "T_C_DUS_1":info_us_1.c,
-        "T_VAL_M2_DUS_1":info_us_1.valor,
-        "T_FRE_DUS_1":info_us_1.frente,
-        "T_PROF_DUS_1":info_us_1.profundidad,
-
-        "T_C_DUS_2":info_us_2.c,
-        "T_VAL_M2_DUS_2":info_us_2.valor,
-        "T_FRE_DUS_2":info_us_2.frente,
-        "T_PROF_DUS_2":info_us_2.profundidad,
-
-
-        "T_C_DUS_3":info_us_3.c,
-        "T_VAL_M2_DUS_3":info_us_3.valor,
-        "T_FRE_DUS_3":info_us_3.frente,
-        "T_PROF_DUS_3":info_us_3.profundidad,
-
-        "T_C_DUS_4":info_us_4.c,
-        "T_VAL_M2_DUS_4":info_us_4.valor,
-        "T_FRE_DUS_4":info_us_4.frente,
-        "T_PROF_DUS_4":info_us_4.profundidad
-
-    }
-
-    
-    # DEMERITOS PREDIOS URBANOS
-    query_datos_us_dpu_1 = models.demeritos_predios_urbanos.objects.filter(fk_clave_catastral=datos_clav_c,descripcion='Interés Social')
-
-    for dat_us in query_datos_us_dpu_1:
-        valor_is=dat_us.valor
-
-    query_datos_us_dpu_2 = models.demeritos_predios_urbanos.objects.filter(fk_clave_catastral=datos_clav_c,descripcion='Excedente de área')
-
-    for dat_us in query_datos_us_dpu_2:
-        valor_ex_a=dat_us.valor
-
-    query_datos_us_dpu_3 = models.demeritos_predios_urbanos.objects.filter(fk_clave_catastral=datos_clav_c,descripcion='Topografía')
-
-    for dat_us in query_datos_us_dpu_3:
-        valor_topo=dat_us.valor
-    
-    query_datos_us_dpu_4 = models.demeritos_predios_urbanos.objects.filter(fk_clave_catastral=datos_clav_c,descripcion='Cond. Física imprevista')
-
-    for dat_us in query_datos_us_dpu_4:
-        valor_cond_f=dat_us.valor
-
-    
-    # INCREMENTO POR ESQUINA
-
-    query_datos_us_inc_1 = models.incrementos_esquina_urbanos.objects.filter(fk_clave_catastral=datos_clav_c,tipo='A')
-
-    for dat_inc in query_datos_us_inc_1:
-        valor_A=dat_inc.valor
-
-    query_datos_us_inc_2 = models.incrementos_esquina_urbanos.objects.filter(fk_clave_catastral=datos_clav_c,tipo='B')
-
-    for dat_inc in query_datos_us_inc_2:
-        valor_B=dat_inc.valor
-
-    query_datos_us_inc_3 = models.incrementos_esquina_urbanos.objects.filter(fk_clave_catastral=datos_clav_c,tipo='C')
-
-    for dat_inc in query_datos_us_inc_3:
-        valor_C=dat_inc.valor
-    
-    query_datos_us_inc_4 = models.incrementos_esquina_urbanos.objects.filter(fk_clave_catastral=datos_clav_c,tipo='D')
-
-    for dat_inc in query_datos_us_inc_4:
-        valor_D=dat_inc.valor
-
-    datos_us_2={
-        "DEM_INT_SOC_DUS":valor_is,
-        "DEM_EXC_ARE_DUS":valor_ex_a,
-        "DEM_TOPO_DUS":valor_topo,
-        "DEM_COND_FIS_DUS":valor_cond_f,
-
-        "INC_X_ESQ_DUS_A":valor_A,
-        "INC_X_ESQ_DUS_B":valor_B,
-        "INC_X_ESQ_DUS_C":valor_C,
-        "INC_X_ESQ_DUS_D":valor_D
-    }
-
-    datos_us.update(datos_us_2)
-
-    # DATOS CONSTRUCCIONES
-
-    query_datos_cons = models.ficha_datos_construcciones.objects.filter(fk_clave_catastral=datos_clav_c)
-
-    if len(query_datos_cons)==1:
-        info_cons_1=query_datos_cons[0]
-
-        datos_const={
-        "DAT_C_TIPO_A":info_cons_1.tipo_c,
-        "DAT_C_EDO_A":info_cons_1.est,
-        "DAT_C_T_A":info_cons_1.terreno,
-        "DAT_C_ANT_A":info_cons_1.antiguedad,
-        "DAT_C_ARE_M2_A":info_cons_1.area_c,
-
-        "DAT_C_TIPO_B":'',
-        "DAT_C_EDO_B":'',
-        "DAT_C_T_B":'',
-        "DAT_C_ANT_B":'',
-        "DAT_C_ARE_M2_B":'',
-
-        "DAT_C_TIPO_C":'',
-        "DAT_C_EDO_C":'',
-        "DAT_C_T_C":'',
-        "DAT_C_ANT_C":'',
-        "DAT_C_ARE_M2_C":'',
-
-        "DAT_C_TIPO_D":'',
-        "DAT_C_EDO_D":'',
-        "DAT_C_T_D":'',
-        "DAT_C_ANT_D":'',
-        "DAT_C_ARE_M2_D":'',
-
-        "DAT_C_TIPO_E":'',
-        "DAT_C_EDO_E":'',
-        "DAT_C_T_E":'',
-        "DAT_C_ANT_E":'',
-        "DAT_C_ARE_M2_E":''
-    }
-        
-    if len(query_datos_cons)>=2:
-        info_cons_1=query_datos_cons[0]
-        info_cons_2=query_datos_cons[1]
-
-        datos_const={
-        "DAT_C_TIPO_A":info_cons_1.tipo_c,
-        "DAT_C_EDO_A":info_cons_1.est,
-        "DAT_C_T_A":info_cons_1.terreno,
-        "DAT_C_ANT_A":info_cons_1.antiguedad,
-        "DAT_C_ARE_M2_A":info_cons_1.area_c,
-
-        "DAT_C_TIPO_B":info_cons_2.tipo_c,
-        "DAT_C_EDO_B":info_cons_2.est,
-        "DAT_C_T_B":info_cons_2.terreno,
-        "DAT_C_ANT_B":info_cons_2.antiguedad,
-        "DAT_C_ARE_M2_B":info_cons_2.area_c,
-
-        "DAT_C_TIPO_C":'',
-        "DAT_C_EDO_C":'',
-        "DAT_C_T_C":'',
-        "DAT_C_ANT_C":'',
-        "DAT_C_ARE_M2_C":'',
-
-        "DAT_C_TIPO_D":'',
-        "DAT_C_EDO_D":'',
-        "DAT_C_T_D":'',
-        "DAT_C_ANT_D":'',
-        "DAT_C_ARE_M2_D":'',
-
-        "DAT_C_TIPO_E":'',
-        "DAT_C_EDO_E":'',
-        "DAT_C_T_E":'',
-        "DAT_C_ANT_E":'',
-        "DAT_C_ARE_M2_E":''
-    }
-        
-    if len(query_datos_cons)>=3:
-        info_cons_1=query_datos_cons[0]
-        info_cons_2=query_datos_cons[1]
-        info_cons_3=query_datos_cons[2]
-
-        datos_const={
-        "DAT_C_TIPO_A":info_cons_1.tipo_c,
-        "DAT_C_EDO_A":info_cons_1.est,
-        "DAT_C_T_A":info_cons_1.terreno,
-        "DAT_C_ANT_A":info_cons_1.antiguedad,
-        "DAT_C_ARE_M2_A":info_cons_1.area_c,
-
-        "DAT_C_TIPO_B":info_cons_3.tipo_c,
-        "DAT_C_EDO_B":info_cons_3.est,
-        "DAT_C_T_B":info_cons_3.terreno,
-        "DAT_C_ANT_B":info_cons_3.antiguedad,
-        "DAT_C_ARE_M2_B":info_cons_3.area_c,
-
-        "DAT_C_TIPO_C":info_cons_3.tipo_c,
-        "DAT_C_EDO_C":info_cons_3.est,
-        "DAT_C_T_C":info_cons_3.terreno,
-        "DAT_C_ANT_C":info_cons_3.antiguedad,
-        "DAT_C_ARE_M2_C":info_cons_3.area_c,
-
-        "DAT_C_TIPO_D":'',
-        "DAT_C_EDO_D":'',
-        "DAT_C_T_D":'',
-        "DAT_C_ANT_D":'',
-        "DAT_C_ARE_M2_D":'',
-
-        "DAT_C_TIPO_E":'',
-        "DAT_C_EDO_E":'',
-        "DAT_C_T_E":'',
-        "DAT_C_ANT_E":'',
-        "DAT_C_ARE_M2_E":''
-    }
-        
-    if len(query_datos_cons)>=4:
-        info_cons_1=query_datos_cons[0]
-        info_cons_2=query_datos_cons[1]
-        info_cons_3=query_datos_cons[2]
-        info_cons_4=query_datos_cons[3]
-
-        datos_const={
-        "DAT_C_TIPO_A":info_cons_1.tipo_c,
-        "DAT_C_EDO_A":info_cons_1.est,
-        "DAT_C_T_A":info_cons_1.terreno,
-        "DAT_C_ANT_A":info_cons_1.antiguedad,
-        "DAT_C_ARE_M2_A":info_cons_1.area_c,
-
-        "DAT_C_TIPO_B":info_cons_3.tipo_c,
-        "DAT_C_EDO_B":info_cons_3.est,
-        "DAT_C_T_B":info_cons_3.terreno,
-        "DAT_C_ANT_B":info_cons_3.antiguedad,
-        "DAT_C_ARE_M2_B":info_cons_3.area_c,
-
-        "DAT_C_TIPO_C":info_cons_3.tipo_c,
-        "DAT_C_EDO_C":info_cons_3.est,
-        "DAT_C_T_C":info_cons_3.terreno,
-        "DAT_C_ANT_C":info_cons_3.antiguedad,
-        "DAT_C_ARE_M2_C":info_cons_3.area_c,
-
-        "DAT_C_TIPO_D":info_cons_4.tipo_c,
-        "DAT_C_EDO_D":info_cons_4.est,
-        "DAT_C_T_D":info_cons_4.terreno,
-        "DAT_C_ANT_D":info_cons_4.antiguedad,
-        "DAT_C_ARE_M2_D":info_cons_4.area_c,
-
-        "DAT_C_TIPO_E":'',
-        "DAT_C_EDO_E":'',
-        "DAT_C_T_E":'',
-        "DAT_C_ANT_E":'',
-        "DAT_C_ARE_M2_E":''
-    }
-        
-    if len(query_datos_cons)>=5:
-        info_cons_1=query_datos_cons[0]
-        info_cons_2=query_datos_cons[1]
-        info_cons_3=query_datos_cons[2]
-        info_cons_4=query_datos_cons[3]
-        info_cons_5=query_datos_cons[4]
-
-        datos_const={
-        "DAT_C_TIPO_A":info_cons_1.tipo_c,
-        "DAT_C_EDO_A":info_cons_1.est,
-        "DAT_C_T_A":info_cons_1.terreno,
-        "DAT_C_ANT_A":info_cons_1.antiguedad,
-        "DAT_C_ARE_M2_A":info_cons_1.area_c,
-
-        "DAT_C_TIPO_B":info_cons_3.tipo_c,
-        "DAT_C_EDO_B":info_cons_3.est,
-        "DAT_C_T_B":info_cons_3.terreno,
-        "DAT_C_ANT_B":info_cons_3.antiguedad,
-        "DAT_C_ARE_M2_B":info_cons_3.area_c,
-
-        "DAT_C_TIPO_C":info_cons_3.tipo_c,
-        "DAT_C_EDO_C":info_cons_3.est,
-        "DAT_C_T_C":info_cons_3.terreno,
-        "DAT_C_ANT_C":info_cons_3.antiguedad,
-        "DAT_C_ARE_M2_C":info_cons_3.area_c,
-
-        "DAT_C_TIPO_D":info_cons_4.tipo_c,
-        "DAT_C_EDO_D":info_cons_4.est,
-        "DAT_C_T_D":info_cons_4.terreno,
-        "DAT_C_ANT_D":info_cons_4.antiguedad,
-        "DAT_C_ARE_M2_D":info_cons_4.area_c,
-
-        "DAT_C_TIPO_E":info_cons_5.tipo_c,
-        "DAT_C_EDO_E":info_cons_5.est,
-        "DAT_C_T_E":info_cons_5.terreno,
-        "DAT_C_ANT_E":info_cons_5.antiguedad,
-        "DAT_C_ARE_M2_E":info_cons_5.area_c,
-    }
-
-    # VALORES
-    query_datos_val = models.valores_catastro.objects.filter(clave_catastral_pk=datos_clav_c)
-
-    for dat_val in query_datos_val:
-        val_ter = dat_val.valor_terreno
-        val_const= dat_val.valor_construccion
-        val_cat = dat_val.valor_catastral
-
-    datos_const_2={
-        "DAT_C_V_TER":val_ter,
-        "DAT_C_VAL_CON":val_const,
-        "DAT_C_VAL_CAT":val_cat
-    }
-
-    datos_const.update(datos_const_2)
-
-    functions.reporte_ficha_cat(datos_clav_c,datos_gral,datos_doc,datos_pred,datos_rp,datos_tr,datos_us,datos_const)
-    
-
-
-    #aqui podrias poner la funcion que mande a llamar el reporte como lo hiciste en registrar datos inmuebles del DC017
-
 """"
 def enviar(request):
     id= request.POST['id']
@@ -2351,6 +1333,13 @@ def cambiar_password(request):
 
 def view_notify(request):
     return render(request,'catastro/notification_2.html')
+
+def gen_reporte_dc017(request):
+    clave_cat = request.POST['clave_cat']
+    
+    crear_reporte_DC017(clave_cat)
+        
+    return HttpResponse('ok')
     
 def send_notify_test(request):
 

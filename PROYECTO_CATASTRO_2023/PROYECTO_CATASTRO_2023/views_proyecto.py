@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import *
-
+from django.http import Http404
 
 # VIEWS DEL PROYECTO (NO CONFUNDIR CON LAS DE LAS APLICACIONES XD ESAS SON INDEPENDIENTES)
 

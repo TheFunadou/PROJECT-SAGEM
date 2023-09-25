@@ -7,7 +7,7 @@ import json
 import os
 from catastro import functions
 
-def reporte_pago_predial_ad(cajero, clave_cat, ejercicios, honorarios, observaciones):
+def reporte_pago_predial_ad(cajero, clave_cat, ejercicios, observaciones):
     
     
     query_datos_grales_cont= models_cat.Datos_Contribuyentes.objects.filter(clave_catastral=clave_cat)
@@ -48,7 +48,7 @@ def reporte_pago_predial_ad(cajero, clave_cat, ejercicios, honorarios, observaci
         'impuesto_predial':'',
         'multas':f'{multas} MXN',
         'recargos':f'{recargos} MXN',
-        'honorarios':f'{honorarios} MXN',
+        'honorarios':f'0 MXN',
         'concepto': f'PAGO PREDIAL AÑOS {ejercicios}',
         'descuento':f'{multas+recargos} MXN',
         'total':f'{total} MXN',
