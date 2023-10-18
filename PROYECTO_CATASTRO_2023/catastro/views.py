@@ -19,7 +19,7 @@ from catastro.models import Datos_Contribuyentes,Domicilio_inmueble
 from catastro.functions import send_notify
 from .static.reports.DC017 import crear_reporte_DC017
 from .static.reports.FICHA_CATASTRAL import crear_ficha_catastral
-
+from .static.reports.REPORTE_TEST import REPORTE_TEST
 #DJANGO NOTIFICACIONS
 
 # channels
@@ -145,7 +145,7 @@ def perfil_sup_user_catastro(request):
     ctx = {
         'notficaciones':'Notification.objects.values("description").filter()',
         'nom_pag': 'Catastro',
-        'titulo_pag': 'INICIO SUPER USUARIO CATASTRO',
+        'titulo_pag': f'BIENVENIDO {request.user.username}',
         'nombre_user': request.user.username
     }
 
@@ -519,7 +519,6 @@ def vista_alta_predios(request):
 
 #registro de los predios nuevos
 def registro_predios(request):
-    print('si')
     if request.method== 'POST':
 
         error_mensaje_predio = ""
@@ -557,7 +556,6 @@ def registro_predios(request):
 
 
                     models.Datos_gen_predio.objects.create(
-
                         clave_catastral = clave_catastral,
                         cuenta_predial =  cuenta_predial,
                         denominacion =  denominacion ,
@@ -568,9 +566,7 @@ def registro_predios(request):
                         cuenta_origen = cuenta_origen,
                         fecha_alta = fecha_alta,
                         motivo_alta = motivo_alta,
-
                     )
-                    print('HOLA SE ACABA DE REGISTRAR')
                     error_predio = 0
                     return registro_domicilio_predios(request,clave_catastral)
 
@@ -1337,7 +1333,8 @@ def view_notify(request):
 def gen_reporte_dc017(request):
     clave_cat = request.POST['clave_cat']
     
-    crear_reporte_DC017(clave_cat)
+    # crear_reporte_DC017(clave_cat)
+    REPORTE_TEST()
         
     return HttpResponse('ok')
     

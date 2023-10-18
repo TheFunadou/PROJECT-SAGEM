@@ -5,20 +5,46 @@ function suma() {
   var checkboxes = document.querySelectorAll('.form-check-input');
   var suma = 0;
 
+  var tabla_adeudos = document.getElementById("tabla_adeudos");
+  var filas = tabla_adeudos.getElementsByTagName("tr");
+
   checkboxes.forEach(function(checkbox) {
     var row = checkbox.closest('tr');
     if (checkbox.checked) {
       row.style.backgroundColor = '#E8E8E8';
       var valores = checkbox.value.split(",");
+      console.log(valores);
       var numero = parseFloat(valores[0]);
+      console.log(numero);
       suma += numero;
     }else{
       row.style.backgroundColor = '';
     }
+
+    for (var i = 1; i < filas.length; i++) {
+      var fila = filas[i];
+      var celdas = fila.getElementsByTagName("td");
+    
+      // Acceder a los valores de las celdas
+      var ejercicio = celdas[0].textContent;
+      var subtotal = celdas[1].textContent;
+    
+      // Hacer algo con los valores
+      console.log("Ejercicio" + ejercicio + ", Subtotal: " + subtotal);
+    }
+
+
   });
 
   document.getElementById('suma').textContent = suma;
-  }
+
+  // // Obtener la referencia a la tabla por su ID
+  // var tabla = document.getElementById("miTabla");
+
+  // // Obtener todas las filas de la tabla
+  // var filas = tabla.getElementsByTagName("tr");
+
+}
 
   
 //funcion que pretende mandar los valores donde se ejecutara un descuento

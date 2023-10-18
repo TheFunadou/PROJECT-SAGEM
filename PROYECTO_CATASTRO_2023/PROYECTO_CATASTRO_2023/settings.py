@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'finanzas',
     'desarrollo_urbano',
     'channels',
-    'notify'
+    'notify',
 ]
 
 MIDDLEWARE = [

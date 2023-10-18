@@ -1,0 +1,785 @@
+{% extends "raiz/master_blade_v.1.html" %}
+
+{%block body%}
+
+{% load static %}
+
+<style>
+    .form1 h1 {
+        margin-top: -50px;
+        margin-left: 450px;
+        font-size: 30px
+    }
+
+    #linea1 {
+        width: 100%;
+        height: 10px;
+        background-color: #880E4F;
+
+        top: 80px;
+        left: 0;
+        z-index: 9999;
+    }
+
+    #linea2 {
+        width: 100%;
+        height: 10px;
+        background-color: #B8860B;
+
+        top: 90px;
+        left: 0;
+        z-index: 9999;
+    }
+
+
+    .form {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1200px;
+        height: 260px;
+        border-radius: 10px;
+        border: solid 2px #B8860B;
+    }
+
+    .t1 {
+        margin-left: 50px;
+    }
+
+    .t3 {
+        margin-left: 80px;
+    }
+
+    .n1 {
+        margin-left: 100px;
+    }
+
+    .n2 {
+        margin-left: 25px;
+    }
+
+    .n3 {
+        margin-left: 10px;
+    }
+
+    .n4 {
+        margin-left: 25px;
+    }
+
+    .n5 {
+        margin-left: 25px;
+    }
+
+    .n6 {
+        margin-left: 35px;
+    }
+
+    .n7 {
+        margin-left: 35px;
+    }
+
+    .n8 {
+        margin-left: 35px;
+    }
+
+    .n9 {
+        margin-left: 45px;
+    }
+
+    .c1 {
+        margin-left: 30px;
+    }
+
+    .c3 {
+        margin-left: 45px;
+    }
+
+    .tn1 {
+        margin-left: 70px;
+    }
+
+    .tn2 {
+        margin-left: 40px;
+    }
+
+    .tn3 {
+        margin-left: 55px;
+    }
+
+    .tn4 {
+        margin-left: 52px;
+    }
+
+    .tn5 {
+        margin-left: 52px;
+    }
+
+    .tn6 {
+        margin-left: 45px;
+    }
+
+    .tn7 {
+        margin-left: 28px;
+    }
+
+    .tn8 {
+        margin-left: 35px;
+    }
+
+    .tn9 {
+        margin-left: 30px;
+    }
+
+    .nt2 {
+        margin-left: 480px;
+    }
+
+    .t4 {
+        margin-left: 50px;
+    }
+
+    .t5 {
+        margin-left: 300px;
+    }
+
+    .t6 {
+        margin-left: 340px;
+    }
+
+    .c4 {
+        margin-left: 45px;
+    }
+
+    .c5 {
+        margin-left: 270px;
+    }
+
+    .c6 {
+        margin-left: 270px;
+    }
+
+    .nt3 {
+        margin-left: 480px;
+    }
+
+    .t7 {
+        margin-left: 100px;
+    }
+
+    .t8 {
+        margin-left: 380px;
+    }
+
+    .t9 {
+        margin-left: 380px;
+    }
+
+    .c7 {
+        margin-left: 45px;
+    }
+
+    .c8 {
+        margin-left: 270px;
+    }
+
+    .c9 {
+        margin-left: 270px;
+    }
+
+    .form2 {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1200px;
+        height: 300px;
+        border-radius: 10px;
+        border: solid 2px #B8860B;
+    }
+
+    table {
+
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: collapse;
+    }
+
+    th {
+        background-color: #880e4f;
+        color: white;
+    }
+
+    .table td {
+        border: none;
+        /* Quital el borde de las celdas */
+        padding: 8px;
+        /* Ajusta el espaciado interno de las celdas según sea necesario */
+        font-weight: bold;
+
+    }
+
+    .tt1 {
+        margin-left: 550px;
+    }
+
+    input {
+        text-align: center;
+    }
+
+    /*BACKGROUND*/
+    main {
+        background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: center;
+        background-position-y: bottom;
+    }
+</style>
+
+<link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
+<script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+
+<div class="container py-5">
+
+    <fieldset class=" container fieldset-1 card  rounded-3 p-3"
+        style="border: solid 3px #660b22; top: -10px; background:rgba(255, 255, 255, 0.5);">
+        <legend class="float-none w-auto px-3"
+            style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+            DATOS GENERALES DEL CONTRIBUYENTE
+        </legend>
+
+        <div id="1" style="margin-top: -5px;">
+
+            <fieldset class="fieldset-1 card  rounded-3 p-3" style="background:rgb(255, 255, 255,.5);">
+                <legend class="float-none w-auto px-3"
+                    style="font-size: 17px; color: brown; font-family: 'Calibri'; font-weight: bold;">CLAVE
+                    CATASTRAL</legend>
+
+                <div class="row " style="margin-top: -23px;">
+
+                    <div class="col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+
+                    </div>
+
+                    {% for item in my_list %}
+
+                    <!-- INPUT CLAVE CATASTRAL INVISIBLE -->
+                    {% with cadena=item.clave_catastral %}
+                    <input type="text" id="clave_catastral" class="form-control" name="zc"
+                        style="height: 25px; display: none;" readonly value="{{cadena}}"
+                        aria-describedby="inputGroup-sizing-sm">
+                    {% endwith %}
+
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="fc_zon" class="lbl1"><Strong>Zona cat</Strong></label>
+
+                            {% with cadena=item.clave_catastral %}
+                            {% with zc=cadena|slice:"0:3" %}
+                            <input type="text" id="zc" class="form-control" name="zc" style="height: 25px;" readonly
+                                value="{{zc}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="fc_mu"><strong>Municipio</strong></label>
+                            {% with mpio=cadena|slice:"3:6" %}
+                            <input type="text" id="mpio" class="form-control" name="mpio" style="height: 25px;" readonly
+                                value="{{mpio}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="locd"><strong>Localidad</strong></label>
+                            {% with locd=cadena|slice:"6:9" %}
+                            <input type="text" id="locd" class="form-control" name="locd" style="height: 25px;" readonly
+                                value="{{locd}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="rg"><strong>Región</strong></label>
+                            {% with rg=cadena|slice:"9:12" %}
+                            <input type="text" id="rg" class="form-control" name="rg" style="height: 25px;" readonly
+                                value="{{rg}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            {% with mzn=cadena|slice:"12:15" %}
+                            <label for="mzn"><strong>Manzana</strong></label>
+                            <input type="text" id="mzn" class="form-control" name="mzn" style="height: 25px;" readonly
+                                value="{{mzn}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="lt"><strong>Lote</strong></label>
+                            {% with lt=cadena|slice:"15:18" %}
+                            <input type="text" id="lt" class="form-control" name="lt" style="height: 25px;" readonly
+                                value="{{lt}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="nvl"><strong>Nivel</strong></label>
+                            {% with nvl=cadena|slice:"18:21" %}
+                            <input type="text" id="nvl" class="form-control" name="nvl" style="height: 25px;" readonly
+                                value="{{nvl}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="dpt"><strong>Depto.</strong></label>
+                            {% with dpt=cadena|slice:"21:24" %}
+                            <input type="text" id="dpt" class="form-control" name="dpt" style="height: 25px;" readonly
+                                value="{{dpt}}" aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="dev"><strong>DV</strong></label>
+                            {% with dev=cadena|slice:"24:27" %}
+                            <input type="text" id="dev" value="{{dev}}" class="form-control" name="dev"
+                                style="height: 25px;" readonly aria-describedby="inputGroup-sizing-sm">
+                            {% endwith %}
+                        </div>
+                    </div>
+                    {% endwith %}
+                    {% endfor %}
+                </div>
+
+            </fieldset>
+
+        </div>
+
+        <div id="1" style="margin-top: 20px;">
+
+            <fieldset class=" card border rounded-3 p-3"
+                style=" height:min-content; background:rgb(255, 255, 255,.5); text-align: center;">
+                <legend class="float-none w-auto px-3"
+                    style="font-size: 17px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5); font-weight: bold;">
+                    INFORMACIÓN DEL PROPIETARIO</legend>
+
+                <div class="row justify-content-center" style="margin-top: -23px;">
+
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label style="width: 150px;height: 25px;" for="" class="lbl1"><strong>Apellido
+                                    Paterno</strong></label>
+
+                            {% for item in my_list %}
+
+                            <input style="height: 25px;" type="text" id="" class="form-control" name="" readonly
+                                value="{{item.apellido_paterno}}" aria-describedby="inputGroup-sizing-sm">
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label style="width: 150px; height: 25px;" for="t_suelo" class="lbl1"><strong>Apellido
+                                    Materno</strong></label>
+                            <input style="height: 25px;" type="text" id="t_suelo" class="form-control" name="t_suelo"
+                                readonly value="{{item.apellido_materno}}" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label style="width: 150px; height: 25px;" for="t_suelo"
+                                class="lbl1"><strong>Nombre(s)</strong></label>
+                            <input style="height: 25px;" type="text" id="t_suelo" class="form-control" name="t_suelo"
+                                readonly value="{{item.nombre}}" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+
+                    </div>
+                    {% endfor %}
+
+
+
+                </div>
+
+            </fieldset>
+
+        </div>
+
+        <div id="1" style="margin-top: 20px;">
+
+            <fieldset class=" card border rounded-3 p-3"
+                style=" height:min-content; background:rgb(255, 255, 255,.5); text-align: center;">
+                <legend class="float-none w-auto px-3"
+                    style="font-size: 17px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5); font-weight: bold;">
+                    INFORMACIÓN DEL PREDIO</legend>
+
+                <div class="row" style="margin-top: -23px;">
+
+                    <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            {% for item in my_list %}
+                            <label for="f_calle" class="lbl1">Calle</label>
+                            <input type="text" id="f_calle" style="height: 27px;" class="form-control" name="f_calle"
+                                placeholder="" required readonly value="{{item.calle_s}}"
+                                onKeyUp="this.value = this.value.toUpperCase();"
+                                aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="f_int" class="lbl1">Interior</label>
+                            <input type="text" id="f_int" style="height: 27px;" class="form-control" name="f_int"
+                                placeholder="" required readonly value="{{item.num_int}}" data-parsley-length="[1,30]"
+                                value="" aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="name" class="lbl1">Exterior</label>
+                            <input type="text" id="f_ext" style="height: 27px;" class="form-control" name="f_ext"
+                                placeholder="" required readonly value="{{item.num_ext}}" data-parsley-length="[1,30]"
+                                value="" aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="f_col_fracc" class="lbl1">Colonia/Fracc.</label>
+                            <input type="text" id="f_col_fracc" style="height: 27px;" class="form-control"
+                                name="f_col_fracc" placeholder="" required readonly value="{{item.colonia_f}}"
+                                onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();"
+                                value="" aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="f_tipopredio" class="lbl1">Tipo de predio</label>
+                            <input type="text" id="f_tipopredio" style="font-size: 14px;  height: 27px;"
+                                class="form-control" name="f_tipopredio" placeholder="" required readonly
+                                value="{{item.tipo_predio}}" onkeypress="return valideKey(event);"
+                                aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="form-group">
+                            <label for="f_uso_predio" class="lbl1">Estado físico</label>
+                            <input type="text" id="f_uso_predio" style="height: 27px;" class="form-control"
+                                name="f_uso_predio" placeholder="" required readonly value="{{item.estado_fisico}}"
+                                onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                            <span></span>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </fieldset>
+
+        </div>
+
+    </fieldset>
+
+
+    <fieldset class=" container fieldset-1 card  rounded-3 p-3"
+        style="border: solid 3px #660b22; top: 20px; background:rgba(255, 255, 255, 0.5);">
+        <legend class="float-none w-auto px-3"
+            style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
+            ADEUDOS SOLICITADOS
+        </legend>
+
+        <table id='tabla_adeudos' class="table table-bordered">
+            <thead style="border: solid #880e4f 2px;
+                background-color: #880e4f;
+                color: rgb(255, 255, 255);
+                width: 15em;
+                text-align: center;">
+                <tr>
+                    <th></th>
+                    <th scope="col">EJERCICIO</th>
+                    <th scope="col">IMPUESTO PREDIAL</th>
+                    <th scope="col">IMPUESTO ADICIONAL</th>
+                    <th scope="col">RECARGO</th>
+                    <th scope="col">MULTA</th>
+                    <th>SUBTOTAL</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider"
+                style="text-align: center; color: #880e4f; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                {% for item in adeudos %}
+                <tr id="fila" style="border: #880E4F 1px solid;">
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="checkbox{{ forloop.counter }}"
+                                value="{{ item.total }}, {{item.ejercicio}}, {{item.clave}}, {{item.estatus}}"
+                                onchange="suma(); recargo(); multa(); calcularDescuento();">
+                        </div>
+                    </td>
+                    <td>{{item.ejercicio}}</td>
+                    <td>{{item.impuesto_predial}}</td>
+                    <td>{{item.impuesto_adicional}}</td>
+                    <td>{{item.recargo}}</td>
+                    <td>{{item.multa}}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <!--FILA DESCUENTO -->
+            <tfoot id="descuen" style="border: #880E4F 1px solid;">
+                <tr style="background-color: #bb9c15 ">
+                    <td style="color: #ffff;">DESCUENTO:</td>
+                    <td></td>
+                    <td style="color: #ffff; font-size: large;"></td>
+                    <td  style="color: #ffff; font-size: large;"></td>
+                    <td id="desc_recargo" style="color: #ffff; font-size: large;">0.00</td>
+                    <td id="desc_multa" style="color: #ffff; font-size: large;">0.00</td>
+                    <td style="color: #ffff; font-size: large;"></td>
+                </tr>
+            </tfoot>
+            <!-- FILA RESUMEN: -->
+            <tfoot style="border: #880E4F 1px solid;">
+                <tr style="background-color: #660b22 ">
+                    <td style="color: #ffff;">RESUMEN:</td>
+                    <td></td>
+                    <td id="sum_impuesto_pred" style="color: #ffff; font-size: large;">0.00</td>
+                    <td id="sum_impuesto_adic" style="color: #ffff; font-size: large;">0.00</td>
+                    <td id="sum_recargo" style="color: #ffff; font-size: large;">0.00</td>
+                    <td id="sum_multa" style="color: #ffff; font-size: large;">0.00</td>
+                    <td id="sum_subtotal" style="color: #ffff; font-size: large;"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <section style="display: flex; align-items: center; justify-content: center;">
+            <div style="margin: 1%; display: flex; flex-direction: column; width: 65%; padding: 0 5% 0 5% ;">
+                <div style="display: flex; align-items: center; justify-content: center; font-weight: bold; color: #660b22; font-size: 3vh; padding: 1.5%;">
+                    CONDONACIONES
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    <div style="display: flex; width: 100%;">
+                        <span style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 100%;">DESCUENTO RECARGO</span>
+                        <select class="form-select" id="select_recargo" onchange="recargo();" required style="width: 30%; text-align: center; font-weight: bold;">
+                            <option value="0">0%</option>
+                            <option value="0.5">5%</option>
+                            <option value="0.10">10%</option>
+                            <option value="0.15">15%</option>
+                            <option value="0.20">20%</option>
+                            <option value="0.25">25%</option>
+                            <option value="0.30">30%</option>
+                            <option value="0.35">35%</option>
+                            <option value="0.40">40%</option>
+                            <option value="0.45">45%</option>
+                            <option value="0.50">50%</option>
+                            <option value="0.55">55%</option>
+                            <option value="0.60">60%</option>
+                            <option value="0.65">65%</option>
+                            <option value="0.70">70%</option>
+                            <option value="0.75">75%</option>
+                            <option value="0.80">80%</option>
+                            <option value="0.85">85%</option>
+                            <option value="0.90">90%</option>
+                            <option value="0.95">95%</option>
+                            <option value="1">100%</option>
+                        </select>
+
+                        <span style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 100%; margin-left: 5%;">DESCUENTO MULTA</span>
+                        <select class="form-select" id="select_multa" onchange="multa();" required style="width: 30%; text-align: center; font-weight: bold;">
+                            <option value="0">0%</option>
+                            <option value="0.5">5%</option>
+                            <option value="0.10">10%</option>
+                            <option value="0.15">15%</option>
+                            <option value="0.20">20%</option>
+                            <option value="0.25">25%</option>
+                            <option value="0.30">30%</option>
+                            <option value="0.35">35%</option>
+                            <option value="0.40">40%</option>
+                            <option value="0.45">45%</option>
+                            <option value="0.50">50%</option>
+                            <option value="0.55">55%</option>
+                            <option value="0.60">60%</option>
+                            <option value="0.65">65%</option>
+                            <option value="0.70">70%</option>
+                            <option value="0.75">75%</option>
+                            <option value="0.80">80%</option>
+                            <option value="0.85">85%</option>
+                            <option value="0.90">90%</option>
+                            <option value="0.95">95%</option>
+                            <option value="1">100%</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div style="margin: 1%; display: flex; flex-direction: column; width: 35%;">
+                <div style="display: flex;">
+                    <span style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 40%;">DESCUENTO TOTAL</span>
+                    <input type="text" id="total_descuento" style="font-weight: bold; font-size: 2.5vh; color: #B8860B; width: 60%;"
+                        class="form-control" name="total" required aria-describedby="inputGroup-sizing-sm" readonly
+                        placeholder="0.00">
+                </div>
+                <div style="display: flex; margin-top: 5%;">
+                    <span style="background-color: #880e4f; color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 40%;">TOTAL</span>
+                    <input type="text" id="total" style="font-weight: bold; font-size: 2.5vh; color: #660b22; width: 60%;"
+                        class="form-control" name="total" required aria-describedby="inputGroup-sizing-sm" readonly
+                        placeholder="0.00">
+                </div>
+            </div>
+        </section>
+
+        <div class="col-xl-12 " style="width: 100%; margin-top: 5%; display: flex; align-items: center; justify-content: space-between ;">
+            <a href="#"><button onclick="rechazarDescuento()"
+                type="button" id="guardar_c" class="btn btn-outline-warning"
+                style="background-color: #B8860B; color: #ffff; border:none; font-weight:bold">RECHAZAR DESCUENTO</button></a>
+            <a href="#"><button type="button" id="btn_pagar" class="btn btn-outline-primary"
+                    style="background-color: #660b22; color: #ffff; border:none; font-weight:bold"
+                    onclick="aprobarDescuento()">APROBAR DESCUENTO</button></a>
+        </div>
+    </fieldset>
+</div>
+
+<script>
+
+    function rechazarDescuento() {
+        var checkboxes = document.querySelectorAll('.form-check-input');
+        var input_clave_catastral = document.getElementById('clave_catastral');
+
+        var celda_desc_recargo = document.getElementById('desc_recargo');
+        var celda_desc_multa = document.getElementById('desc_multa');
+
+        var celda_subtotal = document.getElementById('sum_subtotal');
+        var input_total_desc = document.getElementById('total_descuento');
+        var input_total = document.getElementById('total');
+
+        var years_selected = [];
+
+        //Recorrer tabla
+        for (var i = 0; i < checkboxes.length; i++) {
+            //Filtrar unicamente a los checkbox seleccionados
+            if (checkboxes[i].checked) {
+                // Obtener el checkbox de cada fila
+                var row = checkboxes[i].closest('tr');
+                // Obtener el ejercicio de cada fila seleccionada
+                var ejercicio = row.querySelector('td:nth-child(2)').textContent;
+                years_selected.push(ejercicio);
+            }
+        }
+
+        //Enviar elementos al backend
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'finanzas:rechazar_descuento' %}", // Reemplaza esto con la URL de tu vista en Django
+            data: {
+                'clave_cat': input_clave_catastral.value,
+                'years_selected': years_selected
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log('SOLICITUD DE DESCUENTO RECHAZADA CON EXITO')
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error en la solicitud AJAX:");
+                console.log("Estado: " + textStatus);
+                console.log("Error: " + errorThrown);
+            }
+        });
+
+
+    }
+
+    function aprobarDescuento() {
+        var checkboxes = document.querySelectorAll('.form-check-input');
+        var input_clave_catastral = document.getElementById('clave_catastral');
+
+        var celda_desc_recargo = document.getElementById('desc_recargo');
+        var celda_desc_multa = document.getElementById('desc_multa');
+
+        var celda_subtotal = document.getElementById('sum_subtotal');
+        var input_total_desc = document.getElementById('total_descuento');
+        var input_total = document.getElementById('total');
+
+        var years_selected = [];
+
+        //Recorrer tabla
+        for (var i = 0; i < checkboxes.length; i++) {
+            //Filtrar unicamente a los checkbox seleccionados
+            if (checkboxes[i].checked) {
+                // Obtener el checkbox de cada fila
+                var row = checkboxes[i].closest('tr');
+                // Obtener el ejercicio de cada fila seleccionada
+                var ejercicio = row.querySelector('td:nth-child(2)').textContent;
+                years_selected.push(ejercicio);
+            }
+        }
+        
+        //Enviar elementos al backend
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'finanzas:aprobar_descuento' %}", // Reemplaza esto con la URL de tu vista en Django
+            data: {
+                'clave_cat': input_clave_catastral.value,
+                'years_selected': years_selected,
+                'desc_recargo': celda_desc_recargo.textContent.trim(),
+                'desc_multa': celda_desc_multa.textContent.trim(),
+                'descuento_total': input_total_desc.value,
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log('DESCUENTO APROBADO CON EXITO')
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error en la solicitud AJAX:");
+                console.log("Estado: " + textStatus);
+                console.log("Error: " + errorThrown);
+            }
+        });
+    }
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
+
+
+<script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+<script src="{%static 'js/INGRESOS/pago_predial/descuento/aprobar_descuento.js'%}"></script>
+
+
+
+{%endblock%}

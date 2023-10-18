@@ -91,7 +91,8 @@
 
 
     button:hover {
-        opacity: 0.8
+        border: solid #660b22 3px;
+        transform: scale(1.1);
     }
 
 
@@ -365,7 +366,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Tipo de persona</label>
+                                <label for="name">*Tipo de persona</label>
                                 <select name="tipo_persona" class="form-select" aria-label="Default select example"
                                     style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
                                     <option selected value="FISICA">FÍSICA</option>
@@ -378,7 +379,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Tipo de identificación</label>
+                                <label for="name">*Tipo de identificación</label>
                                 <select name="tipo_identificacion" class="form-select"
                                     aria-label="Default select example"
                                     style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
@@ -394,7 +395,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Número de identificación</label>
+                                <label for="name">*Número de identificación</label>
                                 <input type="text" id="num_identificacion" class="form-control"
                                     name="num_identificacion"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
@@ -405,7 +406,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="rfc">Nombre/Razón social</label>
+                                <label for="rfc">*Nombre/Razón social</label>
                                 <input type="text" id="nombre_razon" class="form-control" name="nombre_razon"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" oninput="this.value = this.value.toUpperCase();"
@@ -420,7 +421,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Apellido paterno</label>
+                                <label for="name">*Apellido paterno</label>
                                 <input type="text" id="apaterno" class="form-control" name="apaterno"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -433,7 +434,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Apellido materno</label>
+                                <label for="name">*Apellido materno</label>
                                 <input type="text" id="amaterno" class="form-control" name="amaterno"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -444,7 +445,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">RFC</label>
+                                <label for="name">*RFC</label>
                                 <input type="text" id="rfc" class="form-control" name="rfc"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="XXXX000000XXX" minlength="13" maxlength="13"
@@ -456,7 +457,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="rfc">CURP</label>
+                                <label for="rfc">*CURP</label>
                                 <input type="text" id="curp" class="form-control" name="curp"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="XXXX000000XXXXXXX" minlength="18" maxlength="18"
@@ -471,7 +472,7 @@
                     <div class="row" style="text-align: center;">
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Finado</label>
+                                <label for="name">*Finado</label>
                                 <select name="finado" class="form-select" aria-label="Default select example"
                                     style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
                                     <option value="SI">SI</option>
@@ -484,7 +485,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Fecha de nacimiento / Registro</label>
+                                <label for="name">*Fecha de nacimiento / Registro</label>
                                 <input type="date" id="fecha_nacimiento" class="form-control" name="fecha_nacimiento"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="dd/mm/aaaa" minlength="3" maxlength="30">
@@ -494,7 +495,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Teléfono</label>
+                                <label for="name">*Teléfono Fijo</label>
                                 <input type="text" id="telefono" class="form-control" name="telefono"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return SoloNumeros(event);">
@@ -504,7 +505,7 @@
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="rfc">Celular</label>
+                                <label for="rfc">*Telefono Móvil</label>
                                 <input type="text" id="celular" class="form-control" name="celular"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="13" maxlength="13"
@@ -519,7 +520,7 @@
                     <div class="row" style="text-align: center;">
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Correo electrónico</label>
+                                <label for="name">*Correo electrónico</label>
                                 <input type="email" id="email" class="form-control" name="email"
                                     style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30"
@@ -535,7 +536,7 @@
                                 <label for="name">Observaciones</label>
                                 <input type="text" id="observaciones" class="form-control" name="observaciones"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="">
+                                    placeholder="(Opcional)">
                                 <span></span>
                             </div>
                         </div>
@@ -563,41 +564,41 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Entidad federativa</label>
+                                <label for="name">*Entidad federativa</label>
                                 <select name="entidad_federativa" class="form-select"
                                     aria-label="Default select example"
                                     style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
-                                    <option value="Aguascalientes">Aguascalientes</option>
-                                    <option value="Baja California">Baja California</option>
-                                    <option value="Baja California Sur">Baja California Sur</option>
-                                    <option value="Campeche">Campeche</option>
-                                    <option value="Chiapas">Chiapas</option>
-                                    <option value="Chihuahua">Chihuahua</option>
-                                    <option value="Coahuila">Coahuila</option>
-                                    <option value="Colima">Colima</option>
-                                    <option value="Durango">Durango</option>
-                                    <option value="Estado de México">Estado de México</option>
-                                    <option value="Guanajuato">Guanajuato</option>
-                                    <option value="Guerrero">Guerrero</option>
-                                    <option value="Hidalgo">Hidalgo</option>
-                                    <option value="Jalisco">Jalisco</option>
-                                    <option value="Michoacán">Michoacán</option>
-                                    <option value="Morelos">Morelos</option>
-                                    <option value="Nayarit">Nayarit</option>
-                                    <option value="Nuevo León">Nuevo León</option>
-                                    <option value="Oaxaca">Oaxaca</option>
-                                    <option value="Puebla">Puebla</option>
-                                    <option value="Querétaro">Querétaro</option>
-                                    <option value="Quintana Roo">Quintana Roo</option>
-                                    <option value="San Luis Potosí">San Luis Potosí</option>
-                                    <option value="Sinaloa">Sinaloa</option>
-                                    <option value="Sonora">Sonora</option>
-                                    <option value="Tabasco">Tabasco</option>
-                                    <option value="Tamaulipas">Tamaulipas</option>
-                                    <option value="Tlaxcala">Tlaxcala</option>
-                                    <option selected value="Veracruz">Veracruz</option>
-                                    <option value="Yucatán">Yucatán</option>
-                                    <option value="Zacatecas">Zacatecas</option>
+                                    <option value="AGUASCALIENTES">AGUASCALIENTES</option>
+                                    <option value="BAJA CALIFORNIA NORTE">BAJA CALIFORNIA NORTE</option>
+                                    <option value="BAJA CALIFORNIA SUR">BAJA CALIFORNIA SUR</option>
+                                    <option value="CAMPECHE">CAMPECHE</option>
+                                    <option value="CHIAPAS">CHIAPAS</option>
+                                    <option value="CHIHUAHUA">CHIHUAHUA</option>
+                                    <option value="COAHUILA">COAHUILA</option>
+                                    <option value="COLIMA">COLIMA</option>
+                                    <option value="DURANGO">DURANGO</option>
+                                    <option value="ESTADO DE MEXICO">ESTADO DE MEXICO</option>
+                                    <option value="GUANAJUATO">GUANAJUATO</option>
+                                    <option value="GUERRERO">GUERRERO</option>
+                                    <option value="HIDALGO">HIDALGO</option>
+                                    <option value="JALISCO">JALISCO</option>
+                                    <option value="MICHOACAN">MICHOACAN</option>
+                                    <option value="MORELOS">MORELOS</option>
+                                    <option value="NAYARIT">NAYARIT</option>
+                                    <option value="NUEVO LEON">NUEVO LEON</option>
+                                    <option value="OAXACA">OAXACA</option>
+                                    <option value="PUEBLA">PUEBLA</option>
+                                    <option value="QUERETARO">QUERETARO</option>
+                                    <option value="QUINTNA ROO">QUINTNA ROO</option>
+                                    <option value="SAN LUIS POTOSI">SAN LUIS POTOSI</option>
+                                    <option value="SINALOA">SINALOA</option>
+                                    <option value="SONORA">SONORA</option>
+                                    <option value="TABASCO">TABASCO</option>
+                                    <option value="TAMAULIPAS">TAMAULIPAS</option>
+                                    <option value="TLAXCALA">TLAXCALA</option>
+                                    <option selected value="VERACRUZ">VERACRUZ</option>
+                                    <option value="YUCATAN">YUCATAN</option>
+                                    <option value="ZACATECAS">ZACATECAS</option>
                                 </select>
 
                             </div>
@@ -606,7 +607,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Municipio</label>
+                                <label for="name">*Municipio</label>
                                 <input type="text" id="munic" class="form-control" name="munic"
                                     style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -617,7 +618,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Localidad</label>
+                                <label for="name">*Localidad</label>
                                 <input type="text" id="loca" class="form-control" name="loca"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -635,7 +636,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Colonia</label>
+                                <label for="name">*Colonia o Fraccionamiento</label>
                                 <input type="text" id="colon" class="form-control" name="colon"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30"
@@ -646,7 +647,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Calle</label>
+                                <label for="name">*Calle</label>
                                 <input type="text" id="calle" class="form-control" name="calle"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30"
@@ -657,9 +658,9 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="rfc">Codigo postal</label>
+                                <label for="rfc">*Codigo postal</label>
                                 <input type="text" id="cp" class="form-control" name="cp"
-                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848; text-align: center;"
                                     placeholder="XXXXX" minlength="5" maxlength="5"
                                     onkeypress="return SoloNumeros(event);">
                                 <span></span>
@@ -669,24 +670,23 @@
                     </div><br>
 
                     <div class="row">
+                        
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Número exterior</label>
+                                <label for="name">*Número exterior</label>
                                 <input type="text" id="num_ext" class="form-control" name="num_ext"
-                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="" minlength="4" maxlength="4" onkeypress="return SoloNumeros(event);">
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848; text-align: center;"
+                                    placeholder="" minlength="4" maxlength="4">
                                 <span></span>
-
                             </div>
-
                         </div>
 
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                                 <label for="name">Letra exterior</label>
                                 <input type="text" id="let_ext" class="form-control" name="let_ext"
-                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="A-Z" minlength="1" maxlength="1" onkeypress="return soloLetras(event);"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848; text-align: center;"
+                                    placeholder="(Opcional)" minlength="1" maxlength="1" onkeypress="return soloLetras(event);"
                                     oninput="this.value = this.value.toUpperCase();">
                                 <span></span>
                             </div>
@@ -696,8 +696,8 @@
                             <div class="form-group">
                                 <label for="name">Número interior</label>
                                 <input type="text" id="num_int" class="form-control" name="num_int"
-                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="" minlength="4" maxlength="4" onkeypress="return SoloNumeros(event);">
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848; text-align: center;"
+                                    placeholder="(Opcional)" minlength="4" maxlength="4">
                                 <span></span>
                             </div>
                         </div>
@@ -706,22 +706,18 @@
                             <div class="form-group">
                                 <label for="rfc">Letra interior</label>
                                 <input type="text" id="let_int" class="form-control" name="let_int"
-                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="A-Z" minlength="1" maxlength="1" onkeypress="return soloLetras(event);"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848; text-align: center;"
+                                    placeholder="(Opcional)" minlength="1" maxlength="1" onkeypress="return soloLetras(event);"
                                     oninput="this.value = this.value.toUpperCase();">
                                 <span></span>
                             </div>
                         </div>
 
                     </div><br>
-                    <hr>
-
-
-                </div>
-            </div><br>
-
 
         </fieldset>
+
+        <p style="text-align: center; font-style: italic;">Los campos marcados * son obligatarios. </p>
 
     </div>
 
@@ -736,7 +732,7 @@
                 </div>
                 <div class="modal-body text-center">
                     <h4>Bien!</h4>
-                    <h6>Los datos han sido registrado correctamente.</h6>
+                    <h6>Los datos han sido registrado exitosamente.</h6>
                     <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
                 </div>
             </div>
@@ -808,8 +804,8 @@
 
                 </div>
                 <div class="modal-body text-center">
-                    <h4>ERROR</h4>
-                    <h6>favor de llenar los campos.</h6>
+                    <h4>PRECAUCIÓN</h4>
+                    <h6>Rellene los campos obligatarios antes de guardar.</h6>
 
                 </div>
             </div>
@@ -821,10 +817,10 @@
 
             <div class="col-xl-12 " style="margin-top: 5px;">
                 <div class="form-group" style="float:right;">
-                    <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)"
+                    <button type="button" class="btn btn" id="prevBtn" onclick="nextPrev(-1)"
                         style="width: 150px; background:#eda645; color: #ffff; font-weight:bold;">Atras</button>
-                    <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)"
-                        style="width: 120px; background:#992535; color: #ffff; font-weight:bold; ">Siguiente</button>
+                    <button type="button" class="btn btn" id="nextBtn" onclick="nextPrev(1)"
+                        style="width: 120px; background:#eda645; color: #ffff; font-weight:bold; ">Siguiente</button>
 
                 </div>
             </div>
@@ -853,8 +849,8 @@
         boton.disabled = false;
     }
 
-// Ejecutar verificarValor cada 1 segundo usando setInterval
-//setInterval(verificarValor, 100);
+    // Ejecutar verificarValor cada 1 segundo usando setInterval
+    //setInterval(verificarValor, 100);
 
 
 </script>
@@ -904,6 +900,7 @@
     }
 
     function validateForm() {
+        /*
         var x, y, i, valid = true;
         x = document.getElementsByClassName("tab");
         y = x[currentTab].getElementsByTagName("input");
@@ -936,6 +933,34 @@
         }
 
         return valid;
+        */
+
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        for (i = 0; i < y.length; i++) {
+            // Excluir ciertos campos por su ID
+            if (y[i].id !== 'observaciones' && y[i].id !== 'num_int' && y[i].id !=='let_ext' && y[i].id !== 'num_ext' && y[i].id !=='let_int') {
+                if (y[i].value == "") {
+                    y[i].className += " invalid";
+                    valid = false;
+                }
+            }
+        }
+
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        } else {
+            $('#error_campos').modal('show');
+
+            // Ocultar el modal después de 3 segundos (3000 milisegundos)
+            setTimeout(function () {
+                $('#error_campos').modal('hide');
+            }, 3500);
+        }
+
+        return valid;
+
     }
 
     function fixStepIndicator(n) {
@@ -953,8 +978,8 @@
     integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
     crossorigin="anonymous"></script>
 
-
 <script src="{%static 'js/CATASTRO/contribuyentes/validaciones_contribuyentes.js'%}"></script>
+
 
 
 

@@ -362,7 +362,7 @@
                             style=" margin-top: 30px; margin-left: 20px; margin-right: 20px;">
                             <legend class="float-none w-auto px-3"
                                 style="font-size: 22px; color: brown;  font-family: 'Calibri'">
-                                <img src="{% static 'img/Key.svg' %}" alt="">CLAVE CATASTRAL
+                                <img src="{% static 'img/Key.svg' %}" alt="">*CLAVE CATASTRAL
                             </legend>
 
                             <div class="row " style="margin-top: 0px;">
@@ -482,7 +482,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Fecha de registro</label>
+                                <label for="name">*Fecha de registro</label>
                                 <input type="date" id="fecha_registro" class="form-control" name="fecha_registro"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -496,7 +496,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Motivo de registro</label>
+                                <label for="name">*Motivo de registro</label>
                                 <input type="text" id="motivo_registro" class="form-control" name="motivo_registro"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -508,10 +508,11 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Cuenta predial</label>
+                                <label for="name">*Cuenta predial</label>
                                 <input type="text" id="cuenta_predial" class="form-control" name="cuenta_predial"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
+                                    placeholder="" minlength="3" maxlength="30"
+                                    onkeypress="return soloLetrasNumeros(event);"
                                     onKeyUp="this.value = this.value.toUpperCase();">
                                 <span></span>
                             </div>
@@ -528,7 +529,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Denominación</label>
+                                <label for="name">*Denominación</label>
                                 <input type="text" id="denominacion" class="form-control" name="denominacion"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -539,7 +540,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="rfc">Cuenta de origen</label>
+                                <label for="rfc">*Cuenta de origen</label>
                                 <input type="text" id="cuenta_origen" class="form-control" name="cuenta_origen"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="XXXX000000XXX" minlength="13" maxlength="13"
@@ -551,7 +552,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Tipo de predio</label>
+                                <label for="name">*Tipo de predio</label>
                                 <select name="tipo_predio" class="form-select" aria-label="Default select example"
                                     style="border: 2px rgb(204, 55, 105) solid; background-color: #f3ea9848;">
                                     <option selected value="URBANO">URBANO</option>
@@ -570,7 +571,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Uso de predio</label>
+                                <label for="name">*Uso de predio</label>
                                 <input type="text" id="uso_predio" class="form-control" name="uso_predio"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -581,7 +582,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Región</label>
+                                <label for="name">*Región</label>
                                 <input type="text" id="region_2" class="form-control" name="region_2"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -592,7 +593,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="rfc">Zona de valor</label>
+                                <label for="rfc">*Zona de valor</label>
                                 <input type="text" id="zona_valor" class="form-control" name="zona_valor"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="XXXX000000XXX" minlength="13" maxlength="13"
@@ -627,10 +628,10 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Entidad federativa</label>
+                                <label for="name">*Entidad federativa</label>
                                 <input type="text" id="ent_federativa" class="form-control" name="ent_federativa"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    value="Veracruz" readonly minlength="3" maxlength="30"
+                                    value="VERACRUZ" readonly minlength="3" maxlength="30"
                                     onkeypress="return soloLetras(event);"
                                     onKeyUp="this.value = this.value.toUpperCase();">
                                 <span></span>
@@ -641,10 +642,10 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Municipio</label>
+                                <label for="name">*Municipio</label>
                                 <input type="text" id="municipio_predio" class="form-control" name="municipio_predio"
                                     style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                    value="Minatitlán" readonly minlength="3" maxlength="30"
+                                    value="MINATITLAN" readonly minlength="3" maxlength="30"
                                     onkeypress="return soloLetras(event);"
                                     onKeyUp="this.value = this.value.toUpperCase();">
                                 <span></span>
@@ -653,7 +654,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Localidad</label>
+                                <label for="name">*Localidad</label>
                                 <input type="text" id="localidad_predio" class="form-control" name="localidad_predio"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -671,7 +672,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Colonia</label>
+                                <label for="name">*Colonia</label>
                                 <input type="text" id="colonia_predio" class="form-control" name="colonia_predio"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30"
@@ -682,7 +683,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Calle</label>
+                                <label for="name">*Calle</label>
                                 <input type="text" id="calle_predio" class="form-control" name="calle_predio"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30"
@@ -693,56 +694,65 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="rfc">Numero exterior</label>
-                                <input type="text" id="num_exte_predio" class="form-control" name="num_exte_predio"
+                                <label for="rfc">*Codigo Postal</label>
+                                <input type="text" id="codigo_postal" class="form-control" name="codigo_postal"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="XXXX000000XXX" minlength="13" maxlength="13"
+                                    placeholder="" minlength="13" maxlength="13"
                                     onkeypress="return soloLetrasNumeros(event);"
                                     onKeyUp="this.value = this.value.toUpperCase();">
                                 <span></span>
                             </div>
                         </div>
+
+
 
                     </div><br>
 
                     <div class="row" style="text-align: center;">
-                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <div class="form-group">
+                                <label for="name">*Número exterior</label>
+                                <input type="text" id="num_exte_predio" class="form-control" name="num_exte_predio"
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848; text-align: center;"
+                                    placeholder="" minlength="4" maxlength="4">
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                                 <label for="name">Letra exterior</label>
                                 <input type="text" id="letra_exte_predio" class="form-control" name="letra_exte_predio"
-                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
-                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848; text-align: center;"
+                                    placeholder="(Opcional)" minlength="1" maxlength="1"
+                                    onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
                                 <span></span>
-
                             </div>
-
                         </div>
 
-                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                                 <label for="name">Número interior</label>
                                 <input type="text" id="num_inte_predio" class="form-control" name="num_inte_predio"
-                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="dd/mm/aaaa" minlength="3" maxlength="30"
-                                    onkeypress="return soloLetrasNumeros(event);"
-                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848; text-align: center;"
+                                    placeholder="(Opcional)" minlength="4" maxlength="4">
                                 <span></span>
                             </div>
                         </div>
 
-                        <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">Letra interior</label>
+                                <label for="rfc">Letra interior</label>
                                 <input type="text" id="letra_inte_predio" class="form-control" name="letra_inte_predio"
-                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
-                                    placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
-                                    onKeyUp="this.value = this.value.toUpperCase();">
+                                    style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848; text-align: center;"
+                                    placeholder="(Opcional)" minlength="1" maxlength="1"
+                                    onkeypress="return soloLetras(event);"
+                                    oninput="this.value = this.value.toUpperCase();">
                                 <span></span>
                             </div>
                         </div>
-
-
 
                     </div><br>
                     <hr>
@@ -754,7 +764,7 @@
 
         </fieldset>
 
-
+        <p style="text-align: center; font-style: italic;">Los campos marcados * son obligatarios. </p>
 
 
     </div>
@@ -877,7 +887,7 @@
             formatoClaveCat();
         });
 
-        function formatoClaveCat(){
+        function formatoClaveCat() {
             var txt_region = input_region.value;
             var txt_manzana = input_manzana.value;
             var txt_lote = input_lote.value;
@@ -949,7 +959,7 @@
                 </div>
                 <div class="modal-body text-center">
                     <h4>Bien!</h4>
-                    <p>Los datos han sido registrado correctamente.</p>
+                    <p>Los datos han sido registrado exitosamente.</p>
                     <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
                 </div>
             </div>
@@ -980,7 +990,7 @@
             $('#myModal').modal('show'); // Muestra la alerta modal de sucess
             setTimeout(function () {
 
-                window.location.href = "{% url 'catastro:busqueda_predios' %}"
+                window.location.href = "{% url 'catastro:index_predios' %}"
 
             }, 6000);
         });
@@ -1016,8 +1026,8 @@
 
                 </div>
                 <div class="modal-body text-center">
-                    <h4>ERROR</h4>
-                    <h6>favor de llenar los campos importantes.</h6>
+                    <h4>PRECAUCIÓN</h4>
+                    <h6>Rellene los campos obligatarios antes de guardar..</h6>
 
                 </div>
             </div>
@@ -1088,7 +1098,7 @@
     }
 
     function validateForm() {
-        var x, y, i, valid = true;
+        /*var x, y, i, valid = true;
         x = document.getElementsByClassName("tab");
         y = x[currentTab].getElementsByTagName("input");
         for (i = 0; i < y.length; i++) {
@@ -1122,7 +1132,34 @@
 
         }
 
+        return valid;*/
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        for (i = 0; i < y.length; i++) {
+            var input = y[i];
+            if (input.id !== 'letra_exte_predio' && input.id !== 'num_inte_predio' && input.id !== 'letra_inte_predio') {
+                // Verificar que el campo sea obligatorio
+                if (input.value == "") {
+                    input.className += " invalid";
+                    valid = false;
+                }
+            }
+        }
+
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        } else {
+            $('#error_campos').modal('show');
+
+            // Ocultar el modal después de 3 segundos (3000 milisegundos)
+            setTimeout(function () {
+                $('#error_campos').modal('hide');
+            }, 3500);
+        }
+
         return valid;
+
     }
 
     function fixStepIndicator(n) {

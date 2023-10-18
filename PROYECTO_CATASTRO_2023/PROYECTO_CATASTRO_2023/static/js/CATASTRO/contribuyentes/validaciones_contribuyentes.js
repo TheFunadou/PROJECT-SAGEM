@@ -42,6 +42,8 @@ const setErrors = (message, campo, isError=true)=>{
   }
 }
 
+
+
 const validarCamposVacios = (message, e) =>{
   const campo = e.target;
   const campo_valor = e.target.value;
@@ -51,6 +53,8 @@ const validarCamposVacios = (message, e) =>{
     setErrors("",campo,false)
   }
 }
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
   // Tu código aquí

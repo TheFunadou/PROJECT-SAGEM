@@ -9,11 +9,12 @@ import os
 from catastro import functions
 from num2words import num2words
 
-def reporte_pago_predial(cajero, clave_cat, ejercicios, datos_pago, observaciones):
+def reporte_pago_predial(cajero, clave_cat, ejercicios, folio, observaciones):
     query_datos_grales_cont= models_cat.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
     query_datos_pred = models_cat.Datos_gen_predio.objects.get(clave_catastral=clave_cat)
     contribuyente = models_cat.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
-    query_datos_pago = models_fin.historial_pagos.objects.get(Q(contribuyente_id=contribuyente) & Q(estatus = 'PAGADO') & Q(folio = datos_pago.folio))
+    query_datos_pago = models_fin.pago_predial.objects.get(Q(contribuyente=contribuyente) & Q(estatus = 'PAGADO') & Q(folio = folio))
+    
     fecha_hora_actual = datetime.datetime.now()
     
     data = {'data': [{
@@ -26,12 +27,12 @@ def reporte_pago_predial(cajero, clave_cat, ejercicios, datos_pago, observacione
         'tipo_predio':query_datos_pred.tipo_predio,
         # VALOR CATASTRAL SE OBTIENE AL GUARDAR REGISTROS DE LA FICHA CATASTRAL
         'valor_catastral':'',
-        'impuesto_predial':f'{query_datos_pago.subtotal_años}',
+        'impuesto_predial':f'{query_datos_pago.impuesto_predial}',
         'impuesto_adicional':f'{query_datos_pago.impuesto_adicional}',
         'multas':f'{query_datos_pago.multa}',
         'recargos':f'{query_datos_pago.recargo}',
         'concepto': f'PAGO DE IMPUESTO PREDIAL {ejercicios}',
-        'descuento':f'{query_datos_pago.multa+query_datos_pago.recargo}',
+        'descuento':f'{query_datos_pago.descuento}',
         'total':f'{query_datos_pago.total} MXN',
         'observaciones':observaciones,
         'cajero':cajero,

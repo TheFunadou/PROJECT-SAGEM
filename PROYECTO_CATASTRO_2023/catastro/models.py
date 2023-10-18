@@ -20,6 +20,7 @@ class Datos_Contribuyentes(models.Model):
     colonia_fraccionamiento = models.CharField(max_length=55)
     localidad = models.CharField(max_length=55)
     codigo_postal = models.CharField(max_length=10)
+    #fecha_registro= models.DateTimeField(auto_now_add=True)
     
     class Meta:
          unique_together = ('clave_catastral', 'rfc',)
@@ -38,6 +39,7 @@ class Datos_inmuebles(models.Model):
      municipio = models.CharField(max_length=50)
      ciudad_localidad = models.CharField(max_length=50)
      uso_predio = models.CharField(max_length=50)
+     
      
 
 class Datos_Construccion(models.Model):
@@ -218,6 +220,7 @@ class Datos_gen_predio(models.Model):
    cuenta_origen = models.CharField(max_length=30)
    fecha_alta = models.CharField(max_length=10)
    motivo_alta = models.CharField(max_length=30)
+   #fecha_registro= models.DateTimeField(auto_now_add=True)
 
 
 class Domicilio_predio(models.Model):
@@ -228,6 +231,7 @@ class Domicilio_predio(models.Model):
    localidad = models.CharField(max_length=35)
    col = models.CharField(max_length=35)
    calle = models.CharField(max_length=35)
+   #codigo_postal = models.CharField(max_length=10)
    num_ext = models.CharField(max_length=5)
    letra_ext = models.CharField(max_length=5)
    num_int = models.CharField(max_length=5)

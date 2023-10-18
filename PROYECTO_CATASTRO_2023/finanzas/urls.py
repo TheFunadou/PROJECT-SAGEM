@@ -38,27 +38,21 @@ urlpatterns = [
     path('buscar_adeudo/ajax/',views.obtener_datos_busqueda, name='buscar'),
     path('buscar_adeudo/ajax/<str:dato>/',views.busqueda_valida_adeudos, name='validar_adeudos'),
     
-    path('buscar_adeudo/ajax/<str:dato>/solicitar',views.solicitar_descuento),
+    path('pago_predial/solicitar_descuento',views.solicitar_descuento, name="solicitar_descuento"),
     ####################
     
    #PANTALLAS DE SELECCION DE CONTRIBUYENTES CON DESCUENTOS Y POR APLICAR
     path('descuento_aplicado/',views.pantalla_seleccion_cajera, name='descuento_aplicado'),
-    path('menu_principal/menu_finanzas/descuento_pendiente/',views.pantalla_seleccion_contadora, name='seleccion_descuentos_pendientes'),
-
-
-    path('menu_principal/menu_finanzas/descuento_aprobado/',views.pantalla_seleccion_cajera, name='seleccion_descuentos_aprobados'),
-
-    path('perfil_su/xd/',views.notificaciones_contabilizar),
-    # path('perfil/cajera/',views.notificaciones_contabilizar_cajera),
+    path('menu_principal/menu_finanzas/descuento_pendiente/',views.view_seleccion_descuentos_solicitados, name='seleccion_descuentos_pendientes'),
+    path('menu_principal/menu_finanzas/descuento_aprobado/',views.view_seleccion_descuentos_aprobados, name='seleccion_descuentos_aprobados'),
     #RUTAS PARA PANTALLA APLICAR DESCUENTO
-    path('descuento_pendiente/aplicar_descuento/<str:dato>',views.aplicar_descuentos, name='aplicar_descuento'),
+    path('descuento_pendiente/aplicar_descuento/<str:dato>/',views.aplicar_descuentos, name='aplicar_descuento'),
     # PAGO PREDIAL
-    path('pago_predial/descuento_aprobado/<str:dato>',views.view_pago_descuentos_aplicados, name='pago_descuentos_aplicados'),
-    path('aprobar_descuento_contribuyente/',views.descuento_aprobado, name='descuento_aprobado'),
-    path('rechazar_descuento_contribuyente/',views.descuento_rechazado, name='descuento_rechazado'),
-    path('pago_predial_contribuyente_years_debe_directo/',views.pago_predial_years_debe_directo, name='pago_predial_years_debe_directo'),
-    path('pago_predial_contribuyente_years_descuento_aplicado/',views.pago_predial_descuento_aplicado, name='pago_predial_descuento_aplicado'),
-    path('pago_predial_contribuyente_years_corriente/',views.pago_predial_contribuyente_years_corriente, name='pago_predial_contribuyente_years_corriente'),
+    path('pago_predial/descuento_aprobado/<str:dato>/',views.view_pago_descuento_aprobado, name='pago_descuento_aprobado'),
+    path('aprobar_descuento_contribuyente/',views.descuento_aprobado, name='aprobar_descuento'),
+    path('rechazar_descuento_contribuyente/',views.descuento_rechazado, name='rechazar_descuento'),
+    path('pago_predial_contribuyente_years_debe_directo/',views.pago_predial, name='pago_predial'),
+
     
    
     

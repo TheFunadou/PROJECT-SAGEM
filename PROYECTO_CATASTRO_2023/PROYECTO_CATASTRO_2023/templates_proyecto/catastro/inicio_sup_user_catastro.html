@@ -21,8 +21,9 @@
         const data = JSON.parse(e.data);
 
         //Obtener el contenedor donde se vaciaran los mensajes
-        const box_notify = document.getElementById('notify_box')
-        const box_num_notify = document.getElementById('box_num_notify')
+        var box_notify = document.getElementById('notify_box');
+        const box_num_notify = document.getElementById('box_num_notify');
+        
 
         //
         box_notify.innerHTML = '';
@@ -34,8 +35,6 @@
         data.forEach((notifications) => {
             var titulo = notifications.titulo;
             var remitente = notifications.remitente;
-
-            
 
             // Crear un nuevo elemento de lista y agregar los datos
             const etiqueta_a = document.createElement('a');
@@ -64,8 +63,11 @@
 
         if(num_notify == null || num_notify==0){
             box_num_notify.innerText=0;
+            box_notify.style.display = 'none';
+
         }else{
             box_num_notify.innerText=num_notify;
+            box_notify.style.display = 'block';
         }
 
         socket.onclose = (event) => {
@@ -246,17 +248,8 @@
             <li class="main-list">
                 <a href="">PROPIEDADES Y TITULARES</a>
                 <ul class="sub-list">
-                    <li><a href="{% url 'catastro:index_contribuyente' %}" >CONTRIBUYENTES</a></li>
-                    <li><a href="{% url 'catastro:index_predios' %}" >PREDIOS</a></li>       
-                </ul>
-            </li>
-
-            <li class="main-list">
-                <a href="">ALTAS</a>
-                <ul class="sub-list">
-                    <li><a href="" class="as">INCORPORACIÓN</a></li>
-                    <li><a href="" class="as">SUBDIVISIÓN</a></li>
-                    <li><a href="" class="as">FUSIÓN DE PREDIOS</a></li>
+                    <li><a href="{% url 'catastro:index_contribuyente' %}" >ALTA DE CONTRIBUYENTES</a></li>
+                    <li><a href="{% url 'catastro:index_predios' %}" >ALTA DE PREDIOS</a></li>       
                 </ul>
             </li>
 
@@ -264,12 +257,15 @@
                 <a href="">TRAMITES</a>
                 <ul class="sub-list">
                     <li><a href="{% url 'catastro:solicitud' %}" class="as">DC017</a></li>
-                    <li><a href="{%url 'catastro:ficha_catastral'%}" class="as">FICHA_CATASTRAL</a></li>
+                    <li><a href="{%url 'catastro:ficha_catastral'%}" class="as">FICHA CATASTRAL</a></li>
+                    <li><a href="" class="as">INCORPORACIÓN</a></li>
+                    <li><a href="" class="as">SUBDIVISIÓN</a></li>
+                    <li><a href="" class="as">FUSIÓN DE PREDIOS</a></li>
                 </ul>
             </li>
 
             <li class="main-list">
-                <a href="">REPORTE</a>
+                <a href="">REPORTES</a>
                 <ul class="sub-list">
                     <li><a href="">1</a></li>
                     <li><a href="">2</a></li>
@@ -277,19 +273,19 @@
                 </ul>
             </li>
 
-            <li class="main-list">
+            <!-- <li class="main-list">
                 <a href="">TRAMITES</a>
                 <ul class="sub-list">
                     <li><a href="" class="as">NUEVA BAJA</a></li>
                     <li><a href="" class="as">NUEVO USUARIO</a></li>
                 </ul>
-            </li>
+            </li> -->
 
             <li class="main-list">
                 <a href="">MANTENIMIENTO</a>
                 <ul class="sub-list">
                     <li><a href="" class="as">MIGRAR DEUDORES</a></li>
-                    <li><a href="{% url 'catastro:view_registrar_usuario' %}" class="as">NUEVO USUARIO</a></li>
+                    <li><a href="{% url 'catastro:view_registrar_usuario' %}" class="as">CREAR NUEVO USUARIO</a></li>
                 </ul>
             </li>
 
@@ -308,7 +304,7 @@
     </nav>
 
     <div id="box-2">
-        <h1>Bienvenido, {{nombre_user}}</h1>
+        <!-- <h1>Bienvenido, {{nombre_user}}</h1> -->
     </div>
 </main>
 

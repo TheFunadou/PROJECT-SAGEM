@@ -2,7 +2,10 @@ from django.shortcuts import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth import logout
+from django.db.models import Sum, Max
+from django.db import transaction, IntegrityError
 from django.urls import *
+from django.utils import timezone
 from notify.models import notify as notify_finanzas
 from django.contrib.auth.models import User
 
@@ -10,9 +13,6 @@ from catastro import models as models_catastro
 from finanzas import models as models_finanzas
 from catastro.models import Domicilio_inmueble
 
-import datetime
-import json
-import random
 import re
 from django.urls import reverse
 from django.contrib.sites.shortcuts import get_current_site
@@ -31,8 +31,6 @@ from asgiref.sync import async_to_sync
 
 from .reports.reporte_pago_predial import reporte_pago_predial
 from .reports.reporte_pago_predial_c import reporte_pago_predial_corriente
-
-from django.db.models import Max
 
 
 #Mandar una notificacion
@@ -127,7 +125,7 @@ def perfil_sup_user_finanzas(request):
     #CONTEXTO PARA EL TEMPLATE
     ctx = {
         'nom_pag': 'INGRESOS',
-        'titulo_pag': 'INICIO SUPER USUARIO INGRESOS',
+        'titulo_pag': f'BIENVENIDO {request.user.username}',
         'nombre_user': request.user.username
     }
 
@@ -248,38 +246,35 @@ def pago_predial_busqueda_2(request):
     return render(request, "finanzas/pago-predial/busqueda_contribuyente_2.html")
 
 #CONSULTA DE DATOS DEL CONTRIBUYENTE PARA MOSTRAR EN LA PANTALLA DE PAGO DE PREDIO
-def pago_predial_datos_2(request,dato):
-    lista = []
-    lista_adeudos =[]
+def pago_predial_datos_2(request,contribuyente):
+    contribuyente_data_list = []
+    adeudos_data_list =[]
     est_fisico_predio = ''
     tipo_predio = ''
-    extraer_datos_contribuyente = Domicilio_inmueble.objects.select_related().filter(Q(pk_fk_clave_catastral__clave_catastral = dato))
+    datos_contribuyente = Domicilio_inmueble.objects.select_related().filter(Q(pk_fk_clave_catastral__clave_catastral = contribuyente))
 
-    datos_predios = models_catastro.Datos_inmuebles.objects.filter(fk_clave_catastral = dato)
+    datos_predios = models_catastro.Datos_inmuebles.objects.filter(fk_clave_catastral = contribuyente)
 
-    pagos_adeudo = models_finanzas.historial_pagos.objects.filter(Q(contribuyente=dato) & Q(estatus='NO PAGADO')).order_by('ejercicio')
+    adeudos = models_finanzas.pago_predial.objects.filter(Q(contribuyente=contribuyente) & Q(estatus='NO PAGADO') | Q(folio = 0) ).order_by('ejercicio')
 
     for predio in datos_predios:
         est_fisico_predio = predio.pk_estado_fisico_predio
         tipo_predio = predio.tipo_predio
 
     #ciclo for para extraer datos de adeudos
-    for deudas in pagos_adeudo:
-       lista_adeudos.append({
-        'clave':deudas.contribuyente.clave_catastral,
-        'ejercicio' : deudas.ejercicio,
-        #Extraer subtotal años sin descuento, para lo años con descuento mejor en la columa subtotal años
-        'subtotal_years_sd': deudas.subtotal_años,
-        #'subtotal' : deudas.subtotal_años,
-        'impuesto_adicional' : deudas.impuesto_adicional,
-        'recargo' : deudas.recargo,
-        'multa' : deudas.multa,
-        'estatus':deudas.estatus,
-        'total' : deudas.total        
-       }) 
+    for data in adeudos:
+       adeudos_data_list.append({
+        'clave_cat':data.contribuyente.clave_catastral,
+        'ejercicio' : data.ejercicio,
+        'impuesto_predial': data.impuesto_predial,
+        'impuesto_adicional' : data.impuesto_adicional,
+        'recargo' : data.recargo,
+        'multa' : data.multa,
+       })
+       
     #ciclo for para extraer los datos del contribuyente
-    for data in extraer_datos_contribuyente:
-       lista.append({
+    for data in datos_contribuyente:
+       contribuyente_data_list.append({
            'clave_catastral':data.pk_fk_clave_catastral.clave_catastral,
            'apellido_paterno':data.pk_fk_clave_catastral.apaterno,
            'apellido_materno':data.pk_fk_clave_catastral.amaterno,
@@ -292,42 +287,32 @@ def pago_predial_datos_2(request,dato):
            'tipo_predio':tipo_predio,
        })
 
-    context = {
-        'my_list': lista,
-        'adeudos':lista_adeudos,
-        'titulo_pag': 'PAGO DE PREDIAL',
-    }   
-    return render(request, "finanzas/pago-predial/datos_consultados_contribuyente_años_debe.html",context)
+    return render(request, "finanzas/pago-predial/pago_predial_adeudos.html", {'my_list': contribuyente_data_list, 'adeudos':adeudos_data_list, 'titulo_pag': 'PAGO DE PREDIAL'})
 
 #FUNCION PARA ACTUALIZAR EL ESTATUS DE DESCUENTO PARA SOLICITAR 
-def solicitar_descuento(request, dato):
- 
-    if request.method == 'GET':
-        años_seleccionados = request.GET.getlist('años[]')
-        clave = request.GET.get('clave')
-        estatus = request.GET.get('estatus')
+def solicitar_descuento(request):
+    try:
+        if request.method == 'GET':
+            years_selected_list = request.GET.getlist('years_selected[]')
+            clave_cat = request.GET.get('clave_cat')
         # Realiza las operaciones necesarias con los años seleccionados
-        # ... 
-        for año in años_seleccionados:
-           resultado = models_finanzas.historial_pagos.objects.filter(contribuyente=clave.strip(), ejercicio=año.strip(),estatus=estatus.strip())
-           for info in resultado:
-               print(info.contribuyente.clave_catastral, ", ", info.estatus, ", ", info.ejercicio)                
-               info.aplica_descuento = 'SOLICITADO'
-               info.cajero = request.user.username
-               clave_cat_contrib = info.contribuyente.clave_catastral
-               info.save()
+        contribuyente = models_catastro.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
+        query_adeudos = models_finanzas.pago_predial.objects.filter(Q(contribuyente=contribuyente) & Q(estatus = 'NO PAGADO') | Q(folio=0)  & Q(autorizacion = 'AUTORIZADO') & Q(estatus_descuento = 'NO SOLICITADO') & Q(ejercicio__in=years_selected_list))
         
-        #MANDAR NOTIFICACION A LA CONTADORA
-        titulo = 'SOLICITUD DE DESCUENTO'
-        cuerpo = f'Clave Catastral: {clave_cat_contrib}, Años solicitados: {años_seleccionados}'
-
-        send_notify(request.user.username,'contadora',titulo, cuerpo)
-        
-        # Mandar correo
-        
-           
-        # Devuelve una respuesta JSON
-        return JsonResponse({'mensaje': 'Años recibidos con éxito.'})
+        with transaction.atomic():
+            for rs in query_adeudos:
+                rs.estatus_descuento = 'SOLICITADO'
+                rs.cajero = request.user.username
+                rs.fecha_hora = timezone.now()
+                rs.save()
+            
+            #MANDAR NOTIFICACION A LA CONTADORA
+            send_notify(request.user.username,'contadora','SOLICITUD DE DESCUENTO', f'Clave Catastral: {clave_cat}, Años solicitados: {years_selected_list}')
+    except IntegrityError:
+        print('ERROR AL SOLICITAR DESCUENTO')
+    transaction.commit()
+    # Devuelve una respuesta JSON
+    return JsonResponse({'mensaje': 'SOLICITADO'})
     
 #FUNCIÓN QUE HABILITA LA PANTALLA DEUDOR DEPENDIENDO SI VA AL CORRIENTE O DEBE MAS DE 1 AÑO
 
@@ -340,10 +325,52 @@ def busqueda_valida_adeudos(request, dato):
 
 #PANTALLA PARA CONSULTAS DE CONTRIBUYENTES CON DEUDA
 def pantalla_seleccion_cajera(request):
-    ctx={
-        'titulo_pag':'DESCUENTOS APROBADOS'
-    }
-    return render(request,"finanzas/pago-predial/descuentos/index-descuentos-aplicados.html",ctx)
+    return render(request,"finanzas/pago-predial/descuentos/index-descuentos-aplicados.html",{'titulo_pag':'PAGO PREDIAL: SELECCION DE DESCUENTOS APROBADOS'})
+
+############
+
+#PANTALLA CAJERO PARA SELECCION DE DESCUENTOS APROBADOS
+def view_seleccion_descuentos_aprobados(request):
+    años =[]
+    dat = []
+    lista_duplicados = []
+    claves = set()
+    adeudos_contribuyentes = models_finanzas.pago_predial.objects.filter(estatus_descuento='APROBADO').order_by('fecha_hora')[:10]
+
+    if adeudos_contribuyentes.exists():
+
+        for i in adeudos_contribuyentes:
+         años.append({
+            'years':i.ejercicio
+         })
+
+        for datos in adeudos_contribuyentes:
+         dat.append({
+            'clave_cat':datos.contribuyente.clave_catastral,
+            'nombre_completo': f'{datos.contribuyente.nombre} {datos.contribuyente.apaterno} {datos.contribuyente.amaterno}',
+            'years':datos.ejercicio,
+            'fecha_hora':datos.fecha_hora,
+        })
+        
+        for elemento in dat:
+            clave = elemento['clave_cat']
+            if clave in claves:
+                for item in lista_duplicados:
+                    if item['clave_cat'] == clave:
+                        item['years'] += ',' + elemento['years']
+                        break
+            else:
+                claves.add(clave)
+                lista_duplicados.append(elemento)
+        
+        return render(request,"finanzas/pago-predial/descuentos/seleccion_descuentos_aprobados.html",{'años':años, 'dat':lista_duplicados, 'titulo_pag': 'PAGO PREDIAL: SELECCION DE DESCUENTOS APROBADOS'})
+    else:
+        return render(request,"finanzas/pago-predial/descuentos/seleccion_descuentos_aprobados.html",{'titulo_pag': 'PAGO PREDIAL: SELECCION DE DESCUENTOS APROBADOS'})
+
+
+###########
+
+"""
 
 
 def pantalla_seleccion_cajera(request):
@@ -386,78 +413,69 @@ def pantalla_seleccion_cajera(request):
         return render(request,"finanzas/pago-predial/descuentos/index-descuentos-aplicados.html" , {'titulo_pag':'DESCUENTOS APROBADOS'})
 
 
+"""
+
 #PANTALLA PARA CONSULTAS DE CONTRIBUYENTES CON DEUDA
-def pantalla_seleccion_contadora(request):
+def view_seleccion_descuentos_solicitados(request):
     años =[]
     dat = []
     lista_duplicados = []
     claves = set()
-    adeudos_contribuyentes = models_finanzas.historial_pagos.objects.filter(aplica_descuento='SOLICITADO')
+    adeudos_contribuyentes = models_finanzas.pago_predial.objects.filter(estatus_descuento='SOLICITADO').order_by('fecha_hora')[:10]
 
-    if(adeudos_contribuyentes.exists()==True):
+    if adeudos_contribuyentes.exists():
 
         for i in adeudos_contribuyentes:
          años.append({
-            'años':i.ejercicio
+            'years':i.ejercicio
          })
 
         for datos in adeudos_contribuyentes:
          dat.append({
-            'clave':datos.contribuyente.clave_catastral,
-            'nombre':datos.contribuyente.nombre,
-            'apaterno':datos.contribuyente.apaterno,
-            'amaterno':datos.contribuyente.amaterno,
-            'años':datos.ejercicio
-         })
+            'clave_cat':datos.contribuyente.clave_catastral,
+            'nombre_completo': f'{datos.contribuyente.nombre} {datos.contribuyente.apaterno} {datos.contribuyente.amaterno}',
+            'years':datos.ejercicio,
+            'fecha_hora':datos.fecha_hora,
+            'cajero':datos.cajero
+        })
         
         for elemento in dat:
-            clave = elemento['clave']
+            clave = elemento['clave_cat']
             if clave in claves:
                 for item in lista_duplicados:
-                    if item['clave'] == clave:
-                        item['años'] += ',' + elemento['años']
+                    if item['clave_cat'] == clave:
+                        item['years'] += ',' + elemento['years']
                         break
             else:
                 claves.add(clave)
                 lista_duplicados.append(elemento)
-                
-       
-        return render(request,"finanzas/pago-predial/descuentos/index-aplicar-descuentos.html",{'años':años, 'dat':lista_duplicados, 'titulo_pag': 'APLICAR DESCUENTOS PAGO PREDIAL'})
+        
+        return render(request,"finanzas/pago-predial/descuentos/seleccion_solicitudes_descuento.html",{'años':años, 'dat':lista_duplicados, 'titulo_pag': 'PAGO PREDIAL: SOLICITUDES DE DESCUENTO'})
     else:
-        return render(request,"finanzas/pago-predial/descuentos/index-aplicar-descuentos.html",{'titulo_pag': 'APLICAR DESCUENTOS PAGO PREDIAL'})
+        return render(request,"finanzas/pago-predial/descuentos/seleccion_solicitudes_descuento.html",{'titulo_pag': 'PAGO PREDIAL: SELECCION DE SOLICITUDES DE DESCUENTO'})
 
 #APLICAR DESCUENTOS USUARIO ADMINISTRADOR
 def aplicar_descuentos_1(request,dato):
     return render(request,"finanzas/pago-predial/descuentos/aplicar-descuento-contribuyente.html")
 
-#VISTA DONDE LA ADMINISTRADORA APLIA LOS DESCUENTOS
+
+#VISTA DONDE LA ADMINISTRADORA APLICA LOS DESCUENTOS
 def aplicar_descuentos(request,dato):
     lista = []
     lista_adeudos =[]
-    est_fisico_predio = ''
-    tipo_predio = ''
     extraer_datos_contribuyente = Domicilio_inmueble.objects.select_related().filter(Q(pk_fk_clave_catastral__clave_catastral = dato)) 
-
-    datos_predios = models_catastro.Datos_inmuebles.objects.filter(fk_clave_catastral = dato)
-
-    pagos_adeudo = models_finanzas.historial_pagos.objects.filter(Q(contribuyente=dato) & Q(estatus='NO PAGADO') & Q(aplica_descuento='SOLICITADO')).order_by('ejercicio')
-
-    for predio in datos_predios:
-        est_fisico_predio = predio.pk_estado_fisico_predio
-        tipo_predio = predio.tipo_predio
+    datos_predios = models_catastro.Datos_inmuebles.objects.get(fk_clave_catastral = dato)
+    pagos_adeudo = models_finanzas.pago_predial.objects.filter(Q(contribuyente=dato) & (Q(estatus='NO PAGADO') | Q(folio = 0)) & Q(estatus_descuento='SOLICITADO')).order_by('ejercicio')
 
     #ciclo for para extraer datos de adeudos
     for deudas in pagos_adeudo:
        lista_adeudos.append({
         'clave':deudas.contribuyente.clave_catastral,
         'ejercicio' : deudas.ejercicio,
-        #'subtotal' : deudas.subtotal_años,
-        'subtotal' : deudas.subtotal_años,
+        'impuesto_predial' : deudas.impuesto_predial,
         'impuesto_adicional' : deudas.impuesto_adicional,
         'recargo' : deudas.recargo,
-        'multa' : deudas.multa,
-        'estatus':deudas.estatus,
-        'total' : deudas.total        
+        'multa' : deudas.multa
        }) 
     #ciclo for para extraer los datos del contribuyente
     for data in extraer_datos_contribuyente:
@@ -470,43 +488,29 @@ def aplicar_descuentos(request,dato):
            'num_int':data.num_int,
            'num_ext':data.num_ext,
            'colonia_f':data.col_fracc,
-           'estado_fisico':est_fisico_predio,
-           'tipo_predio':tipo_predio,   
+           'estado_fisico':datos_predios.pk_estado_fisico_predio,
+           'tipo_predio':datos_predios.tipo_predio,   
        })
-
-    context = {'my_list': lista, 'adeudos':lista_adeudos, 'titulo_pag': 'APLICAR DESCUENTOS PAGO PREDIAL',}   
-    return render(request, "finanzas/pago-predial/descuentos/aplicar-descuento-contribuyente.html",context)
+    return render(request, "finanzas/pago-predial/descuentos/aprobar_descuento.html",{'my_list': lista, 'adeudos':lista_adeudos, 'titulo_pag': 'PAGO PREDIAL: APROBAR DESCUENTOS'})
 
 # PAGO PREDIAL CON DESCUENTO APLICADO
-def view_pago_descuentos_aplicados(request,dato):
+def view_pago_descuento_aprobado(request,dato):
     lista = []
     lista_adeudos =[]
-    est_fisico_predio = ''
-    tipo_predio = ''
     extraer_datos_contribuyente = Domicilio_inmueble.objects.select_related().filter(Q(pk_fk_clave_catastral__clave_catastral = dato)) 
-
-    datos_predios = models_catastro.Datos_inmuebles.objects.filter(fk_clave_catastral = dato)
-
-    pagos_adeudo = models_finanzas.historial_pagos.objects.filter(Q(contribuyente=dato) & Q(estatus='NO PAGADO') & Q(aplica_descuento='APROBADO')).order_by('ejercicio')
-
-    for predio in datos_predios:
-        est_fisico_predio = predio.pk_estado_fisico_predio
-        tipo_predio = predio.tipo_predio
+    datos_predios = models_catastro.Datos_inmuebles.objects.get(fk_clave_catastral = dato)
+    pagos_adeudo = models_finanzas.pago_predial.objects.filter(Q(contribuyente=dato) & (Q(estatus='NO PAGADO') | Q(folio = 0)) & Q(estatus_descuento='APROBADO')).order_by('ejercicio')
 
     #ciclo for para extraer datos de adeudos
     for deudas in pagos_adeudo:
        lista_adeudos.append({
         'clave':deudas.contribuyente.clave_catastral,
         'ejercicio' : deudas.ejercicio,
-        'subtotal' : deudas.subtotal_años,
-        'subtotal_con_descuento' : deudas.subtotal_años,
+        'impuesto_predial' : deudas.impuesto_predial,
         'impuesto_adicional' : deudas.impuesto_adicional,
         'recargo' : deudas.recargo,
-        'desc_recargo' : deudas.descuento_recargo,
         'multa' : deudas.multa,
-        'desc_multa' : deudas.descuento_multa,
-        'estatus':deudas.estatus,
-        'total' : deudas.total        
+        'total_descuento': deudas.descuento
        }) 
     #ciclo for para extraer los datos del contribuyente
     for data in extraer_datos_contribuyente:
@@ -519,215 +523,102 @@ def view_pago_descuentos_aplicados(request,dato):
            'num_int':data.num_int,
            'num_ext':data.num_ext,
            'colonia_f':data.col_fracc,
-           'estado_fisico':est_fisico_predio,
-           'tipo_predio':tipo_predio,
+           'estado_fisico':datos_predios.pk_estado_fisico_predio,
+           'tipo_predio':datos_predios.tipo_predio,   
        })
-
-    context = {'my_list': lista, 'adeudos':lista_adeudos, 'titulo_pag': 'PAGO DE PREDIAL DESCUENTOS APLICADOS',}   
-    return render(request, "finanzas/pago-predial/descuentos/pago-descuento-aplicado.html",context)
-
-
-def notificaciones_contabilizar(request):
-    años =[]
-    dat = []
-    lista_duplicados = []
-    claves = set()
-    adeudos_contribuyentes = models_finanzas.historial_pagos.objects.filter(aplica_descuento='SOLICITADO')
-
-    if(adeudos_contribuyentes.exists()==True):
-
-        for i in adeudos_contribuyentes:
-         años.append({
-            'años':i.ejercicio
-         })
-
-        for datos in adeudos_contribuyentes:
-         dat.append({
-            'clave':datos.contribuyente.clave_catastral,
-            'nombre':datos.contribuyente.nombre,
-            'apaterno':datos.contribuyente.apaterno,
-            'amaterno':datos.contribuyente.amaterno,
-            'años':datos.ejercicio
-         })
-        
-        for elemento in dat:
-            clave = elemento['clave']
-            if clave in claves:
-                for item in lista_duplicados:
-                    if item['clave'] == clave:
-                        item['años'] += ',' + elemento['años']
-                        break
-            else:
-                claves.add(clave)
-                lista_duplicados.append(elemento)
-        
-        data = {
-        'cantidad_elementos': len(lista_duplicados)
-        }
-    
-        return JsonResponse(data)
-    else:
-        return JsonResponse({'contador': 0})
+    return render(request, "finanzas/pago-predial/descuentos/pago_descuento_aprobado.html",{'my_list': lista, 'adeudos':lista_adeudos, 'titulo_pag': 'PAGO PREDIAL: PAGO DESCUENTO APROBADO'})
 
 def descuento_aprobado(request):
-    #GUARDAR EN VARIABLES TODOS LOS ELEMENTOS TRAIDOS POR EL AJAX
-    if request.method == 'GET':
-        clave_cat = request.GET.get('clave_cat')
-        porcentaje_recargo_condonado = request.GET.get('recargo_condonado')
-        porcentaje_multa_condonado = request.GET.get('multa_condonado')
-        total_con_descuento = request.GET.get('total_con_descuento')
-    
-        #RECORDATORIO PARA PONER BLOQUE DE CODIGO EN CASO DE QUE ESTEN APROBADOS LOS ADEUDOS
+    try:
+        if request.method == 'GET':
+            clave_cat = request.GET.get('clave_cat')
+            desc_recargo = request.GET.get('desc_recargo')
+            desc_multa = request.GET.get('desc_multa')
+            descuento_total = request.GET.get('descuento_total')
+            years_selected_list = request.GET.getlist('years_selected[]')
+            
+        contribuyente = models_catastro.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
+        query_adeudos = models_finanzas.pago_predial.objects.filter(Q(contribuyente=contribuyente) & (Q(estatus = 'NO PAGADO') | Q(folio=0))  & Q(autorizacion = 'AUTORIZADO') & Q(ejercicio__in=years_selected_list))
         
-        #QUERY PARA OBTENER TODOS LOS ADEUDOS SOLICITADOS A UN CONTRIBUYETNTE
-        query_historial_pagos = models_finanzas.historial_pagos.objects.filter(contribuyente = clave_cat, estatus = 'NO PAGADO', aplica_descuento='SOLICITADO' )
-        
-        #RECORRER RESULTADOS
-        for rs_hp in query_historial_pagos:
-            cajero = rs_hp.cajero
-            rs_hp.total = total_con_descuento
-            rs_hp.descuento_recargo = porcentaje_recargo_condonado
-            rs_hp.descuento_multa = porcentaje_multa_condonado
-            rs_hp.aplica_descuento = 'APROBADO'
-            rs_hp.autorizacion = 'AUTORIZADO'
-            rs_hp.save()        
-
-        
-    #MANDAR NOTIFICACION AL CAJERO DEL DESCUENTO APROBADO
-    remitente = request.user.username
-    send_notify(remitente, cajero, 'SOLICITUD DE DESCUENTO APROBADA', f'{remitente} aprobo la solicitud de descuento correspondiente a la clave catastral: {clave_cat}')
-        
-    return JsonResponse({'mensaje': 'descuento aprobado con exito'})
-    
-    #Mandar notificacion de aprobacion de descuento
+        with transaction.atomic():
+            for rs in query_adeudos:
+                rs.estatus_descuento = 'APROBADO'
+                rs.recargo = desc_recargo
+                rs.multa = desc_multa
+                rs.descuento = descuento_total
+                rs.fecha_hora = timezone.now()
+                #guardar cambios
+                rs.save()
+                cajero = rs.cajero
+                  
+            send_notify(request.user.username, cajero , 'SOLICITUD DE APROBADA', f'{request.user.username} aprobo la solicitud de descuento correspondiente a la clave catastral: {clave_cat}',)
+            
+    except IntegrityError:
+        print('ERROR AL REALIZAR LA TRANSACCION DE APROBAR DESCUENTO')
+    transaction.commit()
+    return JsonResponse({'mensaje': 'DESCUENTO APROBADO CON EXITO'})   
 
 def descuento_rechazado(request):
-    if request.method == 'GET':
-        clave_cat = request.GET.get('clave_cat')
-        query_historial_pagos = models_finanzas.historial_pagos.objects.filter(contribuyente = clave_cat, estatus = 'NO PAGADO', aplica_descuento='SOLICITADO' )
-        #RECORRER RESULTADOS
-        for rs_hp in query_historial_pagos:
-            #ACTUALIZAR EL CAMPO DE APLICA_DESCUENTO DE SOLICITADO A APROBADO
-            cajero = rs_hp.cajero
-            rs_hp.aplica_descuento = 'RECHAZADO'
-            rs_hp.save()        
-
-    #MANDAR NOTIFICACION AL CAJERO DEL DESCUENTO APROBADO
-    remitente = request.user.username
-    send_notify(remitente, cajero, 'SOLICITUD DE DESCUENTO RECHAZADA', f'{remitente} rechazo la solicitud de descuento correspondiente a la clave catastral: {clave_cat}')
+    try:
+        if request.method == 'GET':
+            clave_cat = request.GET.get('clave_cat')
+            years_selected_list = request.GET.getlist('years_seleceted[]')
+            
+        contribuyente = models_catastro.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
+        query_adeudos = models_finanzas.pago_predial.objects.filter(Q(contribuyente=contribuyente) & (Q(estatus = 'NO PAGADO') | Q(folio=0))  & Q(autorizacion = 'AUTORIZADO') & Q(ejercicio__in=years_selected_list))
         
-    return JsonResponse({'mensaje': 'descuento rechazado con exito'})   
+        with transaction.atomic():
+            for rs in query_adeudos:
+                rs.estatus_descuento = 'RECHAZADO'
+                rs.fecha_hora = timezone.now()
+                cajero = rs.cajero
+                rs.save()
+            
+            send_notify(request.user.username, cajero , 'SOLICITUD DE DESCUENTO RECHAZADA', f'{request.user.username} rechazo la solicitud de descuento correspondiente a la clave catastral: {clave_cat}')
+            
+    except IntegrityError:
+        print('ERROR AL REALIZAR LA TRANSACCION DE RECHAZAR DESCUENTO')
+    transaction.commit()
+    return JsonResponse({'mensaje': 'DESCUENTO RECHAZADO CON EXITO'})   
 
-def pago_predial_years_debe_directo(request):
-    
+
+def pago_predial(request):         
+    try:
+        if request.method == 'GET':
+            clave_cat = request.GET.get('clave_cat')
+            impuesto_predial = request.GET.get('impuesto_predial')
+            impuesto_adicional = request.GET.get('impuesto_adicional')
+            recargo = request.GET.get('recargo')
+            multa = request.GET.get('multa')
+            total = request.GET.get('total')
+            #Si no se obtiene ningun valor de la variable descuento del frontend entonces se asigna un valor por default
+            descuento = request.GET.get('descuento',0)
+            observaciones = request.GET.get('observaciones')
+            estatus_descuento = request.GET.get('estatus_descuento','NO SOLICITADO')
+            years_selected_list = request.GET.getlist('years_selected[]')
+        
+        contribuyente = models_catastro.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
+        query_adeudos = models_finanzas.pago_predial.objects.filter(Q(contribuyente=contribuyente) & (Q(estatus = 'NO PAGADO') | Q(folio=0))  & Q(autorizacion = 'AUTORIZADO') & Q(ejercicio__in=years_selected_list))
+        # Quitar corchetes de la lista
+        years_selected = ', '.join(map(str, years_selected_list))
+        # Obtener el ultimo folio
+        max_folio = models_finanzas.pago_predial.objects.aggregate(max_folio=Max('folio'))['max_folio']
+        # Folio nvo
+        nvo_folio = max_folio + 1 if max_folio is not None else 1
+        
+        with transaction.atomic():
+            query_adeudos.delete()
+            # Dar de alta el registro de pago
+            pay_data = models_finanzas.pago_predial.objects.create(
+                folio = nvo_folio, contribuyente = contribuyente , ejercicio = years_selected, impuesto_predial = impuesto_predial, impuesto_adicional = impuesto_adicional, recargo = recargo, multa = multa , descuento = descuento , estatus_descuento = estatus_descuento, cajero = request.user.username , estatus = 'PAGADO', total = total, autorizacion = 'AUTORIZADO', fecha_hora = timezone.now()
+            )
+            #IMPIRMIR REPORTE DE PAGO
+            reporte_pago_predial(request.user.username,clave_cat,years_selected,pay_data.folio,observaciones)
+    except IntegrityError:
+       print('ERROR AL REALIZAR LA TRANSACCION DE PAGO')
+    transaction.commit()
     return JsonResponse({'mensaje': 'Pago exitoso'})   
 
 
-def pago_predial_descuento_aplicado(request):
-    if request.method == 'GET':
-        clave_cat = request.GET.get('clave_cat')
-        total = request.GET.get('total')
-        observaciones = request.GET.get('observaciones')
-        years_selected = request.GET.getlist('years_selected[]')
-        resumen_pago = request.GET.getlist('resumen_pago[]')
-    
-    # Convertir lista a cadena
-    selecccion = str(years_selected)
-    years_seleccionados= selecccion.replace('[','').replace(']','').replace("'","")
 
-
-    query_historial_pagos = models_finanzas.historial_pagos.objects.filter(Q(contribuyente=clave_cat) & Q(estatus = 'NO PAGADO') & Q(autorizacion = 'AUTORIZADO') | Q(aplica_descuento='APROBADO'))
-    # query_historial_pagos = models_finanzas.historial_pagos.objects.filter(contribuyente = clave_cat, estatus = 'NO PAGADO', aplica_descuento='APROBADO', autorizacion = 'AUTORIZADO')
-
-    for rs_hp in query_historial_pagos:
-        folio=rs_hp.folio
-        
-        # Eliminar los registros de folio para juntarlos en uno unico
-        print('Se elimino el folio: '+ folio)
-        query_historial_pagos.delete()
-    
-    lista_resumen_pago_float = []
-    for i in resumen_pago:
-        valor_float = float(i)
-        lista_resumen_pago_float.append(valor_float)
-    
-    print(lista_resumen_pago_float)
-    #print(f'subtotal: {resumen_pago[0]}')
-    
-    
-    # Obtener el numero de folio
-    folio_list = re.findall(r'\d+', folio)
-    str_folio = str(folio_list)
-    num_folio = str_folio.replace('[','').replace(']','').replace("'","")
-    
-    # Contribuyente que pasara como llave foranea
-    contribuyente=models_catastro.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
-    
-    models_finanzas.historial_pagos.objects.create(
-        folio = num_folio,contribuyente= contribuyente,
-        ejercicio = years_seleccionados,
-        subtotal_años  = lista_resumen_pago_float[0],
-        impuesto_adicional = lista_resumen_pago_float[1],
-        recargo = lista_resumen_pago_float[3],
-        descuento_recargo = lista_resumen_pago_float[2],
-        multa = lista_resumen_pago_float[5],
-        descuento_multa = lista_resumen_pago_float[4],
-        aplica_descuento = 'APROBADO',
-        total=total,
-        estatus = 'PAGADO',
-        autorizacion='AUTORIZADO',
-        cajero = request.user.username
-    )
-    
-    # GENERAR REPORTE
-    reporte_pago_predial(request.user.username,clave_cat,years_seleccionados, observaciones)
-
-    return JsonResponse({'mensaje': 'pago exitoso'})
-
-
-def pago_predial_contribuyente_years_corriente(request):
-    
-    if request.method == 'GET':
-        clave_cat = request.GET.get('clave_cat')
-        ejercicio = request.GET.get('ejercicio')
-        impuesto_predial = request.GET.get('impuesto_predial')
-        impuesto_adicional = request.GET.get('impuesto_adicional')
-        total = request.GET.get('total')
-        observaciones = request.GET.get('observaciones')
-        
-    #print('La clave catastral es: '+clave_cat)
-    # Contribuyente que pasara como llave foranea
-    contribuyente=models_catastro.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
-    
-    query_historial_pagos = models_finanzas.historial_pagos.objects.get(Q(contribuyente=clave_cat) & Q(estatus = 'NO PAGADO') & Q(ejercicio = ejercicio))
-    
-    datos_pago = models_finanzas.historial_pagos.objects.create(
-        folio = query_historial_pagos.folio[0:1],
-        contribuyente= contribuyente,
-        ejercicio = ejercicio,
-        subtotal_años  = impuesto_predial,
-        impuesto_adicional = impuesto_adicional,
-        recargo = 0,
-        descuento_recargo = 0,
-        multa = 0,
-        descuento_multa = 0,
-        aplica_descuento = 'NO APLICA',
-        total=total,
-        estatus = 'PAGADO',
-        autorizacion='AUTORIZADO',
-        cajero = request.user.username
-    )
-    
-    # Borrar adeudo de la base de datos
-    query_historial_pagos.delete()
-    
-    reporte_pago_predial(request.user.username,clave_cat,ejercicio,datos_pago,observaciones)
-    
-    
-    return JsonResponse ({'mensaje': 'pago exitoso'})
-
-def pago_predial_adeudos(request,data):
-    
-    query_info_contrib = Domicilio_inmueble.objects.select_related().filter(Q(pk_fk_clave_catastral__clave_catastral = data))
-    query_adeudos = models_finanzas.historial_adeudos.objects.filter(Q())
 

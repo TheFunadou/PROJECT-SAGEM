@@ -48,7 +48,7 @@
       }
 
     .bordes{
-        border: 4px solid rgb(80, 9, 36);
+        border: 4px solid rgb(55, 80, 9);
     }
 
     .bor{
@@ -88,7 +88,7 @@ input.invalid {
 
 
 button:hover {
-    opacity: 0.8
+    transform: scale(1.1);
 }
 
 
@@ -309,7 +309,6 @@ button:hover {
         {%csrf_token%}
         <div class="row  all-steps" style=" width: 90%;  text-align: center; margin-top: 10px;margin-bottom: 30px; margin-left: 5%;">
             <div class="col col-lg-2">
-                <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 150px; float: left; ">Cancelar</button>
             </div>
             <div class="col-md-auto" >
                 
@@ -320,7 +319,7 @@ button:hover {
         </div>
 
         <!-- Div que contiene los elementos para los datos generales del contribuyente -->
-        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 510px; z-index: 1; position: relative;">
+        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 550px; z-index: 1; position: relative;">
    
                     {%csrf_token%}
                         <h4 style="text-align: center; margin-top: -30px;">DATOS GENERALES</h4><br>
@@ -329,8 +328,8 @@ button:hover {
                                 <legend class="float-none w-auto px-3" style="font-size: 22px; color: brown;  font-family: 'Calibri'" >
                                     <img src="{% static 'img/Key.svg' %}" alt="">CLAVE CATASTRAL</legend>
                 
-                                    <div class="row justify-content-center" style="">
-                                        <p>Si ha registrado previamente un contribuyente y un predio puede buscar para continuar la solicitud. Si no es así registre la información de cada uno de ellos </p>
+                                    <div class="row justify-content-center">
+                                        <p>Es necesario tener registrados previamente a una persona y un predio para poder realizar este formulario, de no ser asi creelos antes de continuar.</p>
                                         <div id="autocomplete" class="autocomplete col-xl-6 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                             <input type="text" id="busqueda" values="" class="form-control" name="busqueda" style="background-color: #f3ea9848; border: #ac2546 solid 1px;" 
                                                         placeholder="Buscar" required oninput ="this.value = this.value.toUpperCase();">
@@ -347,7 +346,7 @@ button:hover {
                                             
                                         </div>
 
-                                        <div class="row col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2" style="">
+                                        <div class="row col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
 
                                             <div class="input-group-sm col-xl-1">
                                                 <div class="form-group">
@@ -424,7 +423,7 @@ button:hover {
                                 </div>
             
                             </div>
-                        </div><br>
+                        </div><br><br>
 
                         <div id="1"  style=" margin-top: 10px;">
                             <fieldset class="card bor rounded-4 p-3"  style=" height:min-content; margin-left: 20px; margin-right: 20px;">
@@ -563,34 +562,26 @@ button:hover {
                             
                                                 
             
-                                            </div>             
-                                
-                                
-                            
-
-                            
+                                            </div>                        
                             </fieldset>
-                            
-
-                                    
                             
                         </div>
 
         </div>
 
         <!-- Div que contiene los elementos para los datos para el predio -->
-        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 510px; z-index: 1; position: relative;">
+        <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 680px; z-index: 1; position: relative;">
         
-                <h4 style="text-align: center; margin-top: -30px;">DATOS DEL PREDIO</h4><br>
+                <h4 style="text-align: center; margin-top: -30px;">DATOS DEL PREDIO</h4>
                 <div id="2" class="card bor" style="background:rgb(255, 255, 255,.5);  margin-top: 10px; margin-left: 20px; margin-right: 20px;">
                     <div class="card-body" style="margin-top: 20px; margin-bottom: 20px;">
 
                         <div class="row " style="text-align: center;">
 
                             <div class=" col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                <label for="name">Tipos de predio</label>
+                                <label for="name">Tipo de predio</label>
                                 <select name="tipopredio" id="tipopredio" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                    <option selected></option>
+                                    <option selected hidden>SELECCIONAR...</option>
                                     <option value="URBANO CON CONSTRUCCIÓN">URBANO CON CONSTRUCCIÓN</option>
                                     <option value="URBANO BALDÍO">URBANO BALDÍO</option>
                                     <option value="SUBURBANOS CONSTRUIDOS">SUBURBANOS CONSTRUIDOS</option>
@@ -604,10 +595,9 @@ button:hover {
                             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <label for="name">Tenencia de predio</label>
                                 <select name="tenenciapredio" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                    <option selected></option>
-                                    <option selected="PROPIEDAD PRIVADA">PROPIEDAD PRIVADA</option>
-                                    
-
+                                    <option selected hidden>SELECCIONAR...</option>
+                                    <option value="PROPIEDAD PRIVADA">PROPIEDAD PRIVADA</option>
+                                    <option value="POSESION">POSESIÓN</option>
                                 </select>
                                 <span></span>
                             </div>
@@ -615,7 +605,7 @@ button:hover {
                             <div class=" col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <label for="name">Estado físico del predio</label>
                                 <select name="estadofisico" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                    <option selected></option>
+                                    <option selected hidden>SELECCIONAR...</option>
                                     <option value="CONSTRUIDO">CONSTRUIDO</option>
                                     <option value="BALDIO">BALDIO</option>
 
@@ -626,7 +616,7 @@ button:hover {
                             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <label for="name">Mod. física por construcción</label>
                                 <select name="modificacion" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                    <option selected></option>
+                                    <option selected hidden>SELECCIONAR...</option>
                                     <option value="NUEVA">NUEVA</option>
                                     <option value="REMODELADA">REMODELADA</option>
                                     <option value="AMPLIADA">AMPLIADA</option>
@@ -665,7 +655,7 @@ button:hover {
                                 <div class="form-group">
                                     <label for="name" class="lbl1">Municipio</label>
                                     <input type="text" id="municipio2" class="form-control" name="municipio2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                        required data-parsley-length="[1,30]" value="Minatitlán" onKeyUp="this.value = this.value.toUpperCase();">
+                                        required data-parsley-length="[1,30]" value="MINATITLAN" onKeyUp="this.value = this.value.toUpperCase();">
                                     <span></span>
 
                                 </div>
@@ -706,80 +696,63 @@ button:hover {
                         style="text-align: center; font-size: 22px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5);">
                         <img src="{% static 'img/pared-de-ladrillo.png' %}" alt=""> DATOS DE TIPO DE CONSTRUCCIÓN</legend><br>
 
-                        <div class="row" style="margin-top: -23px; text-align: center;">
+                        <div class="row" style="margin-top: -23px;">
 
-                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                <div class="form-group">
+                            <div style="display: flex; ">
+                                <div class="form-group" style="flex: 1;margin:0.5%">
                                     <label for="name">Tipo de construccion</label>
                                     <select name="techos" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                        <option selected></option>
-                                        <option value="LOZA"></option>
-                                        <option value="LAMINA"></option>
+                                        <option selected hidden>SELECCIONAR...</option>
+                                        <option value="LOZA">LOZA</option>
+                                        <option value="LAMINA">LAMINA</option>
                                     </select>
                                     <span></span>
                                 </div>
-                            </div>
 
-
-                        </div><br><br><br>
-                        <div class="row" style="margin-top: -23px; text-align: center;">
-
-                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                <div class="form-group">
+                                <div class="form-group" style="flex: 1;margin:0.5%">
                                     <label for="name">Techos</label>
                                     <select name="techos" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                        <option selected></option>
+                                        <option selected hidden>SELECCIONAR...</option>
                                         <option value="LOZA">LOZA</option>
                                         <option value="LAMINA">LAMINA</option>
                                         <option value="N/A">NO CLASIFICA</option>
                                     </select>
                                     <span></span>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                <div class="form-group">
+                                <div class="form-group" style="flex: 1;margin:0.5%">
                                     <label for="clave_modulo">Pisos</label>
                                     <div class="c-select-y-btn">
                                         <div class="contenedor-select-btn">
                                             <select name="pisos" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                                <option selected></option>
+                                                <option selected hidden>SELECCIONAR...</option>
                                                 <option value="CEMENTO">CEMENTO</option>
                                                 <option value="LOZETA">LOZETA</option>
 
                                             </select>
                                             <span></span>
                                         </div>
-
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                <div class="form-group">
+                                <div class="form-group" style="flex: 1;margin:0.5%">
                                     <label for="name">Muros</label>
                                     <div class="c-select-y-btn">
                                         <div class="contenedor-select-btn">
                                             <select name="muros" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                                <option selected></option>
+                                                <option selected hidden>SELECCIONAR...</option>
                                                 <option value="BLOCK">BLOCK</option>
                                                 <option value="MADERA">MAMPOSTERIA</option>
 
                                             </select>
                                             <span></span>
                                         </div>
-
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                <div class="form-group">
+                                <div class="form-group" style="flex: 1;margin:0.5%">
                                     <label for="name">Tipo de baño</label>
                                     <div class="c-select-y-btn">
                                         <div class="contenedor-select-btn">
                                             <select name="tipobaño" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                                <option selected></option>
+                                                <option selected hidden>SELECCIONAR...</option>
                                                 <option value="SENCILLO">SENCILLO</option>
                                                 <option value="COMPLETO">COMPLETO</option>
 
@@ -789,7 +762,81 @@ button:hover {
 
                                     </div>
                                 </div>
+
+
+
                             </div>
+
+
+                        </div><br>
+                        <div class="row" style="margin-top: -23px; text-align: center;">
+
+                            <!-- <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="name">Techos</label>
+                                    <select name="techos" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;text-align: center;">
+                                        <option selected hidden>SELECCIONAR...</option>
+                                        <option value="LOZA">LOZA</option>
+                                        <option value="LAMINA">LAMINA</option>
+                                        <option value="N/A">NO CLASIFICA</option>
+                                    </select>
+                                    <span></span>
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="clave_modulo">Pisos</label>
+                                    <div class="c-select-y-btn">
+                                        <div class="contenedor-select-btn">
+                                            <select name="pisos" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;text-align: center;">
+                                                <option selected hidden>SELECCIONAR...</option>
+                                                <option value="CEMENTO">CEMENTO</option>
+                                                <option value="LOZETA">LOZETA</option>
+
+                                            </select>
+                                            <span></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="name">Muros</label>
+                                    <div class="c-select-y-btn">
+                                        <div class="contenedor-select-btn">
+                                            <select name="muros" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;text-align: center;">
+                                                <option selected hidden>SELECCIONAR...</option>
+                                                <option value="BLOCK">BLOCK</option>
+                                                <option value="MADERA">MAMPOSTERIA</option>
+
+                                            </select>
+                                            <span></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="name">Tipo de baño</label>
+                                    <div class="c-select-y-btn">
+                                        <div class="contenedor-select-btn">
+                                            <select name="tipobaño" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;text-align: center;">
+                                                <option selected hidden>SELECCIONAR...</option>
+                                                <option value="SENCILLO">SENCILLO</option>
+                                                <option value="COMPLETO">COMPLETO</option>
+
+                                            </select>
+                                            <span></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> -->
                         </div><br>
 
                         <div class="row" style="text-align: center;">
@@ -800,7 +847,7 @@ button:hover {
                                     <div class="c-select-y-btn">
                                         <div class="contenedor-select-btn">
                                             <select name="instalacionelectrica" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                                <option selected></option>
+                                                <option selected hidden>SELECCIONAR...</option>
                                                 <option value="VISIBLE">VISIBLE</option>
                                                 <option value="OCULTA">OCULTA</option>
 
@@ -818,7 +865,7 @@ button:hover {
                                     <div class="c-select-y-btn">
                                         <div class="contenedor-select-btn">
                                             <select name="puertaventana" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                                <option selected></option>
+                                                <option selected hidden>SELECCIONAR...</option>
                                                 <option value="MADERA">MADERA</option>
                                                 <option value="FIERRO">FIERRO</option>
                                                 <option value="ALUMINIO">ALUMINIO</option>
@@ -939,14 +986,19 @@ button:hover {
         </div>  
 
         <div class="container"  id="nextprevious">
-            <div class="row" style="float:right;"> 
+            <div class="row" style="width: 101%; margin-top: 1%; margin-top: 1%;">
 
-                <div class="col-xl-12 " style="margin-top: 5px;">
-                    <div class="form-group" style="float:right;">
-                        <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
-                        <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
-        
-                    </div>
+                <div class="col-xl-12" style="width: 30%;">
+                    <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 50%; float: left; background-color: #f3e13d; color: #992535;border:none ;transition: 0.3s; font-weight: bold;">Cancelar</button>
+                    <!-- <div class="form-group" style="display: flex; justify-content: space-between;" >
+                        <button type="button" class="btn btn-outline-primary" id="btnBack" style="width: 15%; ">Cancelar</button>
+                        <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)" style="width: 15%; ">Atras</button>
+                        <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)" style="width: 15%;">Siguiente</button>
+                    </div> -->
+                </div>
+                <div class="col-xl-12" style="width: 70%;">
+                    <button type="button" class="btn btn-light" id="nextBtn" onclick="nextPrev(1)" style="width: 20%; float: right; margin-left: 3%; background-color: #992535; border: none; font-weight: bold; color: #ffff; transition: 0.3s;">Siguiente</button>
+                    <button type="button" class="btn btn-light" id="prevBtn" onclick="nextPrev(-1)" style="width: 20%; float: right; background-color: #992535; border: none; font-weight: bold; color: #ffff; transition: 0.3s; ">Atras</button>
                 </div>
                 <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button> 
                 <button type="button" class="btn btn-warning" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>  -->
