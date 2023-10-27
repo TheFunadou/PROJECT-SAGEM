@@ -496,7 +496,7 @@
 
                         <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="name">*Motivo de registro</label>
+                                <label for="name">*Motivo de alta</label>
                                 <input type="text" id="motivo_registro" class="form-control" name="motivo_registro"
                                     style="border: 2px rgb(204, 55, 105) solid;background-color: #f3ea9848;"
                                     placeholder="" minlength="3" maxlength="30" onkeypress="return soloLetras(event);"
@@ -876,6 +876,19 @@
         var input_depto = document.getElementById('depto');
         var input_dv = document.getElementById('dvs');
 
+        /*
+        
+           input_motivo_registro.addEventListener('click', function () {
+            formatoClaveCat();
+        });
+        input_cuenta_predial.addEventListener('click', function () {
+            formatoClaveCat();
+        });
+        input_denominacion.addEventListener('click', function () {
+            formatoClaveCat();
+        });
+
+        */
 
         input_motivo_registro.addEventListener('click', function () {
             formatoClaveCat();

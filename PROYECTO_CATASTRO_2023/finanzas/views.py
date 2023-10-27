@@ -370,50 +370,6 @@ def view_seleccion_descuentos_aprobados(request):
 
 ###########
 
-"""
-
-
-def pantalla_seleccion_cajera(request):
-    años =[]
-    dat = []
-    lista_duplicados = []
-    claves = set()
-    adeudos_contribuyentes = models_finanzas.historial_pagos.objects.filter(aplica_descuento='APROBADO')
-
-    if(adeudos_contribuyentes.exists()==True):
-
-        for i in adeudos_contribuyentes:
-         años.append({
-            'años':i.ejercicio
-         })
-
-        for datos in adeudos_contribuyentes:
-         dat.append({
-            'clave':datos.contribuyente.clave_catastral,
-            'nombre':datos.contribuyente.nombre,
-            'apaterno':datos.contribuyente.apaterno,
-            'amaterno':datos.contribuyente.amaterno,
-            'años':datos.ejercicio
-         })
-        
-        for elemento in dat:
-            clave = elemento['clave']
-            if clave in claves:
-                for item in lista_duplicados:
-                    if item['clave'] == clave:
-                        item['años'] += ',' + elemento['años']
-                        break
-            else:
-                claves.add(clave)
-                lista_duplicados.append(elemento)
-                
-       
-        return render(request,"finanzas/pago-predial/descuentos/index-descuentos-aplicados.html",{'años':años, 'dat':lista_duplicados, 'titulo_pag':'DESCUENTOS APROBADOS'})
-    else:
-        return render(request,"finanzas/pago-predial/descuentos/index-descuentos-aplicados.html" , {'titulo_pag':'DESCUENTOS APROBADOS'})
-
-
-"""
 
 #PANTALLA PARA CONSULTAS DE CONTRIBUYENTES CON DEUDA
 def view_seleccion_descuentos_solicitados(request):
