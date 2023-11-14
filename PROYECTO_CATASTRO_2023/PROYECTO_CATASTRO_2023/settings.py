@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'desarrollo_urbano',
     'channels',
     'notify',
+    'report',
 ]
 
 MIDDLEWARE = [

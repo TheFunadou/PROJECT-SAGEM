@@ -20,6 +20,8 @@ def crear_reporte_DC017(clave_cat,username):
         # DATOS USUARIO
         'NOM_USER':username,
         'FECHA_HORA':fecha_hora_actual.strftime("%d/%m/%Y %H:%M"),
+        
+        # 008 123 456 789 123 456 789 123 456 678
         # CLAVE CATASTRAL
         'C_ZON': clave_cat[0:3],
         'C_MUN':clave_cat[3:6],

@@ -64,8 +64,11 @@
 
         if(num_notify == null || num_notify==0){
             box_num_notify.innerText=0;
+            box_notify.style.display = 'none';
+
         }else{
             box_num_notify.innerText=num_notify;
+            box_notify.style.display = 'block';
         }
 
         socket.onclose = (event) => {
@@ -262,7 +265,8 @@
                 </ul>
             </li>
 
-            <li class="main-list">
+<!--
+     <li class="main-list">
                 <a href="">TRAMITES</a>
                 <ul class="sub-list">
                     <li><a href="">DEFUNCIONES</a></li>
@@ -286,6 +290,7 @@
                     <li><a href="">DEUDORES ANUALES</a></li>
                 </ul>
             </li>
+-->
 
             <li class="main-list">
                 <a href="{% url 'finanzas:gestor_notify_finanzas'%}">NOTIFICACIONES <span id="box_num_notify"><!--NUM_NOTIFICACIONES--></span></a>

@@ -16,7 +16,7 @@ function calcularSubtotal() {
         subtotal = parseFloat(celdas[2].textContent) + parseFloat(celdas[3].textContent) + parseFloat(celdas[4].textContent) + parseFloat(celdas[5].textContent);
 
         // INSERTAR EL LA COLUMA SUBTOTAL EL VALOR DE LA SUMA
-        celdas[6].innerHTML = subtotal;
+        celdas[6].innerHTML = subtotal.toFixed(2);
 
     }
 
@@ -37,7 +37,7 @@ function calcularSubtotal() {
     var sum_subtotal = 0;
     var total = 0;
 
-    suma()
+    suma();
 }
 
 //función para suma los valores totales
@@ -87,12 +87,12 @@ function suma() {
             total += subtotal;
 
             // INSERTAR SUMA DEL TOTAL SELECCIONADO EN EL INPUT
-            celda_impuesto_pred.textContent = sum_impuesto_pred;
-            celda_impuesto_adic.textContent = sum_impuesto_adi;
-            celda_recargo.textContent = sum_recargo;
-            celda_multa.textContent = sum_multa;
-            celda_subtotal.textContent = sum_subtotal;
-            input_total.value = total;
+            celda_impuesto_pred.textContent = sum_impuesto_pred.toFixed(2);
+            celda_impuesto_adic.textContent = sum_impuesto_adi.toFixed(2);
+            celda_recargo.textContent = sum_recargo.toFixed(2);
+            celda_multa.textContent = sum_multa.toFixed(2);
+            celda_subtotal.textContent = sum_subtotal.toFixed(2);
+            input_total.value = total.toFixed(2);
 
         } else {
             row.style.backgroundColor = '';
@@ -110,6 +110,6 @@ function suma() {
         input_total.value = '0.00';
     }
 
-    total_anterior.value = parseFloat(total_descuento) + sum_subtotal;
+    total_anterior.value = (parseFloat(total_descuento) + sum_subtotal).toFixed(2);
 
 }

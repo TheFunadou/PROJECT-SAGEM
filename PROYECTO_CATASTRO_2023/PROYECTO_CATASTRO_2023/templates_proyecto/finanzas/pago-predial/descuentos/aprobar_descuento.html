@@ -235,6 +235,131 @@
         background-position-x: center;
         background-position-y: bottom;
     }
+
+    /*Modal styles*/
+    /**/
+
+    .modal-confirm {
+        color: #434e65;
+        width: 525px;
+    }
+
+    .modal-confirm .modal-content {
+        padding: 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .modal-confirm .modal-header-error {
+        background: #992535;
+        border-bottom: none;
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+
+    .modal-confirm .modal-header {
+        background: #47c9a2;
+        border-bottom: none;
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 36px;
+        margin: 10px 0;
+    }
+
+    .modal-confirm .form-control,
+    .modal-confirm .btn {
+        min-height: 40px;
+        border-radius: 3px;
+    }
+
+    .modal-confirm .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #fff;
+        text-shadow: none;
+        opacity: 0.5;
+    }
+
+    .modal-confirm .close:hover {
+        opacity: 0.8;
+    }
+
+    .modal-confirm .icon-box {
+        color: #fff;
+        width: 95px;
+        height: 95px;
+        display: inline-block;
+        border-radius: 50%;
+        z-index: 9;
+        border: 5px solid #fff;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .modal-confirm .icon-box i {
+        font-size: 64px;
+        margin: -4px 0 0 -4px;
+    }
+
+    .modal-confirm.modal-dialog {
+        margin-top: 80px;
+    }
+
+    .modal-confirm .btn,
+    .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #eeb711 !important;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        border-radius: 30px;
+        margin-top: 10px;
+        padding: 6px 20px;
+        border: none;
+    }
+
+    .modal-confirm .btn:hover,
+    .modal-confirm .btn:focus {
+        background: #eda645 !important;
+        outline: none;
+    }
+
+    .modal-confirm .btn span {
+        margin: 1px 3px 0;
+        float: left;
+    }
+
+    .modal-confirm .btn i {
+        margin-left: 1px;
+        font-size: 20px;
+        float: right;
+    }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+
+
+    .error {
+        color: #c00a40;
+        font-family: 'Consolas', 'monaco', monospace;
+        font-size: 13px;
+        font-weight: bold;
+    }
 </style>
 
 <link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
@@ -544,14 +669,14 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="checkbox{{ forloop.counter }}"
                                 value="{{ item.total }}, {{item.ejercicio}}, {{item.clave}}, {{item.estatus}}"
-                                onchange="suma(); recargo(); multa(); calcularDescuento();">
+                                onchange="suma(); recargo(); multa(); calcularDescuento();" checked>
                         </div>
                     </td>
                     <td>{{item.ejercicio}}</td>
-                    <td>{{item.impuesto_predial}}</td>
-                    <td>{{item.impuesto_adicional}}</td>
-                    <td>{{item.recargo}}</td>
-                    <td>{{item.multa}}</td>
+                    <td>{{item.impuesto_predial|floatformat:2}}</td>
+                    <td>{{item.impuesto_adicional|floatformat:2}}</td>
+                    <td>{{item.recargo|floatformat:2}}</td>
+                    <td>{{item.multa|floatformat:2}}</td>
                     <td></td>
                 </tr>
                 {% endfor %}
@@ -562,7 +687,7 @@
                     <td style="color: #ffff;">DESCUENTO:</td>
                     <td></td>
                     <td style="color: #ffff; font-size: large;"></td>
-                    <td  style="color: #ffff; font-size: large;"></td>
+                    <td style="color: #ffff; font-size: large;"></td>
                     <td id="desc_recargo" style="color: #ffff; font-size: large;">0.00</td>
                     <td id="desc_multa" style="color: #ffff; font-size: large;">0.00</td>
                     <td style="color: #ffff; font-size: large;"></td>
@@ -584,13 +709,17 @@
 
         <section style="display: flex; align-items: center; justify-content: center;">
             <div style="margin: 1%; display: flex; flex-direction: column; width: 65%; padding: 0 5% 0 5% ;">
-                <div style="display: flex; align-items: center; justify-content: center; font-weight: bold; color: #660b22; font-size: 3vh; padding: 1.5%;">
+                <div
+                    style="display: flex; align-items: center; justify-content: center; font-weight: bold; color: #660b22; font-size: 3vh; padding: 1.5%;">
                     CONDONACIONES
                 </div>
                 <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
                     <div style="display: flex; width: 100%;">
-                        <span style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 100%;">DESCUENTO RECARGO</span>
-                        <select class="form-select" id="select_recargo" onchange="recargo();" required style="width: 30%; text-align: center; font-weight: bold;">
+                        <span
+                            style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 100%;">DESCUENTO
+                            RECARGO</span>
+                        <select class="form-select" id="select_recargo" onchange="recargo();" required
+                            style="width: 30%; text-align: center; font-weight: bold;">
                             <option value="0">0%</option>
                             <option value="0.5">5%</option>
                             <option value="0.10">10%</option>
@@ -614,8 +743,11 @@
                             <option value="1">100%</option>
                         </select>
 
-                        <span style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 100%; margin-left: 5%;">DESCUENTO MULTA</span>
-                        <select class="form-select" id="select_multa" onchange="multa();" required style="width: 30%; text-align: center; font-weight: bold;">
+                        <span
+                            style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 100%; margin-left: 5%;">DESCUENTO
+                            MULTA</span>
+                        <select class="form-select" id="select_multa" onchange="multa();" required
+                            style="width: 30%; text-align: center; font-weight: bold;">
                             <option value="0">0%</option>
                             <option value="0.5">5%</option>
                             <option value="0.10">10%</option>
@@ -643,24 +775,30 @@
             </div>
             <div style="margin: 1%; display: flex; flex-direction: column; width: 35%;">
                 <div style="display: flex;">
-                    <span style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 40%;">DESCUENTO TOTAL</span>
-                    <input type="text" id="total_descuento" style="font-weight: bold; font-size: 2.5vh; color: #B8860B; width: 60%;"
-                        class="form-control" name="total" required aria-describedby="inputGroup-sizing-sm" readonly
-                        placeholder="0.00">
+                    <span
+                        style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 40%;">
+                        DESCUENTO</span>
+                    <input type="text" id="total_descuento"
+                        style="font-weight: bold; font-size: 2.5vh; color: #B8860B; width: 60%;" class="form-control"
+                        name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="0.00">
                 </div>
                 <div style="display: flex; margin-top: 5%;">
-                    <span style="background-color: #880e4f; color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 40%;">TOTAL</span>
-                    <input type="text" id="total" style="font-weight: bold; font-size: 2.5vh; color: #660b22; width: 60%;"
-                        class="form-control" name="total" required aria-describedby="inputGroup-sizing-sm" readonly
-                        placeholder="0.00">
+                    <span
+                        style="background-color: #880e4f; color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 40%;">
+                        TOTAL CON DESCUENTO</span>
+                    <input type="text" id="total"
+                        style="font-weight: bold; font-size: 2.5vh; color: #660b22; width: 60%;" class="form-control"
+                        name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="0.00">
                 </div>
             </div>
         </section>
 
-        <div class="col-xl-12 " style="width: 100%; margin-top: 5%; display: flex; align-items: center; justify-content: space-between ;">
-            <a href="#"><button onclick="rechazarDescuento()"
-                type="button" id="guardar_c" class="btn btn-outline-warning"
-                style="background-color: #B8860B; color: #ffff; border:none; font-weight:bold">RECHAZAR DESCUENTO</button></a>
+        <div class="col-xl-12 "
+            style="width: 100%; margin-top: 5%; display: flex; align-items: center; justify-content: space-between ;">
+            <a href="#"><button onclick="rechazarDescuento()" type="button" id="guardar_c"
+                    class="btn btn-outline-warning"
+                    style="background-color: #B8860B; color: #ffff; border:none; font-weight:bold">RECHAZAR
+                    DESCUENTO</button></a>
             <a href="#"><button type="button" id="btn_pagar" class="btn btn-outline-primary"
                     style="background-color: #660b22; color: #ffff; border:none; font-weight:bold"
                     onclick="aprobarDescuento()">APROBAR DESCUENTO</button></a>
@@ -668,21 +806,70 @@
     </fieldset>
 </div>
 
+<!-- MODAL VALIDACION CONDONACIONES -->
+<div id="validacion_aprobar_descuento" class="modal fade" style="margin-top: 100px;">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header-error justify-content-center">
+                <div class="icon-box">
+                    <i class="material-icons">&#xe5cd;</i>
+                </div>
+
+            </div>
+            <div class="modal-body text-center">
+                <h4>PRECAUCIÓN</h4>
+                <h6>Asigne condonaciones antes continuar.</h6>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DESCUENTO APROBADO EXITOSO -->
+<div id="modal_descuento_aprobado" class="modal fade" style="margin-top: 90px;">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+
+            </div>
+            <div class="modal-body text-center">
+                <h4>DESCUENTO APROBADO</h4>
+                <h6 id="txt_modal_descuento_aprobado"></h6>
+                <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DESCUENTO RECHAZADO EXITOSO -->
+<div id="modal_descuento_rechazado" class="modal fade" style="margin-top: 90px;">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+
+            </div>
+            <div class="modal-body text-center">
+                <h4>DESCUENTO RECHAZADO</h4>
+                <h6 id="txt_modal_descuento_rechazado"></h6>
+                <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
 
-    function rechazarDescuento() {
+    function verify_years_selected() {
         var checkboxes = document.querySelectorAll('.form-check-input');
-        var input_clave_catastral = document.getElementById('clave_catastral');
-
-        var celda_desc_recargo = document.getElementById('desc_recargo');
-        var celda_desc_multa = document.getElementById('desc_multa');
-
-        var celda_subtotal = document.getElementById('sum_subtotal');
-        var input_total_desc = document.getElementById('total_descuento');
-        var input_total = document.getElementById('total');
-
+        //Recorrer tabla
         var years_selected = [];
-
         //Recorrer tabla
         for (var i = 0; i < checkboxes.length; i++) {
             //Filtrar unicamente a los checkbox seleccionados
@@ -694,6 +881,17 @@
                 years_selected.push(ejercicio);
             }
         }
+        return years_selected;
+    }
+
+    function rechazarDescuento() {
+        var input_clave_catastral = document.getElementById('clave_catastral');
+        var celda_desc_recargo = document.getElementById('desc_recargo');
+        var celda_desc_multa = document.getElementById('desc_multa');
+        var celda_subtotal = document.getElementById('sum_subtotal');
+        var input_total_desc = document.getElementById('total_descuento');
+        var input_total = document.getElementById('total');
+        var txt_modal_des_rech = document.getElementById('txt_modal_descuento_rechazado')
 
         //Enviar elementos al backend
         $.ajax({
@@ -701,11 +899,17 @@
             url: "{% url 'finanzas:rechazar_descuento' %}", // Reemplaza esto con la URL de tu vista en Django
             data: {
                 'clave_cat': input_clave_catastral.value,
-                'years_selected': years_selected
+                'years_selected': verify_years_selected()
             },
             dataType: 'json',
             success: function (response) {
-                console.log('SOLICITUD DE DESCUENTO RECHAZADA CON EXITO')
+                txt_modal_des_rech.textContent = 'Se rechazo la solicitud de descuento de los años (' + response.years_selected + ') exitosamente.';
+                $(document).ready(function () {
+                    $('#modal_descuento_rechazado').modal('show'); // Muestra la alerta modal de error
+                    setTimeout(function () {
+                        window.location.href = "{% url 'finanzas:redirigir_perfil_finanzas' %}";
+                    }, 5000);
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("Error en la solicitud AJAX:");
@@ -718,51 +922,51 @@
     }
 
     function aprobarDescuento() {
-        var checkboxes = document.querySelectorAll('.form-check-input');
         var input_clave_catastral = document.getElementById('clave_catastral');
-
         var celda_desc_recargo = document.getElementById('desc_recargo');
         var celda_desc_multa = document.getElementById('desc_multa');
-
         var celda_subtotal = document.getElementById('sum_subtotal');
         var input_total_desc = document.getElementById('total_descuento');
         var input_total = document.getElementById('total');
+        var txt_modal_desc_apr = document.getElementById('txt_modal_descuento_aprobado');
 
-        var years_selected = [];
-
-        //Recorrer tabla
-        for (var i = 0; i < checkboxes.length; i++) {
-            //Filtrar unicamente a los checkbox seleccionados
-            if (checkboxes[i].checked) {
-                // Obtener el checkbox de cada fila
-                var row = checkboxes[i].closest('tr');
-                // Obtener el ejercicio de cada fila seleccionada
-                var ejercicio = row.querySelector('td:nth-child(2)').textContent;
-                years_selected.push(ejercicio);
-            }
+        //Comprobar si el usuario realizo alguna condonacion antes de aprobar el descuento
+        if (celda_subtotal.textContent.trim() == input_total.value) {
+            $(document).ready(function () {
+                $('#validacion_aprobar_descuento').modal('show'); // Muestra la alerta modal de error
+                setTimeout(function () {
+                    console.error('No se asigno ninguna condonacion.')
+                }, 2000);
+            });
+        } else {
+            //Enviar elementos al backend
+            $.ajax({
+                type: 'GET',
+                url: "{% url 'finanzas:aprobar_descuento' %}", // Reemplaza esto con la URL de tu vista en Django
+                data: {
+                    'clave_cat': input_clave_catastral.value,
+                    'years_selected': verify_years_selected(),
+                    'desc_recargo': celda_desc_recargo.textContent.trim(),
+                    'desc_multa': celda_desc_multa.textContent.trim(),
+                    'descuento_total': input_total_desc.value,
+                },
+                dataType: 'json',
+                success: function (response) {
+                    txt_modal_desc_apr.textContent = 'Se aprobo la solicitud de descuento de los años (' + response.years_selected + ') exitosamente.';
+                    $(document).ready(function () {
+                        $('#modal_descuento_aprobado').modal('show'); // Muestra la alerta modal de error
+                        setTimeout(function () {
+                            window.location.href = "{% url 'finanzas:redirigir_perfil_finanzas' %}";
+                        }, 5000);
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("Error en la solicitud AJAX:");
+                    console.log("Estado: " + textStatus);
+                    console.log("Error: " + errorThrown);
+                }
+            });
         }
-        
-        //Enviar elementos al backend
-        $.ajax({
-            type: 'GET',
-            url: "{% url 'finanzas:aprobar_descuento' %}", // Reemplaza esto con la URL de tu vista en Django
-            data: {
-                'clave_cat': input_clave_catastral.value,
-                'years_selected': years_selected,
-                'desc_recargo': celda_desc_recargo.textContent.trim(),
-                'desc_multa': celda_desc_multa.textContent.trim(),
-                'descuento_total': input_total_desc.value,
-            },
-            dataType: 'json',
-            success: function (response) {
-                console.log('DESCUENTO APROBADO CON EXITO')
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("Error en la solicitud AJAX:");
-                console.log("Estado: " + textStatus);
-                console.log("Error: " + errorThrown);
-            }
-        });
     }
 
 </script>
@@ -777,6 +981,7 @@
 
 
 <script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 <script src="{%static 'js/INGRESOS/pago_predial/descuento/aprobar_descuento.js'%}"></script>
 

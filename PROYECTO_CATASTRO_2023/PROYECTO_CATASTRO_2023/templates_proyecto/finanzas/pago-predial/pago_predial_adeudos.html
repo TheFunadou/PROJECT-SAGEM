@@ -235,9 +235,11 @@
         background-position-x: center;
         background-position-y: bottom;
     }
+
 </style>
 
 <link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
+<link rel="stylesheet" href="{% static 'styles/modal_styles.css' %}">
 <script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 
 
@@ -548,10 +550,10 @@
                         </div>
                     </td>
                     <td>{{item.ejercicio}}</td>
-                    <td>{{item.impuesto_predial}}</td>
-                    <td>{{item.impuesto_adicional}}</td>
-                    <td>{{item.recargo}}</td>
-                    <td>{{item.multa}}</td>
+                    <td>{{item.impuesto_predial|floatformat:2}}</td>
+                    <td>{{item.impuesto_adicional|floatformat:2}}</td>
+                    <td>{{item.recargo|floatformat:2}}</td>
+                    <td>{{item.multa|floatformat:2}}</td>
                     <td></td>
                 </tr>
                 {% endfor %}
@@ -588,8 +590,8 @@
         </div>
         <div>
             <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                <a href="#"><button onclick="solicitar_descuento()"
-                        type="button" id="guardar_c" class="btn btn-outline-warning"
+                <a href="#"><button onclick="solicitar_descuento()" type="button" id="btn_solicitar_desc"
+                        class="btn btn-outline-warning"
                         style="background-color: #B8860B; color: #ffff; border:none; font-weight:bold; border: solid #5a4100;">Solicitar
                         descuento</button></a>
                 <a href="#"><button type="button" id="btn_pagar" class="btn btn-outline-primary"
@@ -600,13 +602,50 @@
     </fieldset>
 </div>
 
+<!-- MODAL SOLICITAR DESCUENTO -->
+<div id="modal_solicitar_descuento" class="modal fade" style="margin-top: 90px;">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+
+            </div>
+            <div class="modal-body text-center">
+                <h4>DESCUENTO SOLICITADO</h4>
+                <h6 id="txt_modal_solicitud_desc"></h6>
+                <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PAGO PREDIAL EXITOSO -->
+<div id="modal_pago_predial" class="modal fade" style="margin-top: 90px;">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+
+            </div>
+            <div class="modal-body text-center">
+                <h4>PAGO REALIZADO</h4>
+                <h6 id="txt_modal_pago_predial"></h6>
+                <button class="btn btn-success" data-dismiss="modal">Generando reporte...</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 
-    function solicitar_descuento(){
+    function verify_years_selected() {
         var checkboxes = document.querySelectorAll('.form-check-input');
-        var input_clave_catastral = document.getElementById('clave_catastral');
+        //Recorrer tabla
         var years_selected = [];
-
         //Recorrer tabla
         for (var i = 0; i < checkboxes.length; i++) {
             //Filtrar unicamente a los checkbox seleccionados
@@ -618,21 +657,32 @@
                 years_selected.push(ejercicio);
             }
         }
+        return years_selected;
+    }
 
-        console.log(years_selected);
-        console.log(input_clave_catastral.value);
-
+    function solicitar_descuento() {
+        var input_clave_catastral = document.getElementById('clave_catastral');
+        var txt_modal = document.getElementById('txt_modal_solicitud_desc');
         //Enviar elementos al backend
         $.ajax({
             type: 'GET',
             url: "{% url 'finanzas:solicitar_descuento' %}", // Reemplaza esto con la URL de tu vista en Django
             data: {
                 'clave_cat': input_clave_catastral.value,
-                'years_selected': years_selected
+                'years_selected': verify_years_selected()
             },
             dataType: 'json',
             success: function (response) {
-                console.log('DESCUENTO SOLICITADO')
+                console.log('DESCUENTO SOLICITADO');
+
+                //Mostrar modal de descuento exitoso
+                $(document).ready(function () {
+                    txt_modal.textContent = 'La solicitud para los años ('+ response.years_selected + ') fue realizada exitosamente.';
+                    $('#modal_solicitar_descuento').modal('show'); // Muestra la alerta modal de sucess
+                    setTimeout(function () {
+                        window.location.href = "{% url 'finanzas:redirigir_perfil_finanzas' %}";
+                    }, 6000);
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("Error en la solicitud AJAX:");
@@ -641,30 +691,19 @@
             }
         });
 
+
+
     }
 
     function pagar() {
-        var checkboxes = document.querySelectorAll('.form-check-input');
-        var input_total = document.getElementById('total');
         var input_clave_catastral = document.getElementById('clave_catastral');
         var observaciones = document.getElementById('observaciones');
         var v_impuesto_pred = document.getElementById('sum_impuesto_pred');
         var v_impuesto_adic = document.getElementById('sum_impuesto_adic');
         var v_recargo = document.getElementById('sum_recargo');
         var v_multa = document.getElementById('sum_multa');
-        var years_selected = [];
-
-        //Recorrer tabla
-        for (var i = 0; i < checkboxes.length; i++) {
-            //Filtrar unicamente a los checkbox seleccionados
-            if (checkboxes[i].checked) {
-                // Obtener el checkbox de cada fila
-                var row = checkboxes[i].closest('tr');
-                // Obtener el ejercicio de cada fila seleccionada
-                var ejercicio = row.querySelector('td:nth-child(2)').textContent;
-                years_selected.push(ejercicio);
-            }
-        }
+        var input_total = document.getElementById('total');
+        var txt_modal  = document.getElementById('txt_modal_pago_predial');
 
         //Enviar elementos al backend
         $.ajax({
@@ -672,17 +711,44 @@
             url: "{% url 'finanzas:pago_predial' %}", // Reemplaza esto con la URL de tu vista en Django
             data: {
                 'clave_cat': input_clave_catastral.value,
-                'years_selected': years_selected,
+                'years_selected': verify_years_selected(),
                 'observaciones': observaciones.value,
-                'impuesto_predial':v_impuesto_pred.textContent.trim(),
-                'impuesto_adicional':v_impuesto_adic.textContent.trim(),
-                'recargo':v_recargo.textContent.trim(),
-                'multa':v_multa.textContent.trim(),
+                'impuesto_predial': v_impuesto_pred.textContent.trim(),
+                'impuesto_adicional': v_impuesto_adic.textContent.trim(),
+                'recargo': v_recargo.textContent.trim(),
+                'multa': v_multa.textContent.trim(),
                 'total': input_total.value
             },
             dataType: 'json',
             success: function (response) {
-                console.log('PAGO REALIZADO CON EXITO')
+                cajero_res = response.cajero
+                clave_cat_res = response.clave_cat
+                ejercicios_res = response.ejercicios
+                folio_res = response.folio
+                observaciones_res = response.observaciones
+
+                if (observaciones_res == '') {
+                    observaciones_res = ' '
+                }
+
+
+                $(document).ready(function () {
+                    txt_modal.textContent = 'Pago de los años ('+ ejercicios_res + ') realizado exitosamente.';
+                    $('#modal_pago_predial').modal('show'); // Muestra la alerta modal de sucesso
+                
+                    $(document).on('shown.bs.modal', function () {
+                        setTimeout(function () {
+                            // Redirigir la ventana actual a otra URL
+                            window.open('/finanzas/reporte_pago_predial/' + cajero_res + '/' + clave_cat_res + '/' + ejercicios_res + '/' + folio_res + '/' + observaciones_res + '/');
+                        }, 5000);
+
+                        setTimeout(function () {
+                            /// Abrir nueva ventana o pestaña
+                            window.location.href="{% url 'finanzas:redirigir_perfil_finanzas' %}";
+                        }, 6000);
+
+                    });
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("Error en la solicitud AJAX:");
@@ -695,6 +761,7 @@
 </script>
 
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
     integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
     crossorigin="anonymous"></script>
@@ -705,7 +772,7 @@
 
 <script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 
-<script src="{%static 'js/INGRESOS/pago_predial/pago_predial_adeudos_2.js'%}"></script>
+<script src="{%static 'js/INGRESOS/pago_predial/pago_predial_adeudos.js'%}"></script>
 
 
 

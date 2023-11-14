@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import *
 from finanzas import views
+# from .reports.reporte_pago_predial import reporte_pago_predial, reporte_pago_predial_2
+from finanzas.reports.reporte_pago_predial import reporte_pago_predial
 
 app_name='finanzas'
 
@@ -54,7 +56,9 @@ urlpatterns = [
     path('pago_predial_contribuyente_years_debe_directo/',views.pago_predial, name='pago_predial'),
 
     
-   
-    
-    
+    #VISTAS REPORTES
+    # path('reporte_pago_predial/<str:cajero>/<str:clave_cat>/<str:ejercicios>/<str:folio>/<str:observaciones>/',reporte_pago_predial , name="reporte_pago_predial")       
+    # path('reporte_pago_predial/<cajero>/<clave_cat>/<ejercicios>/<folio>/<observaciones>/', reporte_pago_predial, name='reporte_pago_predial'),
+    # path('reporte_pago_predial/<str:cajero>/<str:clave_cat>/<str:ejercicios>/<str:folio>/<str:observaciones>/', reporte_pago_predial, name='reporte_pago_predial'),
+    path('reporte_pago_predial/<str:cajero>/<str:clave_cat>/<str:ejercicios>/<str:folio>/<str:observaciones>/', reporte_pago_predial, name='reporte_pago_predial'),
 ]

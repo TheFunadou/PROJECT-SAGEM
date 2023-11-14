@@ -6,7 +6,7 @@
 <script>
     
     var username = "{{nombre_user}}";
-    const audio_notify = new Audio ("{% static 'sounds/notify_sfx.wav' %}");
+    //const audio_notify = new Audio ("{% static 'sounds/notify_sfx.wav' %}");
 
     const socket = new WebSocket('ws://' + window.location.host + '/ws/load_notify/'+ username + '/');
     
@@ -19,7 +19,7 @@
 
     socket.onmessage = (e) => {
         //Obtener datos del backend
-        audio_notify.play();
+        //audio_notify.play();
         const data = JSON.parse(e.data);
 
         //Obtener el contenedor donde se vaciaran los mensajes
@@ -66,8 +66,11 @@
 
         if(num_notify == null || num_notify==0){
             box_num_notify.innerText=0;
+            box_notify.style.display = 'none';
+
         }else{
             box_num_notify.innerText=num_notify;
+            box_notify.style.display = 'block';
         }
 
         socket.onclose = (event) => {
@@ -262,8 +265,9 @@
                     <li><a href="{% url 'finanzas:seleccion_descuentos_pendientes' %}">APROBAR DESCUENTOS</a></li>
                 </ul>
             </li>
+<!--
 
-            <li class="main-list">
+<li class="main-list">
                 <a href="">TRAMITES</a>
                 <ul class="sub-list">
                     <li><a href="">DEFUNCIONES</a></li>
@@ -271,6 +275,8 @@
                     <li><a href="">DEFUNCIONES</a></li>
                 </ul>
             </li>
+
+-->
 <!-- 
             <li class="main-list">
                 <a href="">IMPUESTOS</a>
@@ -279,14 +285,14 @@
                     <li><a href="">#</a></li>
                 </ul>
             </li> -->
-
+<!-- 
             <li class="main-list">
                 <a href="">REPORTE</a>
                 <ul class="sub-list">
                     <li><a href="">PAGOS DE PREDIAL</a></li>
-                    <!-- <li><a href="">DEUDORES ANUALES</a></li> -->
+                    <li><a href="">DEUDORES ANUALES</a></li>
                 </ul>
-            </li>
+            </li> -->
 
             <!-- <li class="main-list">
                 <a href="">MANTENIMIENTO</a>

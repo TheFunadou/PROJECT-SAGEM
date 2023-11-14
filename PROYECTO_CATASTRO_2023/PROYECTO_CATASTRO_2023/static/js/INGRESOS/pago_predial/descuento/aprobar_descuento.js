@@ -1,6 +1,10 @@
 
 window.onload = function () {
     calcularSubtotal();
+    suma();
+    recargo();
+    multa();
+    calcularDescuento();
 }
 
 
@@ -16,7 +20,7 @@ function calcularSubtotal() {
         subtotal = parseFloat(celdas[2].textContent) + parseFloat(celdas[3].textContent) + parseFloat(celdas[4].textContent) + parseFloat(celdas[5].textContent);
 
         // INSERTAR EL LA COLUMA SUBTOTAL EL VALOR DE LA SUMA
-        celdas[6].innerHTML = subtotal;
+        celdas[6].innerHTML = subtotal.toFixed(2);
 
     }
 }
@@ -66,12 +70,12 @@ function suma() {
             total += subtotal;
 
             // INSERTAR SUMA DEL TOTAL SELECCIONADO EN EL INPUT
-            celda_impuesto_pred.textContent = sum_impuesto_pred;
-            celda_impuesto_adic.textContent = sum_impuesto_adi;
-            celda_recargo.textContent = sum_recargo;
-            celda_multa.textContent = sum_multa;
-            celda_subtotal.textContent = sum_subtotal;
-            input_total.value = total;
+            celda_impuesto_pred.textContent = sum_impuesto_pred.toFixed(2);
+            celda_impuesto_adic.textContent = sum_impuesto_adi.toFixed(2);
+            celda_recargo.textContent = sum_recargo.toFixed(2);
+            celda_multa.textContent = sum_multa.toFixed(2);
+            celda_subtotal.textContent = sum_subtotal.toFixed(2);
+            input_total.value = total.toFixed(2);
 
         } else {
             row.style.backgroundColor = '';
@@ -98,7 +102,7 @@ function recargo(){
    
     var calc_descuento  = parseFloat(celda_recargo.textContent.trim()) * select_recargo;
     console.log(calc_descuento);
-    celda_desc_recargo.textContent = calc_descuento;
+    celda_desc_recargo.textContent = calc_descuento.toFixed(2);
 
     calcularDescuento();
 
@@ -112,7 +116,7 @@ function multa(){
 
     var calc_descuento  = parseFloat(celda_multa.textContent.trim()) * select_multa;
     console.log(calc_descuento);
-    celda_desc_multa.textContent = calc_descuento;
+    celda_desc_multa.textContent = calc_descuento.toFixed(2);
 
     calcularDescuento();
 }
@@ -126,9 +130,9 @@ function calcularDescuento(){
     var input_total = document.getElementById('total');
 
     var calc_desc_total = parseFloat(celda_desc_recargo.textContent.trim()) + parseFloat(celda_desc_multa.textContent.trim());
-    input_total_desc.value = calc_desc_total;
+    input_total_desc.value = calc_desc_total.toFixed(2);
 
     var calc_total = parseFloat(celda_subtotal.textContent.trim()) - calc_desc_total;
-    input_total.value = calc_total;
+    input_total.value = calc_total.toFixed(2);
 
 }

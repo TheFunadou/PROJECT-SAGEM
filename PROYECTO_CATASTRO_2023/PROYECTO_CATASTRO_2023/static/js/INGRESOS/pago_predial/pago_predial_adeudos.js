@@ -13,18 +13,10 @@ function calcularSubtotal() {
 
         var celdas = filas[i].getElementsByTagName('td');
 
-        // EXTRAER INFORMACION DE LAS CELDAS
-        //   console.log('IMPUESTO_PREDIAL: '+ celdas[2].textContent);
-        //   console.log('IMPUESTO_ADICIONAL: '+ celdas[3].textContent);
-        //   console.log('IMPUESTO_RECARGO: '+ celdas[4].textContent);
-        //   console.log('IMPUESTO_MULTA: '+ celdas[5].textContent);
-
         subtotal = parseFloat(celdas[2].textContent) + parseFloat(celdas[3].textContent) + parseFloat(celdas[4].textContent) + parseFloat(celdas[5].textContent);
-        // MOSTRAR SUMA DEL SUBTOTAL POR CADA FILA 
-        //   console.log(subtotal);
 
         // INSERTAR EL LA COLUMA SUBTOTAL EL VALOR DE LA SUMA
-        celdas[6].innerHTML = subtotal;
+        celdas[6].innerHTML = subtotal.toFixed(2);
 
     }
 }
@@ -53,24 +45,6 @@ function suma() {
             // CAMBIAR EL COLOR DE LA FILA SELECCIONADA
             row.style.backgroundColor = '#E8E8E8';
 
-            // var celdas = row.getElementsByTagName('td');
-
-            // for (var i = 1; i <celdas.length; i++){
-            //     var content = contenidoFila.push(celdas[6].textContent.trim());
-            //     console.log("contenido de la celda " + i + " : " + content );
-            // }
-
-            // for (var i = 0; i <filas.length; i++){
-
-            //     var celdas = filas[i].getElementsByTagName('td');
-            //     subtotal = parseFloat(celdas[6].textContent);
-            //     console.log(subtotal);
-
-            //       // INSERTAR EL LA COLUMA SUBTOTAL EL VALOR DE LA SUMA
-            //         // celdas[6].innerHTML = subtotal;
-
-            // }
-
             var celdas = row.getElementsByTagName('td');
             // EXTRAER ELEMENTOS SELECCIONADOS
             var impuesto_predial = parseFloat(celdas[2].textContent);
@@ -89,11 +63,11 @@ function suma() {
             total += subtotal;
 
             // INSERTAR SUMA DEL TOTAL SELECCIONADO EN EL INPUT
-            celda_impuesto_pred.textContent = sum_impuesto_pred;
-            celda_impuesto_adic.textContent = sum_impuesto_adi;
-            celda_recargo.textContent = sum_recargo;
-            celda_multa.textContent = sum_multa;
-            input_total.value = total;
+            celda_impuesto_pred.textContent = sum_impuesto_pred.toFixed(2);
+            celda_impuesto_adic.textContent = sum_impuesto_adi.toFixed(2);
+            celda_recargo.textContent = sum_recargo.toFixed(2);
+            celda_multa.textContent = sum_multa.toFixed(2);
+            input_total.value = total.toFixed(2);
 
         } else {
             row.style.backgroundColor = '';

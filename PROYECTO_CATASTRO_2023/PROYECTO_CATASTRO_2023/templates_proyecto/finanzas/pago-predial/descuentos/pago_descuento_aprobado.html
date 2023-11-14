@@ -238,6 +238,7 @@
 </style>
 
 <link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
+<link rel="stylesheet" href="{% static 'styles/modal_styles.css' %}">
 <script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 
 
@@ -548,10 +549,10 @@
                         </div>
                     </td>
                     <td>{{item.ejercicio}}</td>
-                    <td>{{item.impuesto_predial}}</td>
-                    <td>{{item.impuesto_adicional}}</td>
-                    <td>{{item.recargo}}</td>
-                    <td>{{item.multa}}</td>
+                    <td>{{item.impuesto_predial|floatformat:2}}</td>
+                    <td>{{item.impuesto_adicional|floatformat:2}}</td>
+                    <td>{{item.recargo|floatformat:2}}</td>
+                    <td>{{item.multa|floatformat:2}}</td>
                     <td></td>
                 </tr>
                 {% endfor %}
@@ -575,25 +576,25 @@
                 <div style="margin: 1%; display: flex; flex-direction: column; width: 35%;">
                     <div style="display: flex;">
                         <span
-                            style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 40%;">DESCUENTO
-                            APROBADO</span>
-                        {% if adeudos %}
-                        <input type="text" id="total_descuento"
-                            style="font-weight: bold; font-size: 2.5vh; color: #B8860B; width: 60%;" class="form-control"
-                            name="total" required aria-describedby="inputGroup-sizing-sm" readonly
-                            value="{{adeudos.0.total_descuento}}">
-                        {% endif %}
-                    </div>
-                    <div style="display: flex; margin-top: 5%;">
-                        <span
-                            style="background-color: #B8860B; color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 40%;">TOTAL ANTERIOR</span>
+                            style="background-color: #B8860B; color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 60%;">TOTAL ANTERIOR SIN DESCUENTO</span>
                         <input type="text" id="total_anterior"
                             style="font-weight: bold; font-size: 2.5vh; color: #B8860B; width: 60%;" class="form-control"
                             name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="0.00">
                     </div>
                     <div style="display: flex; margin-top: 5%;">
                         <span
-                            style="background-color: #880e4f; color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 40%;">TOTAL</span>
+                            style="background-color: #B8860B; color:#ffff;display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 60%;">DESCUENTO
+                            APROBADO</span>
+                        {% if adeudos %}
+                        <input type="text" id="total_descuento"
+                            style="font-weight: bold; font-size: 2.5vh; color: #B8860B; width: 60%;" class="form-control"
+                            name="total" required aria-describedby="inputGroup-sizing-sm" readonly
+                            value="{{adeudos.0.total_descuento|floatformat:2}}">
+                        {% endif %}
+                    </div>
+                    <div style="display: flex; margin-top: 5%;">
+                        <span
+                            style="background-color: #880e4f; color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 60%;">TOTAL CON DESCUENTO APROBADO</span>
                         <input type="text" id="total"
                             style="font-weight: bold; font-size: 2.5vh; color: #660b22; width: 60%;" class="form-control"
                             name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="0.00">
@@ -619,20 +620,31 @@
     </fieldset>
 </div>
 
+<!-- MODAL PAGO PREDIAL EXITOSO -->
+<div id="modal_pago_predial" class="modal fade" style="margin-top: 90px;">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+
+            </div>
+            <div class="modal-body text-center">
+                <h4>PAGO REALIZADO</h4>
+                <h6 id="txt_modal_pago_predial"></h6>
+                <button class="btn btn-success" data-dismiss="modal">Generando reporte...</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 
-    function pagar() {
+    function verify_years_selected() {
         var checkboxes = document.querySelectorAll('.form-check-input');
-        var input_total = document.getElementById('total');
-        var input_desc_total = document.getElementById('total_descuento');
-        var input_clave_catastral = document.getElementById('clave_catastral');
-        var observaciones = document.getElementById('observaciones');
-        var v_impuesto_pred = document.getElementById('sum_impuesto_pred');
-        var v_impuesto_adic = document.getElementById('sum_impuesto_adic');
-        var v_recargo = document.getElementById('sum_recargo');
-        var v_multa = document.getElementById('sum_multa');
+        //Recorrer tabla
         var years_selected = [];
-
         //Recorrer tabla
         for (var i = 0; i < checkboxes.length; i++) {
             //Filtrar unicamente a los checkbox seleccionados
@@ -644,6 +656,20 @@
                 years_selected.push(ejercicio);
             }
         }
+        return years_selected;
+    }
+
+    function pagar() {
+        var input_total = document.getElementById('total');
+        var input_desc_total = document.getElementById('total_descuento');
+        var input_clave_catastral = document.getElementById('clave_catastral');
+        var observaciones = document.getElementById('observaciones');
+        var v_impuesto_pred = document.getElementById('sum_impuesto_pred');
+        var v_impuesto_adic = document.getElementById('sum_impuesto_adic');
+        var v_recargo = document.getElementById('sum_recargo');
+        var v_multa = document.getElementById('sum_multa');
+        var txt_modal_pago_predial = document.getElementById('txt_modal_pago_predial');
+
 
         //Enviar elementos al backend
         $.ajax({
@@ -651,19 +677,48 @@
             url: "{% url 'finanzas:pago_predial' %}", // Reemplaza esto con la URL de tu vista en Django
             data: {
                 'clave_cat': input_clave_catastral.value,
-                'years_selected': years_selected,
+                'years_selected': verify_years_selected(),
                 'observaciones': observaciones.value,
                 'impuesto_predial':v_impuesto_pred.textContent.trim(),
                 'impuesto_adicional':v_impuesto_adic.textContent.trim(),
                 'recargo':v_recargo.textContent.trim(),
                 'multa':v_multa.textContent.trim(),
+                'total': input_total.value,
                 'estatus_descuento':'APROBADO',
-                'descuento':input_desc_total.value,
-                'total': input_total.value
+                'descuento':input_desc_total.value
             },
             dataType: 'json',
             success: function (response) {
-                console.log('PAGO REALIZADO CON EXITO')
+
+                console.log('pago exitoso');
+                cajero_res = response.cajero
+                clave_cat_res = response.clave_cat
+                ejercicios_res = response.ejercicios
+                folio_res = response.folio
+                observaciones_res = response.observaciones
+
+                if (observaciones_res == '') {
+                    observaciones_res = ' '
+                }
+
+
+                $(document).ready(function () {
+                    txt_modal_pago_predial.textContent = 'Pago de los años ('+ ejercicios_res + ') realizado exitosamente.';
+                    $('#modal_pago_predial').modal('show'); // Muestra la alerta modal de sucesso
+                
+                    $(document).on('shown.bs.modal', function () {
+                        setTimeout(function () {
+                            // Redirigir la ventana actual a otra URL
+                            window.open('/finanzas/reporte_pago_predial/' + cajero_res + '/' + clave_cat_res + '/' + ejercicios_res + '/' + folio_res + '/' + observaciones_res + '/');
+                        }, 5000);
+
+                        setTimeout(function () {
+                            /// Abrir nueva ventana o pestaña
+                            window.location.href="{% url 'finanzas:redirigir_perfil_finanzas' %}";
+                        }, 6000);
+
+                    });
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("Error en la solicitud AJAX:");
@@ -685,7 +740,7 @@
 
 
 <script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script src="{%static 'js/INGRESOS/pago_predial/descuento/pago_descuento_aprobado.js'%}"></script>
 
 

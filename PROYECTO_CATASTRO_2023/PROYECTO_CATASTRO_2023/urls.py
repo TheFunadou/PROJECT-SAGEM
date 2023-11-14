@@ -17,12 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include,path
 from . import views_proyecto
+#reporrbro
+from report.views import Index
+from report.report import *
 #RUTAS GLOBALES
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+    path('make_report/', Index.as_view(), name='index'),
     # REGISTRO DE USUARIO BETA
     # path('',views_proyecto.registrar_usuarios, name='registro_user'),
     
@@ -37,9 +40,12 @@ urlpatterns = [
     path('catastro/',include('catastro.urls', namespace='catastro')),
     path('finanzas/',include('finanzas.urls', namespace='finanzas')),
     path('desarrollo_urbano/',include('desarrollo_urbano.urls',namespace='desarrollo_urbano')),
+    path('report/', include(('report.urls', 'report'))),
     
 
-    
     #IMPORTAR FUNCIONALIDADES DE REPORTES
+    path('edit/<str:report_type>/', edit , name='report_edit'),
+    path('run/', run , name='report_run'),
+    path('save/<str:report_type>/', save , name='report_save'),
     
 ]
