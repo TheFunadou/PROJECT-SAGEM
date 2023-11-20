@@ -5,8 +5,7 @@ window.onload = function () {
 
 
 function strToNum(num){
-    let str_num = num.replace('$','');
-    return parseFloat(str_num);
+    return parseFloat(num.replace(/\D/g, '')).toFixed(2);
 }
 
 function calcularSubtotal() {
@@ -18,13 +17,10 @@ function calcularSubtotal() {
 
         var celdas = filas[i].getElementsByTagName('td');
 
-        //subtotal = parseFloat(celdas[2].textContent) + parseFloat(celdas[3].textContent) + parseFloat(celdas[4].textContent) + parseFloat(celdas[5].textContent);
-        subtotal = strToNum(celdas[2].textContent) + strToNum(celdas[3].textContent) + strToNum(celdas[4].textContent) + strToNum(celdas[5].textContent);
-
-        //console.log(strToNum(celdas[2].textContent)+strToNum(celdas[3].textContent));
+        subtotal = parseFloat(celdas[2].textContent) + parseFloat(celdas[3].textContent) + parseFloat(celdas[4].textContent) + parseFloat(celdas[5].textContent);
 
         // INSERTAR EL LA COLUMA SUBTOTAL EL VALOR DE LA SUMA
-        celdas[6].innerHTML = '$'+subtotal.toFixed(2);
+        celdas[6].innerHTML = subtotal.toFixed(2);
 
     }
 }
@@ -55,17 +51,11 @@ function suma() {
 
             var celdas = row.getElementsByTagName('td');
             // EXTRAER ELEMENTOS SELECCIONADOS
-            // var impuesto_predial = parseFloat(celdas[2].textContent);
-            // var impuesto_adicional = parseFloat(celdas[3].textContent);
-            // var recargo = parseFloat(celdas[4].textContent);
-            // var multa = parseFloat(celdas[5].textContent);
-            // var subtotal = parseFloat(celdas[6].textContent);
-
-            var impuesto_predial = strToNum(celdas[2].textContent);
-            var impuesto_adicional = strToNum(celdas[3].textContent);
-            var recargo = strToNum(celdas[4].textContent);
-            var multa = strToNum(celdas[5].textContent);
-            var subtotal = strToNum(celdas[6].textContent);
+            var impuesto_predial = parseFloat(celdas[2].textContent);
+            var impuesto_adicional = parseFloat(celdas[3].textContent);
+            var recargo = parseFloat(celdas[4].textContent);
+            var multa = parseFloat(celdas[5].textContent);
+            var subtotal = parseFloat(celdas[6].textContent);
 
 
             // SUMAR COLUMNAS
@@ -77,11 +67,11 @@ function suma() {
             total += subtotal;
 
             // INSERTAR SUMA DEL TOTAL SELECCIONADO EN EL INPUT
-            celda_impuesto_pred.textContent = '$'+sum_impuesto_pred.toFixed(2);
-            celda_impuesto_adic.textContent = '$'+sum_impuesto_adi.toFixed(2);
-            celda_recargo.textContent = '$'+sum_recargo.toFixed(2);
-            celda_multa.textContent = '$'+sum_multa.toFixed(2);
-            input_total.value = '$'+total.toFixed(2);
+            celda_impuesto_pred.textContent = sum_impuesto_pred.toFixed(2);
+            celda_impuesto_adic.textContent = sum_impuesto_adi.toFixed(2);
+            celda_recargo.textContent = sum_recargo.toFixed(2);
+            celda_multa.textContent = sum_multa.toFixed(2);
+            input_total.value = total.toFixed(2);
 
         } else {
             row.style.backgroundColor = '';
@@ -91,10 +81,10 @@ function suma() {
 
     // Verificar si no se seleccionaron checkboxes y establecer el valor en 0.00
     if (total == 0 ) {
-        celda_impuesto_pred.textContent = '$0.00';
-        celda_impuesto_adic.textContent = '$0.00';
-        celda_recargo.textContent = '$0.00';
-        celda_multa.textContent = '$0.00';
-        input_total.value = '$0.00';
+        celda_impuesto_pred.textContent = '0.00';
+        celda_impuesto_adic.textContent = '0.00';
+        celda_recargo.textContent = '0.00';
+        celda_multa.textContent = '0.00';
+        input_total.value = '0.00';
     }
 }

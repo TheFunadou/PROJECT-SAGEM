@@ -550,10 +550,10 @@
                         </div>
                     </td>
                     <td>{{item.ejercicio}}</td>
-                    <td>${{item.impuesto_predial|floatformat:2}}</td>
-                    <td>${{item.impuesto_adicional|floatformat:2}}</td>
-                    <td>${{item.recargo|floatformat:2}}</td>
-                    <td>${{item.multa|floatformat:2}}</td>
+                    <td>{{item.impuesto_predial|floatformat:2}}</td>
+                    <td>{{item.impuesto_adicional|floatformat:2}}</td>
+                    <td>{{item.recargo|floatformat:2}}</td>
+                    <td>{{item.multa|floatformat:2}}</td>
                     <td></td>
                 </tr>
                 {% endfor %}
@@ -562,9 +562,9 @@
                 <tr style="background-color: #660b22 ">
                     <td style="color: #ffff;">RESUMEN:</td>
                     <td></td>
-                    <td id="sum_impuesto_pred" style="color: #ffff; font-size: large;">$0.00</td>
-                    <td id="sum_impuesto_adic" style="color: #ffff; font-size: large;">$0.00</td>
-                    <td id="sum_recargo" style="color: #ffff; font-size: large;">$0.00</td>
+                    <td id="sum_impuesto_pred" style="color: #ffff; font-size: large;">0.00</td>
+                    <td id="sum_impuesto_adic" style="color: #ffff; font-size: large;">0.00</td>
+                    <td id="sum_recargo" style="color: #ffff; font-size: large;">0.00</td>
                     <td id="sum_multa" style="color: #ffff; font-size: large;">0.00</td>
                     <td></td>
                 </tr>
@@ -584,7 +584,7 @@
                         style="background-color: #880e4f; color:#ffff; width: 15%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh;">TOTAL</span>
                     <input type="text" id="total" style="width: 15%; font-weight: bold; font-size: 3vh; color: #660b22;"
                         class="form-control" name="total" required aria-describedby="inputGroup-sizing-sm" readonly
-                        placeholder="$0.00">
+                        placeholder="0.00">
                 </div>
             </table>
         </div>
@@ -641,11 +641,6 @@
 </div>
 
 <script>
-
-    function strToNum(num){
-        let str_num = num.replace('$','');
-        return parseFloat(str_num);
-    }
 
     function verify_years_selected() {
         var checkboxes = document.querySelectorAll('.form-check-input');
@@ -718,11 +713,11 @@
                 'clave_cat': input_clave_catastral.value,
                 'years_selected': verify_years_selected(),
                 'observaciones': observaciones.value,
-                'impuesto_predial': strToNum(v_impuesto_pred.textContent.trim()),
-                'impuesto_adicional': strToNum(v_impuesto_adic.textContent.trim()),
-                'recargo': strToNum(v_recargo.textContent.trim()),
-                'multa': strToNum(v_multa.textContent.trim()),
-                'total': strToNum(input_total.value)
+                'impuesto_predial': v_impuesto_pred.textContent.trim(),
+                'impuesto_adicional': v_impuesto_adic.textContent.trim(),
+                'recargo': v_recargo.textContent.trim(),
+                'multa': v_multa.textContent.trim(),
+                'total': input_total.value
             },
             dataType: 'json',
             success: function (response) {

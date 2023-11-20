@@ -10,7 +10,7 @@ from catastro import functions
 from num2words import num2words
 from report.report import report
 
-def reporte_pago_predial(request,cajero, clave_cat, ejercicios, folio, observaciones):
+"""def reporte_pago_predial(request,cajero, clave_cat, ejercicios, folio, observaciones):
     query_datos_grales_cont= models_cat.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
     query_datos_pred = models_cat.Datos_gen_predio.objects.get(clave_catastral=clave_cat)
     contribuyente = models_cat.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
@@ -45,12 +45,62 @@ def reporte_pago_predial(request,cajero, clave_cat, ejercicios, folio, observaci
         'multas':f'$ {multa}',
         'recargos':f'$ {recargo}',
         'descuento':f'($ {descuento})',
-        'total': f'$ {total} M.N',
-        'total_txt':f"({num2words(parte_entera,lang='es')} pesos {str_parte_decimal}/100 M.N)",
+        'total': f'$ {total} M.N.',
+        'total_txt':f"({num2words(parte_entera,lang='es')} pesos {str_parte_decimal}/100 M.N.)",
         'codigo_qr':'prueba'
     }
     
-    return report(request, 'prueba', data)
+    return report(request, 'prueba', data)"""
+    
+    
+def reporte_pago_predial(request,cajero, clave_cat, ejercicios, folio, observaciones):
+    query_datos_grales_cont= models_cat.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
+    query_datos_pred = models_cat.Datos_gen_predio.objects.get(clave_catastral=clave_cat)
+    contribuyente = models_cat.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
+    query_datos_pago = models_fin.pago_predial.objects.get(Q(contribuyente=contribuyente) & Q(estatus = 'PAGADO') & Q(folio = folio))
+    fecha_hora_actual = datetime.datetime.now()
+    
+    impuesto_predial = "{:,.2f}".format(query_datos_pago.impuesto_predial)
+    impuesto_adicional = "{:,.2f}".format(query_datos_pago.impuesto_adicional)
+    multa = "{:,.2f}".format(query_datos_pago.multa)
+    recargo = "{:,.2f}".format(query_datos_pago.recargo)
+    descuento = "{:,.2f}".format(query_datos_pago.descuento)
+    total = "{:,.2f}".format(query_datos_pago.total)
+    
+    parts = total.replace(',','').split('.')
+    str_part_decimal = '00' if parts[1] == '0' else parts[1]
+    
+    first_letter = str(num2words(parts[0],lang='es'))[0].upper()
+    last_word = str(num2words(parts[0],lang='es'))[1:]
+    num_to_word = first_letter+last_word
+    
+    # str_total = str(total)
+    # parte_entera, parte_decimal = map(int, str_total.split('.'))
+    # str_parte_decimal = "00" if parte_decimal == 0 else parte_decimal
+    
+    data = {
+        'cajero':cajero,
+        'folio': folio,
+        'fecha_hora':fecha_hora_actual.strftime("%d/%m/%Y %H:%M"),
+        'propietario':f'{query_datos_grales_cont.nombre} {query_datos_grales_cont.apaterno} {query_datos_grales_cont.amaterno}',
+        'domicilio':f'{query_datos_grales_cont.calle} #{query_datos_grales_cont.num_ext},{query_datos_grales_cont.colonia_fraccionamiento},{query_datos_grales_cont.codigo_postal}',
+        'localidad': query_datos_grales_cont.localidad,
+        'clave_cat': clave_cat,
+        'tipo_predio':query_datos_pred.tipo_predio,
+        'valor_catastral':'',
+        'concepto': f'PAGO DE IMPUESTO PREDIAL {ejercicios}',
+        'observaciones':observaciones,
+        'impuesto_predial':f'{impuesto_predial}',
+        'impuesto_adicional':f'{impuesto_adicional}',
+        'multas':f'{multa}',
+        'recargos':f'{recargo}',
+        'descuento':f'({descuento})',
+        'total': f'{total} M.N.',
+        'total_txt':f"({num_to_word} pesos {str_part_decimal}/100 M.N.)",
+        'codigo_qr':'prueba'
+    }
+    
+    return report(request, 'report_pago_predial', data)
 
 
 

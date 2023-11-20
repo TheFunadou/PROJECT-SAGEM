@@ -521,6 +521,8 @@
             ADEUDOS SOLICITADOS
         </legend>
 
+        <p><i>* En rojo el importe de descuento aprobado</i></p>
+
         <table id='tabla_adeudos' class="table table-bordered">
             <thead style="border: solid #880e4f 2px;
                 background-color: #880e4f;
@@ -534,7 +536,7 @@
                     <th scope="col">IMPUESTO ADICIONAL</th>
                     <th scope="col">RECARGO</th>
                     <th scope="col">MULTA</th>
-                    <th>SUBTOTAL</th>
+                    <!-- <th>SUBTOTAL</th> -->
                 </tr>
             </thead>
             <tbody class="table-group-divider"
@@ -549,11 +551,11 @@
                         </div>
                     </td>
                     <td>{{item.ejercicio}}</td>
-                    <td>{{item.impuesto_predial|floatformat:2}}</td>
-                    <td>{{item.impuesto_adicional|floatformat:2}}</td>
-                    <td>{{item.recargo|floatformat:2}}</td>
-                    <td>{{item.multa|floatformat:2}}</td>
-                    <td></td>
+                    <td>${{item.impuesto_predial|floatformat:2}}</td>
+                    <td>${{item.impuesto_adicional|floatformat:2}}</td>
+                    <td>${{item.recargo|floatformat:2}}</td>
+                    <td>${{item.multa|floatformat:2}}</td>
+                    <!-- <td></td> -->
                 </tr>
                 {% endfor %}
             </tbody>
@@ -562,11 +564,11 @@
                 <tr style="background-color: #bb9c15 ">
                     <td style="color: #ffff;">RESUMEN:</td>
                     <td></td>
-                    <td id="sum_impuesto_pred" style="color: #ffff; font-size: large;">0.00</td>
-                    <td id="sum_impuesto_adic" style="color: #ffff; font-size: large;">0.00</td>
-                    <td id="sum_recargo" style="color: #c50000; font-size: large;">0.00</td>
-                    <td id="sum_multa" style="color: #c50000; font-size: large;">0.00</td>
-                    <td id="sum_subtotal" style="color: #ffff; font-size: large;"></td>
+                    <td id="sum_impuesto_pred" style="color: #ffff; font-size: large;">$0.00</td>
+                    <td id="sum_impuesto_adic" style="color: #ffff; font-size: large;">$0.00</td>
+                    <td id="sum_recargo" style="color: #c50000; font-size: large;">$0.00</td>
+                    <td id="sum_multa" style="color: #c50000; font-size: large;">$0.00</td>
+                    <!-- <td id="sum_subtotal" style="color: #ffff; font-size: large;"></td> -->
                 </tr>
             </tfoot>
         </table>
@@ -576,10 +578,12 @@
                 <div style="margin: 1%; display: flex; flex-direction: column; width: 35%;">
                     <div style="display: flex;">
                         <span
-                            style="background-color: #B8860B; color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 60%;">TOTAL ANTERIOR SIN DESCUENTO</span>
-                        <input type="text" id="total_anterior"
-                            style="font-weight: bold; font-size: 2.5vh; color: #B8860B; width: 60%;" class="form-control"
-                            name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="0.00">
+                            style="background-color: rgb(48, 99, 0); color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 60%;">TOTAL ANTERIOR SIN DESCUENTO</span>
+                            {% if adeudos %}
+                            <input type="text" id="total_sd"
+                            style="font-weight: bold; font-size: 2.5vh; color: rgb(48, 99, 0); width: 60%;" class="form-control"
+                            name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="$0.00" value="${{adeudos.0.total_sd|floatformat:2}}">
+                            {% endif %}
                     </div>
                     <div style="display: flex; margin-top: 5%;">
                         <span
@@ -589,7 +593,7 @@
                         <input type="text" id="total_descuento"
                             style="font-weight: bold; font-size: 2.5vh; color: #B8860B; width: 60%;" class="form-control"
                             name="total" required aria-describedby="inputGroup-sizing-sm" readonly
-                            value="{{adeudos.0.total_descuento|floatformat:2}}">
+                            value="${{adeudos.0.total_descuento|floatformat:2}}">
                         {% endif %}
                     </div>
                     <div style="display: flex; margin-top: 5%;">
@@ -597,7 +601,7 @@
                             style="background-color: #880e4f; color:#ffff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 2vh; width: 60%;">TOTAL CON DESCUENTO APROBADO</span>
                         <input type="text" id="total"
                             style="font-weight: bold; font-size: 2.5vh; color: #660b22; width: 60%;" class="form-control"
-                            name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="0.00">
+                            name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="$0.00">
                     </div>
                 </div>
             </div>
@@ -641,6 +645,11 @@
 
 <script>
 
+    function strToNum(num){
+        let str_num = num.replace('$','');
+        return parseFloat(str_num);
+    }
+
     function verify_years_selected() {
         var checkboxes = document.querySelectorAll('.form-check-input');
         //Recorrer tabla
@@ -679,13 +688,13 @@
                 'clave_cat': input_clave_catastral.value,
                 'years_selected': verify_years_selected(),
                 'observaciones': observaciones.value,
-                'impuesto_predial':v_impuesto_pred.textContent.trim(),
-                'impuesto_adicional':v_impuesto_adic.textContent.trim(),
-                'recargo':v_recargo.textContent.trim(),
-                'multa':v_multa.textContent.trim(),
-                'total': input_total.value,
+                'impuesto_predial': strToNum(v_impuesto_pred.textContent.trim()),
+                'impuesto_adicional': strToNum(v_impuesto_adic.textContent.trim()),
+                'recargo': strToNum(v_recargo.textContent.trim()),
+                'multa': strToNum(v_multa.textContent.trim()),
+                'total': strToNum(input_total.value),
                 'estatus_descuento':'APROBADO',
-                'descuento':input_desc_total.value
+                'descuento': strToNum(input_desc_total.value)
             },
             dataType: 'json',
             success: function (response) {
