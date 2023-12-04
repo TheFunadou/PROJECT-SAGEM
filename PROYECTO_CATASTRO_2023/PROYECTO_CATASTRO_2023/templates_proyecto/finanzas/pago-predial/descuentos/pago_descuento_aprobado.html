@@ -551,24 +551,37 @@
                         </div>
                     </td>
                     <td>{{item.ejercicio}}</td>
-                    <td>${{item.impuesto_predial|floatformat:2}}</td>
-                    <td>${{item.impuesto_adicional|floatformat:2}}</td>
-                    <td>${{item.recargo|floatformat:2}}</td>
-                    <td>${{item.multa|floatformat:2}}</td>
+                    <td>${{item.impuesto_predial}}</td>
+                    <td>${{item.impuesto_adicional}}</td>
+                    <td>${{item.recargo}}</td>
+                    <td>${{item.multa}}</td>
                     <!-- <td></td> -->
                 </tr>
                 {% endfor %}
             </tbody>
-            <!-- FILA RESUMEN: -->
+            <!-- FILA DESCUENTO: -->
+            {% for item in adeudos %}
             <tfoot style="border: #880E4F 1px solid;">
                 <tr style="background-color: #bb9c15 ">
+                    <td style="color: #ffff;">DESCUENTO:</td>
+                    <td></td>
+                    <td style="color: #ffff; font-size: large;"></td>
+                    <td style="color: #ffff; font-size: large;"></td>
+                    <td id="desc_recargo" style="color: #c50000; font-size: large;">${{item.desc_recargo}}</td>
+                    <td id="desc_multa" style="color: #c50000; font-size: large;">${{item.desc_multa}}</td>
+                    <!-- <td id="sum_subtotal" style="color: #ffff; font-size: large;"></td> -->
+                </tr>
+            </tfoot>
+            {% endfor %}
+            <!-- FILA RESUMEN: -->
+            <tfoot style="border: #880E4F 1px solid;">
+                <tr style="background-color: #660b22 ">
                     <td style="color: #ffff;">RESUMEN:</td>
                     <td></td>
                     <td id="sum_impuesto_pred" style="color: #ffff; font-size: large;">$0.00</td>
                     <td id="sum_impuesto_adic" style="color: #ffff; font-size: large;">$0.00</td>
-                    <td id="sum_recargo" style="color: #c50000; font-size: large;">$0.00</td>
-                    <td id="sum_multa" style="color: #c50000; font-size: large;">$0.00</td>
-                    <!-- <td id="sum_subtotal" style="color: #ffff; font-size: large;"></td> -->
+                    <td id="sum_recargo" style="color: #ffff; font-size: large;">$0.00</td>
+                    <td id="sum_multa" style="color: #ffff; font-size: large;">$0.00</td>
                 </tr>
             </tfoot>
         </table>
@@ -582,7 +595,7 @@
                             {% if adeudos %}
                             <input type="text" id="total_sd"
                             style="font-weight: bold; font-size: 2.5vh; color: rgb(48, 99, 0); width: 60%;" class="form-control"
-                            name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="$0.00" value="${{adeudos.0.total_sd|floatformat:2}}">
+                            name="total" required aria-describedby="inputGroup-sizing-sm" readonly placeholder="$0.00" value="${{adeudos.0.total_sd}}">
                             {% endif %}
                     </div>
                     <div style="display: flex; margin-top: 5%;">
@@ -593,7 +606,7 @@
                         <input type="text" id="total_descuento"
                             style="font-weight: bold; font-size: 2.5vh; color: #B8860B; width: 60%;" class="form-control"
                             name="total" required aria-describedby="inputGroup-sizing-sm" readonly
-                            value="${{adeudos.0.total_descuento|floatformat:2}}">
+                            value="${{adeudos.0.total_descuento}}">
                         {% endif %}
                     </div>
                     <div style="display: flex; margin-top: 5%;">
@@ -676,7 +689,9 @@
         var v_impuesto_pred = document.getElementById('sum_impuesto_pred');
         var v_impuesto_adic = document.getElementById('sum_impuesto_adic');
         var v_recargo = document.getElementById('sum_recargo');
+        var desc_recargo = document.getElementById('desc_recargo');
         var v_multa = document.getElementById('sum_multa');
+        var desc_multa = document.getElementById('desc_multa');
         var txt_modal_pago_predial = document.getElementById('txt_modal_pago_predial');
 
 
@@ -691,7 +706,9 @@
                 'impuesto_predial': strToNum(v_impuesto_pred.textContent.trim()),
                 'impuesto_adicional': strToNum(v_impuesto_adic.textContent.trim()),
                 'recargo': strToNum(v_recargo.textContent.trim()),
+                'desc_recargo': strToNum(desc_recargo.textContent.trim()),
                 'multa': strToNum(v_multa.textContent.trim()),
+                'desc_multa': strToNum(desc_multa.textContent.trim()),
                 'total': strToNum(input_total.value),
                 'estatus_descuento':'APROBADO',
                 'descuento': strToNum(input_desc_total.value)

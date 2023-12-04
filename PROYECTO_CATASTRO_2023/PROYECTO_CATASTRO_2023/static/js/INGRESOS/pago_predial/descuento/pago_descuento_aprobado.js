@@ -5,8 +5,13 @@ window.onload = function () {
 }
 
 function strToNum(num){
-    let str_num = num.replace('$','');
+    let str_num = num.replace(/[$,]/g,'');
     return parseFloat(str_num);
+}
+
+function formatNumber(num){
+    var number = num.toLocaleString('es-US', { style: 'currency', currency: 'USD' })
+    return number
 }
 
 function calcularSubtotal() {
@@ -21,7 +26,7 @@ function calcularSubtotal() {
         subtotal = strToNum(celdas[2].textContent) + strToNum(celdas[3].textContent) + strToNum(celdas[4].textContent) + strToNum(celdas[5].textContent);
 
         // INSERTAR EL LA COLUMA SUBTOTAL EL VALOR DE LA SUMA
-        celdas[6].innerHTML = subtotal.toFixed(2);
+        celdas[6].innerHTML = formatNumber(subtotal);
 
     }
 
@@ -93,12 +98,12 @@ function suma() {
             // total += subtotal;
 
             // INSERTAR SUMA DEL TOTAL SELECCIONADO EN EL INPUT
-            celda_impuesto_pred.textContent = '$' + sum_impuesto_pred.toFixed(2);
-            celda_impuesto_adic.textContent = '$' + sum_impuesto_adi.toFixed(2);
-            celda_recargo.textContent = '$' + sum_recargo.toFixed(2);
-            celda_multa.textContent = '$' + sum_multa.toFixed(2);
-            // celda_subtotal.textContent = sum_subtotal.toFixed(2);
-            input_total.value ='$'+ (strToNum(input_total_sd.value) - strToNum(descuento_aprobado.value)).toFixed(2);
+            celda_impuesto_pred.textContent = formatNumber(sum_impuesto_pred);
+            celda_impuesto_adic.textContent = formatNumber(sum_impuesto_adi);
+            celda_recargo.textContent = formatNumber(sum_recargo);
+            celda_multa.textContent = formatNumber(sum_multa);
+            var total_c_desc = (strToNum(input_total_sd.value) - strToNum(descuento_aprobado.value));
+            input_total.value = formatNumber(total_c_desc);
 
         } else {
             row.style.backgroundColor = '';

@@ -285,10 +285,10 @@ def view_pago_predial(request, estatus ,contribuyente):
        adeudos_data_list.append({
         'clave_cat':data.contribuyente.clave_catastral,
         'ejercicio' : data.ejercicio,
-        'impuesto_predial': data.impuesto_predial,
-        'impuesto_adicional' : data.impuesto_adicional,
-        'recargo' : data.recargo,
-        'multa' : data.multa,
+        'impuesto_predial': "{:,.2f}".format(data.impuesto_predial),
+        'impuesto_adicional' : "{:,.2f}".format(data.impuesto_adicional),
+        'recargo' : "{:,.2f}".format(data.recargo),
+        'multa' : "{:,.2f}".format(data.multa),
        })
        print(f'clave_cat: {data.contribuyente.clave_catastral}, ejercicio: {data.ejercicio}')
        
@@ -493,10 +493,10 @@ def aplicar_descuentos(request,dato):
        lista_adeudos.append({
         'clave':deudas.contribuyente.clave_catastral,
         'ejercicio' : deudas.ejercicio,
-        'impuesto_predial' : deudas.impuesto_predial,
-        'impuesto_adicional' : deudas.impuesto_adicional,
-        'recargo' : deudas.recargo,
-        'multa' : deudas.multa,
+        'impuesto_predial' : "{:,.2f}".format(deudas.impuesto_predial),
+        'impuesto_adicional' : "{:,.2f}".format(deudas.impuesto_adicional),
+        'recargo' : "{:,.2f}".format(deudas.recargo),
+        'multa' : "{:,.2f}".format(deudas.multa),
        }) 
     #ciclo for para extraer los datos del contribuyente
     for data in extraer_datos_contribuyente:
@@ -527,12 +527,14 @@ def view_pago_descuento_aprobado(request,dato):
        lista_adeudos.append({
         'clave':deudas.contribuyente.clave_catastral,
         'ejercicio' : deudas.ejercicio,
-        'impuesto_predial' : deudas.impuesto_predial,
-        'impuesto_adicional' : deudas.impuesto_adicional,
-        'recargo' : deudas.recargo,
-        'multa' : deudas.multa,
-        'total_descuento': deudas.descuento,
-        'total_sd': deudas.total
+        'impuesto_predial' : "{:,.2f}".format(deudas.impuesto_predial),
+        'impuesto_adicional' : "{:,.2f}".format(deudas.impuesto_adicional),
+        'recargo' : "{:,.2f}".format(deudas.recargo),
+        'desc_recargo' : "{:,.2f}".format(deudas.desc_recargo),
+        'multa' : "{:,.2f}".format(deudas.multa),
+        'desc_multa' : "{:,.2f}".format(deudas.desc_multa),
+        'total_descuento': "{:,.2f}".format(deudas.descuento),
+        'total_sd': "{:,.2f}".format(deudas.total)
        }) 
     #ciclo for para extraer los datos del contribuyente
     for data in extraer_datos_contribuyente:
@@ -555,9 +557,7 @@ def descuento_aprobado(request):
         if request.method == 'GET':
             clave_cat = request.GET.get('clave_cat')
             desc_recargo = request.GET.get('desc_recargo')
-            print(desc_recargo)
             desc_multa = request.GET.get('desc_multa')
-            print(desc_multa)
             descuento_total = request.GET.get('descuento_total')
             years_selected_list = request.GET.getlist('years_selected[]')
             total_sd = request.GET.get('total_sd','0')
@@ -570,8 +570,8 @@ def descuento_aprobado(request):
         with transaction.atomic():
             for rs in query_adeudos:
                 rs.estatus_descuento = 'APROBADO'
-                rs.recargo = desc_recargo
-                rs.multa = desc_multa
+                rs.desc_recargo = desc_recargo
+                rs.desc_multa = desc_multa
                 rs.descuento = descuento_total
                 rs.total = total_sd
                 rs.fecha_hora = timezone.now()
@@ -585,52 +585,6 @@ def descuento_aprobado(request):
         print('ERROR AL REALIZAR LA TRANSACCION DE APROBAR DESCUENTO')
     transaction.commit()
     return JsonResponse({'years_selected': years_selected})   
-
-# FASE DE PRUEBA
-# def descuento_aprobado(request):
-#     try:
-#         if request.method == 'GET':
-#             clave_cat = request.GET.get('clave_cat')
-#             desc_recargo = request.GET.get('desc_recargo')
-#             print(desc_recargo)
-#             desc_multa = request.GET.get('desc_multa')
-#             print(desc_multa)
-#             descuento_total = request.GET.get('descuento_total')
-#             years_selected_list = request.GET.getlist('years_selected[]')
-#             info_desc = request.GET.get('info_desc',{})
-            
-#         years_selected = ', '.join(map(str, years_selected_list))
-#         contribuyente = models_catastro.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
-#         query_adeudos = models_finanzas.pago_predial.objects.filter(Q(contribuyente=contribuyente) & (Q(estatus = 'NO PAGADO') | Q(folio=0))  & Q(autorizacion = 'AUTORIZADO') & Q(ejercicio__in=years_selected_list))
-        
-#         dict = {}
-        
-#         with transaction.atomic():
-#             for rs in query_adeudos:
-#                 rs.estatus_descuento = 'APROBADO'
-#                 # rs.recargo = desc_recargo
-#                 # rs.multa = desc_multa
-#                 # rs.descuento = descuento_total
-#                 rs.fecha_hora = timezone.now()
-#                 #guardar cambios
-#                 rs.save()
-#                 cajero = rs.cajero
-#                 id_registro = rs.id
-#                 contribuyente = rs.contribuyente
-                
-#             for clave in dict.items():
-#                 models_finanzas.pago_predial_solicitud_descuento.objects.create(
-#                 id_registro_pago= id_registro,
-#                 contribuyente = contribuyente,
-#                 porcentaje_recargo = info_desc[]
-#                 )
-                  
-#             send_notify(request.user.username, cajero , 'SOLICITUD DE APROBADA', f'{request.user.username} aprobo la solicitud de descuento correspondiente a la clave catastral: {clave_cat}')
-            
-#     except IntegrityError:
-#         print('ERROR AL REALIZAR LA TRANSACCION DE APROBAR DESCUENTO')
-#     transaction.commit()
-#     return JsonResponse({'years_selected': years_selected})   
 
 def descuento_rechazado(request):
     try:
@@ -662,8 +616,10 @@ def pago_predial(request):
             clave_cat = request.GET.get('clave_cat')
             impuesto_predial = request.GET.get('impuesto_predial')
             impuesto_adicional = request.GET.get('impuesto_adicional')
-            recargo = request.GET.get('recargo')
-            multa = request.GET.get('multa')
+            recargo = request.GET.get('recargo',0)
+            desc_recargo = request.GET.get('desc_recargo',0)
+            multa = request.GET.get('multa',0)
+            desc_multa = request.GET.get('desc_multa',0)
             total = request.GET.get('total')
             #Si no se obtiene ningun valor de la variable descuento del frontend entonces se asigna un valor por default
             descuento = request.GET.get('descuento',0)
@@ -684,7 +640,7 @@ def pago_predial(request):
             query_adeudos.delete()
             # Dar de alta el registro de pago
             pay_data = models_finanzas.pago_predial.objects.create(
-                folio = nvo_folio, contribuyente = contribuyente , ejercicio = years_selected, impuesto_predial = impuesto_predial, impuesto_adicional = impuesto_adicional, recargo = recargo, multa = multa , descuento = descuento , estatus_descuento = estatus_descuento, cajero = request.user.username , estatus = 'PAGADO', total = total, autorizacion = 'AUTORIZADO', fecha_hora = timezone.now()
+                folio = nvo_folio, contribuyente = contribuyente , ejercicio = years_selected, impuesto_predial = impuesto_predial, impuesto_adicional = impuesto_adicional, recargo = recargo, desc_recargo=desc_recargo, multa = multa , desc_multa=desc_multa, descuento = descuento , estatus_descuento = estatus_descuento, cajero = request.user.username , estatus = 'PAGADO', total = total, autorizacion = 'AUTORIZADO', fecha_hora = timezone.now()
             )
             #IMPIRMIR REPORTE DE PAGO
             # reporte_pago_predial(request.user.username,clave_cat,years_selected,pay_data.folio,observaciones)
