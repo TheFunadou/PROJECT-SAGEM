@@ -19,3 +19,15 @@ class pago_predial(models.Model):
     total = models.DecimalField(max_digits=13, decimal_places=2, default=0)
     autorizacion = models.CharField(max_length=20)
     fecha_hora = models.DateTimeField()
+
+
+class tabla_derechos(models.Model):
+    id_derecho  = models.PositiveSmallIntegerField(null=False)
+    categoria = models.CharField(max_length=200, null=False)
+    nombre_derecho = models.CharField(max_length=200, null=False)
+    precio = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    
+
+
+
+    

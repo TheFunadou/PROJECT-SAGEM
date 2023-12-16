@@ -210,7 +210,7 @@ def obtener_datos_busqueda(request, *args,**kwargs):
         'payload':lista
     })
 
-#CONSULTA DE DATOS DEL CONTRIBUYENTE PARA MOSTRAR EN LA PANTALLA DE PAGO DE PREDIO
+"""#CONSULTA DE DATOS DEL CONTRIBUYENTE PARA MOSTRAR EN LA PANTALLA DE PAGO DE PREDIO
 def pago_predial_datos_1(request,dato):
     lista = []
     lista_adeudos = []
@@ -257,7 +257,7 @@ def pago_predial_datos_1(request,dato):
 
     return render(request,"finanzas/pago-predial/datos_consultados_contribuyente_1.html",{'nom_pag': 'INGRESOS', 'titulo_pag': 'PAGO DE IMPUESTO PREDIAL', 'my_list': lista,'adeudos':lista_adeudos})
 
-
+"""
 # --- CONTRIBUYENTE DEBE AÑOS
 
 #PANTALLA PARA BUSQUEDA DEL CONTRIBUYENTE 
@@ -649,4 +649,39 @@ def pago_predial(request):
     transaction.commit()
     return JsonResponse({'cajero': request.user.username,'clave_cat':clave_cat,'ejercicios':years_selected,'folio':pay_data.folio,'observaciones':observaciones})   
 
+# ----------------------------- PAGO DERECHOS -----------------------#
 
+def view_pago_derechos(request):
+    return render(request,'finanzas/derechos/pago_derechos.html',{'titulo_pag':'PAGO DE DERECHOS'})
+
+def search_derechos(request):
+    if request.method == 'GET':
+        id_derecho = request.GET.get('id_derecho')
+    query_td = models_finanzas.tabla_derechos.objects.filter(id_derecho=id_derecho).values()
+    # Convertir queryset a lista
+    data = list(query_td) 
+    return JsonResponse(data,safe=False)
+
+def search_precio_derecho(request):
+    if request.method == 'GET':
+        nombre_derecho = request.GET.get('nombre_derecho')
+    query_td = models_finanzas.tabla_derechos.objects.get(nombre_derecho=nombre_derecho)
+    return JsonResponse({'precio':query_td.precio})
+
+
+def pago_derecho(request):
+    if request.method == 'GET':
+        nombre= request.GET.get('nombre')
+        observaciones = request.GET.get('observaciones')
+        concepto=request.GET.get('concepto')
+        cantidad=request.GET.get('cantidad')
+        subtotal=request.GET.get('subtotal')
+        descuento=request.GET.get('descuento')
+        impuesto_adicional=request.GET.get('impuesto_adicional')
+        total=request.GET.get('total')
+        cajero = request.user.username
+        
+        
+    
+    return JsonResponse({'cajero':cajero,'nombre': nombre,'observaciones': observaciones,'concepto': concepto,'cantidad': cantidad,'subtotal': subtotal,'descuento': descuento,'impuesto_adicional': impuesto_adicional,'total': total})
+    

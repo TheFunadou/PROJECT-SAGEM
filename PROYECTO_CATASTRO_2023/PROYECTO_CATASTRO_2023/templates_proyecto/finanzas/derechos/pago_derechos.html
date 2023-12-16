@@ -1,0 +1,569 @@
+{% extends "raiz/master_blade_v.1.html" %}
+{% load static %}
+
+{%block body%}
+
+
+
+    <style>
+        .fieldset-style{
+            border: solid 2px #660b22; top: -10px; background:rgba(255, 255, 255, 0.5);background-color: #ffffffa2;
+        }
+
+        .legend-style{
+            border: solid 2px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;
+        }
+
+        .sub-legend-style{
+            font-size: larger; color: #660b22;
+        }
+
+        .label-input-conteiner{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .label-input-conteiner label{
+            color: #660b22;
+            font-weight: bold;
+        }
+
+        .thead-style{
+            border: solid #880e4f 2px;
+            background-color: #880e4f;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-size: small
+        }
+
+        .tbody-style{
+            text-align: center; color: #880e4f; font-family: Verdana, Geneva, Tahoma, sans-serif; background-color: #ffff;
+        }
+
+        .tbody-style{font-size: medium;}
+
+        .button-style{
+            width: 15%;
+            background-color: gold;
+            color: #660b22;
+            border: solid #880E4F;
+            border-radius: 2vh;
+            font-weight: bold;
+            padding: 0.5vh;
+        }
+
+        .button-style:hover{
+            background-color: #660b22;
+            color: gold;
+            border: solid gold;
+        }
+
+        .button-pagar-style{
+            width: 15%;
+            border-radius: 2vh;
+            font-weight: bold;
+            padding: 0.5vh;
+            background-color: #660b22;
+            color: #ffff;
+            border: solid gold 2px;
+        }
+
+        /*BACKGROUND*/
+        main {
+            background-image: url("{% static 'img/IMG-BACKGROUND.jpeg' %}");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position-x: center;
+            background-position-y: bottom;
+        }
+
+        .style-tab-step-active{
+            background-color: #660b22;
+            color: #ffff;
+        }
+
+        .style-tab-step-inactive{
+            background-color: gray;
+            color: black;
+        }
+
+        .style-select{
+            border: solid #660b22; border-radius: 1.5vh; background-color: #770e28; color: #ffff; font-weight: bold;
+        }
+
+        .style_span{
+            background-color: #660b22;
+            color: #ffff;
+            font-weight: bold;
+            font-size: 90%;
+        }
+        
+
+    </style>
+
+    <link rel="stylesheet" href="{% static 'scss/validaciones.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/modal_styles.css' %}">
+    <script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+
+    <main class="d-flex flex-column justify-content-center align-items-center p-3">
+
+        <div class="border-bottom mb-3" style="width: 40%;">
+            <section class="conteiner">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-1 border text-center m-1 style-tab-step-active" id="tab-step-1" style="border-radius: 2vh;"><b>1</b></div>
+                    <div class="col-1 border text-center m-1 style-tab-step-inactive" id="tab-step-2" style="border-radius: 2vh;"><b>2</b></div>
+                </div>
+            </section>   
+        </div>
+
+        <section class="conteiner tab" id="step-1" style="width: 80%; overflow-y: scroll; height: 75vh;">
+            <fieldset class="container rounded-3 d-flex justify-content-center align-items-center flex-column p-3 mb-5 fieldset-style">
+                <legend class="float-none w-auto px-3 text-center legend-style">INFORMACIÓN GENERAL DEL CONTRIBUYENTE</legend>
+    
+                <div class="p-3" style="width: 90%;">
+                    <fieldset class="fieldset-1 border rounded-2 d-flex justify-content-center align-items-center p-3">
+                        <div class="row input-group d-flex align-items-between justify-content-center">
+                            <div class="col label-input-conteiner ">
+                                <label for="">Nombre</label>
+                                <input class="form-control text-center" type="text" id="input_nom_contribuyente">
+                            </div>
+                            <div class="col label-input-conteiner">
+                                <label for="">Observaciones</label>
+                                <input class="form-control text-center" type="text" id="input_observaciones">
+                            </div>
+                            <div class="col label-input-conteiner">
+                                <label for="">Correo</label>
+                                <input class="form-control text-center" type="text">
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </fieldset>
+
+            <fieldset class="container rounded-3 d-flex justify-content-center align-items-center flex-column p-3 fieldset-style">
+                <legend class="float-none w-auto px-3 text-center legend-style">INFORMACIÓN GENERAL DERECHO</legend>
+    
+                <div class="row p-3" style="width: 90%;">
+                    <fieldset class="fieldset-1 border rounded-2 d-flex justify-content-center align-items-center flex-column p-3">
+                        <legend class="float-none w-auto px-5 sub-legend-style"><b>SELECCIONAR DERECHO A PAGAR</b></legend>
+    
+                        <select id="select_categoria" class="form-select m-2 style-select" onchange="search_derechos()">
+                            <option class="p-3" selected hidden disabled>SELECCIONE UNA CATEGORIA</option>
+                            <option value="4311">Derechos por Servicios del Registro Civil</option>
+                            <option value="4315">Derechos por la Enajenación de Bebidas Alcohólicas
+                                realizada Total o Parcialmente al Público en General
+                            </option>
+                            
+                        </select>
+
+                        <select id="select_derechos" class="form-select m-2 style-select" disabled onchange="search_precio_derecho()">
+                            <option class="p-3" selected hidden disabled>SELECCIONE UN DERECHO</option>
+                        </select>
+
+                    </fieldset>
+                </div>
+                <!-- DATOS PAGO DERECHO -->
+                <div class="row mt-2 p-3" style="width: 90%;">
+                    <fieldset class="fieldset-1 border rounded-2 p-3">
+                        <legend class="float-none w-auto px-5 sub-legend-style"><b>DATOS DE PAGO DE DERECHO</b></legend>
+                        <table class="table table-bordered" style="width: 100%;" id="table_datos_pago_derecho">
+                            <thead class="thead-style">
+                                <tr>
+                                    <th class="col-4">VALOR</th>
+                                    <th class="col-4">CANTIDAD</th>
+                                    <th class="col-4">JUSTIFICACIÓN</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider tbody-style">
+                                <tr style="border: #880E4F 1px solid;">
+                                    <td>$0.00</td>
+                                    <td>$0.00</td>
+                                    <td>$0.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row-3 label-input-conteiner">
+                            <label for="">Valor Total</label>
+                            <input type="checkbox" class="form-check-input">
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="row mt-2 p-3" style="width: 90%;">
+                    <fieldset class="fieldset-1 border rounded-2 p-3">
+                        <legend class="float-none w-auto px-5 sub-legend-style"><b>INFORMACIÓN DE DESCUENTOS</b></legend>
+                        <table class="table table-bordered" style="width: 100%;">
+                            <thead class="thead-style">
+                                <tr>
+                                    <th class="col-4">DESCUENTO</th>
+                                    <th class="col-4">DESCUENTO AUTORIZADO</th>
+                                    <th class="col-4">DESCUENTO FIJO</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider tbody-style">
+                                <tr style="border: #880E4F 1px solid;">
+                                    <td>$0.00</td>
+                                    <td>$0.00</td>
+                                    <td>$0.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+                <div class="row mt-2 p-3 d-flex flex-row-reverse bd-highlight" style="width: 90%;">
+                    <button class="button-style" style="transition: 0.3s;" onclick="nextStep()">CONTINUAR</button>
+                </div>
+
+            </fieldset>
+        </section>
+
+        <section class="conteiner tab" id="step-2" style="width: 80%; height: 75vh; display: none; overflow-y: scroll;">
+
+            <fieldset class="container rounded-3 d-flex justify-content-center align-items-center flex-column p-3 fieldset-style">
+                <legend class="float-none w-auto px-3 text-center legend-style">RESUMEN DE PAGO</legend>
+
+                <div class="row mt-2 p-3" style="width: 90%;">
+                    <div class="col label-input-conteiner">
+                        <label for="">Concepto</label>
+                        <input class="form-control text-center" type="text" id="input_concepto">
+                    </div>
+                </div>
+                <div class="row mt-2 p-3" style="width: 90%;">
+                    <fieldset class="fieldset-1 border rounded-2 p-3">
+                        <legend class="float-none w-auto px-5 sub-legend-style"><b>RESUMEN DE PAGO</b></legend>
+                        <div class="row">
+                            <table class="table table-bordered" style="width: 100%;" id="table_resumen">
+                                <thead class="thead-style">
+                                    <tr>
+                                        <th class="col-3">CANTIDAD</th>
+                                        <th class="col-3">SUBTOTAL</th>
+                                        <th class="col-3">DESCUENTO</th>
+                                        <th class="col-3">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider tbody-style">
+                                    <tr style="border: #880E4F 1px solid;">
+                                        <td id="tr_cantidad">0</td>
+                                        <td id="tr_subtotal">$0.00</td>
+                                        <td id="tr_descuento">$0.00</td>
+                                        <td id="tr_total">$0.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row d-flex flex-column align-items-end justify-content-center" style="width: 100%;">
+                            <div class="input-group m-1" style="width: 40%;">
+                                <div class="input-group-prepend" style="width: 50%;">
+                                    <span class="input-group-text text-center style_span">SUBTOTAL</span>
+                                </div>
+                                <input class="form-control text-center" readonly type="text" style="width: 50%;" id="input_subtotal">
+                            </div>
+                            <div class="input-group m-1" style="width: 40%;">
+                                <div class="input-group-prepend" style="width: 50%;">
+                                    <span class="input-group-text text-center style_span">IMPUESTO ADICIONAL</span>
+                                </div>
+                                <input class="form-control text-center" readonly type="text" style="width: 50%;" id="input_impuesto_adicional">
+                            </div>
+                            <div class="input-group m-1" style="width: 40%;">
+                                <div class="input-group-prepend" style="width: 50%;">
+                                    <span class="input-group-text text-center style_span">TOTAL A PAGAR</span>
+                                </div>
+                                <input class="form-control text-center" readonly type="text" style="width: 50%;" id="input_total">
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="row mt-2 p-3 d-flex flex-row-reverse bd-highlight m-1" style="width: 90%;">
+                    <button class="button-pagar-style" style="transition: 0.3s;" onclick="pagar()">PAGAR</button>
+                    <button class="button-style" style="transition: 0.3s; margin-right: 5%;" onclick="backStep()">RETROCEDER</button>
+                </div>
+            </fieldset>
+        </section>
+    </main>
+
+    <!-- MODAL SOLICITAR DESCUENTO -->
+    <div id="modal_solicitar_descuento" class="modal fade" style="margin-top: 90px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
+                    </div>
+
+                </div>
+                <div class="modal-body text-center">
+                    <h4>DESCUENTO SOLICITADO</h4>
+                    <h6 id="txt_modal_solicitud_desc"></h6>
+                    <button class="btn btn-success" data-dismiss="modal">Redirigiendo...</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PAGO DERECHO EXITOSO -->
+    <div id="modal_pago_predial" class="modal fade" style="margin-top: 90px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
+                    </div>
+
+                </div>
+                <div class="modal-body text-center">
+                    <h4>PAGO REALIZADO</h4>
+                    <h6>El pago se realizado exitosamente</h6>
+                    <button class="btn btn-success" data-dismiss="modal">Generando reporte...</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function strToNum(num){
+            let str_num = num.replace('$','');
+            return parseFloat(str_num);
+        }
+        
+        function formatNumber(num){
+            var number = num.toLocaleString('es-US', { style: 'currency', currency: 'USD' })
+            return number
+        }
+
+        function nextStep(){
+            let tab_step_1 = document.getElementById('tab-step-1');
+            let tab_step_2 = document.getElementById('tab-step-2');
+            let section_step_1 = document.getElementById('step-1');
+            let section_step_2 = document.getElementById('step-2');
+
+            section_step_2.scrollTop = 0;
+
+            //mostrar step-2 y ocultar step-1
+            section_step_2.style.display = 'block';
+            section_step_1.style.display = 'none';
+
+            //Cambiar step 1 a inactivo y step 2 a activo
+            tab_step_1.classList.remove('style-tab-step-active');
+            tab_step_2.classList.remove('style-tab-step-inactive');
+
+            tab_step_1.classList.add('style-tab-step-inactive');
+            tab_step_2.classList.add('style-tab-step-active');
+
+        }
+
+        function backStep(){
+            let tab_step_1 = document.getElementById('tab-step-1');
+            let tab_step_2 = document.getElementById('tab-step-2');
+            let section_step_1 = document.getElementById('step-1');
+            let section_step_2 = document.getElementById('step-2');
+
+            section_step_1.scrollTop = 0;
+
+            //mostrar step-2 y ocultar step-1
+            section_step_2.style.display = 'none';
+            section_step_1.style.display = 'block';
+
+
+            //Cambiar step 1 a inactivo y step 2 a activo
+            tab_step_1.classList.remove('style-tab-step-inactive');
+            tab_step_2.classList.remove('style-tab-step-active');
+
+            tab_step_1.classList.add('style-tab-step-active');
+            tab_step_2.classList.add('style-tab-step-inactive');
+        }
+        
+
+        function calcularResumen(){
+            var tr_total = document.getElementById('tr_total');
+            var input_subtotal = document.getElementById('input_subtotal');
+            var input_impuesto_adicional = document.getElementById('input_impuesto_adicional');
+            var input_total = document.getElementById('input_total');
+
+            var v_subtotal = strToNum(tr_total.innerText.trim());
+
+            input_subtotal.value = tr_total.innerText.trim();
+            //calcular impuesto adicional
+            var impuesto_adicional = (parseFloat(v_subtotal)*0.16).toFixed(2);
+            input_impuesto_adicional.value = '$'+impuesto_adicional;
+            var total = (parseFloat(v_subtotal) + parseFloat(impuesto_adicional)).toFixed(2);
+            console.log(formatNumber(total));
+            input_total.value = '$'+formatNumber(total);
+
+        }
+
+
+        function search_derechos() {
+            var select_categoria = document.getElementById('select_categoria');
+            var select_derechos = document.getElementById('select_derechos');
+            //eliminar elementos dentro del select_derechos
+            select_derechos.options.length = 0;
+            //Crear elemento option
+            var option = document.createElement('option');
+            option.value = '';
+            option.text = 'SELECCIONE UN DERECHO';
+            option.selected = true;
+            option.hidden = true;
+            option.disabled =true;
+            select_derechos.add(option)   
+
+            //Enviar elementos al backend
+            $.ajax({
+                type: 'GET',
+                url: "{% url 'finanzas:search_derechos' %}", // Reemplaza esto con la URL de tu vista en Django
+                data: {
+                    'id_derecho': select_categoria.value,
+                },
+                dataType: 'json',
+                success: function (response) {
+                    response.forEach(item =>{
+                        select_derechos.disabled= false;
+                        //console.log(item.nombre_derecho);
+                        //Agregar valor y texto a option
+                        var option_derechos = document.createElement('option');
+
+                        option_derechos.value = item.nombre_derecho;
+                        option_derechos.text = item.nombre_derecho;
+
+                        select_derechos.appendChild(option_derechos);
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("Error en la solicitud AJAX:");
+                    console.log("Estado: " + textStatus);
+                    console.log("Error: " + errorThrown);
+                }
+            });
+
+        }
+
+        function search_precio_derecho() {
+            var select_derechos = document.getElementById('select_derechos');
+            var table_datos_pago_derecho = document.getElementById('table_datos_pago_derecho');
+
+            var concepto = document.getElementById('input_concepto');
+            concepto.value = select_derechos.value;
+
+            //Enviar elementos al backend
+            $.ajax({
+                type: 'GET',
+                url: "{% url 'finanzas:search_precio_derecho' %}", // Reemplaza esto con la URL de tu vista en Django
+                data: {
+                    'nombre_derecho': select_derechos.value,
+                },
+                dataType: 'json',
+                success: function (response) {
+                    var tbody = document.querySelector('#table_datos_pago_derecho tbody');
+                    tbody.innerHTML="";
+
+                    var nueva_fila = tbody.insertRow();
+
+                    var celda1 = nueva_fila.insertCell(0);
+                    var celda2 = nueva_fila.insertCell(1);
+                    var celda3 = nueva_fila.insertCell(2);
+
+                    celda1.innerHTML = "$"+response.precio;
+                    celda2.innerHTML = "1";  
+                    celda3.innerHTML = "0";  
+
+                    //INSERTAR VALORES EN LA TABLA RESUMEN
+                    var tr_cantidad = document.getElementById('tr_cantidad');
+                    var tr_subtotal = document.getElementById('tr_subtotal');
+                    var tr_descuento = document.getElementById('tr_descuento');
+                    var tr_total = document.getElementById('tr_total');
+                    tr_cantidad.innerHTML = '1';
+                    tr_subtotal.innerHTML = "$"+response.precio;
+                    tr_descuento.innerHTML = '$0.00';
+                    tr_total.innerHTML = "$"+response.precio;
+
+                    calcularResumen();
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("Error en la solicitud AJAX:");
+                    console.log("Estado: " + textStatus);
+                    console.log("Error: " + errorThrown);
+                }
+            });
+
+        }
+
+        function pagar() {
+            var nombre_contribuyente = document.getElementById('input_nom_contribuyente');
+            var observaciones = document.getElementById('input_observaciones');
+            var concepto = document.getElementById('input_concepto');
+            var tr_cantidad = document.getElementById('tr_cantidad');
+            var input_subtotal = document.getElementById('input_subtotal');
+            var tr_descuento = document.getElementById('tr_descuento');
+            var input_impuesto_adicional = document.getElementById('input_impuesto_adicional');
+            var input_total = document.getElementById('input_total');
+
+            //Enviar elementos al backend
+            $.ajax({
+                type: 'GET',
+                url: "{% url 'finanzas:pago_derecho' %}", // Reemplaza esto con la URL de tu vista en Django
+                data: {
+                    'nombre': nombre_contribuyente.value,
+                    'observaciones': observaciones.value,
+                    'concepto': concepto.value,
+                    'cantidad': tr_cantidad.innerText.trim(),
+                    'subtotal': strToNum(input_subtotal.value),
+                    'descuento': strToNum(tr_descuento.innerText.trim()),
+                    'impuesto_adicional': strToNum(input_impuesto_adicional.value),
+                    'total': strToNum(input_total.value),
+
+                },
+                dataType: 'json',
+                success: function (response) {
+
+                    observaciones_res = response.observaciones
+
+                    if (observaciones_res == '') {
+                        observaciones_res = ' '
+                    }
+
+                    $(document).ready(function () {
+                        $('#modal_pago_predial').modal('show'); // Muestra la alerta modal de sucesso
+                    
+                        $(document).on('shown.bs.modal', function () {
+                            setTimeout(function () {
+                                // Redirigir la ventana actual a otra URL
+                                window.open('/finanzas/reporte_pago_derecho/'+response.cajero+'/'+response.nombre+'/'+observaciones_res+'/'+response.concepto+'/'+response.cantidad+'/'+response.subtotal+'/'+response.descuento+'/'+response.impuesto_adicional+'/'+response.total+'/');
+                            }, 5000);
+
+                            setTimeout(function () {
+                                /// Abrir nueva ventana o pestaña
+                                window.location.href="{% url 'finanzas:redirigir_perfil_finanzas' %}";
+                            }, 6000);
+
+                        });
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("Error en la solicitud AJAX:");
+                    console.log("Estado: " + textStatus);
+                    console.log("Error: " + errorThrown);
+                }
+            });
+        }
+
+    </script>
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+        integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+        crossorigin="anonymous"></script>
+
+
+    <script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+{%endblock%}
