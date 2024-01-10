@@ -22,6 +22,6 @@ app_name='desarrollo_urbano'
 
 
 urlpatterns = [
-    path('perfil/',views.perfil_desarrollo_urb,name='perfil_du'),
+    path('perfil/',views.view_desarrollo_urbano_profile,name='perfil_du'),
     
 ]

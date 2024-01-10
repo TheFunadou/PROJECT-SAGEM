@@ -1,13 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+# PROFILE VIEWS
+# LOGOUUT
+def logout(request):
+    return redirect('logout')
 
-# Create your views here.
-def perfil_desarrollo_urb(request):
-    ctx={
-        'url_pag': 'x',
-        'nom_pag': 'Catastro',
-        'titulo_pag': 'INICIO DESARROLLO URBANO'
-    }
-    
-    return render(request,'sup_user/inicio_sup_user.html',ctx)
+def view_desarrollo_urbano_profile(request):
+    return render(request,'desarrollo_urbano/inicio_desarrollo_u.html',{'nom_pag': 'Catastro', 'titulo_pag': 'CATASTRO: CAMPO','username':request.user.username})
 

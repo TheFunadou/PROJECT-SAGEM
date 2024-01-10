@@ -85,7 +85,7 @@ ASGI_APPLICATION = 'PROYECTO_CATASTRO_2023.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'PROYECTO_CATASTRO_III',
+        'NAME': 'PROYECTO_CATASTRO_V',
         'USER': 'postgres',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',

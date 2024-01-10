@@ -61,10 +61,11 @@ urlpatterns = [
     path('reporte_pago_predial/<str:cajero>/<str:clave_cat>/<str:ejercicios>/<str:folio>/<str:observaciones>/', reporte_pago_predial, name='reporte_pago_predial'),
     
     #----------------PAGO DE DERECHOS----------------
-    path('pago_derechos/',views.view_pago_derechos, name='view_pago_derecho'),
+    path('busqueda_contribuyente_pd/',views.view_search_contribuyente, name='view_search_contribuyente_pd'),
+    path('pago_derechos/<str:clave_cat>/',views.view_pago_derechos, name='view_pago_derecho'),
     path('search_derechos/',views.search_derechos, name='search_derechos'),
     path('search_precio_derecho/',views.search_precio_derecho, name='search_precio_derecho'),
     path('pago_derecho/',views.pago_derecho, name='pago_derecho'),
-    path('reporte_pago_derecho/<str:cajero>/<str:nombre>/<str:observaciones>/<str:concepto>/<str:cantidad>/<str:subtotal>/<str:descuento>/<str:impuesto_adicional>/<str:total>/', report_pago_derecho, name='reporte_pago_derecho'),
+    path('reporte_pago_derecho/<str:folio>/<str:clave_cat>/', report_pago_derecho, name='reporte_pago_derecho'),
 ]
 

@@ -7,11 +7,11 @@
 
     <style>
         .fieldset-style{
-            border: solid 2px #660b22; top: -10px; background:rgba(255, 255, 255, 0.5);background-color: #ffffffa2;
+            border: solid 2px #660b22; top: -10px; background-color: #ffffffdd;
         }
 
         .legend-style{
-            border: solid 2px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;
+            border: solid 2px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em; background-color: #FFFF;
         }
 
         .sub-legend-style{
@@ -120,19 +120,41 @@
         </div>
 
         <section class="conteiner tab" id="step-1" style="width: 80%; overflow-y: scroll; height: 75vh;">
-            <fieldset class="container rounded-3 d-flex justify-content-center align-items-center flex-column p-3 mb-5 fieldset-style">
+            <fieldset class="container rounded-3 d-flex justify-content-center align-items-center flex-column p-3 mb-4 fieldset-style">
                 <legend class="float-none w-auto px-3 text-center legend-style">INFORMACIÓN GENERAL DEL CONTRIBUYENTE</legend>
     
-                <div class="p-3" style="width: 90%;">
-                    <fieldset class="fieldset-1 border rounded-2 d-flex justify-content-center align-items-center p-3">
+                <div class="p-3" style="width: 90%; ">
+                    <fieldset class="fieldset-1 border rounded-2 d-flex justify-content-center align-items-center p-3 m-1">
+                        <!--<legend class="float-none w-auto px-5 sub-legend-style"><b>CLAVE CATASTRAL</b></legend>-->
                         <div class="row input-group d-flex align-items-between justify-content-center">
                             <div class="col label-input-conteiner ">
-                                <label for="">Nombre</label>
-                                <input class="form-control text-center" type="text" id="input_nom_contribuyente">
+                                <input class="form-control text-center" type="text" id="clave_cat" readonly value="{{data.clave_catastral}}" style="display: none;">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset-1 border rounded-2 d-flex justify-content-center align-items-center p-3 m-1">
+                        <legend class="float-none w-auto px-5 sub-legend-style"><b>NOMBRE</b></legend>
+                        <div class="row input-group d-flex align-items-between justify-content-center">
+                            <div class="col label-input-conteiner ">
+                                <label for="">Nombre/Razón Social</label>
+                                <input class="form-control text-center" type="text" readonly value="{{data.nombre}}">
                             </div>
                             <div class="col label-input-conteiner">
+                                <label for="">Apellido Paterno</label>
+                                <input class="form-control text-center" type="text" readonly value="{{data.apaterno}}">
+                            </div>
+                            <div class="col label-input-conteiner">
+                                <label for="">Apellido Materno</label>
+                                <input class="form-control text-center" type="text" readonly value="{{data.amaterno}}">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset-1 border rounded-2 d-flex justify-content-center align-items-center p-3 m-1">
+                        <legend class="float-none w-auto px-5 sub-legend-style"><b>INFORMACIÓN ADICIONAL</b></legend>
+                        <div class="row input-group d-flex align-items-between justify-content-center">
+                            <div class="col label-input-conteiner">
                                 <label for="">Observaciones</label>
-                                <input class="form-control text-center" type="text" id="input_observaciones">
+                                <input class="form-control text-center" type="text" id="observaciones">
                             </div>
                             <div class="col label-input-conteiner">
                                 <label for="">Correo</label>
@@ -156,6 +178,7 @@
                             <option value="4315">Derechos por la Enajenación de Bebidas Alcohólicas
                                 realizada Total o Parcialmente al Público en General
                             </option>
+                            <option value="4315">Servicio de recolección de basura tipo comercial e industrial</option>
                             
                         </select>
 
@@ -222,16 +245,16 @@
 
         <section class="conteiner tab" id="step-2" style="width: 80%; height: 75vh; display: none; overflow-y: scroll;">
 
-            <fieldset class="container rounded-3 d-flex justify-content-center align-items-center flex-column p-3 fieldset-style">
+            <fieldset class="container rounded-3 d-flex justify-content-center align-items-center flex-column fieldset-style p-1">
                 <legend class="float-none w-auto px-3 text-center legend-style">RESUMEN DE PAGO</legend>
 
-                <div class="row mt-2 p-3" style="width: 90%;">
+                <div class="row p-3" style="width: 90%;">
                     <div class="col label-input-conteiner">
                         <label for="">Concepto</label>
                         <input class="form-control text-center" type="text" id="input_concepto">
                     </div>
                 </div>
-                <div class="row mt-2 p-3" style="width: 90%;">
+                <div class="row p-3" style="width: 90%;">
                     <fieldset class="fieldset-1 border rounded-2 p-3">
                         <legend class="float-none w-auto px-5 sub-legend-style"><b>RESUMEN DE PAGO</b></legend>
                         <div class="row">
@@ -278,7 +301,7 @@
                     </fieldset>
                 </div>
 
-                <div class="row mt-2 p-3 d-flex flex-row-reverse bd-highlight m-1" style="width: 90%;">
+                <div class="row p-3 d-flex flex-row-reverse bd-highlight m-1" style="width: 90%;">
                     <button class="button-pagar-style" style="transition: 0.3s;" onclick="pagar()">PAGAR</button>
                     <button class="button-style" style="transition: 0.3s; margin-right: 5%;" onclick="backStep()">RETROCEDER</button>
                 </div>
@@ -389,7 +412,9 @@
 
             input_subtotal.value = tr_total.innerText.trim();
             //calcular impuesto adicional
-            var impuesto_adicional = (parseFloat(v_subtotal)*0.16).toFixed(2);
+            //Calcular 21.87% DERECHOS
+            var impuesto_adicional = (parseFloat(v_subtotal)*(21.87));
+            var impuesto_adicional = (parseFloat(impuesto_adicional)/100).toFixed(2);
             input_impuesto_adicional.value = '$'+impuesto_adicional;
             var total = (parseFloat(v_subtotal) + parseFloat(impuesto_adicional)).toFixed(2);
             console.log(formatNumber(total));
@@ -494,8 +519,8 @@
         }
 
         function pagar() {
-            var nombre_contribuyente = document.getElementById('input_nom_contribuyente');
-            var observaciones = document.getElementById('input_observaciones');
+            var clave_cat = document.getElementById('clave_cat');
+            var observaciones = document.getElementById('observaciones');
             var concepto = document.getElementById('input_concepto');
             var tr_cantidad = document.getElementById('tr_cantidad');
             var input_subtotal = document.getElementById('input_subtotal');
@@ -508,7 +533,7 @@
                 type: 'GET',
                 url: "{% url 'finanzas:pago_derecho' %}", // Reemplaza esto con la URL de tu vista en Django
                 data: {
-                    'nombre': nombre_contribuyente.value,
+                    'clave_cat': clave_cat.value,
                     'observaciones': observaciones.value,
                     'concepto': concepto.value,
                     'cantidad': tr_cantidad.innerText.trim(),
@@ -521,6 +546,7 @@
                 dataType: 'json',
                 success: function (response) {
 
+                    /*
                     observaciones_res = response.observaciones
 
                     if (observaciones_res == '') {
@@ -534,6 +560,26 @@
                             setTimeout(function () {
                                 // Redirigir la ventana actual a otra URL
                                 window.open('/finanzas/reporte_pago_derecho/'+response.cajero+'/'+response.nombre+'/'+observaciones_res+'/'+response.concepto+'/'+response.cantidad+'/'+response.subtotal+'/'+response.descuento+'/'+response.impuesto_adicional+'/'+response.total+'/');
+                            }, 5000);
+
+                            setTimeout(function () {
+                                /// Abrir nueva ventana o pestaña
+                                window.location.href="{% url 'finanzas:redirigir_perfil_finanzas' %}";
+                            }, 6000);
+
+                        });
+                    });
+
+                    */
+
+                    console.log(response.folio)
+                    $(document).ready(function () {
+                        $('#modal_pago_predial').modal('show'); // Muestra la alerta modal de sucesso
+                    
+                        $(document).on('shown.bs.modal', function () {
+                            setTimeout(function () {
+                                // Redirigir la ventana actual a otra URL
+                                window.open("/finanzas/reporte_pago_derecho/"+response.folio+"/"+response.clave_cat+"/");
                             }, 5000);
 
                             setTimeout(function () {

@@ -57,10 +57,10 @@ def reporte_pago_predial(request,cajero, clave_cat, ejercicios, folio, observaci
     query_datos_grales_cont= models_cat.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
     query_datos_pred = models_cat.Datos_gen_predio.objects.get(clave_catastral=clave_cat)
     contribuyente = models_cat.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
-    query_datos_pago = models_fin.pago_predial.objects.get(Q(contribuyente=contribuyente) & Q(estatus = 'PAGADO') & Q(folio = folio))
+    query_datos_pago = models_fin.pagos.objects.get(Q(contribuyente=contribuyente) & Q(estatus = 'PAGADO') & Q(folio = folio))
     fecha_hora_actual = datetime.datetime.now()
     
-    impuesto_predial = "{:,.2f}".format(query_datos_pago.impuesto_predial)
+    impuesto_predial = "{:,.2f}".format(query_datos_pago.subtotal)
     impuesto_adicional = "{:,.2f}".format(query_datos_pago.impuesto_adicional)
     multa = "{:,.2f}".format(query_datos_pago.multa)
     recargo = "{:,.2f}".format(query_datos_pago.recargo)

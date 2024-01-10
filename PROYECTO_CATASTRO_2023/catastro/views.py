@@ -58,6 +58,7 @@ def acceso_catastro(request):
     except (Group.DoesNotExist):
         HttpResponse('El usuario no pertenece actualmente a ningun grupo')
 
+
 def redirigir_user_cat(request):
     if request.user.is_authenticated:
             
@@ -118,8 +119,8 @@ def perfil_catastro(request):
     ctx={
         'url_pag': 'x',
         'nom_pag': 'Catastro',
-        'titulo_pag': 'INICIO CATASTRO',
-        'nombre_user':request.user.username
+        'titulo_pag': 'CATASTRO: CAJERO',
+        'username':request.user.username
     }
     
     return render(request,'catastro/inicio_catastro.html',ctx)
@@ -145,8 +146,8 @@ def perfil_sup_user_catastro(request):
     ctx = {
         'notficaciones':'Notification.objects.values("description").filter()',
         'nom_pag': 'Catastro',
-        'titulo_pag': f'BIENVENIDO {request.user.username}',
-        'nombre_user': request.user.username
+        'titulo_pag': 'CATASTRO: TITULAR',
+        'username': request.user.username
     }
 
     return render(request, 'catastro/inicio_sup_user_catastro.html', ctx)

@@ -1,12 +1,15 @@
 from django.db import models
 from catastro.models import Datos_Contribuyentes
  
-class pago_predial(models.Model):
+class pagos(models.Model):
+    #UNIQUE
     id = models.BigAutoField(primary_key=True, null=False)
+    #pk
     folio = models.BigIntegerField(default=0)
     contribuyente = models.ForeignKey(Datos_Contribuyentes, on_delete=models.CASCADE)
     ejercicio = models.CharField(max_length=20, null=False)
-    impuesto_predial = models.DecimalField(max_digits=13, decimal_places=2, default=0, null=False)
+    #IMPUESTO PREDIAL
+    subtotal = models.DecimalField(max_digits=13, decimal_places=2, default=0, null=False)
     impuesto_adicional = models.DecimalField(max_digits=13, decimal_places=2, default=0, null=False)
     recargo = models.DecimalField(max_digits=13, decimal_places=2, default=0)
     desc_recargo = models.DecimalField(max_digits=13, decimal_places=2, default=0)
@@ -26,6 +29,16 @@ class tabla_derechos(models.Model):
     categoria = models.CharField(max_length=200, null=False)
     nombre_derecho = models.CharField(max_length=200, null=False)
     precio = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+
+class detalle_pago_derecho(models.Model):
+    id_pago = models.ForeignKey(pagos, on_delete = models.CASCADE)
+    id_derecho = models.ForeignKey(tabla_derechos, on_delete=models.CASCADE)
+    concepto = models.CharField(max_length=200)
+    observaciones = models.CharField(max_length=200, null=True)
+    
+    
+    
     
 
 

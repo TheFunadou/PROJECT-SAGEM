@@ -214,7 +214,7 @@
         background-size: cover;
         background-position-x: center;
         display: flex;
-        align-iteyyms: flex-start;
+        align-items: flex-start;
         justify-content: center;
     }
 
@@ -243,24 +243,24 @@
 <main>
     <nav>
         <ul class="main-ul">
-            <li class="main-list">
+            <!-- <li class="main-list">
                 <a href="" class="titulo">PROPIEDADES Y TITULARES</a>
                 <ul class="sub-list">
                     <li><a href="{% url 'catastro:index_contribuyente' %}" class="as">CONTRIBUYENTES</a></li>
                     <li><a href="{%url 'catastro:index_predios'%}" class="as">PREDIOS</a></li>     
                     <li><a href="{%url 'catastro:index_asignacion'%}" class="as">ASIGNACIÓN</a></li>       
                 </ul>
-            </li>
+            </li> -->
 
             <li class="main-list">
                 <a href=""class="titulo">TRAMITES</a>
                 <ul class="sub-list">
                     <li><a href="{% url 'catastro:solicitud' %}" class="as">DC017</a></li>
-                    <li><a href="{%url 'catastro:ficha_catastral'%}" class="as">FICHA_CATASTRAL</a></li>
+                    <!-- <li><a href="{%url 'catastro:ficha_catastral'%}" class="as">FICHA_CATASTRAL</a></li> -->
                 </ul>
             </li>
 
-            <li class="main-list">
+            <!-- <li class="main-list">
                 <a href="">ALTAS</a>
                 <ul class="sub-list">
                     <li><a href="{% url 'catastro:vista_alta_contribuyente' %}" class="as">NUEVO CONTRIBUYENTE</a></li>
@@ -269,33 +269,22 @@
                     <li><a href="" class="as">SUBDIVISIÓN</a></li>
                     <li><a href="" class="as">FUSIÓN DE PREDIOS</a></li>
                 </ul>
-            </li>
+            </li> -->
 
-            
-
-            <li class="main-list">
-                <a href="">REPORTE</a>
-                <ul class="sub-list">
-                    <li><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                </ul>
-            </li>
-
-            <li class="main-list">
+            <!-- <li class="main-list">
                 <a href="">TRAMITES</a>
                 <ul class="sub-list">
                     <li><a href="" class="as">NUEVA BAJA</a></li>
                     <li><a href="" class="as">NUEVO USUARIO</a></li>
                 </ul>
-            </li>
+            </li> -->
 
-            <li class="main-list">
-                <a href="">NOTIFICACIONES <span id="box_num_notify"><!--NUM_NOTIFICACIONES--></span></a>
+            <!-- <li class="main-list">
+                <a href="">NOTIFICACIONES <span id="box_num_notify"></span></a>
                 <ul class="sub-list">
-                    <li id="notify_box"><!--NOTIFICACIONES--></li>
+                    <li id="notify_box"></li>
                 </ul>
-            </li>
+            </li> -->
 
             <li class="main-list">
                 <a href="{% url 'catastro:logout_catastro' %}">CERRAR SESIÓN</a>
@@ -304,7 +293,6 @@
     </nav>
 
     <div id="box-2">
-        <h1>Bienvenido, {{nombre_user}}</h1>
     </div>
 </main>
 
