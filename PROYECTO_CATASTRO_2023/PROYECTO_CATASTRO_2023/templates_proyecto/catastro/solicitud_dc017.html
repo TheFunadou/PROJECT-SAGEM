@@ -325,11 +325,12 @@ button:hover {
                         <h4 style="text-align: center; margin-top: -30px;">DATOS GENERALES</h4><br>
                         <div class="" style=" margin-top: -50px;">
                             <fieldset class="fieldset-1 card bor rounded-4 p-3" style=" margin-top: 30px; margin-left: 20px; margin-right: 20px;">
+
                                 <legend class="float-none w-auto px-3" style="font-size: 22px; color: brown;  font-family: 'Calibri'" >
                                     <img src="{% static 'img/Key.svg' %}" alt="">CLAVE CATASTRAL</legend>
                 
                                     <div class="row justify-content-center">
-                                        <p>Es necesario tener registrados previamente a una persona y un predio para poder realizar este formulario, de no ser asi creelos antes de continuar.</p>
+                                        <p>Se puede buscar a los contribuyentes por medio de la clave catastral, domicilio y nombre.</p>
                                         <div id="autocomplete" class="autocomplete col-xl-6 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                             <input type="text" id="busqueda" values="" class="form-control" name="busqueda" style="background-color: #f3ea9848; border: #ac2546 solid 1px;" 
                                                         placeholder="Buscar" required oninput ="this.value = this.value.toUpperCase();">
@@ -345,9 +346,9 @@ button:hover {
                                            
                                             
                                         </div>
-
+                                        <!--
                                         <div class="row col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-
+                                            
                                             <div class="input-group-sm col-xl-1">
                                                 <div class="form-group">
                                                     <a href="{% url 'catastro:vista_alta_predios' %}"><button class="btn btn-info my-2 my-sm-0" type="button" style="width: 130px;">Nuevo predio</button></a>
@@ -359,17 +360,23 @@ button:hover {
                                                     <a href="{% url 'catastro:vista_alta_contribuyente' %}"><button class="btn my-2 my-sm-0" type="button" style="color: black; background-color:wheat;">Nuevo contribuyente</button></a>
                                                 </div>      
                                             </div>
-
+                                            
                                         </div>
-
+                                        !-->
                                         
                                     </div>   
                                         
                             </fieldset>
                         </div><br>
-                            
-                        <div class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px;">
+                        
+                        <!--Cambiar de persona fisica a persona moral !-->
+                        <div class="row justify-content-center" class="card bor" style=" margin-top: 15px; margin-left: 20px; margin-right: 20px;">
+                            <select id="tipo_persona" name="tramite" class="form-select form-select-sm" style="width: 550px; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold;   text-align: center; border-style: none;">
+                                <option selected style=" font-weight: bold;" value="PERSONA FISICA">PERSONA FISICA</option>
+                                <option style=" font-weight: bold;" value="PERSONA MORAL">PERSONA MORAL</option> 
+                            </select> 
                             <br>
+
                             <div class="card-body">
 
                                 <div class="row" style="text-align: center;">
@@ -377,7 +384,7 @@ button:hover {
                                     <div   class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                         
                                         <div id="rfc" class="autocomplete">
-                                            <label for="">RFC</label>
+                                            <label for="">RFC/CURP</label>
                                             <input type="text" id="busqueda_1" class="form-control" name="rfc" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                                     placeholder="XXXX000000XXX" minlength="13" maxlength="13" oninput ="this.value = this.value.toUpperCase();">
                                                     <span></span>
@@ -537,20 +544,12 @@ button:hover {
                                             
                                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                                     <div class="form-group">
-                                                        <label for="name">Num.int</label>
+                                                        <label for="name">Número de casa</label>
                                                         <input type="text" id="ni" class="form-control" name="ni" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                                                 placeholder="" minlength="1" maxlength="3" onkeypress="return valideKey(event);">
                                                     </div>
                                                 </div>
-                    
-                                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="name">Num.ext</label>
-                                                        <input type="text" id="ne" class="form-control" name="ne" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
-                                                                placeholder="" minlength="1" maxlength="3" onkeypress="return valideKey(event);">
-                                                    </div>
-                                                </div>           
-                                                
+
                                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                                     <div class="form-group">
                                                         <label for="name">Colonia/Fraccionamiento</label>
@@ -559,9 +558,16 @@ button:hover {
                                                                 <span></span> 
                                                     </div>
                                                 </div>
-                            
-                                                
-            
+                    
+                                                <!--<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">Num.ext</label>
+                                                        <input type="text" id="ne" class="form-control" name="ne" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                                                placeholder="" minlength="1" maxlength="3" onkeypress="return valideKey(event);">
+                                                    </div>
+                                                </div>           
+                                                !-->
+                                   
                                             </div>                        
                             </fieldset>
                             
@@ -581,13 +587,18 @@ button:hover {
                             <div class=" col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <label for="name">Tipo de predio</label>
                                 <select name="tipopredio" id="tipopredio" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
-                                    <option selected hidden>SELECCIONAR...</option>
+                                    <!--<option selected hidden>SELECCIONAR...</option>
                                     <option value="URBANO CON CONSTRUCCIÓN">URBANO CON CONSTRUCCIÓN</option>
                                     <option value="URBANO BALDÍO">URBANO BALDÍO</option>
                                     <option value="SUBURBANOS CONSTRUIDOS">SUBURBANOS CONSTRUIDOS</option>
                                     <option value="SUBURBANOS BALDIOS">SUBURBANOS BALDIOS</option>
                                     <option value="RURALES PARTICULARES">RURALES PARTICULARES</option>
                                     <option value="RURALES EJIDALES">RURALES EJIDALES</option>
+                                    !-->
+                                    <option value="URBANO CON CONSTRUCCIÓN">URBANO</option>
+                                    <option value="URBANO CON CONSTRUCCIÓN">SUBURBANO</option>
+                                    <option value="URBANO CON CONSTRUCCIÓN">RURAL</option>
+                                    <option value="URBANO CON CONSTRUCCIÓN">URBANO CON LOCALIDAD</option>
                                 </select>
                                 <span></span>
                             </div>
@@ -608,6 +619,8 @@ button:hover {
                                     <option selected hidden>SELECCIONAR...</option>
                                     <option value="CONSTRUIDO">CONSTRUIDO</option>
                                     <option value="BALDIO">BALDIO</option>
+                                    <option value="CONSTRUCCION">EN CONSTRUCCION</option>
+                                    <option value="NA">NO CLASIFICA</option>
 
                                 </select>
                                 <span></span>
@@ -639,7 +652,7 @@ button:hover {
 
                                 </div>
                             </div>
-
+                            <!--
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
 
                                 <div class="form-group">
@@ -650,7 +663,7 @@ button:hover {
 
                                 </div>
                             </div>
-
+                            !-->
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="name" class="lbl1">Municipio</label>
@@ -675,10 +688,14 @@ button:hover {
                                 <label for="name">Uso o destino del predio</label>
                                 <select name="uso" id="uso" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
                                     <option selected></option>
+                                    <option value="AGRICULTURA">AGRICULTURA</option>
                                     <option value="HABITACIONAL">HABITACIONAL</option>
                                     <option value="COMERCIAL">COMERCIAL</option>
                                     <option value="MIXTO">MIXTO</option>
                                     <option value="GOBIERNO">GOBIERNO</option>
+                                    <option value="DEPARTAMENTA">DEPARTAMENTAL</option>
+                                    <option value="ESCUELA">ESCUELA</option>
+                                    <option value=">OTRO">OTRO</option>
                                 </select>
                                 <span></span>
                             </div>
@@ -705,6 +722,7 @@ button:hover {
                                         <option selected hidden>SELECCIONAR...</option>
                                         <option value="LOZA">LOZA</option>
                                         <option value="LAMINA">LAMINA</option>
+                                        <option value="OTRO">OTRO</option>
                                     </select>
                                     <span></span>
                                 </div>
@@ -715,7 +733,7 @@ button:hover {
                                         <option selected hidden>SELECCIONAR...</option>
                                         <option value="LOZA">LOZA</option>
                                         <option value="LAMINA">LAMINA</option>
-                                        <option value="N/A">NO CLASIFICA</option>
+                                        <option value="N/A">OTROS</option>
                                     </select>
                                     <span></span>
                                 </div>
@@ -727,7 +745,7 @@ button:hover {
                                                 <option selected hidden>SELECCIONAR...</option>
                                                 <option value="CEMENTO">CEMENTO</option>
                                                 <option value="LOZETA">LOZETA</option>
-
+                                                <option value="N/A">OTROS</option>
                                             </select>
                                             <span></span>
                                         </div>
@@ -741,7 +759,7 @@ button:hover {
                                                 <option selected hidden>SELECCIONAR...</option>
                                                 <option value="BLOCK">BLOCK</option>
                                                 <option value="MADERA">MAMPOSTERIA</option>
-
+                                                <option value="N/A">OTROS</option>
                                             </select>
                                             <span></span>
                                         </div>
@@ -753,8 +771,11 @@ button:hover {
                                         <div class="contenedor-select-btn">
                                             <select name="tipobaño" class="form-select" aria-label="Default select example" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;">
                                                 <option selected hidden>SELECCIONAR...</option>
-                                                <option value="SENCILLO">SENCILLO</option>
                                                 <option value="COMPLETO">COMPLETO</option>
+                                                <option value="MEDIO">MEDIO</option>
+                                                <option value="SENCILLO">FOSA SEPTICA</option>
+                                                <option value="NT">NO TIENE</option>
+                                                <option value="OTRO">OTRO</option>
 
                                             </select>
                                             <span></span>
@@ -850,7 +871,7 @@ button:hover {
                                                 <option selected hidden>SELECCIONAR...</option>
                                                 <option value="VISIBLE">VISIBLE</option>
                                                 <option value="OCULTA">OCULTA</option>
-
+                                                <option value="AMBAS">AMBAS</option>
                                             </select>
                                             <span></span>
                                         </div>
@@ -869,7 +890,7 @@ button:hover {
                                                 <option value="MADERA">MADERA</option>
                                                 <option value="FIERRO">FIERRO</option>
                                                 <option value="ALUMINIO">ALUMINIO</option>
-                                                <option value="N/A">NO CLASIFICA</option>
+                                                <option value="N/A">OTRO</option>
                                             </select>
                                             <span></span>
                                         </div>
@@ -945,7 +966,24 @@ button:hover {
 
                     </fieldset>
 
+                    <div class="card-body" style="margin-top: 20px; margin-bottom: 20px;">
+                        <div class="row " style="text-align: center;">
+                            <fieldset class="card bor rounded-4 p-3"
+                                <div class="form-group">
+                                    <label for="name">Observaciones</label>
+                                    <input type="text" id="observaciones" class="form-control" name="observaciones"
+                                    style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848; height: 60px;" placeholder="" onkeypress="return valideKey(event);" value=""
+                                    aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                                <span></span>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                  
+
                 </div>
+
 
         </div>
 
