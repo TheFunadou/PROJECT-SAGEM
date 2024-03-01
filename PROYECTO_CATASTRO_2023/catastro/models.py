@@ -71,23 +71,26 @@ class Domicilio_inmueble(models.Model):
      localidad = models.CharField(max_length=35)
      
 
-#TABLAS/CLASES/MODELOS NUEVOS PARA LA BASE DE DATOS FICHA CATASTRAL
+# FICHA CATASTRAL///////////////////////////////////////////////////////////////////////////////////////
 
-class datos_documento_predio(models.Model):
-
-     pk_clave_catastral = models.CharField(primary_key=True,max_length=35)
-     lugar_expedision = models.CharField(max_length=35)
+class fc_datos_generales(models.Model):
+     folio = models.BigAutoField(primary_key=True)
+     tipo_mov = models.CharField(max_length=2)
+     fecha = models.DateTimeField(auto_now_add=True)
+     clave_catastral= models.ForeignKey(Datos_Contribuyentes, on_delete= models.CASCADE)
+     
+class fc_datos_documento_predio(models.Model):
+     folio_fc = models.ForeignKey(fc_datos_generales,on_delete= models.CASCADE)
+     lugar_expedicion = models.CharField(max_length=35)
      td = models.PositiveSmallIntegerField()
-     num_documento = models.PositiveSmallIntegerField()
+     no_documento = models.PositiveSmallIntegerField()
      dia = models.PositiveSmallIntegerField()
      mes = models.PositiveSmallIntegerField()
      año = models.PositiveSmallIntegerField()
-     num_notaria = models.PositiveSmallIntegerField()
-
-
-class datos_predio_ficha(models.Model):
-
-     pk_clave_catastral = models.CharField(max_length=35)
+     no_notaria = models.PositiveSmallIntegerField()
+     
+class fc_datos_predio(models.Model):
+     folio_fc = models.ForeignKey(fc_datos_generales,on_delete= models.CASCADE)
      tipo_avaluo = models.PositiveSmallIntegerField()
      fraccionamiento = models.PositiveSmallIntegerField()
      traslado_dominio = models.PositiveSmallIntegerField()
@@ -100,21 +103,19 @@ class datos_predio_ficha(models.Model):
      tipo_predio = models.PositiveSmallIntegerField()
      uso_predio = models.PositiveSmallIntegerField()
 
-
-class datos_inscripcion(models.Model):
-
-     pk_fk_clave_catastral = models.CharField(max_length=35)
+class fc_datos_inscripcion(models.Model):
+     folio_fc = models.ForeignKey(fc_datos_generales,on_delete= models.CASCADE)
      tipo = models.CharField(max_length=15)
      bajo_numero = models.PositiveSmallIntegerField()
      tomo = models.PositiveSmallIntegerField()
-     dia_i = models.PositiveSmallIntegerField()
-     mes_i = models.PositiveSmallIntegerField()
-     año_i = models.PositiveSmallIntegerField()
-     zona_i = models.PositiveSmallIntegerField()
+     dia = models.PositiveSmallIntegerField()
+     mes = models.PositiveSmallIntegerField()
+     year = models.PositiveSmallIntegerField()
+     zona = models.PositiveSmallIntegerField()
      
 
-class terrenos_rurales(models.Model):
-     pk_fk_clave_catastral = models.CharField(max_length=35)
+class fc_datos_terrenos_rurales(models.Model):
+     folio_fc = models.ForeignKey(fc_datos_generales,on_delete= models.CASCADE)
      tipo_suelo = models.PositiveSmallIntegerField()
      valor_has = models.PositiveSmallIntegerField()
      a = models.PositiveSmallIntegerField()
@@ -123,52 +124,46 @@ class terrenos_rurales(models.Model):
      top = models.CharField(max_length=2)
      vias_c = models.CharField(max_length=2)
 
-
-class terrenos_rurales_superficietotal(models.Model):
-     pk_fk_clave_catastral = models.CharField(max_length=35)
+class fc_datos_terrenos_rurales_sup_total(models.Model):
+     folio_fc = models.ForeignKey(fc_datos_generales,on_delete= models.CASCADE)
      sup_t_has = models.PositiveSmallIntegerField()
      a = models.PositiveSmallIntegerField()
      c = models.PositiveSmallIntegerField()
      
 
-class terrenos_urbanos_suburbanos(models.Model):
-     fk_clave_catastral = models.CharField(max_length=35)
-     valor_m2 = models.PositiveSmallIntegerField()
+class fc_datos_terrenos_urbanos_suburbanos(models.Model):
+     folio_fc = models.ForeignKey(fc_datos_generales,on_delete= models.CASCADE)
+     valor_m2_1 = models.PositiveSmallIntegerField()
      area = models.PositiveSmallIntegerField()
      c = models.PositiveSmallIntegerField()
+     valor_m2_2 = models.PositiveSmallIntegerField()
      frente = models.PositiveSmallIntegerField()
      profundidad = models.PositiveSmallIntegerField()
-     valor = models.PositiveSmallIntegerField()
-
-
-class demeritos_predios_urbanos(models.Model):
-     fk_clave_catastral = models.CharField(max_length=35)
-     descripcion =  models.CharField(max_length=35)
-     valor  = models.PositiveSmallIntegerField()
-
-
-class incrementos_esquina_urbanos(models.Model): 
-
-     fk_clave_catastral = models.CharField(max_length=35)
+     
+class fc_dtus_incremento_por_esquina(models.Model): 
+     folio_fc = models.ForeignKey(fc_datos_generales,on_delete= models.CASCADE)
      tipo =  models.CharField(max_length=1)
      valor  = models.PositiveSmallIntegerField()
 
 
-class ficha_datos_construcciones(models.Model):
+class fc_dtus_demeritos_predios_urbanos(models.Model):
+     folio_fc = models.ForeignKey(fc_datos_generales,on_delete= models.CASCADE)
+     descripcion =  models.CharField(max_length=35)
+     valor  = models.PositiveSmallIntegerField()
+
+class fc_datos_const(models.Model):
+     folio_fc= models.ForeignKey(fc_datos_generales, on_delete=models.CASCADE)
      etiqueta = models.CharField(max_length=1)
-     fk_clave_catastral = models.ForeignKey(Datos_Contribuyentes,on_delete=models.CASCADE)
      tipo_c = models.PositiveSmallIntegerField()
-     est =models.PositiveSmallIntegerField()
+     estado = models.PositiveSmallIntegerField()
      terreno = models.PositiveSmallIntegerField()
      antiguedad = models.PositiveSmallIntegerField()
-     area_c = models.PositiveSmallIntegerField() 
+     area_d_m2 = models.IntegerField()
+     class Meta:
+         unique_together = ('folio_fc', 'etiqueta')
 
-     class PK:
-        # Especifica una restricción única para la combinación de modelo_a y otro_campo
-        unique_together = ('etiqueta', 'fk_clave_catastral')
-
-class valores_catastro(models.Model):
-     clave_catastral_pk = models.CharField(max_length=35)
+class fc_datos_construccion_valores(models.Model):
+     folio_fc = models.ForeignKey(fc_datos_generales,on_delete= models.CASCADE)
      valor_terreno = models.BigIntegerField()
      valor_construccion = models.BigIntegerField()
      valor_catastral = models.BigIntegerField()

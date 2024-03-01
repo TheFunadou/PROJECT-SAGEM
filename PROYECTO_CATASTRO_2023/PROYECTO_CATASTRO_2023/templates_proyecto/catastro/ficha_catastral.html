@@ -430,17 +430,24 @@ button:hover {
       display: none;
     }
 
+    input{
+        text-align: center;
+    }
+
+    .table_text_style{
+        background-color: #660b22; color: #ffff;
+    }
+
+
 </style>
 
-<form id="formulario" action="{%url 'catastro:ficha'%}" method="post">
-    {%csrf_token%}
+<div id="formulario">
     <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> </div>
 
 
     <div class="container tab py-5 bordes"  style="position: static; background-color: rgb(255, 255, 255); margin-top: -20px; border-radius: 15px; overflow-y: scroll; height: 530px; z-index: 1; position: relative;">
 
-        <form action="registrar_ficha_datosgenerales/" method="POST">
-            {%csrf_token%}
+        <div>
 
 
             <fieldset class="container fieldset-1 p-3"
@@ -456,27 +463,30 @@ button:hover {
 
                             <div class="col-xl-2" style="float: left;">               
                                 <label for="tipo_mov" class="lbl1">TIPO/MOV/ABC</label>
-                                <input type="text" id="tipo_mov" class="form-control" name="tipo_mov" style="height: 25px;"
-                                        placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">                  
+                                <select name="TIPO_MOV" id="tipo_mov" class="form-select text-center">
+                                    <option value="" disabled hidden>Seleccionar</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>              
                             </div>  
                             
                             <div class="col-xl-2" style="float: right;">
                                 
                                 <label for="folio">FECHA OPERACIÓN</label>
-                                <input type="text" id="folio" class="form-control" name="folio" style="height: 25px;"
-                                        placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">
+                                <input type="text" id="folio" class="form-control text-center" name="folio"
+                                        placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm" value="{{fecha_hoy}}" readonly>
                                 
                             </div>
                         
-                            <div class="col-xl-2" style="float: right;">
-                                
+                            <!--
+                                 <div class="col-xl-2" style="float: right;">
                                 <label for="folio">FOLIO</label>
-                                <input type="text" id="folio" class="form-control" name="folio" style="height: 25px;"
+                                <input type="text" id="folio" class="form-control text-center" name="folio"
                                         placeholder="" required data-parsley-length="[1,30]"  aria-describedby="inputGroup-sizing-sm">
-                                
-                            </div>
+                                </div>
+                            -->
                         
-                
                     </div>
                 </div> 
 
@@ -617,7 +627,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_tipopredio" class="lbl1">Tipo de predio</label>
-                                    <input type="text" id="f_tipopredio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_tipopredio" placeholder=""
+                                    <input type="text" id="tipo_de_predio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_tipopredio" placeholder=""
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -627,7 +637,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="f_uso_predio" class="lbl1">Uso del predio</label>
-                                    <input type="text" id="f_uso_predio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_uso_predio" placeholder=""
+                                    <input type="text" id="uso_del_predio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="f_uso_predio" placeholder=""
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -730,25 +740,28 @@ button:hover {
                     <fieldset class="bor fieldset-1 rounded-3 p-3"
                         style=" height:min-content; margin-left: 20px; margin-right: 20px;">
                         <legend class="float-none w-auto px-3"
-                            style="font-size: 22px; color: brown;  font-family: 'Calibri'; margint-top: 20px;">
+                            style="font-size: 22px; color: brown;  font-family: 'Calibri'; margin-top: 20px;">
                             DATOS DEL DOCUMENTO DE PROPIEDAD O POSESIÓN</legend>
+
+                        <!-- INICIO DE SECCION DATOS DEL DOCUMENTO DE PROPIEDAD O POSESIÓN, CLASE: DDPP -->
 
                         <div class="row" style="margin-top: 3px; ">
 
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+
                                 <div class="form-group">
+                                    <!-- La clase DDPP se utilizara para extraer la informacion de todos los input del bloque de información que contengan esta clase  -->
                                     <label for="lugar_expedision" class="lbl1">Lugar de expedición</label>
-                                    <input type="text" id="lugar_expedision" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="lugar_expedision" placeholder=""
+                                    <input type="text" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DDPP"
                                         required onkeypress="return soloLetras(event);" onKeyUp="this.value = this.value.toUpperCase();"  aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
-
                                 </div>
                             </div>
 
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="td" class="lbl1">T.D.</label>
-                                    <input type="text" id="td" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="td" placeholder=""
+                                    <input type="text" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DDPP"
                                         required data-parsley-length="[1,30]" value="" aria-describedby="inputGroup-sizing-sm" onkeypress="return valideKey(event);">
                                     <span></span>
 
@@ -758,7 +771,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="no_documento" class="lbl1">No. documento</label>
-                                    <input type="text" id="no_documento" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="no_documento" placeholder=""
+                                    <input type="text" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DDPP"
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -768,8 +781,8 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="predio_dia" class="lbl1">Día</label>
-                                    <input type="text" id="predio_dia" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="predio_dia" placeholder=""
-                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DDPP"
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm" maxlength="2">
                                     <span></span>
 
                                 </div>
@@ -778,8 +791,8 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="predio_mes" class="lbl1">Mes</label>
-                                    <input type="text" id="predio_mes" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="predio_mes" placeholder=""
-                                        required onkeypress="return valideKey(event);" onKeyUp="this.value = this.value.toUpperCase();" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DDPP"
+                                        required onkeypress="return valideKey(event);" onKeyUp="this.value = this.value.toUpperCase();" aria-describedby="inputGroup-sizing-sm" maxlength="2">
                                     <span></span>
 
                                 </div>
@@ -788,8 +801,8 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="predio_año" class="lbl1">Año</label>
-                                    <input type="text" id="predio_año" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="predio_año" placeholder=""
-                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DDPP"
+                                        required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm" maxlength="4">
                                     <span></span>
 
                                 </div>
@@ -798,12 +811,14 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="notaria" class="lbl1">No. Notaria</label>
-                                    <input type="text" id="notaria" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="notaria" placeholder=""
+                                    <input type="text" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DDPP"
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
                             </div>
+
+                            <!-- FIN DE SECCION DATOS DEL DOCUMENTO DE PROPIEDAD O POSESIÓN, CLASE: DDPP -->
 
                         </div>
 
@@ -819,12 +834,15 @@ button:hover {
                             style="font-size: 22px; color: brown;  font-family: 'Calibri'">
                             DATOS DEL PREDIO</legend>
 
+                        <!-- INICIO DE SECCION DATOS DEL PREDIO, CLASE: DP -->
+
                         <div class="row" style="margin-top: 3px; text-align: left;">
                         
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
+                                    <!-- La clase DP se utilizara para extraer la informacion de todos los input del bloque de información que contengan esta clase  -->
                                     <label for="tipo_avaluo" class="lbl1">Tipo de avaluo</label>
-                                    <input type="text" id="tipo_avaluo" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tipo_avaluo" placeholder=""
+                                    <input type="text" id="tipo_avaluo" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DP"
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -834,7 +852,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="fracc_" class="lbl1">Fracc.</label>
-                                    <input type="text" id="fracc_" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="fracc_" placeholder=""
+                                    <input type="text" id="fracc_" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DP"
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -844,7 +862,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="tras_dominio" class="lbl1">Traslado de dominio</label>
-                                    <input type="text" id="tras_dominio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tras_dominio" placeholder=""
+                                    <input type="text" id="tras_dominio" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DP"
                                         required onkeypress="return valideKey(event);" value="" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -854,7 +872,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="regimen_legal" class="lbl1">Regimen legal del prop.</label>
-                                    <input type="text" id="regimen_legal" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="regimen_legal" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="regimen_legal" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DP" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -867,7 +885,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="tenencia_pred" class="lbl1">Tenencia</label>
-                                    <input type="text" id="tenencia_pred" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tenencia_pred" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="tenencia_pred" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DP" name="tenencia_pred" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -876,7 +894,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="est_fisico" class="lbl1">Estado físico</label>
-                                    <input type="text" id="est_fisico" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="est_fisico" placeholder=""
+                                    <input type="text" id="est_fisico" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DP" name="est_fisico" placeholder=""
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -886,7 +904,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="cod_uso" class="lbl1">Cod. de uso predio</label>
-                                    <input type="text" id="cod_uso" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="cod_uso" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="cod_uso" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DP" name="cod_uso" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -895,7 +913,7 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="tipo_posesion" class="lbl1">Tipo de posesion</label>
-                                    <input type="text" id="tipo_posesion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tipo_posesion" placeholder=""
+                                    <input type="text" id="tipo_posesion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DP" name="tipo_posesion" placeholder=""
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -905,11 +923,13 @@ button:hover {
                             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="no_emision" class="lbl1">No emisión</label>
-                                    <input type="text" id="no_emision" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="no_emision" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="no_emision" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control DP" name="no_emision" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
                             </div>
+
+                            <!-- FIN DE SECCION DATOS DEL PREDIO, CLASE: DP -->
 
                         </div>
 
@@ -926,6 +946,8 @@ button:hover {
                             style="font-size: 22px; color: brown;  font-family: 'Calibri'">
                             DATOS DE INSCRIPCIÓN EN EL REGISTRO PUBLICO DE PROPIEDAD</legend>
 
+                            <!-- INICIO DE SECCION INSCRIPCIÓN EN EL REGISTRO PUBLICO DE PROPIEDAD, CLASE: IRPP_ACT (ACTUAL), IRPP_ANT (ANTECEDENTE) -->
+
                         <div class="row" style="margin-top: 3px;">
 
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
@@ -941,7 +963,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="bajo_numero" class="lbl1">Bajo número</label>
-                                    <input type="text" id="bajo_numero" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="bajo_numero" onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="bajo_numero" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ACT" name="bajo_numero" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -950,7 +972,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="tomo" class="lbl1">Tomo</label>
-                                    <input type="text" id="tomo" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tomo" 
+                                    <input type="text" id="tomo" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ACT" name="tomo" 
                                         required onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
@@ -960,7 +982,7 @@ button:hover {
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="dia_inscripcion" class="lbl1">Día</label>
-                                    <input type="text" id="dia_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="dia_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="dia_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ACT" name="dia_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -969,7 +991,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="mes_inscripcion" class="lbl1">Mes</label>
-                                    <input type="text" id="mes_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="mes_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="mes_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ACT" name="mes_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -978,7 +1000,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="año_inscripcion" class="lbl1">Año</label>
-                                    <input type="text" id="año_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="año_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="año_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ACT" name="año_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -987,7 +1009,7 @@ button:hover {
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="zona_inscripcion" class="lbl1">Zona</label>
-                                    <input type="text" id="zona_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="zona_inscripcion" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ACT" name="zona_inscripcion" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1007,8 +1029,7 @@ button:hover {
 
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
-                                    <!-- <label for="f_calle_notifica" class="lbl1">Bajo número</label> -->
-                                    <input type="text" id="bajo_numero_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="bajo_numero_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="bajo_numero_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ANT" name="bajo_numero_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1016,8 +1037,7 @@ button:hover {
 
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
-                                    <!-- <label for="f_int_notifica" class="lbl1">Tomo</label> -->
-                                    <input type="text" id="tomo_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="tomo_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="tomo_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ANT" name="tomo_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1025,8 +1045,7 @@ button:hover {
 
                             <div class="input-group-sm col-xl-1 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
-                                    <!-- <label for="f_ext_notifica" class="lbl1">Día</label> -->
-                                    <input type="text" id="dia_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="dia_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="dia_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ANT" name="dia_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1034,8 +1053,7 @@ button:hover {
 
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
-                                    <!-- <label for="f_cp_notifica" class="lbl1">Mes</label> -->
-                                    <input type="text" id="mes_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="mes_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="mes_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ANT" name="mes_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1043,8 +1061,7 @@ button:hover {
 
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
-                                    <!-- <label for="f_colonia_fracc_notifica" class="lbl1">Año</label> -->
-                                    <input type="text" id="año_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="año_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="año_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ANT" name="año_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
@@ -1052,14 +1069,14 @@ button:hover {
 
                             <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="form-group">
-                                    <!-- <label for="f_ciudad_notifica" class="lbl1">Zona</label> -->
-                                    <input type="text" id="zona_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control" name="zona_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" id="zona_inscripcion_2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;" class="form-control IRPP_ANT" name="zona_inscripcion_2" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">
                                     <span></span>
 
                                 </div>
                             </div>
 
                         </div>
+                        <!-- FIN DE SECCION INSCRIPCIÓN EN EL REGISTRO PUBLICO DE PROPIEDAD -->
 
 
                     </fieldset>
@@ -1070,7 +1087,7 @@ button:hover {
 
             </fieldset>
 
-        </form>
+        </div>
     </div>
 
 
@@ -1094,6 +1111,7 @@ button:hover {
 
                 <div class="row justify-content-center" style="margin-top: 15px;">
     
+                    <!-- INPUTS PARA INGRESAR DATOS A LA TABLA TERRENOS RURALES-->
                     <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
                             <label for="t_suelo" class="lbl1"><strong>T/SUELO</strong></label>
@@ -1130,13 +1148,14 @@ button:hover {
             
                     <div class="input-group-sm col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                         <div class="form-group">
+                            <!-- PRESIONAR ENTER PARA INGRESAR DATOS A LA TABLA -->
                             <label for="c" class="lbl1"><strong>C</strong></label>
                             <input type="text" id="c_11" class="form-control" name="c" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                     
                         </div>  
                     </div> 
-                    
+                    <!-- FIN INPUTS PARA INGRESAR DATOS A LA TABLA TERRENOS RURALES-->
  
                     </div><br>
             
@@ -1144,29 +1163,28 @@ button:hover {
             
                     <div class="col-10">
                         <table id="tabla1" class="table">
-                        <thead>
-            
-                            <tr class="table-active">
-                            <td style="border: 0px solid;background:rgba(255, 255, 255,0.5);"></td>
-                            <td style="border: 0px solid;background:rgba(255, 255, 255,0.5);"></td>
-                            <td colspan="3" style="font-weight: 700;">SUPERFICIE</td>
+                            <thead>
+                
+                                <tr class="table-active">
+                                <td style="border: 0px solid;background:rgba(255, 255, 255,0.5);"></td>
+                                <td style="border: 0px solid;background:rgba(255, 255, 255,0.5);"></td>
+                                <td colspan="3" style="font-weight: 700;">SUPERFICIE</td>
+                                
+                                </tr>
+                
+                                <tr class="table-active" style="font-weight: 700;">
+                                <td  rowspan="2" style="height: 100%;">T/Suelo</td>
+                                <td  rowspan="2">Valor/has</td>
+                                <td>HAS.</td>
+                                <td>A</td>
+                                <td>C</td>     
+                                </tr>
                             
-                            </tr>
-            
-                            <tr class="table-active" style="font-weight: 700;">
-                            <td  rowspan="2" style="height: 100%;">T/Suelo</td>
-                            <td  rowspan="2" style="">Valor/has</td>
-                            <td style="">HAS.</td>
-                            <td style="">A</td>
-                            <td style="">C</td>     
-                            </tr>
-                        
-                            
-                        </thead>
-            
-                        <tbody>   
-                        </tbody>
-            
+                                
+                            </thead>
+                
+                            <tbody>   
+                            </tbody>
                         </table>
                     </div>
                     
@@ -1177,6 +1195,7 @@ button:hover {
             
                     <div class="col-5">
             
+                        <!-- Class: TR_TOP_VIAS -->
                         <table class="table">
                         <thead>
                             
@@ -1190,7 +1209,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm  ">
                                 <div class="form-group">
-                                    <input type="text" id="top" class="form-control" name="top" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                    <input type="text" id="top" class="form-control TR_TOP_VIAS" name="top" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="top" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1200,7 +1219,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm">
                                 <div class="form-group">
-                                    <input type="text" id="vias_c" class="form-control" name="vias_c" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                    <input type="text" id="vias_c" class="form-control TR_TOP_VIAS" name="vias_c" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                     placeholder="vias" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1215,6 +1234,8 @@ button:hover {
             
                     </div>
             
+
+                    <!-- SUPERFICIE TOTAL CLASS: SUP_T -->
                     <div class="col-5">
                         <table class="table">
                         <thead>
@@ -1232,7 +1253,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm  ">
                                 <div class="form-group">
-                                    <input type="text" id="has_st" class="form-control" name="has_st" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                    <input type="text" id="has_st" class="form-control SUP_T" name="has_st" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                             placeholder="has_st" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1242,7 +1263,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm">
                                 <div class="form-group">
-                                    <input type="text" id="a_st" class="form-control" name="a_st" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                    <input type="text" id="a_st" class="form-control SUP_T" name="a_st" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                             placeholder="a_st" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1252,7 +1273,7 @@ button:hover {
                             <td>
                                 <div class="input-group-sm ">
                                 <div class="form-group">
-                                    <input type="text" id="c_st" class="form-control" name="c_st" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                    <input type="text" id="c_st" class="form-control SUP_T" name="c_st" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                             placeholder="c_st" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                  
                             
                                 </div>  
@@ -1281,8 +1302,8 @@ button:hover {
 
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="valor2_m2" class="lbl1"><strong>VALOR M2</strong></label>
-                                <input type="text" id="valor2_m2" class="form-control" name="valor2_m2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                <label for="valor_m2" class="lbl1"><strong>VALOR M2</strong></label>
+                                <input type="text" id="valor_m2" class="form-control" name="valor2_m2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>
@@ -1297,8 +1318,8 @@ button:hover {
     
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="c_s" class="lbl1"><strong>C</strong></label>
-                                <input type="text" id="c_s" class="form-control" name="c_s" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                <label for="c_dtus" class="lbl1"><strong>C</strong></label>
+                                <input type="text" id="c_dtus" class="form-control" name="c_s" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>
@@ -1306,15 +1327,15 @@ button:hover {
     
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="area_terreno" class="lbl1"><strong>VALOR M2</strong></label>
-                                <input type="text" id="valor_m2" class="form-control" name="valor-m2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                                <label for="valor_m2_1" class="lbl1"><strong>VALOR M2</strong></label>
+                                <input type="text" id="valor_m2_1" class="form-control" name="valor-m2" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>
     
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="area_terreno" class="lbl1"><strong>FRENTE</strong></label>
+                                <label for="frente" class="lbl1"><strong>FRENTE</strong></label>
                                 <input type="text" id="frente" class="form-control" name="frente" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         placeholder="" required  onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
@@ -1322,25 +1343,28 @@ button:hover {
     
                         <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <div class="form-group">
-                                <label for="area_terreno" class="lbl1"><strong>PROFUNDIDAD</strong></label>
+                                <label for="profundidad" class="lbl1"><strong>PROFUNDIDAD</strong></label>
                                 <input type="text" id="profundidad" class="form-control" name="frente" style="border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                                         onkeydown="agregarFila()" onkeypress="return valideKey(event);" aria-describedby="inputGroup-sizing-sm">                       
                             </div>  
                         </div>   
     
                 
+                        <!-- TABLA DE DATOS DE TERRENOS URBANOS Y SUBURBANOS -->
                         <div class="sub-box-1" style="margin-top: 20px;">
                             <table id="tabla">
-                            <thead>
-                                <tr>
-                                <th>C</th>
-                                <th>VALOR M2</th>
-                                <th>FRENTE</th>
-                                <th>PROFUNDIDAD</th>
-                                </tr>
-                            </thead>
-                            <tbody>              
-                            </tbody>
+                                <thead>
+                                    <tr>
+                                    <th>VALOR M²</th>
+                                    <th>AREA DEL TERRENO</th>
+                                    <th>C</th>
+                                    <th>VALOR M²</th>
+                                    <th>FRENTE</th>
+                                    <th>PROFUNDIDAD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>              
+                                </tbody>
                             
                             </table>
                         </div>
@@ -1359,31 +1383,32 @@ button:hover {
                         style="font-size: 17px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5); font-weight: bold;">
                         INCREMENTO POR ESQUINA</legend>
                         </legend>
-            
-                        <table id="t1">
-                        <thead>
-            
-                        </thead>
-                        <tbody style="border: solid rgb(77, 0, 0) 1px;">
-                            <tr>
-                            <td class="tit-inc">A</td>
-                            <td contenteditable WIDTH="70"></td>
-                            </tr>
-                            <tr>
-                            <td class="tit-inc">B</td>
-                            <td contenteditable></td>
-                            </tr>
-                            <tr>
-                            <td class="tit-inc">C</td>
-                            <td contenteditable></td>
-                            </tr>
-                            <tr>
-                            <td class="tit-inc">D</td>
-                            <td contenteditable></td>
-                            </tr>
-            
-                        </tbody>
-                        </table>
+                        <!-- BLOQUE DE INFORMACION INCREMENTO POR ESQUINA class: DTUS_IXE -->
+
+                        <div class="form-group row">
+                            <label for="A" class="col-sm-8 col-form-label table_text_style">A</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control DTUS_IXE">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="B" class="col-sm-8 col-form-label table_text_style">B</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control DTUS_IXE">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="C" class="col-sm-8 col-form-label table_text_style">C</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control DTUS_IXE">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="D" class="col-sm-8 col-form-label table_text_style">D</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control DTUS_IXE">
+                            </div>
+                          </div>
             
                     </fieldset>
             
@@ -1392,58 +1417,36 @@ button:hover {
                         style="font-size: 17px; color: brown; font-family: 'Calibri'; background:rgba(255, 255, 255, 0.5); font-weight: bold;">
                         DÉMERITOS PREDIOS URBANOS</legend>
                         </legend>
-            
-                        <table id="t2">
-                        <thead>
-            
-                        </thead>
-                        <tbody style="border: solid rgb(77, 0, 0) 1px;">
-                            <tr>
-                            <td class="tit-inc">Interés Social</td>
-                            <td contenteditable WIDTH="70"></td>
-                            </tr>
-                            <tr>
-                            <td class="tit-inc">Excedente de área</td>
-                            <td contenteditable></td>
-                            </tr>
-                            <tr>
-                            <td class="tit-inc">Topografía</td>
-                            <td contenteditable></td>
-                            </tr>
-                            <tr>
-                            <td class="tit-inc">Cond. Física imprevista</td>
-                            <td contenteditable></td>
-                            </tr>
-            
-                        </tbody>
-                        </table>
-            
-                        <!-- <div class="box-inc">
-                        <div class="tit-inc">Interés Social</div>
-                        <div class="des-inc"><input id="demeritos_interes" type="text"></div>
-                        </div>
-                        <div class="box-inc">
-                        <div class="tit-inc">Excedente de área</div>
-                        <div class="des-inc"><input id="demeritos_excedente" type="text"></div>
-                        </div>
-                        <div class="box-inc">
-                        <div class="tit-inc">Topografía</div>
-                        <div class="des-inc"><input id="demeritos_topografia" type="text"></div>
-                        </div>
-                        <div class="box-inc">
-                        <div class="tit-inc">Cond. Física imprevista</div>
-                        <div class="des-inc"><input id="demeritos_condicion" type="text"></div>
-                        </div> -->
+
+                        <!-- BLOQUE DEMERITOS URBANOS CLASS: DTUS_DPU -->
+
+                        <div class="form-group row">
+                            <label for="interes_social" class="col-sm-8 col-form-label table_text_style">INTERÉS SOCIAL</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control DTUS_DPU" id="interes_social" name="interes_social">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="excedente_area" class="col-sm-8 col-form-label table_text_style">EXCEDENTE DE AREA</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control DTUS_DPU" id="excedente_area" name="excedente_area">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="topografia" class="col-sm-8 col-form-label table_text_style">TOPOGRAFÍA</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control DTUS_DPU" id="topografia" name="topografia">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="condicion_fisica_imprevista" class="col-sm-8 col-form-label table_text_style">COND. FÍSICA IMPREVISTA</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control DTUS_DPU" id="condicion_fisica_imprevista" name="condicion_fisica_imprevista">
+                            </div>
+                          </div>
                     </fieldset>
-            
                 </section>
-            
-            
-              
-
             </div>
-
-
         </fieldset>
 
 
@@ -1453,6 +1456,8 @@ button:hover {
             style="border: solid 3px gold; font-size: 25px; color: brown; font-family: 'Calibri'; font-weight: bold; border-radius: 0.4em;">
             DATOS DE CONSTRUCCIÓN
             </legend>
+
+            <!-- BLOQUE DE INFORMACION DATOS DE CONSTRUCCION -->
     
             <div class="card" style="background:rgb(255, 255, 255,.5); text-align: center; margin-top: 5px; margin-left: 20px; margin-right: 20px;">
     
@@ -1551,6 +1556,7 @@ button:hover {
     
                     <p></p>
     
+                    <!-- TABLA DATOS DE CONSTRUCCION -->
                     <table id="tabla_construccion">
                         <thead>
                         <tr>
@@ -1573,19 +1579,16 @@ button:hover {
     
         </fieldset>
     
-    
-        
-            {% csrf_token %}
             <fieldset class="container fieldset-1 card  rounded-3 p-3"
             style=" top: 57px; background:rgba(255, 255, 255, 0.5); margin-left: 20px; margin-right: 20px;">
         
-    
+            <!-- DATOS CONSTRUCCION VALORES CLASS:DC_V -->
             <div class="row justify-content-center">
     
             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                 <div class="form-group">
                     <label for="fc_de">Valor del terreno</label>
-                    <input type="text" id="va_te" class="form-control" name="va_te" style="height: 25px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                    <input type="text" id="va_te" class="form-control DC_V" name="va_te" style="height: 25px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                             placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
                 </div>
             </div>
@@ -1593,7 +1596,7 @@ button:hover {
             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                 <div class="form-group">
                     <label for="fc_de">Valor de la construccion</label>
-                    <input type="text" id="va_co"  class="form-control" name="va_co" style="height: 25px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                    <input type="text" id="va_co"  class="form-control DC_V" name="va_co" style="height: 25px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                             placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
                 </div>
             </div>
@@ -1602,7 +1605,7 @@ button:hover {
             <div class="input-group-sm col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                 <div class="form-group">
                     <label for="fc_de">Valor catastral</label>
-                    <input type="text" id="va_ca" class="form-control" name="va_ca" style="height: 25px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
+                    <input type="text" id="va_ca" class="form-control DC_V" name="va_ca" style="height: 25px;border: 2px rgb(204, 55, 105)solid;background-color: #f3ea9848;"
                             placeholder="" required  onkeypress="return valideKey(event);"  aria-describedby="inputGroup-sizing-sm">
                 </div>
             </div>
@@ -1619,6 +1622,25 @@ button:hover {
     
        
     
+    </div>
+
+    <!-- EXITO-->
+    <div id="modal_fc" class="modal fade" style="margin-top: 90px;">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
+                    </div>
+
+                </div>
+                <div class="modal-body text-center">
+                    <h4>DATOS GUARDADOS</h4>
+                    <h6>La infromacion se guardo existosamente./h6>
+                    <button class="btn btn-success" data-dismiss="modal">Generando reporte...</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="myModal" class="modal fade" style="margin-top: 90px;">
@@ -1662,21 +1684,187 @@ button:hover {
 
             <div class="col-xl-12 " style="margin-top: 5px;">
                 <div class="form-group" style="float:right;">
-                    <button type="button" class="btn btn-outline-info" id="prevBtn" onclick="nextPrev(-1)" style="width: 150px; ">Atras</button>
-                    <button type="button" class="btn btn-outline-warning" id="nextBtn" onclick="nextPrev(1);">Siguiente</button>
+                    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Atras</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1);">Siguiente</button>
     
                 </div>
             </div>
-            <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button> 
-            <button type="button" class="btn btn-warning" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>  -->
         </div>
     </div>
 
-</form>
+</div>
 
 <script src="{%static 'js/ajax_datos_predios.js'%}"></script>
 <script>
-      
+
+    //Funcion para obtener mediante una clase la informacion de los inputs y almacenarlos en una lista vacia (los inputs de cierta seccion de datos deben tener asignada la misma clase)
+    function store_info_in_list(class_name,list){
+        //Por cada bloque de informacion con su respectiva clase obtener las etiquetas input
+        const inputs = document.querySelectorAll('.'+ class_name);
+        //Recorrer informacion de las etiquetas
+        inputs.forEach(input =>{
+            //Almacenar la infromacion dentro de la lista vacia
+            list.push(input.value);
+        })
+    }
+
+    //Funcion para obtener la informacion de una tabla y almecenar las filas dentro de una lista
+    function store_info_table_in_list(table_id,list){
+        const table = document.getElementById(table_id);
+        // Obtener todas las filas de la tabla
+        const row = table.querySelectorAll('tbody tr');
+
+        // Iterar sobre cada fila
+        row.forEach(row => {
+            // Obtener las celdas de la fila
+            const cells = row.querySelectorAll('td');
+            // Inicializar una lista para almacenar la información de la fila
+            let informacionFila = [];
+            // Iterar sobre cada celda de la fila
+            cells.forEach(cell => {
+                // Verificar si la celda está vacía
+                const contenidoCelda = cell.textContent.trim();
+                if (contenidoCelda === '') {
+                    // Si la celda está vacía, agregar un espacio a la lista de información de la fila
+                    informacionFila.push(' ');
+                } else {
+                    // Si la celda no está vacía, agregar su contenido a la lista de información de la fila
+                    informacionFila.push(contenidoCelda);
+                }
+            });
+            // Agregar la información de la fila a la lista de información de la tabla
+            list.push(informacionFila);
+        });
+    }
+
+    //Funcion para recuperar todos los datos de la ficha catastral
+    function recuperarDatos(){
+        const tipo_mov = document.getElementById('tipo_mov').value;
+        const clave_cat = document.getElementById('busqueda').value;
+        const tipo_de_predio = document.getElementById('tipo_de_predio').value;
+        const uso_del_predio = document.getElementById('uso_del_predio').value;
+
+        // Listas vacias para cada bloque de informacion
+        let list_DDPP = [];
+        let list_DP = [];
+        let list_IRPP_ACT = [];
+        let list_IRPP_ANT = [];
+
+        //Obtener etiquetas input con la clase DDPP (Datos del documento de propiedad o posesion)
+        store_info_in_list('DDPP', list_DDPP);
+        //Obtener etiquetas input con la clase DP (Datos del predio)
+        store_info_in_list('DP', list_DP);
+        list_DP.push(tipo_de_predio);
+        list_DP.push(uso_del_predio);
+        //Obtenter etiquetas input con la clase IRPP_ACT (INSCRIPCIÓN EN EL REGISTRO PUBLICO DE PROPIEDAD (Actual))
+        store_info_in_list('IRPP_ACT', list_IRPP_ACT);
+        //Obtenter etiquetas input con la clase IRPP_ANT (INSCRIPCIÓN EN EL REGISTRO PUBLICO DE PROPIEDAD (Antecedente))
+        store_info_in_list('IRPP_ANT', list_IRPP_ANT);
+        ////////////////////////////////////////////////////
+
+        //DATOS TERRENOS RURALES
+        let list_table_tr = [];
+        store_info_table_in_list('tabla1',list_table_tr);
+        //Obtener TOP y VIAS/C de DATOS TERRENOS RURALES
+        let list_TR_TOP_VIAS=[];
+        store_info_in_list('TR_TOP_VIAS', list_TR_TOP_VIAS);
+        //Obtener SUPERFICIE TOTAL de Datos Terrenos Rurales
+        let list_TR_SUP_T=[];
+        store_info_in_list('SUP_T', list_TR_SUP_T);
+
+        ////////////////////////////////////////////////
+        //TABLA DATOS TERRRENOS URBANOS Y SUBURBANOS
+        let list_DTUS = [];
+        store_info_table_in_list('tabla',list_DTUS);
+        //INCREMENTO POR ESQUINA
+        let list_DTUS_IXE = [];
+        store_info_in_list('DTUS_IXE', list_DTUS_IXE);
+        //DEMERTIOS PREDIOS URBANOS
+        let list_DTUS_DPU = [];
+        store_info_in_list('DTUS_DPU', list_DTUS_DPU);
+        ////////////////////////////////////////////////
+
+        //OBTENER INFORMACION DATOS DE CONSTRUCCION
+        let list_DC = [];
+        store_info_table_in_list('tabla_construccion',list_DC);
+        //Obtener VALORES DE DATOS DE CONSTRUCCION
+        let list_DC_V=[];
+        store_info_in_list('DC_V', list_DC_V);
+
+        //Enviar elementos al backend
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'catastro:view_ficha_catastral' %}", // Reemplaza esto con la URL de tu vista en Django
+            data: {
+                'clave_cat': clave_cat,
+                'tipo_mov':tipo_mov,
+                'dtos_doc_pred': list_DDPP,
+                'dtos_pred': list_DP,
+                'dtos_irpp_act':list_IRPP_ACT,
+                'dtos_irpp_ant':list_IRPP_ANT,
+                //Serializar lista
+                'dtos_tr':JSON.stringify(list_table_tr),
+                'dtos_tr_top_vias': list_TR_TOP_VIAS,
+                'dtos_tr_st':list_TR_SUP_T,
+                'dtos_dtus':JSON.stringify(list_DTUS),
+                'dtos_dtus_ixe':list_DTUS_IXE,
+                'dtos_dtus_dpu':list_DTUS_DPU,
+                'dtos_const': JSON.stringify(list_DC),
+                'dtos_const_v':list_DC_V
+
+            },
+            dataType: 'json',
+            success: function (response) {
+                $(document).ready(function () {
+                    txt_modal.textContent = response.MENSAJE;
+                    $('#modal_fc').modal('show'); // Muestra la alerta modal de sucesso
+                
+                    $(document).on('shown.bs.modal', function () {
+                        //Metodo para redirigir al la url asociada al reporte
+                        /*
+                        setTimeout(function () {
+                            // Redirigir la ventana actual a otra URL
+                            window.open('/finanzas/reporte_pago_predial/' + cajero_res + '/' + clave_cat_res + '/' + ejercicios_res + '/' + folio_res + '/' + observaciones_res + '/');
+                            window.open(`/finanzas/reporte_pago_predial/${cajero_res}/`);
+
+                        }, 5000);
+
+                        */
+                        setTimeout(function () {
+                            /// Abrir nueva ventana o pestaña
+                            window.location.href="{% url 'catastro:redirigir_perfil_cat' %}";
+                        }, 6000);
+
+                    });
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error en la solicitud AJAX:");
+                console.log("Estado: " + textStatus);
+                console.log("Error: " + errorThrown);
+            }
+        });
+
+        // Imprimir la lista en la consola para verificar
+        console.log('clave_cat', clave_cat )
+        console.log('tipo_mov:', tipo_mov)
+        console.log('Datos Documentos de Propiedad o Posesion: ', list_DDPP);
+        console.log('Datos Predio', list_DP);
+        console.log('DATOS DE INSCRIPCIÓN EN EL REGISTRO PUBLICO DE PROPIEDAD (ACTUAL)', list_IRPP_ACT);
+        console.log('DATOS DE INSCRIPCIÓN EN EL REGISTRO PUBLICO DE PROPIEDAD (ANTECENDENTE)',list_IRPP_ANT);
+        console.log("Tabla terrenos rurales:", list_table_tr);
+        console.log("terrenos rurales TOP, VIAS/C:", list_TR_TOP_VIAS);
+        console.log("terrenos rurales Superficie Total", list_TR_SUP_T);
+
+        console.log('TABLA DATOS TERRRENOS URBANOS Y SUBURBANOS',list_DTUS);
+        console.log('DTUS INCREMENTO POR ESQUINA',list_DTUS_IXE);
+        console.log('DTUS DEMERTIOS PREDIOS URBANOS',list_DTUS_DPU);
+
+        console.log("Datos Construccion", list_DC);
+        console.log("Datos Construccion Valores", list_DC_V);
+
+    }
+
     var currentTab = 0;
     document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -1693,7 +1881,7 @@ button:hover {
             document.getElementById("prevBtn").style.display = "inline";
         }
         if (n == (x.length - 1)) {
-            document.getElementById("nextBtn").innerHTML = "Enviar";
+            document.getElementById("nextBtn").innerHTML = "Guardar";
         } else {
             document.getElementById("nextBtn").innerHTML = "Siguiente";
         }
@@ -1705,16 +1893,10 @@ button:hover {
         if (n == 1 && !validateForm()) return false;
         x[currentTab].style.display = "none";
         currentTab = currentTab + n;
+
         if (currentTab >= x.length) {
-
-            $('#myModal').modal('show');
-            
-            setTimeout(function() {     
-                document.getElementById("formulario").submit();
-                validar_divs()
-                return false;
-            }, 2000); 
-
+            //Guardar informacion en la base de datos
+            recuperarDatos();
         }
         showTab(currentTab);
     }
@@ -1808,6 +1990,7 @@ button:hover {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
     integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
     crossorigin="anonymous"></script>
+<script language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 
 <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
 <script src="{%static 'js/autocompletar_2.js'%}"></script>

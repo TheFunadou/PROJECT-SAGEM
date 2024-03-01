@@ -13,6 +13,7 @@ from notify.models import notify as notify_catastro
 #TABLA USUARIOS
 from django.contrib.auth.models import User, Group
 
+
 #APLICACION CATASTRO
 from catastro import models
 from catastro.models import Datos_Contribuyentes,Domicilio_inmueble
@@ -20,6 +21,7 @@ from catastro.functions import send_notify
 from .static.reports.DC017 import crear_reporte_DC017
 from .static.reports.FICHA_CATASTRAL import crear_ficha_catastral
 from .static.reports.REPORTE_TEST import REPORTE_TEST
+from django.db import transaction, IntegrityError
 #DJANGO NOTIFICACIONS
 
 # channels
@@ -31,6 +33,7 @@ from django.db.models import Q
 
 #transacciones
 from django.db import transaction
+from django.utils.timezone import localtime
 
 current_app = 'CATASTRO'
 
@@ -1001,7 +1004,7 @@ def obtener_datos_busqueda_ficha(request, *args,**kwargs):
                 'num_int':dato.num_int,
             })
 
-        print(lista)
+        # print(lista)
 
     return JsonResponse({
         'status': True,
@@ -1013,7 +1016,7 @@ def consultar_datos_generales(request,clave,*args,**kwargs):
         lista_contribuyentes = []
         
         data = models.Datos_Contribuyentes.objects.filter(clave_catastral=clave)   
-        print(data)
+        # print(data)
         for contribuyente in data:
             contribuyentes_datos = {}
             contribuyentes_datos['clave_catastral'] = contribuyente.clave_catastral
@@ -1028,300 +1031,198 @@ def consultar_datos_generales(request,clave,*args,**kwargs):
             contribuyentes_datos['localidad'] = contribuyente.localidad
             contribuyentes_datos['codigo_postal'] = contribuyente.codigo_postal
             lista_contribuyentes.append(contribuyentes_datos)
-        print(lista_contribuyentes)
+        # print(lista_contribuyentes)
         data = json.dumps(lista_contribuyentes)
         return HttpResponse(data,'application/json')
    
 @login_required(login_url="pag_login")
 #vista ficha catastral
 def ficha_catastral(request):
-    ctx = {
-        'nom_pag': 'Catastro',
-        'titulo_pag': 'FICHA CATASTRAL',
-    }
-    return render(request,'catastro/ficha_catastral.html', ctx)
+    return render(request,'catastro/ficha_catastral.html', {'fecha_hoy':localtime().date(), 'nom_pag':'Catastro','titulo_pag': 'FICHA CATASTRAL'})
 
-def registrar_ficha_datosgenerales(request):
-    clave_catastral = request.POST['busqueda']
-    d_clave_cat = {    
-        "clave_cat": clave_catastral
-    }
+def view_ficha_catastral(request):
+    try:
+        
+        if request.method == 'GET':
+            clave_cat = request.GET.get('clave_cat')
+            tipo_mov = request.GET.get('tipo_mov')
+            list_DDPP = request.GET.getlist('dtos_doc_pred[]')
+            list_DP = request.GET.getlist('dtos_pred[]')
+            list_IRPP_ACT = request.GET.getlist('dtos_irpp_act[]')
+            list_IRPP_ANT = request.GET.getlist('dtos_irpp_ant[]')
+            list_table_tr = request.GET.get('dtos_tr')
+            list_TR_TOP_VIAS = request.GET.getlist('dtos_tr_top_vias[]')
+            list_TR_SUP_T = request.GET.getlist('dtos_tr_st[]')
+            list_DTUS = request.GET.get('dtos_dtus')
+            list_DTUS_IXE = request.GET.getlist('dtos_dtus_ixe[]')
+            list_DTUS_DPU = request.GET.getlist('dtos_dtus_dpu[]')
+            list_DC = request.GET.get('dtos_const')
+            list_DC_V = request.GET.getlist('dtos_const_v[]')
+        
+        """ print(f'Clave catastral: {clave_cat}')
+        print(f'Tipo Mov: {tipo_mov}')
+        print('datos documento de propiedad o posesion')
+        print(list_DDPP)
+        print('datos del predio')
+        print(list_DP)
+        print('datos de inscripcion en el regsitro publico de la propiedad actual')
+        print(list_IRPP_ACT)
+        print('datos de inscripcion en el regsitro publico de la propiedad antecedente')
+        print(list_IRPP_ANT)
+        print('datos terrenos rurales')
+        print(list_table_tr)
+        # Tabla Datos Terrenos Rurales
+        table_tr = json.loads(list_table_tr)
+        
+        for array in table_tr:
+            for item in array:
+                print(item)
+        print('datos terrenos rurales superficie total TOP VIAS:')
+        print(list_TR_TOP_VIAS)
+        print('datos terrenos rurales superficie total:')
+        print(list_TR_SUP_T)
+        print('datos terrenos urbanos y suburnano:')
+        # Tabla Datos Terrenos Urbanos y Suburbanos
+        table_dtus = json.loads(list_DTUS)
+        for array in table_dtus:
+            for item in array:
+                print(item)
+        print('datos terrenos urbanos y suburnanos incremento por esquina:')
+        print(list_DTUS_IXE)
+        print('datos terrenos urbanos y suburnanos demeritos:')
+        print(list_DTUS_DPU)
+        print('datos construccion:')
+         # Tabla Datos Construccion
+        table_dc = json.loads(list_DC)
+        
+        for array in table_dc:
+            for item in array:
+                print(item)
+        print(list_DC_V)"""
+        
+        contribuyente = models.Datos_Contribuyentes.objects.get(clave_catastral=clave_cat)
+        print(list_table_tr)
+        
+        #Transaccion para el guardado de datos de la ficha catastral
+        with transaction.atomic():
+            # Guardar datos generales de la ficha
+            ficha_cat = models.fc_datos_generales.objects.create(
+                tipo_mov = tipo_mov,fecha = timezone.now(), clave_catastral= contribuyente
+            )
+            
+            #Obtener el folio perteneciente a esta ficha catastral con nuestra variable ficha_cat.folio
+            folio_ficha_cat = models.fc_datos_generales.objects.get(folio = ficha_cat.folio)
+            
+            #Guardar datos documento predio
+            models.fc_datos_documento_predio.objects.create(
+                folio_fc= folio_ficha_cat, lugar_expedicion= list_DDPP[0], td = list_DDPP[1],
+                no_documento = list_DDPP[2], dia = list_DDPP[3], mes = list_DDPP[4], año= list_DDPP[5],
+                no_notaria = list_DDPP[6]
+            )
+            
+            #Guardar datos del predio
+            models.fc_datos_predio.objects.create(
+                folio_fc= folio_ficha_cat,tipo_avaluo = list_DP[0], fraccionamiento = list_DP[1], traslado_dominio = list_DP[2],
+                regimen = list_DP[3], tenencia = list_DP[4], estado_fisico = list_DP[5], codigo_uso = list_DP[6], tipo_posecion = list_DP[7],
+                num_emision = list_DP[8], tipo_predio = list_DP[9], uso_predio = list_DP[10]
+            )
+            
+            #Guardar datos de inscripcion ACTUAL
+            models.fc_datos_inscripcion.objects.create(
+                folio_fc= folio_ficha_cat,tipo = 'ACTUAL', bajo_numero = list_IRPP_ACT[0], tomo = list_IRPP_ACT[1],
+                dia = list_IRPP_ACT[2], mes = list_IRPP_ACT[3], year = list_IRPP_ACT[4], zona = list_IRPP_ACT[5]
+            )
+            
+            #Guardar datos inscripcion ANTECEDENTE
+            models.fc_datos_inscripcion.objects.create(
+                folio_fc= folio_ficha_cat,tipo = 'ANTECEDENTE', bajo_numero = list_IRPP_ANT[0], tomo = list_IRPP_ANT[1],
+                dia = list_IRPP_ANT[2], mes = list_IRPP_ANT[3], year = list_IRPP_ANT[4], zona = list_IRPP_ANT[5]
+            )
 
-    #atributos para registrar datos del documento
-    lugar_expedision = request.POST['lugar_expedision']
-    td = request.POST['td']
-    num_documento = request.POST['no_documento']
-    dia = request.POST['predio_dia']
-    mes = request.POST['predio_mes']
-    año = request.POST['predio_año']
-    num_notaria = request.POST['notaria']
+            #Cargar lista serializada list_table_tr(Datos de terrenos rurales) con json.loads
+            tabla_terrenos_rurales = json.loads(list_table_tr)
+            # Tabla Datos Terrenos Rurales
+            
+            #Validacion para comprobar si la tabla esta vacia, si es verdadero no se hace nada, si es falso
+            #Se guarda la informacion de datos de terrenos rurales
+            if not tabla_terrenos_rurales:
+                # print('TABLA TERRENOS RURALES ESTA VACIA')
+                pass
+            else:
+                # print('TABLA TERRENOS RUARALES CONTIENE INFORMACION')
+                #Recorrer lista de tabla_terrenos_rurales la cual contiene sublistas: ejemplo [[x,y,z],[x,y,z]]
+                for array in tabla_terrenos_rurales:
+                    #Guardar informacion en datos_terrenos_rurales accediendo a los indices de cada sublista
+                    models.fc_datos_terrenos_rurales.objects.create(
+                        folio_fc=folio_ficha_cat, tipo_suelo=array[0],
+                        valor_has=array[1],sup_has=array[2],
+                        a=array[3],c=array[4],top=list_TR_TOP_VIAS[0], 
+                        vias_c=list_TR_TOP_VIAS[1] 
+                    )
+                
+                #Guardar infromacion de superfice total de los datos de terrenos rurales
+                models.fc_datos_terrenos_rurales_sup_total.objects.create(
+                folio_fc = folio_ficha_cat, sup_t_has = list_TR_SUP_T[0],
+                a = list_TR_SUP_T[1],c = list_TR_SUP_T[2]
+                )
+            
+            
+            # Tabla Datos Terrenos Urbanos y Suburbanos
+            #Cargar lista serializada de datos de terrenos urbanos y suburbanos
+            #Validacion para comprobar si la tabla esta vacia, si es verdadero no se hace nada, si es falso
+            #Se guarda la informacion de datos de terrenos rurales
+            table_datos_tus = json.loads(list_DTUS)
+            if not table_datos_tus:
+                pass
+            else:
+                #Recorrer lista de tabla_terrenos_rurales la cual contiene sublistas: ejemplo [[x,y,z],[x,y,z]]
+                for array in table_datos_tus:
+                    #Guardar informacion en terrenos urbanos y suburbanos accediendo a los indices de cada sublista
+                    models.fc_datos_terrenos_urbanos_suburbanos.objects.create(
+                        folio_fc=folio_ficha_cat, valor_m2_1=array[0],
+                        area=array[1], c=array[2], valor_m2_2=array[3],
+                        frente=array[4], profundidad=array[5], 
+                    )
+                
+                #Lista donde se almacenan los "tipos" de la tabla datos terrenos urbanos y suburbanos de los incrementos por esquina
+                list_tipo_dtus = ['A','B','C','D'] 
+                #Ciclo for de los listas usando zip para recorrer ambas listas al mismo tiempo
+                for item, item_2 in zip(list_tipo_dtus, list_DTUS_IXE):
+                    models.fc_dtus_incremento_por_esquina.objects.create(
+                        folio_fc =folio_ficha_cat, tipo = item, valor = item_2
+                    )
+                
+                #Lista donde se almacenan la "descripcion" de la tabla datos terrenos urbanos y suburbanos de los demeritos predio urbanos
+                list_descripcion_dtus_dpu = ['INTERES SOCIAL','EXCEDENTE DE AREA', 'TOPOGRAFIA', 'COND. FISICA IMPREVISTA']
+                #Ciclo for de los listas usando zip para recorrer ambas listas al mismo tiempo
+                for item, item_2 in zip(list_descripcion_dtus_dpu, list_DTUS_DPU):
+                    models.fc_dtus_demeritos_predios_urbanos.objects.create(
+                        folio_fc =folio_ficha_cat, descripcion = item, valor = item_2
+                    )
+            
+            # Tabla Datos Construccion
+            table_datos_const = json.loads(list_DC)
+            if not list_DC:
+                pass
+            else:
+                for array in table_datos_const:
+                    models.fc_datos_const.objects.create(
+                        folio_fc=folio_ficha_cat, etiqueta=array[0], tipo_c=array[1],
+                        estado=array[2], terreno=array[3], antiguedad=array[4],
+                        area_d_m2=array[5],
+                    )
+            
+            # Tabla Datos Construccion Valores
+            models.fc_datos_construccion_valores.objects.create(
+                folio_fc = folio_ficha_cat, valor_terreno = list_DC_V[0],
+                valor_construccion = list_DC_V[1], valor_catastral = list_DC_V[2]
+            )
+            
+    except IntegrityError:
+       return JsonResponse()
+    transaction.commit()
+    return JsonResponse({'MENSAJE':'DATOS GUARDADOS EXITOSAMENTE.'})
 
-    #atributos para registrar datos del predio
-    tipo_avaluo = request.POST['tipo_avaluo']
-    fraccionamiento = request.POST['fracc_']
-    traslado_dominio = request.POST['tras_dominio']
-    regimen = request.POST['regimen_legal']
-    tenencia = request.POST['tenencia_pred']
-    estado_fisico = request.POST['est_fisico']
-    codigo_uso = request.POST['cod_uso']
-    tipo_posecion = request.POST['tipo_posesion']
-    num_emision = request.POST['no_emision']
-    tipo_predio = request.POST['f_tipopredio']
-    uso_predio = request.POST['f_uso_predio']
-
-    #atributos para registrar datos de inscripcion del predio 
-    tipo = 'ACTUAL'
-    bajo_numero = request.POST['bajo_numero']
-    tomo = request.POST['tomo']
-    dia_i = request.POST['dia_inscripcion']
-    mes_i = request.POST['mes_inscripcion']
-    año_i = request.POST['año_inscripcion']
-    zona_i = request.POST['zona_inscripcion']
-
-    tipo_2= 'ANTECEDENTE'
-    bajo_numero_2 = request.POST['bajo_numero_2']
-    tomo_2 = request.POST['tomo_2']
-    dia_inscripcion_2 = request.POST['dia_inscripcion_2']
-    mes_inscripcion_2 = request.POST['mes_inscripcion_2']
-    año_inscripcion_2 = request.POST['año_inscripcion_2']
-    zona_inscripcion_2 = request.POST['zona_inscripcion_2']
-
-    models.datos_documento_predio.objects.create(
-       pk_clave_catastral=clave_catastral,
-       lugar_expedision = lugar_expedision,
-       td = td,
-       num_documento = num_documento,
-       dia = dia,
-       mes = mes,
-       año = año,
-       num_notaria = num_notaria
-    )
-
-    models.datos_predio_ficha.objects.create(
-       pk_clave_catastral=clave_catastral,
-       tipo_avaluo = tipo_avaluo,
-       fraccionamiento =fraccionamiento,
-       traslado_dominio = traslado_dominio,
-       regimen = regimen,
-       tenencia = tenencia,
-       estado_fisico = estado_fisico,
-       codigo_uso = codigo_uso,
-       tipo_posecion = tipo_posecion,
-       num_emision = num_emision,
-       tipo_predio = tipo_predio,
-       uso_predio = uso_predio,
-    )
-
-    models.datos_inscripcion.objects.create(
-     pk_fk_clave_catastral = clave_catastral,
-     tipo = tipo,
-     bajo_numero = bajo_numero,
-     tomo = tomo,
-     dia_i = dia_i,
-     mes_i = mes_i,
-     año_i = año_i,
-     zona_i = zona_i
-    )
-
-    models.datos_inscripcion.objects.create(
-     pk_fk_clave_catastral = clave_catastral,
-     tipo = tipo_2,
-     bajo_numero = bajo_numero_2,
-     tomo = tomo_2,
-     dia_i = dia_inscripcion_2,
-     mes_i = mes_inscripcion_2,
-     año_i = año_inscripcion_2,
-     zona_i = zona_inscripcion_2
-    )
-
-
-    return registrar_ficha_terrenos_rurales(request) 
-
-#ALMACENAMIENTO DE LA INFORMACIÓN DE FICHA CATASTRAL DATOS DE TERRENOS RURALES
-def registrar_ficha_terrenos_rurales(request, *args,**kwargs):
-
-    if request.GET:
-       clave_catastral = request.GET.get("clave_catatastral_id")
-       t_suelo = request.GET.get("t_suelo")
-       valor_has = request.GET.get("valor_has")
-       sup_has = request.GET.get("has")
-       a = request.GET.get("a")
-       c = request.GET.get("c")
-       top = request.GET.get("top")
-       vias_c = request.GET.get("vias_c")
-
-       models.terrenos_rurales.objects.create(
-           pk_fk_clave_catastral = clave_catastral,
-           tipo_suelo = t_suelo,
-           valor_has = valor_has,
-           sup_has=sup_has,
-           a=a,
-           c=c,
-           top=top,
-           vias_c=vias_c
-       )
-       print("rurales ok")
-       return HttpResponse("DATOS DE TERRENOS RURALES OK")
-    return HttpResponse("metodo no permitido")
-
-#ALMACENAMIENTO DE LA INFORMACIÓN DE FICHA CATASTRAL DATOS DE TERRENOS RURALES (superficie total)
-def registrar_ficha_terrenos_rurales_supertotal(request, *args,**kwargs):
-
-    if request.GET:
-        clave_catastral = request.GET.get("clave_catatastral_id")
-        has_st = request.GET.get("has_st")
-        a_st = request.GET.get("a_st")
-        c_st = request.GET.get("c_st")
-
-        models.terrenos_rurales_superficietotal.objects.create(
-            pk_fk_clave_catastral = clave_catastral,
-            sup_t_has = has_st,
-            a = a_st,
-            c = c_st
-        )
-        print("rurales total super ok")
-        return HttpResponse("SUPER TOTAL OK")
-    return HttpResponse("metodo no permitido")
-
-#ALMACENA LA INFORMACIÓN DE FICHA CATASTRAL DE DATOS DE TERRENOS URBANOS (GENERAL)
-def registrar_ficha_terrenos_urbanos(request, *args,**kwargs):
-
-    if request.GET:
-        clave_catastral = request.GET.get("clave_catastral_tu")
-        valor2_m2 = request.GET.get("valor2_m2")
-        area_terreno = request.GET.get("area_terreno")
-        c_s = request.GET.get("c_s")
-        valor_m2 = request.GET.get("valor_m2")
-        frente = request.GET.get("frente")
-        profundidad = request.GET.get("profundidad")
-
-        models.terrenos_urbanos_suburbanos.objects.create(
-           fk_clave_catastral = clave_catastral,
-           valor_m2 =valor2_m2,
-           area = area_terreno,
-           c = c_s,
-           frente = frente,
-           profundidad = profundidad,
-           valor = valor_m2,
-        )
-        print("urbanos ok")
-        return HttpResponse("TERRENOS URBANOS OK")
-    return HttpResponse("metodo no permitido")
-
-#ALMACENA LA INFORMACIÓN DE FICHA CATASTRAL DE DATOS DE TERRENOS URBANOS (INCREMENTOS)
-def registrar_ficha_terrenos_urbanos_incremento(request, *args,**kwargs):
-    if request.GET:
-        clave_catastral = request.GET.get("clave_catastral_tu")
-        tipo_in = request.GET.get("tipo_in")
-        valor_in = request.GET.get("valor_in")
-
-        models.incrementos_esquina_urbanos.objects.create(
-           fk_clave_catastral = clave_catastral,
-           tipo =tipo_in,
-           valor = valor_in,
-        )
-        print("urbanos incremento ok")
-        return HttpResponse("INCREMENTOS OK")
-    return HttpResponse("metodo no permitido")
-
-#ALMACENA LA INFORMACIÓN DE FICHA CATASTRAL DE DATOS DE TERRENOS URBANOS (DEMERITOS)
-def registrar_ficha_terrenos_urbanos_demeritos(request, *args,**kwargs):
-    if request.GET:
-        clave_catastral = request.GET.get("clave_catastral_tu")
-        descripcion_de = request.GET.get("descripcion_de")
-        valor_de = request.GET.get("valor_de")
-
-        models.demeritos_predios_urbanos.objects.create(
-           fk_clave_catastral = clave_catastral,
-           descripcion =descripcion_de,
-           valor = valor_de,
-        )
-        print("urbanos demeritos ok")
-        return HttpResponse("DEMERITOS OK")
-    return HttpResponse("metodo no permitido")
-
-#ALMACENA LA INFORMACIÓN DE LA FICHA CATASTRAL DE DATOS DE CONSTRCCIONES DEL PREDIO
-def registrar_ficha_datos_construcciones(request, *args,**kwargs):
-    if request.GET:
-        clave_cat = request.GET.get("clave_catastral_dc")
-        etiqueta = request.GET.get("etiqueta")
-        tipo_c = request.GET.get("tipo_c")
-        est = request.GET.get("est")
-        terreno = request.GET.get("terreno")
-        antiguedad = request.GET.get("antiguedad")
-        area_c = request.GET.get("area_c")
-
-        fk_clave_cat = get_object_or_404(models.Datos_Contribuyentes, clave_catastral=clave_cat)
-
-        models.ficha_datos_construcciones.objects.create(
-            etiqueta=etiqueta,
-            fk_clave_catastral = fk_clave_cat,
-            tipo_c=tipo_c,
-            est=est,
-            terreno=terreno,
-            antiguedad=antiguedad,
-            area_c=area_c
-           
-        )
-        crear_ficha_catastral(clave_cat)
-        return HttpResponse("CONSTRUCCIONES OK")
-    return HttpResponse("metodo no permitido")
-
-#ALMACENA LOS VALORES MONETARIOS DEL PREDIO
-def registrar_valores(request):
-
-    #Este ultimo metodo es para poder darle guardar e imprimir el reporte
-    zoncat = request.POST['fc_zon']
-    mun = request.POST['fc_mu']
-    loc = request.POST['fc_loc']
-    reg = request.POST['fc_re']
-    man = request.POST['fc_ma']
-    lot = request.POST['fc_lot']
-    niv = request.POST['fc_ni']
-    dep = request.POST['fc_de']
-    dv = request.POST['fc_dv']
-    clave_catastral = zoncat + mun + loc + reg + man + lot + niv + dep + dv
-
-    datos_clav_c = {
-        "C_ZON" : zoncat,
-        "C_MUN" : mun,
-        "C_LOC" : loc,
-        "C_REG" : reg,
-        "C_MAN" : man,
-        "C_LOT" : lot,
-        "C_NIV" : niv,
-        "C_DP" : dep,
-        "C_DV" : dv,
-        "clave_cat":clave_catastral
-    }
-
-    valor_te = request.POST['va_te']
-    valor_co = request.POST['va_co']
-    valor_cat = request.POST['va_ca']
-
-    models.valores_catastro.objects.create(
-        clave_catastral_pk = clave_catastral,
-        valor_terreno = valor_te,
-        valor_construccion = valor_co,
-        valor_catastral = valor_cat,
-    )
-
-    
-    return HttpResponseRedirect(reverse('menu_secundario'))
-
-""""
-def enviar(request):
-    id= request.POST['id']
-    
-    usuario_remtitente= User.objects.get(username=request.user.username)
-    usuario_destino = User.objects.get(username=id)
-    cuerpo= request.POST['cuerpo']
-    cuerpo2= request.POST['cuerpo2']
-    
-    
-    notify.send(usuario_remtitente, recipient=usuario_destino, verb=cuerpo,description=cuerpo2)
-    
-"""
 @login_required(login_url='pag_login')
 def cambiar_password(request):
     username = request.POST['username']

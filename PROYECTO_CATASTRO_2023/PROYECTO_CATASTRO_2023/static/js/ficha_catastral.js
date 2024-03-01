@@ -22,8 +22,8 @@ elInput.addEventListener('keyup', function(e) {
     var nivel = document.getElementById('fc_ni').value
     var departamento = document.getElementById('fc_de').value
     var dv = document.getElementById('fc_dv').value
-    console.log(zona +","+municipio+","+localidad+","+region+","+manzana
-    +","+lote+","+nivel+","+departamento+","+dv)
+    // console.log(zona +","+municipio+","+localidad+","+region+","+manzana
+    // +","+lote+","+nivel+","+departamento+","+dv)
 
     var clave_catastral = zona+municipio+localidad+region+manzana+lote+nivel+departamento+dv
   

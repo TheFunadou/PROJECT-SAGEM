@@ -110,13 +110,6 @@ urlpatterns = [
     #path('delete_predios/<str:clave_cat>/',views.delete_predios,name='delete_predios'),
 
 
-    
-
-
-
-
-
-
     #RUTA VISUALIZAR SOLICITUD DC017
     path('catastro/perfil/solicitud_dc017/',views.solicitud_dc017,name='solicitud'),
 
@@ -138,23 +131,26 @@ urlpatterns = [
     path('catastro/perfil/ficha_catastral/ajax_ficha/',views.obtener_datos_busqueda_ficha),
 
 
-    #RUTAS PARA REGISTRAR INFORMACIÓN DE LA FICHA CATASTRAL
-    #TERRENOS RURALES
-    path('catastro/perfil/ficha_catastral/registrar_ficha',views.registrar_ficha_datosgenerales,name='ficha'),
-    path('catastro/perfil/ficha_catastral/registrar_datosrurales',views.registrar_ficha_terrenos_rurales,name='rural'),
-    path('catastro/perfil/ficha_catastral/registrar_datosrurales_supertotal',views.registrar_ficha_terrenos_rurales_supertotal,name='rural_supertotal'),
+    # #RUTAS PARA REGISTRAR INFORMACIÓN DE LA FICHA CATASTRAL
+    # #TERRENOS RURALES
+    # path('catastro/perfil/ficha_catastral/registrar_ficha',views.registrar_ficha_datosgenerales,name='ficha'),
+    # path('catastro/perfil/ficha_catastral/registrar_datosrurales',views.registrar_ficha_terrenos_rurales,name='rural'),
+    # path('catastro/perfil/ficha_catastral/registrar_datosrurales_supertotal',views.registrar_ficha_terrenos_rurales_supertotal,name='rural_supertotal'),
     
 
-    #TERRENOS URBANOS
-    path('catastro/perfil/ficha_catastral/registrar_datosurbanos',views.registrar_ficha_terrenos_urbanos,name='urbano'),
-    path('catastro/perfil/ficha_catastral/registrar_datosurbanos_incremento',views.registrar_ficha_terrenos_urbanos_incremento,name='urbano_incremento'),
-    path('catastro/perfil/ficha_catastral/registrar_datosurbanos_demeritos',views.registrar_ficha_terrenos_urbanos_demeritos,name='urbano_demerito'),
+    # #TERRENOS URBANOS
+    # path('catastro/perfil/ficha_catastral/registrar_datosurbanos',views.registrar_ficha_terrenos_urbanos,name='urbano'),
+    # path('catastro/perfil/ficha_catastral/registrar_datosurbanos_incremento',views.registrar_ficha_terrenos_urbanos_incremento,name='urbano_incremento'),
+    # path('catastro/perfil/ficha_catastral/registrar_datosurbanos_demeritos',views.registrar_ficha_terrenos_urbanos_demeritos,name='urbano_demerito'),
 
 
-    #DATOS CONSTRUCCION
-    path('catastro/perfil/ficha_catastral/registrar_datosconstruccion',views.registrar_ficha_datos_construcciones,name='dconstruccion'),
-
-
+    # #DATOS CONSTRUCCION
+    # path('catastro/perfil/ficha_catastral/registrar_datosconstruccion',views.registrar_ficha_datos_construcciones,name='dconstruccion'),
+    
+    # Si vez este comentario probablemente indagaste demasiado en como funciona esto xd pero la verdad es que 6 integrantes solo 2 trabajabamos activamente en este proyecto ni modos al menos yo no querio entregar esto asi
+    # pero ya ni pedo :'v 
+    path('view_ficha_catastral/',views.view_ficha_catastral, name='view_ficha_catastral'),
+    
     #ENVIAR NOTIFICACION
     path('enviar/',views.send_notify_test, name='not'),
     

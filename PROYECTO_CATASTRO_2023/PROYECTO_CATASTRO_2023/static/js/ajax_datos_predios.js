@@ -39,20 +39,20 @@ $("#agregar_fila").click(function () {
     }
 })
 
-//Agregación de filas para la tabla de terrenos urbanos
+//Agregación de filas para la tabla de terrenos urbanos y suburbanos
 $('#profundidad').keyup(function (e) {
     if (e.which == 13) {
 
-        var valor2_m2 = $("#valor2_m2").val();
-        var area_terreno = $("#area_terreno").val();
-        var c_s = $("#c_s").val();
         var valor_m2 = $("#valor_m2").val();
+        var area_terreno = $("#area_terreno").val();
+        var c_dtus = $("#c_dtus").val();
+        var valor_m2_1 = $("#valor_m2_1").val();
         var frente = $("#frente").val();
         var profundidad = $("#profundidad").val();
 
-        var html = `<tr><td contenteditable>${c_s}</td><td contenteditable>${valor_m2}</td><td contenteditable>${frente}</td><td contenteditable>${profundidad}</td></tr>`
+        var html = `<tr><td contenteditable>${valor_m2}</td><td contenteditable>${area_terreno}</td><td contenteditable>${c_dtus}</td><td contenteditable>${valor_m2_1}</td><td contenteditable>${frente}</td><td contenteditable>${profundidad}</td></tr>`
 
-        if (c_s.trim() === "" && valor_m2.trim() === "" && frente.trim() === "" && profundidad.trim() === "") {
+        if (valor_m2.trim() === "" && area_terreno.trim() === "" && c_dtus.trim() === "" && valor_m2_1.trim() === "" && frente.trim() === "" && profundidad.trim() === "") {
             alert("datos vacios")
 
         } else {
